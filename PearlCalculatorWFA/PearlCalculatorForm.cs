@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PearlCalculatorLib.CalculationLib;
@@ -20,6 +21,7 @@ namespace PearlCalculatorWFA
         const string FileSuffix = "pcld file|*.pcld";
 
         bool IsDisplayOnTNT = false;
+
 
         public PearlCalculatorWFA()
         {
@@ -270,18 +272,65 @@ namespace PearlCalculatorWFA
             Data.Direction = "West";
         }
 
+        #region Offsets input
+
+        private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            OffsetsValueCheck(OffsetXTextBox, ref Data.PearlOffset.X);
+        }
+
+        private void OffsetZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            OffsetsValueCheck(OffsetZTextBox, ref Data.PearlOffset.Z);
+        }
+
+        public void OffsetsValueCheck(TextBox textBox, ref double data)
+        {
+            if (textBox.Text.Length == 0)
+            {
+                data = 0;
+                return;
+            }
+
+            if (textBox.Text.Length == 1)
+            {
+                if (textBox.Text[0] == '1')
+                {
+                    data = 1;
+                    return;
+                }
+
+                if (textBox.Text[0] == '0' || textBox.Text[0] == '.')
+                {
+                    data = 0;
+                    return;
+                }
+            }
+
+            if (textBox.Text.Length == 2 && textBox.Text[0] == '0' && textBox.Text[1] == '.')
+            {
+                data = 0;
+                return;
+            }
+
+            if (Double.TryParse(textBox.Text, out var value))
+            {
+                value = value > 1 ? 1 : value;
+                value = value < 0 ? 0 : value;
+
+                data = value;
+
+                if (value != Double.Parse(textBox.Text))
+                {
+                    textBox.Text = value.ToString();
+                    textBox.Select(textBox.Text.Length, 0);
+                }
+            }
+        }
+
         #endregion
 
-
-        private void textBox1_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender , EventArgs e)
-        {
-
-        }
+        #endregion
 
         private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
         {

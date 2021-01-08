@@ -453,7 +453,7 @@ namespace PearlCalculatorWFA
             this.OffsetZTextBox.Name = "OffsetZTextBox";
             this.OffsetZTextBox.Size = new System.Drawing.Size(332, 23);
             this.OffsetZTextBox.TabIndex = 3;
-            this.OffsetZTextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.OffsetZTextBox.TextChanged += new System.EventHandler(this.OffsetZTextBox_TextChanged);
             // 
             // ZOffsetLabel
             // 
@@ -466,11 +466,13 @@ namespace PearlCalculatorWFA
             // 
             // OffsetXTextBox
             // 
+            this.OffsetXTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.OffsetXTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
             this.OffsetXTextBox.Location = new System.Drawing.Point(34, 23);
             this.OffsetXTextBox.Name = "OffsetXTextBox";
             this.OffsetXTextBox.Size = new System.Drawing.Size(332, 23);
             this.OffsetXTextBox.TabIndex = 1;
-            this.OffsetXTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.OffsetXTextBox.TextChanged += new System.EventHandler(this.OffsetXTextBox_TextChanged);
             // 
             // XOffsetLabel
             // 
