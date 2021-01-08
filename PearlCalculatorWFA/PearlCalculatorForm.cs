@@ -25,15 +25,70 @@ namespace PearlCalculatorWFA
         {
             InitializeComponent();
 
-            ConsoleListView.Columns.Clear();
-            ConsoleListView.Items.Clear();
             ConsoleListView.Columns.Add("Type" , 80 , HorizontalAlignment.Left);
             ConsoleListView.Columns.Add("Message" , 360 , HorizontalAlignment.Left);
 
-            BasicDirectionOutSystem.Items.Clear();
-            BasicDirectionOutSystem.Columns.Clear();
             BasicDirectionOutSystem.Columns.Add("Direction" , 80 , HorizontalAlignment.Left);
             BasicDirectionOutSystem.Columns.Add("Angle" , 240 , HorizontalAlignment.Left);
+
+            SettingListView.Columns.Add("Name" , 120 , HorizontalAlignment.Left);
+            SettingListView.Columns.Add("Value" , 360 , HorizontalAlignment.Left);
+        }
+
+        public void DisplaySetting()
+        {
+            ListViewItem NorthWestVectorX = new ListViewItem("North West TNT Vector X");
+            NorthWestVectorX.SubItems.Add(Data.NorthWest.InducedVector.X.ToString());
+            ListViewItem NorthWestVectorY = new ListViewItem("North West TNT Vector Y");
+            NorthWestVectorY.SubItems.Add(Data.NorthWest.InducedVector.Y.ToString());
+            ListViewItem NorthWestVectorZ = new ListViewItem("North West TNT Vector Z");
+            NorthWestVectorY.SubItems.Add(Data.NorthWest.InducedVector.Y.ToString());
+
+            ListViewItem NorthEastVectorX = new ListViewItem("North East TNT Vector X");
+            NorthWestVectorX.SubItems.Add(Data.NorthEast.InducedVector.X.ToString());
+            ListViewItem NorthEastVectorY = new ListViewItem("North East TNT Vector Y");
+            NorthWestVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
+            ListViewItem NorthEastVectorZ = new ListViewItem("North East TNT Vector Z");
+            NorthWestVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
+
+            ListViewItem SouthWestVectorX = new ListViewItem("South West TNT Vector X");
+            NorthWestVectorX.SubItems.Add(Data.SouthWest.InducedVector.X.ToString());
+            ListViewItem SouthWestVectorY = new ListViewItem("South West TNT Vector Y");
+            NorthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
+            ListViewItem SouthWestVectorZ = new ListViewItem("South West TNT Vector Z");
+            NorthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
+
+            ListViewItem SouthEastVectorX = new ListViewItem("South East TNT Vector X");
+            NorthWestVectorX.SubItems.Add(Data.SouthEast.InducedVector.X.ToString());
+            ListViewItem SouthEastVectorY = new ListViewItem("South East TNT Vector Y");
+            NorthWestVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
+            ListViewItem SouthEastVectorZ = new ListViewItem("South East TNT Vector Z");
+            NorthWestVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
+
+            ListViewItem PearlPositionY = new ListViewItem("Pearl Position Y");
+            PearlPositionY.SubItems.Add(Data.Pearl.Position.Y.ToString());
+            ListViewItem PearlVectorY = new ListViewItem("Pearl Vector Y");
+            PearlPositionY.SubItems.Add(Data.Pearl.Vector.Y.ToString());
+
+            ListViewItem RedSouthArray = new ListViewItem("South Array For Red");
+            RedSouthArray.SubItems.Add(Data.SouthArray.Red);
+            ListViewItem BlueSouthArray = new ListViewItem("South Array For Blue");
+            BlueSouthArray.SubItems.Add(Data.SouthArray.Blue);
+
+            ListViewItem RedWestArray = new ListViewItem("West Array For Red");
+            RedWestArray.SubItems.Add(Data.SouthArray.Red);
+            ListViewItem BlueWestArray = new ListViewItem("West Array For Blue");
+            BlueWestArray.SubItems.Add(Data.SouthArray.Blue);
+            
+            ListViewItem RedNorthArray = new ListViewItem("North Array For Red");
+            RedNorthArray.SubItems.Add(Data.SouthArray.Red);
+            ListViewItem BlueNorthArray = new ListViewItem("North Array For Blue");
+            BlueNorthArray.SubItems.Add(Data.SouthArray.Blue);
+
+            ListViewItem RedEastArray = new ListViewItem("East Array For Red");
+            RedEastArray.SubItems.Add(Data.SouthArray.Red);
+            ListViewItem BlueEastArray = new ListViewItem("East Array For Blue");
+            BlueEastArray.SubItems.Add(Data.SouthArray.Blue);
         }
 
         private void BasicOutputSystem_ColumnClick(object sender , ColumnClickEventArgs e)
@@ -192,7 +247,29 @@ namespace PearlCalculatorWFA
 
         private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
         {
+            int index = BasicOutputSystem.FocusedItem.Index;
+            string direction = Data.Pearl.Position.Direction(Data.Pearl.Position.Angle(Data.Destination));
 
+            RedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
+            BlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
+
+            switch(direction)
+            {
+                case "North":
+                    NorthRadioButton.Checked = true;
+                    break;
+                case "South":
+                    SouthRadioButton.Checked = true;
+                    break;
+                case "East":
+                    EastRadioButton.Checked = true;
+                    break;
+                case "West":
+                    WestRadioButton.Checked = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void TNTWeightGroupBox_Enter(object sender , EventArgs e)
@@ -257,7 +334,7 @@ namespace PearlCalculatorWFA
             if (settings == null) return;
 
             ImportSettings(settings);
-            RefleshInput();
+            RefreshInput();
         }
 
         private void SaveSettingButton_Click(object sender, EventArgs e)
@@ -326,7 +403,7 @@ namespace PearlCalculatorWFA
             Data.Direction   = settings.Direction;
         }
 
-        void RefleshInput()
+        void RefreshInput()
         {
             PearlXTextBox.Text = Data.Pearl.Position.X.ToString();
             PearlZTextBox.Text = Data.Pearl.Position.Z.ToString();

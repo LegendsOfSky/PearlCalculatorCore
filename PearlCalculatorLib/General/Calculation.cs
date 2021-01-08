@@ -61,17 +61,10 @@ namespace PearlCalculatorLib.General
                                 Red = redTNT + r ,
                                 TotalTNT = blueTNT + b + redTNT + r
                             };
-                            if(Data.MaxTNT > 0)
-                            {
-                                if((blueTNT + r)<=Data.MaxTNT && (redTNT +r) <= Data.MaxTNT)
-                                {
-                                    Data.TNTResult.Add(result);
-                                }
-                            }
-                            else
-                            {
+                            if(Data.MaxTNT <= 0)
                                 Data.TNTResult.Add(result);
-                            }
+                            else if((blueTNT + b) <= Data.MaxTNT && (redTNT + r) <= Data.MaxTNT)
+                                Data.TNTResult.Add(result);
                             if(Data.MaxCalculateTNT < result.TotalTNT)
                                 Data.MaxCalculateTNT = result.TotalTNT;
                             if(Data.MaxCalculateDistance < result.Distance)
