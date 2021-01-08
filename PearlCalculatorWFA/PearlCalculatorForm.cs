@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +16,8 @@ namespace PearlCalculatorWFA
 {
     public partial class PearlCalculatorWFA : Form
     {
+
+        const string FileSuffix = "pcld file|*.pcld";
 
         bool IsDisplayOnTNT = false;
 
@@ -232,5 +236,129 @@ namespace PearlCalculatorWFA
                 BasicOutputSystem.Items.Add(result);
             }
         }
+
+        #region File Import/Export
+
+        private void ImportSettingButton_Click(object sender, EventArgs e)
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Filter = FileSuffix;
+            Settings settings = null;
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fs = File.OpenRead(fileDialog.FileName);
+                var bf = new BinaryFormatter();
+
+                settings = bf.Deserialize(fs) as Settings;
+                fs.Close();
+            }
+
+            if (settings == null) return;
+
+            ImportSettings(settings);
+            RefleshInput();
+        }
+
+        private void SaveSettingButton_Click(object sender, EventArgs e)
+        {
+            var bf = new BinaryFormatter();
+            var fileDialog = new SaveFileDialog();
+            fileDialog.Filter = FileSuffix;
+            fileDialog.AddExtension = true;
+ 
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fs = File.Open(fileDialog.FileName, FileMode.OpenOrCreate);
+                bf.Serialize(fs, CreateSavedSettingsData());
+                fs.Close();
+            }
+        }
+
+        Settings CreateSavedSettingsData()
+        {
+            return new Settings()
+            {
+                NorthWest   = Data.NorthWest,
+                NorthEast   = Data.NorthEast,
+                SouthWest   = Data.SouthWest,
+                SouthEast   = Data.SouthEast,
+
+                Pearl       = Data.Pearl,
+
+                SouthArray  = Data.SouthArray,
+                WestArray   = Data.WestArray,
+                NorthArray  = Data.NorthArray,
+                EastArray   = Data.EastArray,
+
+                RedTNT      = Data.RedTNT,
+                BlueTNT     = Data.BlueTNT,
+                MaxTNT      = Data.MaxTNT,
+
+                Destination = Data.Destination,
+                Offset      = Data.PearlOffset,
+
+                Direction   = Data.Direction
+            };
+        }
+
+        void ImportSettings(Settings settings)
+        {
+            Data.NorthWest = settings.NorthWest;
+            Data.NorthEast = settings.NorthEast;
+            Data.SouthWest = settings.SouthWest;
+            Data.SouthEast = settings.SouthEast;
+
+            Data.Pearl = settings.Pearl;
+
+            Data.SouthArray = settings.SouthArray;
+            Data.WestArray  = settings.WestArray;
+            Data.NorthArray = settings.NorthArray;
+            Data.EastArray  = settings.EastArray;
+
+            Data.RedTNT     = settings.RedTNT;
+            Data.BlueTNT    = settings.BlueTNT;
+            Data.MaxTNT     = settings.MaxTNT;
+
+            Data.Destination = settings.Destination;
+            Data.PearlOffset = settings.Offset;
+
+            Data.Direction   = settings.Direction;
+        }
+
+        void RefleshInput()
+        {
+            PearlXTextBox.Text = Data.Pearl.Position.X.ToString();
+            PearlZTextBox.Text = Data.Pearl.Position.Z.ToString();
+
+            DestinationXTextBox.Text = Data.Destination.X.ToString();
+            DestinationZTextBox.Text = Data.Destination.Z.ToString();
+
+            MaxTNTTextBox.Text = Data.MaxTNT.ToString();
+
+            switch (Data.Direction)
+            {
+                case "North":
+                    NorthRadioButton.Checked = true;
+                    break;
+                case "South":
+                    SouthRadioButton.Checked = true;
+                    break;
+                case "East":
+                    EastRadioButton.Checked = true;
+                    break;
+                case "West":
+                    WestRadioButton.Checked = true;
+                    break;
+            }
+
+            RedTNTTextBox.Text = Data.RedTNT.ToString();
+            BlueTNTTextBox.Text = Data.BlueTNT.ToString();
+
+            OffsetXTextBox.Text = Data.PearlOffset.X.ToString();
+            OffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
+        }
+
+        #endregion
     }
 }

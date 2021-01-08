@@ -8,8 +8,6 @@ namespace PearlCalculatorCore
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            PublicData data = new PublicData();
-            Console.ReadKey();
         }
     }
 }

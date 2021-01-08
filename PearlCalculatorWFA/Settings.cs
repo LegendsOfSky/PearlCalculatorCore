@@ -23,6 +23,7 @@ namespace PearlCalculatorWFA
 
         public int RedTNT;
         public int BlueTNT;
+        public int MaxTNT;
 
         public Space3D Destination = new Space3D();
         public Space3D Offset = new Space3D();
