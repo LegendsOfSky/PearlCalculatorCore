@@ -33,6 +33,8 @@ namespace PearlCalculatorWFA
 
             SettingListView.Columns.Add("Name" , 120 , HorizontalAlignment.Left);
             SettingListView.Columns.Add("Value" , 360 , HorizontalAlignment.Left);
+
+            DisplaySetting();
         }
 
         public void DisplaySetting()
@@ -42,33 +44,33 @@ namespace PearlCalculatorWFA
             ListViewItem NorthWestVectorY = new ListViewItem("North West TNT Vector Y");
             NorthWestVectorY.SubItems.Add(Data.NorthWest.InducedVector.Y.ToString());
             ListViewItem NorthWestVectorZ = new ListViewItem("North West TNT Vector Z");
-            NorthWestVectorY.SubItems.Add(Data.NorthWest.InducedVector.Y.ToString());
+            NorthWestVectorZ.SubItems.Add(Data.NorthWest.InducedVector.Z.ToString());
 
             ListViewItem NorthEastVectorX = new ListViewItem("North East TNT Vector X");
-            NorthWestVectorX.SubItems.Add(Data.NorthEast.InducedVector.X.ToString());
+            NorthEastVectorX.SubItems.Add(Data.NorthEast.InducedVector.X.ToString());
             ListViewItem NorthEastVectorY = new ListViewItem("North East TNT Vector Y");
-            NorthWestVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
+            NorthEastVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
             ListViewItem NorthEastVectorZ = new ListViewItem("North East TNT Vector Z");
-            NorthWestVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
+            NorthEastVectorZ.SubItems.Add(Data.NorthEast.InducedVector.Z.ToString());
 
             ListViewItem SouthWestVectorX = new ListViewItem("South West TNT Vector X");
-            NorthWestVectorX.SubItems.Add(Data.SouthWest.InducedVector.X.ToString());
+            SouthWestVectorX.SubItems.Add(Data.SouthWest.InducedVector.X.ToString());
             ListViewItem SouthWestVectorY = new ListViewItem("South West TNT Vector Y");
-            NorthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
+            SouthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
             ListViewItem SouthWestVectorZ = new ListViewItem("South West TNT Vector Z");
-            NorthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
+            SouthWestVectorZ.SubItems.Add(Data.SouthWest.InducedVector.Z.ToString());
 
             ListViewItem SouthEastVectorX = new ListViewItem("South East TNT Vector X");
-            NorthWestVectorX.SubItems.Add(Data.SouthEast.InducedVector.X.ToString());
+            SouthEastVectorX.SubItems.Add(Data.SouthEast.InducedVector.X.ToString());
             ListViewItem SouthEastVectorY = new ListViewItem("South East TNT Vector Y");
-            NorthWestVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
+            SouthEastVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
             ListViewItem SouthEastVectorZ = new ListViewItem("South East TNT Vector Z");
-            NorthWestVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
+            SouthEastVectorZ.SubItems.Add(Data.SouthEast.InducedVector.Z.ToString());
 
             ListViewItem PearlPositionY = new ListViewItem("Pearl Position Y");
             PearlPositionY.SubItems.Add(Data.Pearl.Position.Y.ToString());
             ListViewItem PearlVectorY = new ListViewItem("Pearl Vector Y");
-            PearlPositionY.SubItems.Add(Data.Pearl.Vector.Y.ToString());
+            PearlVectorY.SubItems.Add(Data.Pearl.Vector.Y.ToString());
 
             ListViewItem RedSouthArray = new ListViewItem("South Array For Red");
             RedSouthArray.SubItems.Add(Data.SouthArray.Red);
@@ -89,6 +91,42 @@ namespace PearlCalculatorWFA
             RedEastArray.SubItems.Add(Data.SouthArray.Red);
             ListViewItem BlueEastArray = new ListViewItem("East Array For Blue");
             BlueEastArray.SubItems.Add(Data.SouthArray.Blue);
+
+            ListViewItem OffsetX = new ListViewItem("Offset On X Axis");
+            OffsetX.SubItems.Add(Data.PearlOffset.X.ToString());
+            ListViewItem OffsetZ = new ListViewItem("Offset On Z Axis");
+            OffsetZ.SubItems.Add(Data.PearlOffset.Z.ToString());
+
+            SettingListView.Items.Add(NorthWestVectorX);
+            SettingListView.Items.Add(NorthWestVectorY);
+            SettingListView.Items.Add(NorthWestVectorZ);
+
+            SettingListView.Items.Add(NorthEastVectorX);
+            SettingListView.Items.Add(NorthEastVectorY);
+            SettingListView.Items.Add(NorthEastVectorZ);
+
+            SettingListView.Items.Add(SouthWestVectorX);
+            SettingListView.Items.Add(SouthWestVectorY);
+            SettingListView.Items.Add(SouthWestVectorZ);
+
+            SettingListView.Items.Add(SouthEastVectorX);
+            SettingListView.Items.Add(SouthEastVectorY);
+            SettingListView.Items.Add(SouthEastVectorZ);
+
+            SettingListView.Items.Add(PearlPositionY);
+            SettingListView.Items.Add(PearlVectorY);
+
+            SettingListView.Items.Add(RedSouthArray);
+            SettingListView.Items.Add(BlueSouthArray);
+
+            SettingListView.Items.Add(RedWestArray);
+            SettingListView.Items.Add(BlueWestArray);
+
+            SettingListView.Items.Add(RedNorthArray);
+            SettingListView.Items.Add(BlueNorthArray);
+
+            SettingListView.Items.Add(RedEastArray);
+            SettingListView.Items.Add(BlueEastArray);
         }
 
         private void BasicOutputSystem_ColumnClick(object sender , ColumnClickEventArgs e)
