@@ -276,56 +276,28 @@ namespace PearlCalculatorWFA
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
         {
-            OffsetsValueCheck(OffsetXTextBox, ref Data.PearlOffset.X);
+            var args = new TextBoxZeroToOneCheckerArgs()
+            {
+                TextBox = OffsetXTextBox,
+                Value = Data.PearlOffset.X
+            };
+
+            ZeroToOneCheckModifier.CheckModifier.Check(args);
+
+            Data.PearlOffset.X = args.Value;
         }
 
         private void OffsetZTextBox_TextChanged(object sender , EventArgs e)
         {
-            OffsetsValueCheck(OffsetZTextBox, ref Data.PearlOffset.Z);
-        }
-
-        public void OffsetsValueCheck(TextBox textBox, ref double data)
-        {
-            if (textBox.Text.Length == 0)
+            var args = new TextBoxZeroToOneCheckerArgs()
             {
-                data = 0;
-                return;
-            }
+                TextBox = OffsetZTextBox,
+                Value = Data.PearlOffset.Z
+            };
 
-            if (textBox.Text.Length == 1)
-            {
-                if (textBox.Text[0] == '1')
-                {
-                    data = 1;
-                    return;
-                }
+            ZeroToOneCheckModifier.CheckModifier.Check(args);
 
-                if (textBox.Text[0] == '0' || textBox.Text[0] == '.')
-                {
-                    data = 0;
-                    return;
-                }
-            }
-
-            if (textBox.Text.Length == 2 && textBox.Text[0] == '0' && textBox.Text[1] == '.')
-            {
-                data = 0;
-                return;
-            }
-
-            if (Double.TryParse(textBox.Text, out var value))
-            {
-                value = value > 1 ? 1 : value;
-                value = value < 0 ? 0 : value;
-
-                data = value;
-
-                if (value != Double.Parse(textBox.Text))
-                {
-                    textBox.Text = value.ToString();
-                    textBox.Select(textBox.Text.Length, 0);
-                }
-            }
+            Data.PearlOffset.Z = args.Value;
         }
 
         #endregion

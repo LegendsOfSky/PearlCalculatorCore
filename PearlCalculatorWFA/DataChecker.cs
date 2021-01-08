@@ -6,14 +6,14 @@ namespace PearlCalculatorWFA
 {
     public interface IDataChecker<T>
     {
-        bool check(T data);
+        bool Check(T data);
     }
 
     public sealed class DoubleChecker : IDataChecker<string>
     {
         public static DoubleChecker Checker = new DoubleChecker();
 
-        public bool check(string data)
+        public bool Check(string data)
         {
 
             if(string.IsNullOrEmpty(data))
@@ -22,7 +22,7 @@ namespace PearlCalculatorWFA
             if(string.IsNullOrWhiteSpace(data))
                 return false;
 
-            return Double.TryParse(data , out var s);
+            return Double.TryParse(data , out var _);
         }
     }
 
@@ -30,7 +30,7 @@ namespace PearlCalculatorWFA
     {
         public static DirectionChecker Checker = new DirectionChecker();
 
-        public bool check(string data)
+        public bool Check(string data)
         {
             if(string.IsNullOrEmpty(data))
                 return true;
