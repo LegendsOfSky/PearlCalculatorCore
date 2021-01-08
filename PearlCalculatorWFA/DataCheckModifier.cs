@@ -1,4 +1,7 @@
-﻿namespace PearlCalculatorWFA
+﻿using System;
+using System.Windows.Forms;
+
+namespace PearlCalculatorWFA
 {
     public interface DataCheckModifier<T>
     {
