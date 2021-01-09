@@ -20,9 +20,9 @@ namespace PearlCalculatorLib.General
 
     public static class TNTCalculationResultExtension
     {
-        public static void SortByDistanceWithWeight(this List<TNTCalculationResult> results)
+        public static void SortByWeightedDistance(this List<TNTCalculationResult> results)
         {
-            results.Sort(TNTCalculationResultSortComparer.ByDistanceWithWeight);
+            results.Sort(TNTCalculationResultSortComparer.ByWeightedDistance);
         }
 
         public static void SortByDistance(this List<TNTCalculationResult> results)
@@ -38,6 +38,11 @@ namespace PearlCalculatorLib.General
         public static void SortByTotal(this List<TNTCalculationResult> results)
         {
             results.Sort(TNTCalculationResultSortComparer.ByTotal);
+        }
+
+        public static void SortByWeightedTotal(this List<TNTCalculationResult> results)
+        {
+            results.Sort(TNTCalculationResultSortComparer.ByWeightedTotal);
         }
 
     }

@@ -308,11 +308,11 @@ namespace PearlCalculatorWFA
             if(!isRadioOverriden)
             {
                 if(TNTRadioButton.Checked)
-                    Data.TNTResult.SortByTotal();
+                    Data.TNTResult.SortByWeightedTotal();
                 else if(DistanceRadioButton.Checked)
                     Data.TNTResult.SortByDistance();
                 else
-                    Data.TNTResult.SortByDistanceWithWeight();
+                    Data.TNTResult.SortByWeightedDistance();
             }
 
             for(int i = 0; i < Data.TNTResult.Count; i++)
