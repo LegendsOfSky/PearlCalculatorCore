@@ -98,10 +98,10 @@ namespace PearlCalculatorWFA
             // GeneralFTLInputTabPage
             // 
             this.GeneralFTLInputTabPage.Controls.Add(this.GeneralFTLTabControl);
-            this.GeneralFTLInputTabPage.Location = new System.Drawing.Point(4, 26);
+            this.GeneralFTLInputTabPage.Location = new System.Drawing.Point(4, 24);
             this.GeneralFTLInputTabPage.Name = "GeneralFTLInputTabPage";
             this.GeneralFTLInputTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.GeneralFTLInputTabPage.Size = new System.Drawing.Size(381, 591);
+            this.GeneralFTLInputTabPage.Size = new System.Drawing.Size(381, 520);
             this.GeneralFTLInputTabPage.TabIndex = 0;
             this.GeneralFTLInputTabPage.Text = "General FTL";
             this.GeneralFTLInputTabPage.UseVisualStyleBackColor = true;
@@ -111,10 +111,10 @@ namespace PearlCalculatorWFA
             this.GeneralFTLTabControl.Controls.Add(this.GeneralFTLGeneralTabPage);
             this.GeneralFTLTabControl.Controls.Add(this.GeneralFTLAdvancedTabPage);
             this.GeneralFTLTabControl.Controls.Add(this.GeneralFTLSettingsTabPage);
-            this.GeneralFTLTabControl.Location = new System.Drawing.Point(4, 5);
+            this.GeneralFTLTabControl.Location = new System.Drawing.Point(4, 4);
             this.GeneralFTLTabControl.Name = "GeneralFTLTabControl";
             this.GeneralFTLTabControl.SelectedIndex = 0;
-            this.GeneralFTLTabControl.Size = new System.Drawing.Size(381, 587);
+            this.GeneralFTLTabControl.Size = new System.Drawing.Size(381, 518);
             this.GeneralFTLTabControl.TabIndex = 0;
             this.GeneralFTLTabControl.SelectedIndexChanged += new System.EventHandler(this.GeneralFTLTabControl_SelectedIndexChanged);
             // 
@@ -139,19 +139,19 @@ namespace PearlCalculatorWFA
             this.GeneralFTLGeneralTabPage.Controls.Add(this.PearlZLabel);
             this.GeneralFTLGeneralTabPage.Controls.Add(this.PearlXTextBox);
             this.GeneralFTLGeneralTabPage.Controls.Add(this.PearlXLabel);
-            this.GeneralFTLGeneralTabPage.Location = new System.Drawing.Point(4, 26);
+            this.GeneralFTLGeneralTabPage.Location = new System.Drawing.Point(4, 24);
             this.GeneralFTLGeneralTabPage.Name = "GeneralFTLGeneralTabPage";
             this.GeneralFTLGeneralTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.GeneralFTLGeneralTabPage.Size = new System.Drawing.Size(373, 557);
+            this.GeneralFTLGeneralTabPage.Size = new System.Drawing.Size(373, 490);
             this.GeneralFTLGeneralTabPage.TabIndex = 0;
             this.GeneralFTLGeneralTabPage.Text = "General";
             this.GeneralFTLGeneralTabPage.UseVisualStyleBackColor = true;
             // 
             // SaveSettingButton
             // 
-            this.SaveSettingButton.Location = new System.Drawing.Point(4, 525);
+            this.SaveSettingButton.Location = new System.Drawing.Point(4, 463);
             this.SaveSettingButton.Name = "SaveSettingButton";
-            this.SaveSettingButton.Size = new System.Drawing.Size(366, 26);
+            this.SaveSettingButton.Size = new System.Drawing.Size(366, 23);
             this.SaveSettingButton.TabIndex = 15;
             this.SaveSettingButton.Text = "Save Setting";
             this.SaveSettingButton.UseVisualStyleBackColor = true;
@@ -159,9 +159,9 @@ namespace PearlCalculatorWFA
             // 
             // ImportSettingButton
             // 
-            this.ImportSettingButton.Location = new System.Drawing.Point(4, 492);
+            this.ImportSettingButton.Location = new System.Drawing.Point(4, 434);
             this.ImportSettingButton.Name = "ImportSettingButton";
-            this.ImportSettingButton.Size = new System.Drawing.Size(366, 26);
+            this.ImportSettingButton.Size = new System.Drawing.Size(366, 23);
             this.ImportSettingButton.TabIndex = 17;
             this.ImportSettingButton.Text = "Import Setting";
             this.ImportSettingButton.UseVisualStyleBackColor = true;
@@ -169,9 +169,9 @@ namespace PearlCalculatorWFA
             // 
             // PearlSimulateButton
             // 
-            this.PearlSimulateButton.Location = new System.Drawing.Point(4, 459);
+            this.PearlSimulateButton.Location = new System.Drawing.Point(4, 405);
             this.PearlSimulateButton.Name = "PearlSimulateButton";
-            this.PearlSimulateButton.Size = new System.Drawing.Size(366, 26);
+            this.PearlSimulateButton.Size = new System.Drawing.Size(366, 23);
             this.PearlSimulateButton.TabIndex = 15;
             this.PearlSimulateButton.Text = "Pearl Simulate";
             this.PearlSimulateButton.UseVisualStyleBackColor = true;
@@ -179,9 +179,9 @@ namespace PearlCalculatorWFA
             // 
             // CalculateTNTButton
             // 
-            this.CalculateTNTButton.Location = new System.Drawing.Point(4, 426);
+            this.CalculateTNTButton.Location = new System.Drawing.Point(4, 376);
             this.CalculateTNTButton.Name = "CalculateTNTButton";
-            this.CalculateTNTButton.Size = new System.Drawing.Size(366, 26);
+            this.CalculateTNTButton.Size = new System.Drawing.Size(366, 23);
             this.CalculateTNTButton.TabIndex = 14;
             this.CalculateTNTButton.Text = "Calculate TNT Amount";
             this.CalculateTNTButton.UseVisualStyleBackColor = true;
@@ -189,7 +189,7 @@ namespace PearlCalculatorWFA
             // 
             // BlueTNTTextBox
             // 
-            this.BlueTNTTextBox.Location = new System.Drawing.Point(4, 392);
+            this.BlueTNTTextBox.Location = new System.Drawing.Point(4, 346);
             this.BlueTNTTextBox.Name = "BlueTNTTextBox";
             this.BlueTNTTextBox.Size = new System.Drawing.Size(366, 23);
             this.BlueTNTTextBox.TabIndex = 12;
@@ -198,15 +198,15 @@ namespace PearlCalculatorWFA
             // BlueTNTLabel
             // 
             this.BlueTNTLabel.AutoSize = true;
-            this.BlueTNTLabel.Location = new System.Drawing.Point(4, 371);
+            this.BlueTNTLabel.Location = new System.Drawing.Point(4, 327);
             this.BlueTNTLabel.Name = "BlueTNTLabel";
-            this.BlueTNTLabel.Size = new System.Drawing.Size(68, 17);
+            this.BlueTNTLabel.Size = new System.Drawing.Size(64, 15);
             this.BlueTNTLabel.TabIndex = 13;
             this.BlueTNTLabel.Text = "Blue TNT :";
             // 
             // RedTNTTextBox
             // 
-            this.RedTNTTextBox.Location = new System.Drawing.Point(4, 341);
+            this.RedTNTTextBox.Location = new System.Drawing.Point(4, 301);
             this.RedTNTTextBox.Name = "RedTNTTextBox";
             this.RedTNTTextBox.Size = new System.Drawing.Size(366, 23);
             this.RedTNTTextBox.TabIndex = 10;
@@ -215,9 +215,9 @@ namespace PearlCalculatorWFA
             // RedTNTLabel
             // 
             this.RedTNTLabel.AutoSize = true;
-            this.RedTNTLabel.Location = new System.Drawing.Point(4, 320);
+            this.RedTNTLabel.Location = new System.Drawing.Point(4, 282);
             this.RedTNTLabel.Name = "RedTNTLabel";
-            this.RedTNTLabel.Size = new System.Drawing.Size(66, 17);
+            this.RedTNTLabel.Size = new System.Drawing.Size(63, 15);
             this.RedTNTLabel.TabIndex = 11;
             this.RedTNTLabel.Text = "Red TNT :";
             // 
@@ -227,9 +227,9 @@ namespace PearlCalculatorWFA
             this.DirectionRadioGroupBox.Controls.Add(this.EastRadioButton);
             this.DirectionRadioGroupBox.Controls.Add(this.SouthRadioButton);
             this.DirectionRadioGroupBox.Controls.Add(this.NorthRadioButton);
-            this.DirectionRadioGroupBox.Location = new System.Drawing.Point(0, 264);
+            this.DirectionRadioGroupBox.Location = new System.Drawing.Point(0, 233);
             this.DirectionRadioGroupBox.Name = "DirectionRadioGroupBox";
-            this.DirectionRadioGroupBox.Size = new System.Drawing.Size(373, 52);
+            this.DirectionRadioGroupBox.Size = new System.Drawing.Size(373, 46);
             this.DirectionRadioGroupBox.TabIndex = 9;
             this.DirectionRadioGroupBox.TabStop = false;
             this.DirectionRadioGroupBox.Text = "Direction :";
@@ -237,9 +237,9 @@ namespace PearlCalculatorWFA
             // WestRadioButton
             // 
             this.WestRadioButton.AutoSize = true;
-            this.WestRadioButton.Location = new System.Drawing.Point(192, 25);
+            this.WestRadioButton.Location = new System.Drawing.Point(192, 22);
             this.WestRadioButton.Name = "WestRadioButton";
-            this.WestRadioButton.Size = new System.Drawing.Size(55, 21);
+            this.WestRadioButton.Size = new System.Drawing.Size(53, 19);
             this.WestRadioButton.TabIndex = 3;
             this.WestRadioButton.Text = "West";
             this.WestRadioButton.UseVisualStyleBackColor = true;
@@ -248,9 +248,9 @@ namespace PearlCalculatorWFA
             // EastRadioButton
             // 
             this.EastRadioButton.AutoSize = true;
-            this.EastRadioButton.Location = new System.Drawing.Point(137, 25);
+            this.EastRadioButton.Location = new System.Drawing.Point(137, 22);
             this.EastRadioButton.Name = "EastRadioButton";
-            this.EastRadioButton.Size = new System.Drawing.Size(50, 21);
+            this.EastRadioButton.Size = new System.Drawing.Size(48, 19);
             this.EastRadioButton.TabIndex = 2;
             this.EastRadioButton.Text = "East";
             this.EastRadioButton.UseVisualStyleBackColor = true;
@@ -259,9 +259,9 @@ namespace PearlCalculatorWFA
             // SouthRadioButton
             // 
             this.SouthRadioButton.AutoSize = true;
-            this.SouthRadioButton.Location = new System.Drawing.Point(72, 25);
+            this.SouthRadioButton.Location = new System.Drawing.Point(72, 22);
             this.SouthRadioButton.Name = "SouthRadioButton";
-            this.SouthRadioButton.Size = new System.Drawing.Size(59, 21);
+            this.SouthRadioButton.Size = new System.Drawing.Size(58, 19);
             this.SouthRadioButton.TabIndex = 1;
             this.SouthRadioButton.Text = "South";
             this.SouthRadioButton.UseVisualStyleBackColor = true;
@@ -271,9 +271,9 @@ namespace PearlCalculatorWFA
             // 
             this.NorthRadioButton.AutoSize = true;
             this.NorthRadioButton.Checked = true;
-            this.NorthRadioButton.Location = new System.Drawing.Point(7, 26);
+            this.NorthRadioButton.Location = new System.Drawing.Point(7, 23);
             this.NorthRadioButton.Name = "NorthRadioButton";
-            this.NorthRadioButton.Size = new System.Drawing.Size(60, 21);
+            this.NorthRadioButton.Size = new System.Drawing.Size(58, 19);
             this.NorthRadioButton.TabIndex = 0;
             this.NorthRadioButton.TabStop = true;
             this.NorthRadioButton.Text = "North";
@@ -282,7 +282,7 @@ namespace PearlCalculatorWFA
             // 
             // MaxTNTTextBox
             // 
-            this.MaxTNTTextBox.Location = new System.Drawing.Point(4, 230);
+            this.MaxTNTTextBox.Location = new System.Drawing.Point(4, 203);
             this.MaxTNTTextBox.Name = "MaxTNTTextBox";
             this.MaxTNTTextBox.Size = new System.Drawing.Size(366, 23);
             this.MaxTNTTextBox.TabIndex = 7;
@@ -291,15 +291,15 @@ namespace PearlCalculatorWFA
             // MaxTNTLabel
             // 
             this.MaxTNTLabel.AutoSize = true;
-            this.MaxTNTLabel.Location = new System.Drawing.Point(4, 209);
+            this.MaxTNTLabel.Location = new System.Drawing.Point(4, 184);
             this.MaxTNTLabel.Name = "MaxTNTLabel";
-            this.MaxTNTLabel.Size = new System.Drawing.Size(68, 17);
+            this.MaxTNTLabel.Size = new System.Drawing.Size(65, 15);
             this.MaxTNTLabel.TabIndex = 8;
             this.MaxTNTLabel.Text = "Max TNT :";
             // 
             // DestinationZTextBox
             // 
-            this.DestinationZTextBox.Location = new System.Drawing.Point(4, 179);
+            this.DestinationZTextBox.Location = new System.Drawing.Point(4, 158);
             this.DestinationZTextBox.Name = "DestinationZTextBox";
             this.DestinationZTextBox.Size = new System.Drawing.Size(366, 23);
             this.DestinationZTextBox.TabIndex = 5;
@@ -308,15 +308,15 @@ namespace PearlCalculatorWFA
             // DestinationZLabel
             // 
             this.DestinationZLabel.AutoSize = true;
-            this.DestinationZLabel.Location = new System.Drawing.Point(4, 158);
+            this.DestinationZLabel.Location = new System.Drawing.Point(4, 139);
             this.DestinationZLabel.Name = "DestinationZLabel";
-            this.DestinationZLabel.Size = new System.Drawing.Size(91, 17);
+            this.DestinationZLabel.Size = new System.Drawing.Size(87, 15);
             this.DestinationZLabel.TabIndex = 6;
             this.DestinationZLabel.Text = "Destination Z :";
             // 
             // DestinationXTextBox
             // 
-            this.DestinationXTextBox.Location = new System.Drawing.Point(4, 128);
+            this.DestinationXTextBox.Location = new System.Drawing.Point(4, 113);
             this.DestinationXTextBox.Name = "DestinationXTextBox";
             this.DestinationXTextBox.Size = new System.Drawing.Size(366, 23);
             this.DestinationXTextBox.TabIndex = 3;
@@ -325,15 +325,15 @@ namespace PearlCalculatorWFA
             // DestinationXLabel
             // 
             this.DestinationXLabel.AutoSize = true;
-            this.DestinationXLabel.Location = new System.Drawing.Point(4, 107);
+            this.DestinationXLabel.Location = new System.Drawing.Point(4, 94);
             this.DestinationXLabel.Name = "DestinationXLabel";
-            this.DestinationXLabel.Size = new System.Drawing.Size(92, 17);
+            this.DestinationXLabel.Size = new System.Drawing.Size(88, 15);
             this.DestinationXLabel.TabIndex = 4;
             this.DestinationXLabel.Text = "Destination X :";
             // 
             // PearlZTextBox
             // 
-            this.PearlZTextBox.Location = new System.Drawing.Point(4, 77);
+            this.PearlZTextBox.Location = new System.Drawing.Point(4, 68);
             this.PearlZTextBox.Name = "PearlZTextBox";
             this.PearlZTextBox.Size = new System.Drawing.Size(366, 23);
             this.PearlZTextBox.TabIndex = 1;
@@ -342,15 +342,15 @@ namespace PearlCalculatorWFA
             // PearlZLabel
             // 
             this.PearlZLabel.AutoSize = true;
-            this.PearlZLabel.Location = new System.Drawing.Point(4, 56);
+            this.PearlZLabel.Location = new System.Drawing.Point(4, 49);
             this.PearlZLabel.Name = "PearlZLabel";
-            this.PearlZLabel.Size = new System.Drawing.Size(55, 17);
+            this.PearlZLabel.Size = new System.Drawing.Size(51, 15);
             this.PearlZLabel.TabIndex = 2;
             this.PearlZLabel.Text = "Pearl Z :";
             // 
             // PearlXTextBox
             // 
-            this.PearlXTextBox.Location = new System.Drawing.Point(4, 26);
+            this.PearlXTextBox.Location = new System.Drawing.Point(4, 23);
             this.PearlXTextBox.Name = "PearlXTextBox";
             this.PearlXTextBox.Size = new System.Drawing.Size(366, 23);
             this.PearlXTextBox.TabIndex = 0;
@@ -359,9 +359,9 @@ namespace PearlCalculatorWFA
             // PearlXLabel
             // 
             this.PearlXLabel.AutoSize = true;
-            this.PearlXLabel.Location = new System.Drawing.Point(4, 5);
+            this.PearlXLabel.Location = new System.Drawing.Point(4, 4);
             this.PearlXLabel.Name = "PearlXLabel";
-            this.PearlXLabel.Size = new System.Drawing.Size(56, 17);
+            this.PearlXLabel.Size = new System.Drawing.Size(52, 15);
             this.PearlXLabel.TabIndex = 0;
             this.PearlXLabel.Text = "Pearl X :";
             // 
@@ -369,10 +369,10 @@ namespace PearlCalculatorWFA
             // 
             this.GeneralFTLAdvancedTabPage.Controls.Add(this.TNTWeightGroupBox);
             this.GeneralFTLAdvancedTabPage.Controls.Add(this.OffsetGroupBox);
-            this.GeneralFTLAdvancedTabPage.Location = new System.Drawing.Point(4, 26);
+            this.GeneralFTLAdvancedTabPage.Location = new System.Drawing.Point(4, 24);
             this.GeneralFTLAdvancedTabPage.Name = "GeneralFTLAdvancedTabPage";
             this.GeneralFTLAdvancedTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.GeneralFTLAdvancedTabPage.Size = new System.Drawing.Size(373, 557);
+            this.GeneralFTLAdvancedTabPage.Size = new System.Drawing.Size(373, 490);
             this.GeneralFTLAdvancedTabPage.TabIndex = 1;
             this.GeneralFTLAdvancedTabPage.Text = "Advanced";
             this.GeneralFTLAdvancedTabPage.UseVisualStyleBackColor = true;
@@ -383,9 +383,9 @@ namespace PearlCalculatorWFA
             this.TNTWeightGroupBox.Controls.Add(this.TNTRadioButton);
             this.TNTWeightGroupBox.Controls.Add(this.DistanceWeightRadioButton);
             this.TNTWeightGroupBox.Controls.Add(this.TNTWeightTrackerSlider);
-            this.TNTWeightGroupBox.Location = new System.Drawing.Point(4, 102);
+            this.TNTWeightGroupBox.Location = new System.Drawing.Point(4, 90);
             this.TNTWeightGroupBox.Name = "TNTWeightGroupBox";
-            this.TNTWeightGroupBox.Size = new System.Drawing.Size(366, 117);
+            this.TNTWeightGroupBox.Size = new System.Drawing.Size(366, 103);
             this.TNTWeightGroupBox.TabIndex = 1;
             this.TNTWeightGroupBox.TabStop = false;
             this.TNTWeightGroupBox.Text = "TNT Weight :";
@@ -394,9 +394,9 @@ namespace PearlCalculatorWFA
             // DistanceRadioButton
             // 
             this.DistanceRadioButton.AutoSize = true;
-            this.DistanceRadioButton.Location = new System.Drawing.Point(215, 84);
+            this.DistanceRadioButton.Location = new System.Drawing.Point(215, 74);
             this.DistanceRadioButton.Name = "DistanceRadioButton";
-            this.DistanceRadioButton.Size = new System.Drawing.Size(105, 21);
+            this.DistanceRadioButton.Size = new System.Drawing.Size(102, 19);
             this.DistanceRadioButton.TabIndex = 3;
             this.DistanceRadioButton.TabStop = true;
             this.DistanceRadioButton.Text = "Only Distance";
@@ -405,9 +405,9 @@ namespace PearlCalculatorWFA
             // TNTRadioButton
             // 
             this.TNTRadioButton.AutoSize = true;
-            this.TNTRadioButton.Location = new System.Drawing.Point(130, 84);
+            this.TNTRadioButton.Location = new System.Drawing.Point(130, 74);
             this.TNTRadioButton.Name = "TNTRadioButton";
-            this.TNTRadioButton.Size = new System.Drawing.Size(80, 21);
+            this.TNTRadioButton.Size = new System.Drawing.Size(78, 19);
             this.TNTRadioButton.TabIndex = 2;
             this.TNTRadioButton.TabStop = true;
             this.TNTRadioButton.Text = "Only TNT";
@@ -417,9 +417,9 @@ namespace PearlCalculatorWFA
             // 
             this.DistanceWeightRadioButton.AutoSize = true;
             this.DistanceWeightRadioButton.Checked = true;
-            this.DistanceWeightRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.DistanceWeightRadioButton.Location = new System.Drawing.Point(7, 75);
             this.DistanceWeightRadioButton.Name = "DistanceWeightRadioButton";
-            this.DistanceWeightRadioButton.Size = new System.Drawing.Size(121, 21);
+            this.DistanceWeightRadioButton.Size = new System.Drawing.Size(116, 19);
             this.DistanceWeightRadioButton.TabIndex = 1;
             this.DistanceWeightRadioButton.TabStop = true;
             this.DistanceWeightRadioButton.Text = "Distance Vs TNT";
@@ -427,7 +427,7 @@ namespace PearlCalculatorWFA
             // 
             // TNTWeightTrackerSlider
             // 
-            this.TNTWeightTrackerSlider.Location = new System.Drawing.Point(7, 26);
+            this.TNTWeightTrackerSlider.Location = new System.Drawing.Point(7, 23);
             this.TNTWeightTrackerSlider.Maximum = 100;
             this.TNTWeightTrackerSlider.Name = "TNTWeightTrackerSlider";
             this.TNTWeightTrackerSlider.Size = new System.Drawing.Size(353, 45);
@@ -440,27 +440,28 @@ namespace PearlCalculatorWFA
             this.OffsetGroupBox.Controls.Add(this.ZOffsetLabel);
             this.OffsetGroupBox.Controls.Add(this.OffsetXTextBox);
             this.OffsetGroupBox.Controls.Add(this.XOffsetLabel);
-            this.OffsetGroupBox.Location = new System.Drawing.Point(4, 5);
+            this.OffsetGroupBox.Location = new System.Drawing.Point(4, 4);
             this.OffsetGroupBox.Name = "OffsetGroupBox";
-            this.OffsetGroupBox.Size = new System.Drawing.Size(366, 90);
+            this.OffsetGroupBox.Size = new System.Drawing.Size(366, 79);
             this.OffsetGroupBox.TabIndex = 0;
             this.OffsetGroupBox.TabStop = false;
             this.OffsetGroupBox.Text = "Offsets :";
             // 
             // OffsetZTextBox
             // 
-            this.OffsetZTextBox.Location = new System.Drawing.Point(34, 56);
+            this.OffsetZTextBox.Location = new System.Drawing.Point(34, 49);
             this.OffsetZTextBox.Name = "OffsetZTextBox";
             this.OffsetZTextBox.Size = new System.Drawing.Size(332, 23);
             this.OffsetZTextBox.TabIndex = 3;
+            this.OffsetZTextBox.Text = "0.";
             this.OffsetZTextBox.TextChanged += new System.EventHandler(this.OffsetZTextBox_TextChanged);
             // 
             // ZOffsetLabel
             // 
             this.ZOffsetLabel.AutoSize = true;
-            this.ZOffsetLabel.Location = new System.Drawing.Point(7, 59);
+            this.ZOffsetLabel.Location = new System.Drawing.Point(7, 52);
             this.ZOffsetLabel.Name = "ZOffsetLabel";
-            this.ZOffsetLabel.Size = new System.Drawing.Size(22, 17);
+            this.ZOffsetLabel.Size = new System.Drawing.Size(20, 15);
             this.ZOffsetLabel.TabIndex = 2;
             this.ZOffsetLabel.Text = "Z :";
             // 
@@ -468,18 +469,19 @@ namespace PearlCalculatorWFA
             // 
             this.OffsetXTextBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.OffsetXTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.OffsetXTextBox.Location = new System.Drawing.Point(34, 23);
+            this.OffsetXTextBox.Location = new System.Drawing.Point(34, 20);
             this.OffsetXTextBox.Name = "OffsetXTextBox";
             this.OffsetXTextBox.Size = new System.Drawing.Size(332, 23);
             this.OffsetXTextBox.TabIndex = 1;
+            this.OffsetXTextBox.Text = "0.";
             this.OffsetXTextBox.TextChanged += new System.EventHandler(this.OffsetXTextBox_TextChanged);
             // 
             // XOffsetLabel
             // 
             this.XOffsetLabel.AutoSize = true;
-            this.XOffsetLabel.Location = new System.Drawing.Point(7, 26);
+            this.XOffsetLabel.Location = new System.Drawing.Point(7, 23);
             this.XOffsetLabel.Name = "XOffsetLabel";
-            this.XOffsetLabel.Size = new System.Drawing.Size(23, 17);
+            this.XOffsetLabel.Size = new System.Drawing.Size(21, 15);
             this.XOffsetLabel.TabIndex = 0;
             this.XOffsetLabel.Text = "X :";
             // 
@@ -489,17 +491,17 @@ namespace PearlCalculatorWFA
             this.GeneralFTLSettingsTabPage.Controls.Add(this.ChangeSettingButton);
             this.GeneralFTLSettingsTabPage.Controls.Add(this.ResetSettingButton);
             this.GeneralFTLSettingsTabPage.Controls.Add(this.SettingListView);
-            this.GeneralFTLSettingsTabPage.Location = new System.Drawing.Point(4, 26);
+            this.GeneralFTLSettingsTabPage.Location = new System.Drawing.Point(4, 24);
             this.GeneralFTLSettingsTabPage.Name = "GeneralFTLSettingsTabPage";
             this.GeneralFTLSettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.GeneralFTLSettingsTabPage.Size = new System.Drawing.Size(373, 557);
+            this.GeneralFTLSettingsTabPage.Size = new System.Drawing.Size(373, 490);
             this.GeneralFTLSettingsTabPage.TabIndex = 2;
             this.GeneralFTLSettingsTabPage.Text = "Settings";
             this.GeneralFTLSettingsTabPage.UseVisualStyleBackColor = true;
             // 
             // SettingInputTextBox
             // 
-            this.SettingInputTextBox.Location = new System.Drawing.Point(4, 458);
+            this.SettingInputTextBox.Location = new System.Drawing.Point(4, 404);
             this.SettingInputTextBox.Name = "SettingInputTextBox";
             this.SettingInputTextBox.Size = new System.Drawing.Size(366, 23);
             this.SettingInputTextBox.TabIndex = 3;
@@ -507,29 +509,31 @@ namespace PearlCalculatorWFA
             // 
             // ChangeSettingButton
             // 
-            this.ChangeSettingButton.Location = new System.Drawing.Point(4, 491);
+            this.ChangeSettingButton.Location = new System.Drawing.Point(4, 433);
             this.ChangeSettingButton.Name = "ChangeSettingButton";
-            this.ChangeSettingButton.Size = new System.Drawing.Size(366, 26);
+            this.ChangeSettingButton.Size = new System.Drawing.Size(366, 23);
             this.ChangeSettingButton.TabIndex = 2;
             this.ChangeSettingButton.Text = "Change Setting";
             this.ChangeSettingButton.UseVisualStyleBackColor = true;
+            this.ChangeSettingButton.Click += new System.EventHandler(this.ChangeSettingButton_Click);
             // 
             // ResetSettingButton
             // 
-            this.ResetSettingButton.Location = new System.Drawing.Point(4, 524);
+            this.ResetSettingButton.Location = new System.Drawing.Point(4, 462);
             this.ResetSettingButton.Name = "ResetSettingButton";
-            this.ResetSettingButton.Size = new System.Drawing.Size(366, 26);
+            this.ResetSettingButton.Size = new System.Drawing.Size(366, 23);
             this.ResetSettingButton.TabIndex = 1;
             this.ResetSettingButton.Text = "Reset To Default";
             this.ResetSettingButton.UseVisualStyleBackColor = true;
+            this.ResetSettingButton.Click += new System.EventHandler(this.ResetSettingButton_Click);
             // 
             // SettingListView
             // 
             this.SettingListView.FullRowSelect = true;
             this.SettingListView.HideSelection = false;
-            this.SettingListView.Location = new System.Drawing.Point(4, 5);
+            this.SettingListView.Location = new System.Drawing.Point(4, 4);
             this.SettingListView.Name = "SettingListView";
-            this.SettingListView.Size = new System.Drawing.Size(366, 446);
+            this.SettingListView.Size = new System.Drawing.Size(366, 394);
             this.SettingListView.TabIndex = 0;
             this.SettingListView.UseCompatibleStateImageBehavior = false;
             this.SettingListView.View = System.Windows.Forms.View.Details;
@@ -537,30 +541,30 @@ namespace PearlCalculatorWFA
             // InputTabControl
             // 
             this.InputTabControl.Controls.Add(this.GeneralFTLInputTabPage);
-            this.InputTabControl.Location = new System.Drawing.Point(13, 15);
+            this.InputTabControl.Location = new System.Drawing.Point(13, 13);
             this.InputTabControl.Name = "InputTabControl";
             this.InputTabControl.SelectedIndex = 0;
-            this.InputTabControl.Size = new System.Drawing.Size(389, 621);
+            this.InputTabControl.Size = new System.Drawing.Size(389, 548);
             this.InputTabControl.TabIndex = 0;
             // 
             // BasicInputOutputSystem
             // 
             this.BasicInputOutputSystem.Controls.Add(this.OutputTabPage);
             this.BasicInputOutputSystem.Controls.Add(this.InputTabPage);
-            this.BasicInputOutputSystem.Location = new System.Drawing.Point(409, 15);
+            this.BasicInputOutputSystem.Location = new System.Drawing.Point(409, 13);
             this.BasicInputOutputSystem.Name = "BasicInputOutputSystem";
             this.BasicInputOutputSystem.SelectedIndex = 0;
-            this.BasicInputOutputSystem.Size = new System.Drawing.Size(379, 617);
+            this.BasicInputOutputSystem.Size = new System.Drawing.Size(379, 544);
             this.BasicInputOutputSystem.TabIndex = 1;
             // 
             // OutputTabPage
             // 
             this.OutputTabPage.Controls.Add(this.BasicDirectionOutSystem);
             this.OutputTabPage.Controls.Add(this.BasicOutputSystem);
-            this.OutputTabPage.Location = new System.Drawing.Point(4, 26);
+            this.OutputTabPage.Location = new System.Drawing.Point(4, 24);
             this.OutputTabPage.Name = "OutputTabPage";
             this.OutputTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.OutputTabPage.Size = new System.Drawing.Size(371, 587);
+            this.OutputTabPage.Size = new System.Drawing.Size(371, 516);
             this.OutputTabPage.TabIndex = 0;
             this.OutputTabPage.Text = "Display";
             this.OutputTabPage.UseVisualStyleBackColor = true;
@@ -569,9 +573,9 @@ namespace PearlCalculatorWFA
             // 
             this.BasicDirectionOutSystem.FullRowSelect = true;
             this.BasicDirectionOutSystem.HideSelection = false;
-            this.BasicDirectionOutSystem.Location = new System.Drawing.Point(4, 524);
+            this.BasicDirectionOutSystem.Location = new System.Drawing.Point(4, 462);
             this.BasicDirectionOutSystem.Name = "BasicDirectionOutSystem";
-            this.BasicDirectionOutSystem.Size = new System.Drawing.Size(364, 58);
+            this.BasicDirectionOutSystem.Size = new System.Drawing.Size(364, 52);
             this.BasicDirectionOutSystem.TabIndex = 1;
             this.BasicDirectionOutSystem.UseCompatibleStateImageBehavior = false;
             this.BasicDirectionOutSystem.View = System.Windows.Forms.View.Details;
@@ -580,39 +584,40 @@ namespace PearlCalculatorWFA
             // 
             this.BasicOutputSystem.FullRowSelect = true;
             this.BasicOutputSystem.HideSelection = false;
-            this.BasicOutputSystem.Location = new System.Drawing.Point(4, 5);
+            this.BasicOutputSystem.Location = new System.Drawing.Point(4, 4);
             this.BasicOutputSystem.Name = "BasicOutputSystem";
-            this.BasicOutputSystem.Size = new System.Drawing.Size(364, 512);
+            this.BasicOutputSystem.Size = new System.Drawing.Size(364, 452);
             this.BasicOutputSystem.TabIndex = 0;
             this.BasicOutputSystem.UseCompatibleStateImageBehavior = false;
             this.BasicOutputSystem.View = System.Windows.Forms.View.Details;
             this.BasicOutputSystem.SelectedIndexChanged += new System.EventHandler(this.BasicOutputSystem_SelectedIndexChanged);
+            this.BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
             // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.ConsoleInputTextBox);
             this.InputTabPage.Controls.Add(this.ConsoleEnterButton);
             this.InputTabPage.Controls.Add(this.ConsoleListView);
-            this.InputTabPage.Location = new System.Drawing.Point(4, 26);
+            this.InputTabPage.Location = new System.Drawing.Point(4, 24);
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.InputTabPage.Size = new System.Drawing.Size(371, 587);
+            this.InputTabPage.Size = new System.Drawing.Size(371, 516);
             this.InputTabPage.TabIndex = 1;
             this.InputTabPage.Text = "Console";
             this.InputTabPage.UseVisualStyleBackColor = true;
             // 
             // ConsoleInputTextBox
             // 
-            this.ConsoleInputTextBox.Location = new System.Drawing.Point(4, 522);
+            this.ConsoleInputTextBox.Location = new System.Drawing.Point(4, 461);
             this.ConsoleInputTextBox.Name = "ConsoleInputTextBox";
             this.ConsoleInputTextBox.Size = new System.Drawing.Size(364, 23);
             this.ConsoleInputTextBox.TabIndex = 2;
             // 
             // ConsoleEnterButton
             // 
-            this.ConsoleEnterButton.Location = new System.Drawing.Point(4, 555);
+            this.ConsoleEnterButton.Location = new System.Drawing.Point(4, 490);
             this.ConsoleEnterButton.Name = "ConsoleEnterButton";
-            this.ConsoleEnterButton.Size = new System.Drawing.Size(364, 26);
+            this.ConsoleEnterButton.Size = new System.Drawing.Size(364, 23);
             this.ConsoleEnterButton.TabIndex = 1;
             this.ConsoleEnterButton.Text = "Enter";
             this.ConsoleEnterButton.UseVisualStyleBackColor = true;
@@ -620,18 +625,18 @@ namespace PearlCalculatorWFA
             // ConsoleListView
             // 
             this.ConsoleListView.HideSelection = false;
-            this.ConsoleListView.Location = new System.Drawing.Point(4, 5);
+            this.ConsoleListView.Location = new System.Drawing.Point(4, 4);
             this.ConsoleListView.Name = "ConsoleListView";
-            this.ConsoleListView.Size = new System.Drawing.Size(364, 512);
+            this.ConsoleListView.Size = new System.Drawing.Size(364, 452);
             this.ConsoleListView.TabIndex = 0;
             this.ConsoleListView.UseCompatibleStateImageBehavior = false;
             this.ConsoleListView.View = System.Windows.Forms.View.Details;
             // 
             // PearlCalculatorWFA
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 647);
+            this.ClientSize = new System.Drawing.Size(800, 571);
             this.Controls.Add(this.BasicInputOutputSystem);
             this.Controls.Add(this.InputTabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

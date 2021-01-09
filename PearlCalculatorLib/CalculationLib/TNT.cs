@@ -6,7 +6,7 @@ namespace PearlCalculatorLib.CalculationLib
 {
 
     [Serializable]
-    public class TNT
+    public struct TNT
     {
         public Space3D InducedVector;
         public Space3D Position;

@@ -17,12 +17,50 @@ namespace PearlCalculatorWFA
 {
     public partial class PearlCalculatorWFA : Form
     {
+        string OffsetXTextBoxString = "";
+        string OffsetZTextBoxString = "";
+        Dictionary<string , string> SettingsLVNameToDataName = new Dictionary<string , string>()
+        {
+            { "North West TNT Vector X", nameof(Data.NorthWest) } ,
+            { "North West TNT Vector Y", nameof(Data.NorthWest) } ,
+            { "North West TNT Vector Z", nameof(Data.NorthWest) } ,
+
+            { "North East TNT Vector X", nameof(Data.NorthEast) } ,
+            { "North East TNT Vector Y", nameof(Data.NorthEast) } ,
+            { "North East TNT Vector Z", nameof(Data.NorthEast) } ,
+
+            { "South West TNT Vector X", nameof(Data.SouthWest) } ,
+            { "South West TNT Vector Y", nameof(Data.SouthWest) } ,
+            { "South West TNT Vector Z", nameof(Data.SouthWest) } ,
+
+            { "South East TNT Vector X", nameof(Data.SouthEast) } ,
+            { "South East TNT Vector Y", nameof(Data.SouthEast) } ,
+            { "South East TNT Vector Z", nameof(Data.SouthEast) } ,
+
+            { "Pearl Position Y", nameof(Data.Pearl) },
+            { "Pearl Vector Y", nameof(Data.Pearl) },
+
+            { "South Array For Red", nameof(Data.SouthArray) },
+            { "South Array For Blue", nameof(Data.SouthArray) },
+
+            { "North Array For Red", nameof(Data.NorthArray) },
+            { "North Array For Blue", nameof(Data.NorthArray) },
+
+            { "East Array For Red", nameof(Data.EastArray) },
+            { "East Array For Blue", nameof(Data.EastArray) },
+
+            { "West Array For Red", nameof(Data.WestArray) },
+            { "West Array For Blue", nameof(Data.WestArray) },
+
+            { "Offset On X Axis", nameof(Data.PearlOffset) },
+            { "Offset On Z Axis", nameof(Data.PearlOffset) },
+
+        };
 
         const string FileSuffix = "pcld file|*.pcld";
 
         bool IsDisplayOnTNT = false;
-
-
+        
         public PearlCalculatorWFA()
         {
             InitializeComponent();
@@ -41,6 +79,8 @@ namespace PearlCalculatorWFA
 
         public void DisplaySetting()
         {
+            SettingListView.Items.Clear();
+
             ListViewItem NorthWestVectorX = new ListViewItem("North West TNT Vector X");
             NorthWestVectorX.SubItems.Add(Data.NorthWest.InducedVector.X.ToString());
             ListViewItem NorthWestVectorY = new ListViewItem("North West TNT Vector Y");
@@ -80,19 +120,19 @@ namespace PearlCalculatorWFA
             BlueSouthArray.SubItems.Add(Data.SouthArray.Blue);
 
             ListViewItem RedWestArray = new ListViewItem("West Array For Red");
-            RedWestArray.SubItems.Add(Data.SouthArray.Red);
+            RedWestArray.SubItems.Add(Data.WestArray.Red);
             ListViewItem BlueWestArray = new ListViewItem("West Array For Blue");
-            BlueWestArray.SubItems.Add(Data.SouthArray.Blue);
+            BlueWestArray.SubItems.Add(Data.WestArray.Blue);
             
             ListViewItem RedNorthArray = new ListViewItem("North Array For Red");
-            RedNorthArray.SubItems.Add(Data.SouthArray.Red);
+            RedNorthArray.SubItems.Add(Data.NorthArray.Red);
             ListViewItem BlueNorthArray = new ListViewItem("North Array For Blue");
-            BlueNorthArray.SubItems.Add(Data.SouthArray.Blue);
+            BlueNorthArray.SubItems.Add(Data.NorthArray.Blue);
 
             ListViewItem RedEastArray = new ListViewItem("East Array For Red");
-            RedEastArray.SubItems.Add(Data.SouthArray.Red);
+            RedEastArray.SubItems.Add(Data.EastArray.Red);
             ListViewItem BlueEastArray = new ListViewItem("East Array For Blue");
-            BlueEastArray.SubItems.Add(Data.SouthArray.Blue);
+            BlueEastArray.SubItems.Add(Data.EastArray.Blue);
 
             ListViewItem OffsetX = new ListViewItem("Offset On X Axis");
             OffsetX.SubItems.Add(Data.PearlOffset.X.ToString());
@@ -129,6 +169,83 @@ namespace PearlCalculatorWFA
 
             SettingListView.Items.Add(RedEastArray);
             SettingListView.Items.Add(BlueEastArray);
+
+            SettingListView.Items.Add(OffsetX);
+            SettingListView.Items.Add(OffsetZ);
+
+            OffsetXTextBox.Text = Data.PearlOffset.X.ToString();
+            OffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
+        }
+
+
+        private void ChangeSettingButton_Click(object sender , EventArgs e)
+        {
+            if(SettingListView.FocusedItem == null)
+                return;
+            int index = SettingListView.FocusedItem.Index;
+            string dataName = SettingsLVNameToDataName[SettingListView.FocusedItem.Text];
+            Log("Debug" , dataName);
+            Log("Debug" , SettingListView.FocusedItem.SubItems[1].Text);
+
+            if(index >= 0 && index < 12)  //TNT Vector
+            {
+                TNT tnt = new TNT();
+                int rank = index / 3;
+                int j = index % 3;
+                double.TryParse(SettingListView.Items[rank * 3].SubItems[1].Text , out tnt.InducedVector.X);
+                double.TryParse(SettingListView.Items[rank * 3 + 1].SubItems[1].Text , out tnt.InducedVector.Y);
+                double.TryParse(SettingListView.Items[rank * 3 + 2].SubItems[1].Text , out tnt.InducedVector.Z);
+                switch(j)
+                {
+                    case 0:
+                        double.TryParse(SettingInputTextBox.Text , out tnt.InducedVector.X);
+                        break;
+                    case 1:
+                        double.TryParse(SettingInputTextBox.Text , out tnt.InducedVector.Y);
+                        break;
+                    case 2:
+                        double.TryParse(SettingInputTextBox.Text , out tnt.InducedVector.Z);
+                        break;
+                }
+                Data.UpdateData(dataName , tnt);
+            }
+            else if(index == 12 || index == 13)  // Pearl
+            {
+                Pearl pearl = new Pearl();
+                double.TryParse(SettingListView.Items[12].SubItems[1].Text , out pearl.Position.Y);
+                double.TryParse(SettingListView.Items[13].SubItems[1].Text , out pearl.Vector.Y);
+                if(index == 12)
+                    double.TryParse(SettingInputTextBox.Text , out pearl.Position.Y);
+                else
+                    double.TryParse(SettingInputTextBox.Text , out pearl.Vector.Y);
+                Data.UpdateData(dataName , pearl);
+            }
+            else if(index >= 14 && index < 22)  // TNTArray
+            {
+                TNTArray tntArray = new TNTArray();
+                int rank = (index - 14) / 2;
+                int j = (index - 14) % 2;
+                tntArray.Red = SettingListView.Items[rank * 2 + 14].SubItems[1].Text;
+                tntArray.Blue = SettingListView.Items[rank * 2 + 15].SubItems[1].Text;
+                if(j == 0)
+                    tntArray.Red = SettingInputTextBox.Text;
+                else
+                    tntArray.Blue = SettingInputTextBox.Text;
+                Data.UpdateData(dataName , tntArray);
+            }
+            else    // Offset
+            {
+                Space3D offset = new Space3D();
+                double.TryParse(SettingListView.Items[22].SubItems[1].Text , out offset.X);
+                double.TryParse(SettingListView.Items[23].SubItems[1].Text , out offset.Z);
+                if(index == 22)
+                    double.TryParse(SettingInputTextBox.Text , out offset.X);
+                else
+                    double.TryParse(SettingInputTextBox.Text , out offset.Z);
+                Data.UpdateData(dataName , offset);
+            }
+            SettingListView.FocusedItem.Focused = false;
+            DisplaySetting();
         }
 
         private void BasicOutputSystem_ColumnClick(object sender , ColumnClickEventArgs e)
@@ -170,12 +287,10 @@ namespace PearlCalculatorWFA
 
         }
 
-
         public void DisplayDirection()
         {
             BasicDirectionOutSystem.Items.Clear();
-            ListViewItem result = new ListViewItem();
-            result.SubItems.Add(Data.Pearl.Position.Direction(Data.Pearl.Position.Angle(Data.Destination)).ToString());
+            ListViewItem result = new ListViewItem(Data.Pearl.Position.Direction(Data.Pearl.Position.Angle(Data.Destination)).ToString());
             result.SubItems.Add(Data.Pearl.Position.Angle(Data.Destination).ToString());
             BasicDirectionOutSystem.Items.Add(result);
         }
@@ -276,28 +391,44 @@ namespace PearlCalculatorWFA
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
         {
-            var args = new TextBoxZeroToOneCheckerArgs()
+            if(OffsetXTextBox.Text == OffsetXTextBoxString)
             {
-                TextBox = OffsetXTextBox,
-                Value = Data.PearlOffset.X
-            };
-
-            ZeroToOneCheckModifier.CheckModifier.Check(args);
-
-            Data.PearlOffset.X = args.Value;
+                return;
+            }
+            Space3D offset = new Space3D();
+            if(!double.TryParse(OffsetXTextBox.Text , out offset.X) || offset.X >= 1)
+            {
+                OffsetXTextBox.Text = OffsetXTextBoxString;
+                OffsetXTextBox.Select(OffsetXTextBox.Text.Length , 0);
+            }
+            else
+            {
+                offset.Z = Data.PearlOffset.Z;
+                Data.UpdateData(nameof(Data.PearlOffset) , offset);
+                DisplaySetting();
+                OffsetXTextBoxString = OffsetXTextBox.Text;
+            }
         }
 
         private void OffsetZTextBox_TextChanged(object sender , EventArgs e)
         {
-            var args = new TextBoxZeroToOneCheckerArgs()
+            if(OffsetZTextBox.Text == OffsetZTextBoxString)
             {
-                TextBox = OffsetZTextBox,
-                Value = Data.PearlOffset.Z
-            };
-
-            ZeroToOneCheckModifier.CheckModifier.Check(args);
-
-            Data.PearlOffset.Z = args.Value;
+                return;
+            }
+            Space3D offset = new Space3D();
+            if(!double.TryParse(OffsetZTextBox.Text , out offset.Z) || offset.Z >= 1)
+            {
+                OffsetZTextBox.Text = OffsetZTextBoxString;
+                OffsetZTextBox.Select(OffsetZTextBox.Text.Length , 0);
+            }
+            else
+            {
+                offset.X = Data.PearlOffset.X;
+                Data.UpdateData(nameof(Data.PearlOffset) , offset);
+                DisplaySetting();
+                OffsetZTextBoxString = OffsetZTextBox.Text;
+            }
         }
 
         #endregion
@@ -306,6 +437,8 @@ namespace PearlCalculatorWFA
 
         private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
         {
+            if(!IsDisplayOnTNT)
+                return;
             int index = BasicOutputSystem.FocusedItem.Index;
             string direction = Data.Pearl.Position.Direction(Data.Pearl.Position.Angle(Data.Destination));
 
@@ -496,5 +629,11 @@ namespace PearlCalculatorWFA
         }
 
         #endregion
+
+        private void ResetSettingButton_Click(object sender , EventArgs e)
+        {
+            Data.ResetParameter();
+        }
+
     }
 }
