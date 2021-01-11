@@ -19,7 +19,7 @@ namespace PearlCalculatorWFA
     {
         string OffsetXTextBoxString = "";
         string OffsetZTextBoxString = "";
-        Dictionary<string , string> SettingsLVNameToDataName = new Dictionary<string , string>()
+        static Dictionary<string , string> SettingsLVNameToDataName = new Dictionary<string , string>()
         {
             { "North West TNT Vector X", nameof(Data.NorthWest) } ,
             { "North West TNT Vector Y", nameof(Data.NorthWest) } ,
@@ -81,100 +81,49 @@ namespace PearlCalculatorWFA
         {
             SettingListView.Items.Clear();
 
-            ListViewItem NorthWestVectorX = new ListViewItem("North West TNT Vector X");
-            NorthWestVectorX.SubItems.Add(Data.NorthWest.InducedVector.X.ToString());
-            ListViewItem NorthWestVectorY = new ListViewItem("North West TNT Vector Y");
-            NorthWestVectorY.SubItems.Add(Data.NorthWest.InducedVector.Y.ToString());
-            ListViewItem NorthWestVectorZ = new ListViewItem("North West TNT Vector Z");
-            NorthWestVectorZ.SubItems.Add(Data.NorthWest.InducedVector.Z.ToString());
+            DisplaySettingItem("North West TNT Vector X", Data.NorthWest.InducedVector.X.ToString());
+            DisplaySettingItem("North West TNT Vector Y", Data.NorthWest.InducedVector.Y.ToString());
+            DisplaySettingItem("North West TNT Vector Z", Data.NorthWest.InducedVector.Z.ToString());
 
-            ListViewItem NorthEastVectorX = new ListViewItem("North East TNT Vector X");
-            NorthEastVectorX.SubItems.Add(Data.NorthEast.InducedVector.X.ToString());
-            ListViewItem NorthEastVectorY = new ListViewItem("North East TNT Vector Y");
-            NorthEastVectorY.SubItems.Add(Data.NorthEast.InducedVector.Y.ToString());
-            ListViewItem NorthEastVectorZ = new ListViewItem("North East TNT Vector Z");
-            NorthEastVectorZ.SubItems.Add(Data.NorthEast.InducedVector.Z.ToString());
+            DisplaySettingItem("North East TNT Vector X", Data.NorthEast.InducedVector.X.ToString());
+            DisplaySettingItem("North East TNT Vector Y", Data.NorthEast.InducedVector.Y.ToString());
+            DisplaySettingItem("North East TNT Vector Z", Data.NorthEast.InducedVector.Z.ToString());
 
-            ListViewItem SouthWestVectorX = new ListViewItem("South West TNT Vector X");
-            SouthWestVectorX.SubItems.Add(Data.SouthWest.InducedVector.X.ToString());
-            ListViewItem SouthWestVectorY = new ListViewItem("South West TNT Vector Y");
-            SouthWestVectorY.SubItems.Add(Data.SouthWest.InducedVector.Y.ToString());
-            ListViewItem SouthWestVectorZ = new ListViewItem("South West TNT Vector Z");
-            SouthWestVectorZ.SubItems.Add(Data.SouthWest.InducedVector.Z.ToString());
+            DisplaySettingItem("South West TNT Vector X", Data.SouthWest.InducedVector.X.ToString());
+            DisplaySettingItem("South West TNT Vector Y", Data.SouthWest.InducedVector.Y.ToString());
+            DisplaySettingItem("South West TNT Vector Z", Data.SouthWest.InducedVector.Z.ToString());
 
-            ListViewItem SouthEastVectorX = new ListViewItem("South East TNT Vector X");
-            SouthEastVectorX.SubItems.Add(Data.SouthEast.InducedVector.X.ToString());
-            ListViewItem SouthEastVectorY = new ListViewItem("South East TNT Vector Y");
-            SouthEastVectorY.SubItems.Add(Data.SouthEast.InducedVector.Y.ToString());
-            ListViewItem SouthEastVectorZ = new ListViewItem("South East TNT Vector Z");
-            SouthEastVectorZ.SubItems.Add(Data.SouthEast.InducedVector.Z.ToString());
+            DisplaySettingItem("South East TNT Vector X", Data.SouthEast.InducedVector.X.ToString());
+            DisplaySettingItem("South East TNT Vector Y", Data.SouthEast.InducedVector.Y.ToString());
+            DisplaySettingItem("South East TNT Vector Z", Data.SouthEast.InducedVector.Z.ToString());
 
-            ListViewItem PearlPositionY = new ListViewItem("Pearl Position Y");
-            PearlPositionY.SubItems.Add(Data.Pearl.Position.Y.ToString());
-            ListViewItem PearlVectorY = new ListViewItem("Pearl Vector Y");
-            PearlVectorY.SubItems.Add(Data.Pearl.Vector.Y.ToString());
+            DisplaySettingItem("Pearl Position Y", Data.Pearl.Position.Y.ToString());
+            DisplaySettingItem("Pearl Vector Y", Data.Pearl.Vector.Y.ToString());
 
-            ListViewItem RedSouthArray = new ListViewItem("South Array For Red");
-            RedSouthArray.SubItems.Add(Data.SouthArray.Red);
-            ListViewItem BlueSouthArray = new ListViewItem("South Array For Blue");
-            BlueSouthArray.SubItems.Add(Data.SouthArray.Blue);
+            DisplaySettingItem("South Array For Red", Data.SouthArray.Red);
+            DisplaySettingItem("South Array For Blue", Data.SouthArray.Blue);
 
-            ListViewItem RedWestArray = new ListViewItem("West Array For Red");
-            RedWestArray.SubItems.Add(Data.WestArray.Red);
-            ListViewItem BlueWestArray = new ListViewItem("West Array For Blue");
-            BlueWestArray.SubItems.Add(Data.WestArray.Blue);
-            
-            ListViewItem RedNorthArray = new ListViewItem("North Array For Red");
-            RedNorthArray.SubItems.Add(Data.NorthArray.Red);
-            ListViewItem BlueNorthArray = new ListViewItem("North Array For Blue");
-            BlueNorthArray.SubItems.Add(Data.NorthArray.Blue);
+            DisplaySettingItem("West Array For Red", Data.WestArray.Red);
+            DisplaySettingItem("West Array For Blue", Data.WestArray.Blue);
 
-            ListViewItem RedEastArray = new ListViewItem("East Array For Red");
-            RedEastArray.SubItems.Add(Data.EastArray.Red);
-            ListViewItem BlueEastArray = new ListViewItem("East Array For Blue");
-            BlueEastArray.SubItems.Add(Data.EastArray.Blue);
+            DisplaySettingItem("North Array For Red", Data.NorthArray.Red);
+            DisplaySettingItem("North Array For Blue", Data.NorthArray.Blue);
 
-            ListViewItem OffsetX = new ListViewItem("Offset On X Axis");
-            OffsetX.SubItems.Add(Data.PearlOffset.X.ToString());
-            ListViewItem OffsetZ = new ListViewItem("Offset On Z Axis");
-            OffsetZ.SubItems.Add(Data.PearlOffset.Z.ToString());
+            DisplaySettingItem("East Array For Red", Data.EastArray.Red);
+            DisplaySettingItem("East Array For Blue", Data.EastArray.Blue);
 
-            SettingListView.Items.Add(NorthWestVectorX);
-            SettingListView.Items.Add(NorthWestVectorY);
-            SettingListView.Items.Add(NorthWestVectorZ);
-
-            SettingListView.Items.Add(NorthEastVectorX);
-            SettingListView.Items.Add(NorthEastVectorY);
-            SettingListView.Items.Add(NorthEastVectorZ);
-
-            SettingListView.Items.Add(SouthWestVectorX);
-            SettingListView.Items.Add(SouthWestVectorY);
-            SettingListView.Items.Add(SouthWestVectorZ);
-
-            SettingListView.Items.Add(SouthEastVectorX);
-            SettingListView.Items.Add(SouthEastVectorY);
-            SettingListView.Items.Add(SouthEastVectorZ);
-
-            SettingListView.Items.Add(PearlPositionY);
-            SettingListView.Items.Add(PearlVectorY);
-
-            SettingListView.Items.Add(RedSouthArray);
-            SettingListView.Items.Add(BlueSouthArray);
-
-            SettingListView.Items.Add(RedWestArray);
-            SettingListView.Items.Add(BlueWestArray);
-
-            SettingListView.Items.Add(RedNorthArray);
-            SettingListView.Items.Add(BlueNorthArray);
-
-            SettingListView.Items.Add(RedEastArray);
-            SettingListView.Items.Add(BlueEastArray);
-
-            SettingListView.Items.Add(OffsetX);
-            SettingListView.Items.Add(OffsetZ);
+            DisplaySettingItem("Offset On X Axis", Data.PearlOffset.X.ToString());
+            DisplaySettingItem("Offset On Z Axis", Data.PearlOffset.Z.ToString());
 
             OffsetXTextBox.Text = Data.PearlOffset.X.ToString();
             OffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
+        }
+
+        void DisplaySettingItem(string name, string value)
+        {
+            var item = new ListViewItem(name);
+            item.SubItems.Add(value);
+            SettingListView.Items.Add(item);
         }
 
 
@@ -458,8 +407,6 @@ namespace PearlCalculatorWFA
                     break;
                 case "West":
                     WestRadioButton.Checked = true;
-                    break;
-                default:
                     break;
             }
         }

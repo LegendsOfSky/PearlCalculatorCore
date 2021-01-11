@@ -15,6 +15,9 @@ namespace PearlCalculatorLib.General
             if(checker == null)
                 throw new NullReferenceException();
 
+            if (checker.IsAbstract || !checker.IsClass)
+                throw new ArgumentException("checker is abstract or not class");
+
             var inters = checker.GetInterfaces();
 
             bool isChecker = false;
@@ -34,7 +37,7 @@ namespace PearlCalculatorLib.General
             if(isChecker)
                 CheckerType = checker;
             else
-                throw new Exception();
+                throw new ArgumentException("checker not is IDataChecker<T>");
         }
 
         public static IDataChecker<T> GetChecker<T>(Type checkerType)

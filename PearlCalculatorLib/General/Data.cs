@@ -68,7 +68,7 @@ namespace PearlCalculatorLib.General
 
         public static void UpdateData<V>(string dataName, V value)
         {
-            var field = typeof(Data).GetField(dataName , System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.CreateInstance);
+            var field = typeof(Data).GetField(dataName , System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             var attr = field.GetCustomAttributes(typeof(CheckerAttribute), false).FirstOrDefault() as CheckerAttribute;
 
             if(attr == null)  //Non attribute
