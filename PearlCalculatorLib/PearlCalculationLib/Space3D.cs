@@ -64,17 +64,16 @@ namespace PearlCalculatorLib.CalculationLib
 
         public Direction Direction(double angle)
         {
-            Direction direction = new Direction();
-            if(angle > -135 && angle <= -45)
-                direction.isEast = true;
-            else if(angle > -45 && angle <= 45)
-                direction.isSouth = true;
-            else if(angle > 45 && angle <= 135)
-                direction.isWest = true;
-            else if(angle > 135 && angle <= 180)
-                direction.isNorth = true;
-            else if(angle > -180 && angle <= -135)
-                direction.isNorth = true;
+            Direction direction = PearlCalculationLib.Direction.None;
+
+            if (angle > -135 && angle <= -45)
+                direction = PearlCalculationLib.Direction.East;
+            else if (angle > -45 && angle <= 45)
+                direction = PearlCalculationLib.Direction.South;
+            else if (angle > 45 && angle <= 135)
+                direction = PearlCalculationLib.Direction.West;
+            else if ((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
+                direction = PearlCalculationLib.Direction.North;
             return direction;
         }
 

@@ -25,6 +25,40 @@ namespace PearlCalculatorWFA
         public PearlCalculatorWFA()
         {
             InitializeComponent();
+
+            BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
+        }
+
+        private void BasicOutputSystem_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            /*
+             * Distance 0
+             * Tick     1
+             * Total    4
+             */
+            if (!IsDisplayOnTNT) return;
+
+            bool isSorted = true;
+
+            switch (e.Column)
+            {
+                case 0:
+                    Data.TNTResult.SortByDistance();
+                    break;
+                case 1:
+                    Data.TNTResult.SortByTick();
+                    break;
+                case 4:
+                    Data.TNTResult.SortByTotal();
+                    break;
+                default:
+                    isSorted = false;
+                    break;
+            }
+
+            if (isSorted)
+                DisplayTNTAmount(true);
+
         }
 
         private void CalculateTNTButton_Click(object sender , EventArgs e)
@@ -45,6 +79,8 @@ namespace PearlCalculatorWFA
             BasicOutputSystem.Columns.Add("Blue" , 50 , HorizontalAlignment.Left);
             BasicOutputSystem.Columns.Add("Red" , 50 , HorizontalAlignment.Left);
             BasicOutputSystem.Columns.Add("Total TNT" , 60 , HorizontalAlignment.Left);
+
+            IsDisplayOnTNT = true;
 
             if(!isRadioOverriden)
             {
@@ -114,26 +150,22 @@ namespace PearlCalculatorWFA
 
         private void NorthRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction.ClearDirection();
-            Data.Direction.isNorth = true;
+            Data.Direction = Direction.North;
         }
 
         private void SouthRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction.ClearDirection();
-            Data.Direction.isSouth = true;
+            Data.Direction = Direction.South;
         }
 
         private void EastRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction.ClearDirection();
-            Data.Direction.isEast = true;
+            Data.Direction = Direction.East;
         }
 
         private void WestRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction.ClearDirection();
-            Data.Direction.isWest = true;
+            Data.Direction = Direction.West;
         }
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)

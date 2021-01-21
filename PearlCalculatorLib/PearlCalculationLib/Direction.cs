@@ -1,104 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 
 namespace PearlCalculatorLib.PearlCalculationLib
 {
-    public class Direction
+    [Flags]
+    public enum Direction
     {
-        public bool isNorth;
-        public bool isSouth;
-        public bool isEast;
-        public bool isWest;
-        public bool isNorthWest;
-        public bool isNorthEast;
-        public bool isSouthWest;
-        public bool isSouthEast;
+        None  = 0,
+        North = 1,
+        South = 2,
+        East  = 4,
+        West  = 8,
+        NorthWest = North | West,
+        NorthEast = North | East,
+        SouthWest = South | West,
+        SouthEast = South | East
+    }
 
-        public bool ConerIsNorth()
-        {
-            if(isNorth || isNorthWest || isNorthEast)
-                return true;
-            else
-                return false;
-        }
+    public static class DirectionExtension
+    {
+        public static bool ConerIsNorth(this Direction direction) => (direction & Direction.North) > 0;
 
-        public bool ConerIsSouth()
-        {
-            if(isSouth || isSouthWest || isSouthEast)
-                return true;
-            else
-                return false;
-        }
+        public static bool ConerIsSouth(this Direction direction) => (direction & Direction.South) > 0;
 
-        public bool ConerIsEast()
-        {
-            if(isEast || isNorthEast || isSouthEast)
-                return true;
-            else
-                return false;
-        }
+        public static bool ConerIsEast(this Direction direction) => (direction & Direction.East) > 0;
 
-        public bool ConerIsWest()
-        {
-            if(isWest || isNorthWest || isSouthWest)
-                return true;
-            else
-                return false;
-        }
+        public static bool ConerIsWest(this Direction direction) => (direction & Direction.West) > 0;
+    }
 
-        public Direction()
-        {
-
-        }
-
-        public Direction(string direction)
-        {
-            ClearDirection();
-            switch(direction)
-            {
-                case "North":
-                    isNorth = true;
-                    break;
-                case "South":
-                    isSouth = true;
-                    break;
-                case "East":
-                    isEast = true;
-                    break;
-                case "West":
-                    isWest = true;
-                    break;
-                case "NorthWest":
-                    isNorthWest = true;
-                    break;
-                case "NorthEast":
-                    isNorthEast = true;
-                    break;
-                case "SouthWest":
-                    isSouthWest = true;
-                    break;
-                case "SouthEast":
-                    isSouthEast = true;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void ClearDirection()
-        {
-            isNorth = false;
-            isSouth = false;
-            isEast = false;
-            isWest = false;
-            isNorthWest = false;
-            isNorthEast = false;
-            isSouthWest = false;
-            isSouthEast = false;
-        }
+    public static class DirectionUtils
+    {
+        public static Direction FormName(string name) => Enum.TryParse<Direction>(name, out var value) ? value : Direction.None;
     }
 }

@@ -32,9 +32,9 @@ namespace PearlCalculatorLib.General
 
         public static List<TNTCalculationResult> TNTResult = new List<TNTCalculationResult>();
 
-        public static Direction Direction = new Direction("North");
+        public static Direction Direction = Direction.North;
 
-        public static Direction DefaultRedDuper = new Direction("SouthEast");
-        public static Direction DefaultBlueDuper = new Direction("NorthWest");
+        public static Direction DefaultRedDuper = Direction.SouthEast;
+        public static Direction DefaultBlueDuper = Direction.NorthWest;
     }
 }

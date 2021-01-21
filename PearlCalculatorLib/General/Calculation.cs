@@ -108,7 +108,7 @@ namespace PearlCalculatorLib.General
             Space3D bVector = new Space3D(0 , 0 , 0);
             redTNTVector = new Space3D(0 , 0 , 0);
             blueTNTVector = new Space3D(0 , 0 , 0);
-            if(direction.isSouth)
+            if(direction.ConerIsSouth())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
@@ -123,7 +123,7 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.isNorth)
+            else if(direction.ConerIsNorth())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
@@ -138,7 +138,7 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.isEast)
+            else if(direction.ConerIsEast())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
@@ -153,7 +153,7 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.isWest)
+            else if(direction.ConerIsWest())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
@@ -175,13 +175,13 @@ namespace PearlCalculatorLib.General
         private static Space3D TNTDirectionToCoordinate(Direction coner)
         {
             Space3D tntCoordinate = new Space3D(0 , 0 , 0);
-            if(coner.isNorthEast)
+            if(coner == Direction.NorthEast)
                 tntCoordinate = Data.NorthEastTNT;
-            else if(coner.isNorthWest)
+            else if(coner == Direction.NorthWest)
                 tntCoordinate = Data.NorthWestTNT;
-            else if(coner.isSouthEast)
+            else if(coner == Direction.SouthEast)
                 tntCoordinate = Data.SouthEastTNT;
-            else if(coner.isSouthWest)
+            else if(coner == Direction.SouthWest)
                 tntCoordinate = Data.SouthWestTNT;
             return tntCoordinate;
         }
