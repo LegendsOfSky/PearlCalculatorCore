@@ -155,7 +155,6 @@ namespace PearlCalculatorWFA
             this.SaveSettingButton.TabIndex = 15;
             this.SaveSettingButton.Text = "Save Setting";
             this.SaveSettingButton.UseVisualStyleBackColor = true;
-            this.SaveSettingButton.Click += new System.EventHandler(this.SaveSettingButton_Click);
             // 
             // ImportSettingButton
             // 
@@ -165,7 +164,6 @@ namespace PearlCalculatorWFA
             this.ImportSettingButton.TabIndex = 17;
             this.ImportSettingButton.Text = "Import Setting";
             this.ImportSettingButton.UseVisualStyleBackColor = true;
-            this.ImportSettingButton.Click += new System.EventHandler(this.ImportSettingButton_Click);
             // 
             // PearlSimulateButton
             // 
@@ -389,7 +387,6 @@ namespace PearlCalculatorWFA
             this.TNTWeightGroupBox.TabIndex = 1;
             this.TNTWeightGroupBox.TabStop = false;
             this.TNTWeightGroupBox.Text = "TNT Weight :";
-            this.TNTWeightGroupBox.Enter += new System.EventHandler(this.TNTWeightGroupBox_Enter);
             // 
             // DistanceRadioButton
             // 
@@ -454,7 +451,6 @@ namespace PearlCalculatorWFA
             this.OffsetZTextBox.Size = new System.Drawing.Size(332, 23);
             this.OffsetZTextBox.TabIndex = 3;
             this.OffsetZTextBox.Text = "0.";
-            this.OffsetZTextBox.TextChanged += new System.EventHandler(this.OffsetZTextBox_TextChanged);
             // 
             // ZOffsetLabel
             // 
@@ -505,7 +501,6 @@ namespace PearlCalculatorWFA
             this.SettingInputTextBox.Name = "SettingInputTextBox";
             this.SettingInputTextBox.Size = new System.Drawing.Size(366, 23);
             this.SettingInputTextBox.TabIndex = 3;
-            this.SettingInputTextBox.TextChanged += new System.EventHandler(this.SettingInputTextBox_TextChanged);
             // 
             // ChangeSettingButton
             // 
@@ -515,7 +510,6 @@ namespace PearlCalculatorWFA
             this.ChangeSettingButton.TabIndex = 2;
             this.ChangeSettingButton.Text = "Change Setting";
             this.ChangeSettingButton.UseVisualStyleBackColor = true;
-            this.ChangeSettingButton.Click += new System.EventHandler(this.ChangeSettingButton_Click);
             // 
             // ResetSettingButton
             // 
@@ -525,7 +519,6 @@ namespace PearlCalculatorWFA
             this.ResetSettingButton.TabIndex = 1;
             this.ResetSettingButton.Text = "Reset To Default";
             this.ResetSettingButton.UseVisualStyleBackColor = true;
-            this.ResetSettingButton.Click += new System.EventHandler(this.ResetSettingButton_Click);
             // 
             // SettingListView
             // 
@@ -590,8 +583,6 @@ namespace PearlCalculatorWFA
             this.BasicOutputSystem.TabIndex = 0;
             this.BasicOutputSystem.UseCompatibleStateImageBehavior = false;
             this.BasicOutputSystem.View = System.Windows.Forms.View.Details;
-            this.BasicOutputSystem.SelectedIndexChanged += new System.EventHandler(this.BasicOutputSystem_SelectedIndexChanged);
-            this.BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
             // 
             // InputTabPage
             // 

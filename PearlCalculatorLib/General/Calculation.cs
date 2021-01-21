@@ -1,14 +1,18 @@
-﻿using System;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.General.Result;
+using PearlCalculatorLib.PearlCalculationLib;
+using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using System.Text;
-using PearlCalculatorLib.CalculationLib;
+using System.Xml.Serialization;
 
 namespace PearlCalculatorLib.General
 {
-
-    public static class Calculation
+    public class Calculation
     {
-        public static Pearl PearlSimulation(int redTNT , int blueTNT , int ticks , string direction)
+        public static Pearl PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             Pearl pearl = Data.Pearl;
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
@@ -28,16 +32,16 @@ namespace PearlCalculatorLib.General
             int blueTNT;
             Space3D distance = new Space3D();
             double divider = 0;
-            string direction;
+            Direction direction;
+
             distance = Data.Destination - Data.Pearl.Position;
 
             if(Math.Abs(distance.X) == 0 && Math.Abs(distance.Z) == 0)
             {
                 return false;
             }
-
             Data.TNTResult.Clear();
-            direction = Data.Pearl.Position.Direction(Data.Pearl.Position.Angle(Data.Destination));
+            direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
 
             for(int tick = 1; tick <= maxTicks; tick++)
@@ -46,6 +50,7 @@ namespace PearlCalculatorLib.General
                 distance = (Data.Destination - Data.Pearl.Position) / divider;
                 redTNT = Convert.ToInt32(Math.Round((distance.Z * blueTNTVector.X - distance.X * blueTNTVector.Z) / (redTNTVector.Z * blueTNTVector.X - blueTNTVector.Z * redTNTVector.X)));
                 blueTNT = Convert.ToInt32(Math.Round((distance.X - redTNT * redTNTVector.X) / blueTNTVector.X));
+
                 for(int r = -5; r <= 5; r++)
                 {
                     for(int b = -5; b <= 5; b++)
@@ -61,6 +66,7 @@ namespace PearlCalculatorLib.General
                                 Red = redTNT + r ,
                                 TotalTNT = blueTNT + b + redTNT + r
                             };
+
                             if(Data.MaxTNT <= 0)
                                 Data.TNTResult.Add(result);
                             else if((blueTNT + b) <= Data.MaxTNT && (redTNT + r) <= Data.MaxTNT)
@@ -76,8 +82,8 @@ namespace PearlCalculatorLib.General
             return true;
         }
 
-        public static List<Pearl> CalculatePearlTrace(int redTNT, int blueTNT, int ticks, string direction)
-        {
+        public static List<Pearl> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
+         {
             List<Pearl> result = new List<Pearl>();
             Pearl pearl = new Pearl(Data.Pearl);
 
@@ -95,67 +101,89 @@ namespace PearlCalculatorLib.General
             return result;
         }
 
-        static void CalculateTNTVector(string direction , out Space3D redTNTVector , out Space3D blueTNTVector)
+        public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
-            string redArray = "";
-            string blueArray = "";
-            redTNTVector = new Space3D();
-            blueTNTVector = new Space3D();
-            switch(direction)
+            Space3D pearlPosition = Data.Pearl.Position + Data.PearlOffset;
+            Space3D aVector = new Space3D(0 , 0 , 0);
+            Space3D bVector = new Space3D(0 , 0 , 0);
+            redTNTVector = new Space3D(0 , 0 , 0);
+            blueTNTVector = new Space3D(0 , 0 , 0);
+            if(direction.isSouth)
             {
-                case "North":
-                    redArray = Data.NorthArray.Red;
-                    blueArray = Data.NorthArray.Blue;
-                    break;
-                case "South":
-                    redArray = Data.SouthArray.Red;
-                    blueArray = Data.SouthArray.Blue;
-                    break;
-                case "East":
-                    redArray = Data.EastArray.Red;
-                    blueArray = Data.EastArray.Blue;
-                    break;
-                case "West":
-                    redArray = Data.WestArray.Red;
-                    blueArray = Data.WestArray.Blue;
-                    break;
-                default:
-                    break;
+                aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
+                bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
+                if(Data.DefaultBlueDuper.ConerIsNorth())
+                {
+                    blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = aVector + bVector - blueTNTVector;
+                }
+                else if(Data.DefaultRedDuper.ConerIsNorth())
+                {
+                    redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    blueTNTVector = aVector + bVector - redTNTVector;
+                }
             }
-            switch(redArray)
+            else if(direction.isNorth)
             {
-                case "NE":
-                    redTNTVector = Data.NorthEast.InducedVector;
-                    break;
-                case "NW":
-                    redTNTVector = Data.NorthWest.InducedVector;
-                    break;
-                case "SE":
-                    redTNTVector = Data.SouthEast.InducedVector;
-                    break;
-                case "SW":
-                    redTNTVector = Data.SouthWest.InducedVector;
-                    break;
-                default:
-                    break;
+                aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
+                bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
+                if(Data.DefaultBlueDuper.ConerIsSouth())
+                {
+                    blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = aVector + bVector - blueTNTVector;
+                }
+                else if(Data.DefaultRedDuper.ConerIsSouth())
+                {
+                    redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
+                    blueTNTVector = aVector + bVector - redTNTVector;
+                }
             }
-            switch(blueArray)
+            else if(direction.isEast)
             {
-                case "NE":
-                    blueTNTVector = Data.NorthEast.InducedVector;
-                    break;
-                case "NW":
-                    blueTNTVector = Data.NorthWest.InducedVector;
-                    break;
-                case "SE":
-                    blueTNTVector = Data.SouthEast.InducedVector;
-                    break;
-                case "SW":
-                    blueTNTVector = Data.SouthWest.InducedVector;
-                    break;
-                default:
-                    break;
+                aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
+                bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
+                if(Data.DefaultBlueDuper.ConerIsWest())
+                {
+                    blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = aVector + bVector - blueTNTVector;
+                }
+                else if(Data.DefaultRedDuper.ConerIsWest())
+                {
+                    redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
+                    blueTNTVector = aVector + bVector - redTNTVector;
+                }
             }
+            else if(direction.isWest)
+            {
+                aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
+                bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
+                if(Data.DefaultBlueDuper.ConerIsEast())
+                {
+                    blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = aVector + bVector - blueTNTVector;
+                }
+                else if(Data.DefaultRedDuper.ConerIsEast())
+                {
+                    redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
+                    blueTNTVector = aVector + bVector - redTNTVector;
+                }
+            }
+            else
+                throw new ArgumentException();
+        }
+
+        private static Space3D TNTDirectionToCoordinate(Direction coner)
+        {
+            Space3D tntCoordinate = new Space3D(0 , 0 , 0);
+            if(coner.isNorthEast)
+                tntCoordinate = Data.NorthEastTNT;
+            else if(coner.isNorthWest)
+                tntCoordinate = Data.NorthWestTNT;
+            else if(coner.isSouthEast)
+                tntCoordinate = Data.SouthEastTNT;
+            else if(coner.isSouthWest)
+                tntCoordinate = Data.SouthWestTNT;
+            return tntCoordinate;
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace PearlCalculatorLib.General
+namespace PearlCalculatorLib.General.Result
 {
-
     public struct TNTCalculationResult
     {
         public double Distance;
