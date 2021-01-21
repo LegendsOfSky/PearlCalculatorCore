@@ -26,6 +26,9 @@ namespace PearlCalculatorWFA
         {
             InitializeComponent();
 
+            ConsoleListView.Columns.Add("Type" , 60);
+            ConsoleListView.Columns.Add("Message" , 480);
+
             BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
         }
 
@@ -215,6 +218,57 @@ namespace PearlCalculatorWFA
         {
             Data.TNTWeight = TNTWeightTrackerSlider.Value;
             DisplayTNTAmount(false);
+        }
+
+        private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
+        {
+            if(!IsDisplayOnTNT)
+                return;
+            int index = BasicOutputSystem.FocusedItem.Index;
+            string direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
+
+            RedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
+            BlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
+
+            switch(direction)
+            {
+                case "North":
+                    NorthRadioButton.Checked = true;
+                    break;
+                case "South":
+                    SouthRadioButton.Checked = true;
+                    break;
+                case "East":
+                    EastRadioButton.Checked = true;
+                    break;
+                case "West":
+                    WestRadioButton.Checked = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Settings CreateSavedSettingsData()
+        {
+            return new Settings()
+            {
+                NorthWestTNT = Data.NorthWestTNT ,
+                NorthEastTNT = Data.NorthEastTNT ,
+                SouthWestTNT = Data.SouthWestTNT ,
+                SouthEastTNT = Data.SouthEastTNT ,
+
+                Pearl = Data.Pearl ,
+
+                RedTNT = Data.RedTNT ,
+                BlueTNT = Data.BlueTNT ,
+                MaxTNT = Data.MaxTNT ,
+
+                Destination = Data.Destination ,
+                Offset = Data.PearlOffset ,
+
+                Direction = Data.Direction
+            };
         }
     }
 }

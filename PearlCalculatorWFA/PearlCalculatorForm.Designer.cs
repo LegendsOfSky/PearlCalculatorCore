@@ -583,6 +583,7 @@ namespace PearlCalculatorWFA
             this.BasicOutputSystem.TabIndex = 0;
             this.BasicOutputSystem.UseCompatibleStateImageBehavior = false;
             this.BasicOutputSystem.View = System.Windows.Forms.View.Details;
+            this.BasicOutputSystem.SelectedIndexChanged += new System.EventHandler(this.BasicOutputSystem_SelectedIndexChanged);
             // 
             // InputTabPage
             // 
