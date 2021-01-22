@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PearlCalculatorLib.CalculationLib
 {
+    [Serializable]
     public struct Pearl
     {
         public Space3D Vector;

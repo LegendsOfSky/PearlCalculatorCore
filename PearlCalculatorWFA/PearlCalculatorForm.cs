@@ -183,9 +183,11 @@ namespace PearlCalculatorWFA
 
         #endregion
 
-        private void PearlSimulateButton_Click(object sender , EventArgs e)
+        private void PearlSimulateButton_Click(object sender, EventArgs e) => PearlSimulate();
+
+        private void PearlSimulate()
         {
-            DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , 40 , Data.Direction));
+            DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT, Data.BlueTNT, 40, Data.Direction));
             IsDisplayOnTNT = false;
         }
         
@@ -225,50 +227,135 @@ namespace PearlCalculatorWFA
             if(!IsDisplayOnTNT)
                 return;
             int index = BasicOutputSystem.FocusedItem.Index;
-            string direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
+            var direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
 
             RedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
             BlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
 
-            switch(direction)
+            switch (direction)
             {
-                case "North":
+                case Direction.North:
                     NorthRadioButton.Checked = true;
                     break;
-                case "South":
+                case Direction.South:
                     SouthRadioButton.Checked = true;
                     break;
-                case "East":
+                case Direction.East:
                     EastRadioButton.Checked = true;
                     break;
-                case "West":
+                case Direction.West:
                     WestRadioButton.Checked = true;
-                    break;
-                default:
                     break;
             }
         }
 
-        Settings CreateSavedSettingsData()
+        #region Import/Export Settings
+
+        private void ImportSettingButton_Click(object sender, EventArgs e)
         {
-            return new Settings()
+            using var fileDialog = new OpenFileDialog { Filter = Settings.FileSuffix };
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                NorthWestTNT = Data.NorthWestTNT ,
-                NorthEastTNT = Data.NorthEastTNT ,
-                SouthWestTNT = Data.SouthWestTNT ,
-                SouthEastTNT = Data.SouthEastTNT ,
-
-                Pearl = Data.Pearl ,
-
-                RedTNT = Data.RedTNT ,
-                BlueTNT = Data.BlueTNT ,
-                MaxTNT = Data.MaxTNT ,
-
-                Destination = Data.Destination ,
-                Offset = Data.PearlOffset ,
-
-                Direction = Data.Direction
-            };
+                using var fs = File.OpenRead(fileDialog.FileName);
+                if (new BinaryFormatter().Deserialize(fs) is Settings settings)
+                {
+                    ImportSettings(settings);
+                    RefleshInput();
+                }
+            }
         }
+
+        private void SaveSettingButton_Click(object sender, EventArgs e)
+        {
+            var bf = new BinaryFormatter();
+            using var fileDialog = new SaveFileDialog();
+            fileDialog.Filter = Settings.FileSuffix;
+            fileDialog.AddExtension = true;
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fs = File.Open(fileDialog.FileName, FileMode.OpenOrCreate);
+                bf.Serialize(fs, CreateSavedSettingsData());
+                fs.Close();
+            }
+        }
+
+        Settings CreateSavedSettingsData() => new Settings()
+        {
+            NorthWestTNT = Data.NorthWestTNT,
+            NorthEastTNT = Data.NorthEastTNT,
+            SouthWestTNT = Data.SouthWestTNT,
+            SouthEastTNT = Data.SouthEastTNT,
+
+            Pearl = Data.Pearl,
+
+            RedTNT = Data.RedTNT,
+            BlueTNT = Data.BlueTNT,
+            MaxTNT = Data.MaxTNT,
+
+            Destination = Data.Destination,
+            Offset = Data.PearlOffset,
+
+            Direction = Data.Direction
+        };
+
+        void ImportSettings(Settings settings)
+        {
+            if (settings == null) return;
+
+            Data.NorthWestTNT = settings.NorthWestTNT;
+            Data.NorthEastTNT = settings.NorthEastTNT;
+            Data.SouthWestTNT = settings.SouthWestTNT;
+            Data.SouthEastTNT = settings.SouthEastTNT;
+
+            Data.Pearl = settings.Pearl;
+
+            Data.RedTNT = settings.RedTNT;
+            Data.BlueTNT = settings.BlueTNT;
+            Data.MaxTNT = settings.MaxTNT;
+
+            Data.Destination = settings.Destination;
+            Data.PearlOffset = settings.Offset;
+
+            Data.Direction = settings.Direction;
+        }
+
+        void RefleshInput()
+        {
+            PearlXTextBox.Text = Data.Pearl.Position.X.ToString();
+            PearlZTextBox.Text = Data.Pearl.Position.Z.ToString();
+
+            DestinationXTextBox.Text = Data.Destination.X.ToString();
+            DestinationZTextBox.Text = Data.Destination.Z.ToString();
+
+            MaxTNTTextBox.Text = Data.MaxTNT.ToString();
+
+            switch (Data.Direction)
+            {
+                case Direction.North:
+                    NorthRadioButton.Checked = true;
+                    break;
+                case Direction.South:
+                    SouthRadioButton.Checked = true;
+                    break;
+                case Direction.East:
+                    EastRadioButton.Checked = true;
+                    break;
+                case Direction.West:
+                    WestRadioButton.Checked = true;
+                    break;
+            }
+
+            RedTNTTextBox.Text = Data.RedTNT.ToString();
+            BlueTNTTextBox.Text = Data.BlueTNT.ToString();
+
+            OffsetXTextBox.Text = Data.PearlOffset.X.ToString();
+            OffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
+
+            PearlSimulate();
+        }
+
+        #endregion
     }
 }

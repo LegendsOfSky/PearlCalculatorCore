@@ -9,6 +9,7 @@ using System.Threading;
 namespace PearlCalculatorLib.PearlCalculationLib
 {
     [Flags]
+    [Serializable]
     public enum Direction
     {
         None  = 0,

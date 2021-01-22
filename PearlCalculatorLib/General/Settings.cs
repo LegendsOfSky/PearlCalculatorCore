@@ -10,6 +10,8 @@ namespace PearlCalculatorLib.General
     [Serializable]
     public class Settings
     {
+        public const string FileSuffix = "pcld file|*.pcld";
+
         public Space3D NorthWestTNT;
         public Space3D NorthEastTNT;
         public Space3D SouthWestTNT;
