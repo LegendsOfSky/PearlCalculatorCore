@@ -8,15 +8,15 @@ namespace PearlCalculatorLib.General
 {
     public static class Data
     {
-        public static Space3D NorthWestTNT = new Space3D(-0.884999990463257 , 197.5 , -0.884999990463257);
-        public static Space3D NorthEastTNT = new Space3D(+0.884999990463257 , 197.5 , -0.884999990463257);
-        public static Space3D SouthWestTNT = new Space3D(-0.884999990463257 , 197.5 , +0.884999990463257);
-        public static Space3D SouthEastTNT = new Space3D(+0.884999990463257 , 197.5 , +0.884999990463257);
+        public static Space3D NorthWestTNT = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
+        public static Space3D NorthEastTNT = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
+        public static Space3D SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
+        public static Space3D SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
 
         public static Space3D Destination = new Space3D();
 
         public static Pearl Pearl = new Pearl().
-            WithPosition(0 , 197.34722638929408 , 0).
+            WithPosition(0 , 170.34722638929408 , 0).
             WithVector(0 , 0.2716278719434352 , 0);
         public static Space3D PearlOffset = new Space3D(0 , 0 , 0);
 

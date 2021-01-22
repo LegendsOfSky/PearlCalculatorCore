@@ -37,7 +37,7 @@ namespace PearlCalculatorLib.CalculationLib
             if(distance.X > 0)
             {
                 if(distance.Z > 0)
-                    return -Math.Atan(distance.X * distance.Z) * 180 / Math.PI;
+                    return -(Math.Atan(distance.X / distance.Z) * 180 / Math.PI);
                 else if(distance.Z == 0)
                     return -90;
                 else

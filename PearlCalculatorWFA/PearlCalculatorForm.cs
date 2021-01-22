@@ -21,6 +21,8 @@ namespace PearlCalculatorWFA
     public partial class PearlCalculatorWFA : Form
     {
         private bool IsDisplayOnTNT = false;
+        private string OffsetXTextBoxString = "0.";
+        private string OffsetZTextBoxString = "0.";
 
         public PearlCalculatorWFA()
         {
@@ -28,6 +30,8 @@ namespace PearlCalculatorWFA
 
             ConsoleListView.Columns.Add("Type" , 60);
             ConsoleListView.Columns.Add("Message" , 480);
+            BasicDirectionOutSystem.Columns.Add("Direction" , 120);
+            BasicDirectionOutSystem.Columns.Add("Angle" , 420);
 
             BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
         }
@@ -68,8 +72,8 @@ namespace PearlCalculatorWFA
         {
             if(Calculation.CalculateTNTAmount(100))
             {
-                DisplayDirection();
                 DisplayTNTAmount(false);
+                DisplayDirection();
             }
         }
 
@@ -173,7 +177,44 @@ namespace PearlCalculatorWFA
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
         {
+            if(OffsetXTextBox.Text == OffsetXTextBoxString)
+            {
+                return;
+            }
+            Space3D offset = new Space3D();
+            if(!double.TryParse(OffsetXTextBox.Text , out offset.X) || offset.X >= 1)
+            {
+                OffsetXTextBox.Text = OffsetXTextBoxString;
+                OffsetXTextBox.Select(OffsetXTextBox.Text.Length , 0);
+            }
+            else
+            {
+                offset.Z = Data.PearlOffset.Z;
+                Data.PearlOffset = offset;
+                DisplaySetting();
+                OffsetXTextBoxString = OffsetXTextBox.Text;
+            }
+        }
 
+        private void OffsetZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            if(OffsetZTextBox.Text == OffsetZTextBoxString)
+            {
+                return;
+            }
+            Space3D offset = new Space3D();
+            if(!double.TryParse(OffsetZTextBox.Text , out offset.Z) || offset.Z >= 1)
+            {
+                OffsetZTextBox.Text = OffsetZTextBoxString;
+                OffsetZTextBox.Select(OffsetZTextBox.Text.Length , 0);
+            }
+            else
+            {
+                offset.X = Data.PearlOffset.X;
+                Data.PearlOffset = offset;
+                DisplaySetting();
+                OffsetZTextBoxString = OffsetZTextBox.Text;
+            }
         }
 
         private void GeneralFTLTabControl_SelectedIndexChanged(object sender , EventArgs e)
@@ -357,5 +398,11 @@ namespace PearlCalculatorWFA
         }
 
         #endregion
+
+
+        private void DisplaySetting()
+        {
+
+        }
     }
 }
