@@ -12,7 +12,7 @@ namespace PearlCalculatorLib.General
 {
     public class Calculation
     {
-        public static Pearl PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
+        private static Pearl PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             Pearl pearl = Data.Pearl;
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
@@ -101,68 +101,68 @@ namespace PearlCalculatorLib.General
             return result;
         }
 
-        public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
+        private static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
             Space3D pearlPosition = Data.Pearl.Position + Data.PearlOffset;
             Space3D aVector = new Space3D(0 , 0 , 0);
             Space3D bVector = new Space3D(0 , 0 , 0);
             redTNTVector = new Space3D(0 , 0 , 0);
             blueTNTVector = new Space3D(0 , 0 , 0);
-            if(direction.ConerIsSouth())
+            if(direction.IsSouth())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
-                if(Data.DefaultBlueDuper.ConerIsNorth())
+                if(Data.DefaultBlueDuper.IsNorth())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
-                else if(Data.DefaultRedDuper.ConerIsNorth())
+                else if(Data.DefaultRedDuper.IsNorth())
                 {
                     redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.ConerIsNorth())
+            else if(direction.IsNorth())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
-                if(Data.DefaultBlueDuper.ConerIsSouth())
+                if(Data.DefaultBlueDuper.IsSouth())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
-                else if(Data.DefaultRedDuper.ConerIsSouth())
+                else if(Data.DefaultRedDuper.IsSouth())
                 {
                     redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.ConerIsEast())
+            else if(direction.IsEast())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthWestTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthWestTNT);
-                if(Data.DefaultBlueDuper.ConerIsWest())
+                if(Data.DefaultBlueDuper.IsWest())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
-                else if(Data.DefaultRedDuper.ConerIsWest())
+                else if(Data.DefaultRedDuper.IsWest())
                 {
                     redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
-            else if(direction.ConerIsWest())
+            else if(direction.IsWest())
             {
                 aVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , Data.NorthEastTNT);
-                if(Data.DefaultBlueDuper.ConerIsEast())
+                if(Data.DefaultBlueDuper.IsEast())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
-                else if(Data.DefaultRedDuper.ConerIsEast())
+                else if(Data.DefaultRedDuper.IsEast())
                 {
                     redTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultRedDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;

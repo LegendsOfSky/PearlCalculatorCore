@@ -513,6 +513,7 @@ namespace PearlCalculatorWFA
             this.ChangeSettingButton.TabIndex = 2;
             this.ChangeSettingButton.Text = "Change Setting";
             this.ChangeSettingButton.UseVisualStyleBackColor = true;
+            this.ChangeSettingButton.Click += new System.EventHandler(this.ChangeSettingButton_Click);
             // 
             // ResetSettingButton
             // 
@@ -522,6 +523,7 @@ namespace PearlCalculatorWFA
             this.ResetSettingButton.TabIndex = 1;
             this.ResetSettingButton.Text = "Reset To Default";
             this.ResetSettingButton.UseVisualStyleBackColor = true;
+            this.ResetSettingButton.Click += new System.EventHandler(this.ResetSettingButton_Click);
             // 
             // SettingListView
             // 
@@ -533,6 +535,7 @@ namespace PearlCalculatorWFA
             this.SettingListView.TabIndex = 0;
             this.SettingListView.UseCompatibleStateImageBehavior = false;
             this.SettingListView.View = System.Windows.Forms.View.Details;
+            this.SettingListView.SelectedIndexChanged += new System.EventHandler(this.SettingListView_SelectedIndexChanged);
             // 
             // InputTabControl
             // 

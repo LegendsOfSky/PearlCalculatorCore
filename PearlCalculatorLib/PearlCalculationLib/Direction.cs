@@ -25,13 +25,13 @@ namespace PearlCalculatorLib.PearlCalculationLib
 
     public static class DirectionExtension
     {
-        public static bool ConerIsNorth(this Direction direction) => (direction & Direction.North) > 0;
+        public static bool IsNorth(this Direction direction) => (direction & Direction.North) > 0;
 
-        public static bool ConerIsSouth(this Direction direction) => (direction & Direction.South) > 0;
+        public static bool IsSouth(this Direction direction) => (direction & Direction.South) > 0;
 
-        public static bool ConerIsEast(this Direction direction) => (direction & Direction.East) > 0;
+        public static bool IsEast(this Direction direction) => (direction & Direction.East) > 0;
 
-        public static bool ConerIsWest(this Direction direction) => (direction & Direction.West) > 0;
+        public static bool IsWest(this Direction direction) => (direction & Direction.West) > 0;
     }
 
     public static class DirectionUtils
