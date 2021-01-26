@@ -116,7 +116,6 @@ namespace PearlCalculatorWFA
             this.GeneralFTLTabControl.SelectedIndex = 0;
             this.GeneralFTLTabControl.Size = new System.Drawing.Size(381, 518);
             this.GeneralFTLTabControl.TabIndex = 0;
-            this.GeneralFTLTabControl.SelectedIndexChanged += new System.EventHandler(this.GeneralFTLTabControl_SelectedIndexChanged);
             // 
             // GeneralFTLGeneralTabPage
             // 
@@ -535,7 +534,6 @@ namespace PearlCalculatorWFA
             this.SettingListView.TabIndex = 0;
             this.SettingListView.UseCompatibleStateImageBehavior = false;
             this.SettingListView.View = System.Windows.Forms.View.Details;
-            this.SettingListView.SelectedIndexChanged += new System.EventHandler(this.SettingListView_SelectedIndexChanged);
             // 
             // InputTabControl
             // 
@@ -619,6 +617,7 @@ namespace PearlCalculatorWFA
             this.ConsoleEnterButton.TabIndex = 1;
             this.ConsoleEnterButton.Text = "Enter";
             this.ConsoleEnterButton.UseVisualStyleBackColor = true;
+            this.ConsoleEnterButton.Click += new System.EventHandler(this.ConsoleEnterButton_Click);
             // 
             // ConsoleListView
             // 
@@ -695,7 +694,6 @@ namespace PearlCalculatorWFA
         private System.Windows.Forms.Button PearlSimulateButton;
         private System.Windows.Forms.Button CalculateTNTButton;
         private System.Windows.Forms.TabControl BasicInputOutputSystem;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage InputTabPage;
         private System.Windows.Forms.TabPage OutputTabPage;
         private System.Windows.Forms.ListView BasicDirectionOutSystem;

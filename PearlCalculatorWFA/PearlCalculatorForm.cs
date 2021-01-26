@@ -16,6 +16,7 @@ namespace PearlCalculatorWFA
         private bool IsDisplayOnTNT = false;
         private string OffsetXTextBoxString = "0.";
         private string OffsetZTextBoxString = "0.";
+        private int MaxTicks = 100;
 
         public PearlCalculatorWFA()
         {
@@ -69,7 +70,7 @@ namespace PearlCalculatorWFA
         private void CalculateTNTButton_Click(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Calculate TNT");
-            if(Calculation.CalculateTNTAmount(100))
+            if(Calculation.CalculateTNTAmount(MaxTicks))
             {
                 Log("Main" , "Msg" , "TNT calculated");
                 DisplayTNTAmount(false);
@@ -77,12 +78,52 @@ namespace PearlCalculatorWFA
             }
             else
             {
-                Log("Main" , "Warn" , "=============================");
+                Log("Main" , "Warn" , "============================");
                 Log("Main" , "Warn" , "TNT did not calculated");
                 Log("Main" , "Warn" , "Please check for your input");
-                Log("Main" , "Warn" , "=============================");
+                Log("Main" , "Warn" , "============================");
             }
         }
+
+        private void PearlSimulateButton_Click(object sender , EventArgs e) => PearlSimulate();
+
+        private void PearlSimulate()
+        {
+            Log("Main" , "Msg" , "Caluete pearl trace");
+            DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+            IsDisplayOnTNT = false;
+        }
+
+
+        private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
+        {
+            if(!IsDisplayOnTNT)
+                return;
+            Log("Main" , "Msg" , "Auto-implement");
+            int index = BasicOutputSystem.FocusedItem.Index;
+            var direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
+
+            RedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
+            BlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
+
+            switch(direction)
+            {
+                case Direction.North:
+                    NorthRadioButton.Checked = true;
+                    break;
+                case Direction.South:
+                    SouthRadioButton.Checked = true;
+                    break;
+                case Direction.East:
+                    EastRadioButton.Checked = true;
+                    break;
+                case Direction.West:
+                    WestRadioButton.Checked = true;
+                    break;
+            }
+        }
+
+        #region Display
 
         private void DisplayTNTAmount(bool isRadioOverriden)
         {
@@ -94,9 +135,7 @@ namespace PearlCalculatorWFA
             BasicOutputSystem.Columns.Add("Blue" , 60 , HorizontalAlignment.Left);
             BasicOutputSystem.Columns.Add("Red" , 60 , HorizontalAlignment.Left);
             BasicOutputSystem.Columns.Add("Total TNT" , 70 , HorizontalAlignment.Left);
-
             IsDisplayOnTNT = true;
-
             if(!isRadioOverriden)
             {
                 if(TNTRadioButton.Checked)
@@ -141,6 +180,52 @@ namespace PearlCalculatorWFA
             result.SubItems.Add(Data.Pearl.Position.WorldAngle(Data.Destination).ToString());
             BasicDirectionOutSystem.Items.Add(result);
         }
+
+        private void DisplayPearTrace(List<Pearl> pearlTrace)
+        {
+            Log("Main" , "Msg" , "Display pearl trace");
+            Log("Main" , "Msg" , "Clear display");
+            BasicOutputSystem.Items.Clear();
+            BasicOutputSystem.Columns.Clear();
+            BasicOutputSystem.Columns.Add("Ticks" , 50 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("X Coordinate" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Y Coordinate" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Z Coordinate" , 100 , HorizontalAlignment.Left);
+            Log("Main" , "Msg" , "Start outputing pearl trace");
+            for(int i = 0; i < pearlTrace.Count; i++)
+            {
+                ListViewItem result = new ListViewItem(i.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.X.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.Y.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.Z.ToString());
+                BasicOutputSystem.Items.Add(result);
+            }
+            Log("Main" , "Msg" , "Pearl trace output finished");
+        }
+
+        private void DisplayPearlMomemtum(List<Pearl> pearlMomemtum)
+        {
+            Log("Main" , "Msg" , "Display pearl Momemtum.");
+            Log("Main" , "Msg" , "Clear display");
+            BasicOutputSystem.Items.Clear();
+            BasicOutputSystem.Columns.Clear();
+            BasicOutputSystem.Columns.Add("Ticks" , 50 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("X Momemtum" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Y Momemtum" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Z Momemtum" , 100 , HorizontalAlignment.Left);
+            Log("Main" , "Msg" , "Start outputing pearl Momemtum");
+            for(int i = 0; i < pearlMomemtum.Count; i++)
+            {
+                ListViewItem result = new ListViewItem(i.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Vector.X.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Vector.Y.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Vector.Z.ToString());
+                BasicOutputSystem.Items.Add(result);
+            }
+            Log("Main" , "Msg" , "Pearl Momemtum output finished");
+        }
+
+        #endregion
 
         #region Import
 
@@ -199,6 +284,14 @@ namespace PearlCalculatorWFA
             Data.Direction = Direction.West;
         }
 
+        private void TNTWeightTrackerSlider_Scroll(object sender , EventArgs e)
+        {
+            Log("Main" , "Msg" , "Change TNT weight value");
+            Data.TNTWeight = TNTWeightTrackerSlider.Value;
+            Log("Main" , "Msg" , "Currently set to " + Data.TNTWeight.ToString());
+            DisplayTNTAmount(false);
+        }
+
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
         {
             if(OffsetXTextBox.Text == OffsetXTextBoxString)
@@ -241,85 +334,7 @@ namespace PearlCalculatorWFA
             }
         }
 
-        private void GeneralFTLTabControl_SelectedIndexChanged(object sender , EventArgs e)
-        {
-
-        }
-
         #endregion
-
-        private void PearlSimulateButton_Click(object sender , EventArgs e) => PearlSimulate();
-
-        private void PearlSimulate()
-        {
-            Log("Main" , "Msg" , "Caluete pearl trace");
-            DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , 100 , Data.Direction));
-            IsDisplayOnTNT = false;
-        }
-
-        private void DisplayPearTrace(List<Pearl> pearlTrace)
-        {
-            Log("Main" , "Msg" , "Display pearl trace");
-            Log("Main" , "Msg" , "Clear display");
-            BasicOutputSystem.Items.Clear();
-            BasicOutputSystem.Columns.Clear();
-            BasicOutputSystem.Columns.Add("Ticks" , 50 , HorizontalAlignment.Left);
-            BasicOutputSystem.Columns.Add("X Coordinate" , 100 , HorizontalAlignment.Left);
-            BasicOutputSystem.Columns.Add("Y Coordinate" , 100 , HorizontalAlignment.Left);
-            BasicOutputSystem.Columns.Add("Z Coordinate" , 100 , HorizontalAlignment.Left);
-            Log("Main" , "Msg" , "Start outputing pearl trace");
-            for(int i = 0; i < pearlTrace.Count; i++)
-            {
-                ListViewItem result = new ListViewItem(i.ToString());
-                result.SubItems.Add(pearlTrace[i].Position.X.ToString());
-                result.SubItems.Add(pearlTrace[i].Position.Y.ToString());
-                result.SubItems.Add(pearlTrace[i].Position.Z.ToString());
-                BasicOutputSystem.Items.Add(result);
-            }
-            Log("Main" , "Msg" , "Pearl trace output finished");
-        }
-
-        private void Log(string thread , string type , string message)
-        {
-            ListViewItem log = new ListViewItem("[" + thread + "/" + type + "]");
-            log.SubItems.Add(message);
-            ConsoleListView.Items.Add(log);
-        }
-
-        private void TNTWeightTrackerSlider_Scroll(object sender , EventArgs e)
-        {
-            Log("Main" , "Msg" , "Change TNT weight value");
-            Data.TNTWeight = TNTWeightTrackerSlider.Value;
-            DisplayTNTAmount(false);
-        }
-
-        private void BasicOutputSystem_SelectedIndexChanged(object sender , EventArgs e)
-        {
-            if(!IsDisplayOnTNT)
-                return;
-            Log("Main" , "Msg" , "Auto-implement");
-            int index = BasicOutputSystem.FocusedItem.Index;
-            var direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
-
-            RedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
-            BlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
-
-            switch(direction)
-            {
-                case Direction.North:
-                    NorthRadioButton.Checked = true;
-                    break;
-                case Direction.South:
-                    SouthRadioButton.Checked = true;
-                    break;
-                case Direction.East:
-                    EastRadioButton.Checked = true;
-                    break;
-                case Direction.West:
-                    WestRadioButton.Checked = true;
-                    break;
-            }
-        }
 
         #region Import/Export Settings
 
@@ -431,7 +446,7 @@ namespace PearlCalculatorWFA
 
         #endregion
 
-
+        #region Settings
         private void DisplaySetting()
         {
             Log("Main" , "Msg" , "Clear setting display");
@@ -510,22 +525,17 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Settings output finished");
         }
 
-        private void SettingListView_SelectedIndexChanged(object sender , EventArgs e)
-        {
-
-        }
-
         private void ChangeSettingButton_Click(object sender , EventArgs e)
         {
             int j;
             int k;
             if(SettingListView.FocusedItem == null)
             {
-                Log("Main" , "Warn" , "=============================");
+                Log("Main" , "Warn" , "============================");
                 Log("Main" , "Warn" , "Settings did not change");
                 Log("Main" , "Warn" , "Please check for your selection");
                 Log("Main" , "Warn" , "You had to select the before changed");
-                Log("Main" , "Warn" , "=============================");
+                Log("Main" , "Warn" , "============================");
                 return;
             }
             if(SettingListView.FocusedItem.Index < 12 && SettingListView.FocusedItem.Index >= 0)
@@ -610,5 +620,96 @@ namespace PearlCalculatorWFA
             Data.PearlOffset = new Space3D(0 , 0 , 0);
             DisplaySetting();
         }
+
+        #endregion
+
+        #region Console
+        private void Log(string thread , string type , string message)
+        {
+            ListViewItem log = new ListViewItem("[" + thread + "/" + type + "]");
+            log.SubItems.Add(message);
+            ConsoleListView.Items.Add(log);
+        }
+
+        private void ConsoleEnterButton_Click(object sender , EventArgs e)
+        {
+            string cmd = "";
+            string parameter1 = "";
+            int j = 0;
+            for(int i = 0; i < ConsoleInputTextBox.TextLength; i++)
+            {
+                if(ConsoleInputTextBox.Text[i] == ' ')
+                {
+                    j = i + 1;
+                    break;
+                }
+                cmd += ConsoleInputTextBox.Text[i];
+            }
+            for(int i = j; i < ConsoleInputTextBox.TextLength; i++)
+            {
+                if(ConsoleInputTextBox.Text[i] == ' ')
+                {
+                    j = i + 1;
+                    break;
+                }
+                parameter1 += ConsoleInputTextBox.Text[i];
+            }
+            switch(cmd)
+            {
+                case "cmd.general.change.maxticks":
+                    if(int.TryParse(parameter1 , out MaxTicks))
+                    {
+                        Log("CMD" , "Msg" , "Max ticks changed");
+                        Log("CMD" , "Msg" , "Currentlt set to " + MaxTicks.ToString());
+                    }
+                    else
+                    {
+                        Log("CMD" , "Warn" , "============================");
+                        Log("CMD" , "CMD" , "Unknow parameter");
+                        Log("CMD" , "CMD" , "Please check for your input");
+                        Log("CMD" , "Warn" , "============================");
+                    }
+                    break;
+                case "cmd.general.change.tntweight":
+                    Log("CMD" , "Msg" , "Change TNT weight value");
+                    Data.TNTWeight = TNTWeightTrackerSlider.Value;
+                    Log("CMD" , "Msg" , "Currently set to " + Data.TNTWeight.ToString());
+                    DisplayTNTAmount(false);
+                    break;
+                case "cmd.general.calculate.tnt":
+                    Log("Main" , "Msg" , "Calculate TNT");
+                    if(Calculation.CalculateTNTAmount(MaxTicks))
+                    {
+                        Log("Main" , "Msg" , "TNT calculated");
+                        DisplayTNTAmount(false);
+                        DisplayDirection();
+                    }
+                    else
+                    {
+                        Log("Main" , "Warn" , "============================");
+                        Log("Main" , "Warn" , "TNT did not calculated");
+                        Log("Main" , "Warn" , "Please check for your input");
+                        Log("Main" , "Warn" , "============================");
+                    }
+                    break;
+                case "cmd.general.calculate.pearl.trace":
+                    Log("Main" , "Msg" , "Caluete pearl trace");
+                    DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+                    IsDisplayOnTNT = false;
+                    break;
+                case "cmd.general.calculate.pearl.momemtum":
+                    Log("Main" , "Msg" , "Caluete pearl momemtum");
+                    DisplayPearlMomemtum(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+                    IsDisplayOnTNT = false;
+                    break;
+                default:
+                    Log("CMD" , "Warn" , "============================");
+                    Log("CMD" , "CMD" , "Unknow instruction");
+                    Log("CMD" , "CMD" , "Please check for your input");
+                    Log("CMD" , "Warn" , "============================");
+                    break;
+            }
+        }
+        #endregion
     }
 }
