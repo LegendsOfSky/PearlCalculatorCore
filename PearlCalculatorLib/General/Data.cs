@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.General.Result;
+using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
 
 namespace PearlCalculatorLib.General

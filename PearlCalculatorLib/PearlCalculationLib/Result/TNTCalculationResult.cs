@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PearlCalculatorLib.General.Result
+namespace PearlCalculatorLib.Result
 {
     public struct TNTCalculationResult
     {
@@ -21,9 +21,9 @@ namespace PearlCalculatorLib.General.Result
 
     public static class TNTCalculationResultExtension
     {
-        public static void SortByWeightedDistance(this List<TNTCalculationResult> results)
+        public static void SortByWeightedDistance(this List<TNTCalculationResult> results, TNTResultSortByWeightedArgs args)
         {
-            results.Sort(TNTCalculationResultSortComparer.ByWeightedDistance);
+            results.Sort(new TNTCalculationResultSortComparerByWeighted(args).ByDistance);
         }
 
         public static void SortByDistance(this List<TNTCalculationResult> results)
@@ -41,9 +41,9 @@ namespace PearlCalculatorLib.General.Result
             results.Sort(TNTCalculationResultSortComparer.ByTotal);
         }
 
-        public static void SortByWeightedTotal(this List<TNTCalculationResult> results)
+        public static void SortByWeightedTotal(this List<TNTCalculationResult> results, TNTResultSortByWeightedArgs args)
         {
-            results.Sort(TNTCalculationResultSortComparer.ByWeightedTotal);
+            results.Sort(new TNTCalculationResultSortComparerByWeighted(args).ByTotal);
         }
 
     }

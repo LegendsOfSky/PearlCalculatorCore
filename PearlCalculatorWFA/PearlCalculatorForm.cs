@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.General;
-using PearlCalculatorLib.General.Result;
+using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
 
 namespace PearlCalculatorWFA
@@ -141,7 +141,7 @@ namespace PearlCalculatorWFA
                 if(GeneralTNTRadioButton.Checked)
                 {
                     Log("Main" , "Msg" , "Sort TNT result by weighted total TNT");
-                    Data.TNTResult.SortByWeightedTotal();
+                    Data.TNTResult.SortByWeightedTotal(new TNTResultSortByWeightedArgs(Data.TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
                 }
                 else if(GeneralDistanceRadioButton.Checked)
                 {
@@ -152,7 +152,7 @@ namespace PearlCalculatorWFA
                 {
                     Log("Main" , "Msg" , "Sort TNT result ...");
                     Log("Main" , "Msg" , "by weighted distance deviation");
-                    Data.TNTResult.SortByWeightedDistance();
+                    Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(Data.TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
                 }
             }
             Log("Main" , "Msg" , "Start outputing TNT result");
@@ -289,7 +289,12 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Change TNT weight value");
             Data.TNTWeight = GeneralTNTWeightTrackerSlider.Value;
             Log("Main" , "Msg" , "Currently set to " + Data.TNTWeight.ToString());
-            DisplayTNTAmount(false);
+            Log("Main" , "Msg" , $"Currently Mode: {(IsDisplayOnTNT ? "TNT amount" : "pearl simulate")}");
+
+            if (IsDisplayOnTNT)
+                DisplayTNTAmount(false);
+            else
+                Log("Main" , "Msg" , "Currently mode only set weight value");
         }
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
@@ -442,6 +447,7 @@ namespace PearlCalculatorWFA
             GeneralOffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
 
             PearlSimulate();
+            GeneralPearlSimulateButton.Focus();
         }
 
         #endregion
