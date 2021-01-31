@@ -30,6 +30,7 @@ namespace PearlCalculatorWFA
             GeneralSettingListView.Columns.Add("Value" , 240);
             Log("Main" , "Msg" , "InitializeComponent");
             DisplaySetting();
+            Log("Main" , "Msg" , "Type cmd.help to check instructions");
             BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
         }
 
@@ -37,11 +38,6 @@ namespace PearlCalculatorWFA
 
         private void BasicOutputSystem_ColumnClick(object sender , ColumnClickEventArgs e)
         {
-            /*
-             * Distance 0
-             * Tick     1
-             * Total    4
-             */
             if(!IsDisplayOnTNT)
                 return;
 
@@ -660,6 +656,24 @@ namespace PearlCalculatorWFA
             }
             switch(cmd)
             {
+                case "cmd.help":
+                    Log("CMD" , "Msg" , "==========================");
+                    Log("CMD" , "Msg" , "cmd.general.change.maxticks <Intherger>");
+                    Log("CMD" , "Msg" , "Changes the max ticks");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.general.change.tntweight <interger>");
+                    Log("CMD" , "Msg" , "Changes the TNT weight");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.general.calculate.tnt");
+                    Log("CMD" , "Msg" , "Calculate the suitable TNT setup");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.general.calculate.pearl,trace");
+                    Log("CMD" , "Msg" , "Calculate the trace of pearl");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.general.calculate.pearl.momemtum");
+                    Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
+                    Log("CMD" , "Msg" , "==========================");
+                    break;
                 case "cmd.general.change.maxticks":
                     if(int.TryParse(parameter1 , out MaxTicks))
                     {
@@ -668,10 +682,10 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("CMD" , "Warn" , "============================");
-                        Log("CMD" , "CMD" , "Unknow parameter");
-                        Log("CMD" , "CMD" , "Please check for your input");
-                        Log("CMD" , "Warn" , "============================");
+                        Log("CMD" , "Warn" , "==========================");
+                        Log("CMD" , "Warn" , "Unknow parameter");
+                        Log("CMD" , "Warn" , "Please check for your input");
+                        Log("CMD" , "Warn" , "==========================");
                     }
                     break;
                 case "cmd.general.change.tntweight":
@@ -690,10 +704,10 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("Main" , "Warn" , "============================");
+                        Log("Main" , "Warn" , "==========================");
                         Log("Main" , "Warn" , "TNT did not calculated");
                         Log("Main" , "Warn" , "Please check for your input");
-                        Log("Main" , "Warn" , "============================");
+                        Log("Main" , "Warn" , "==========================");
                     }
                     break;
                 case "cmd.general.calculate.pearl.trace":
@@ -707,13 +721,88 @@ namespace PearlCalculatorWFA
                     IsDisplayOnTNT = false;
                     break;
                 default:
-                    Log("CMD" , "Warn" , "============================");
-                    Log("CMD" , "CMD" , "Unknow instruction");
-                    Log("CMD" , "CMD" , "Please check for your input");
-                    Log("CMD" , "Warn" , "============================");
+                    Log("CMD" , "Warn" , "==========================");
+                    Log("CMD" , "Warn" , "Unknow instruction");
+                    Log("CMD" , "Warn" , "Please check for your input");
+                    Log("CMD" , "Warn" , "==========================");
                     break;
             }
         }
         #endregion
+
+        #region Manually : Input
+
+        private void ManuallyPearlXTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyATNTXTexBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyBTNTXTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyATNTYTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyBTNTYTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyATNTZTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyBTNTZTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyATNTAmountTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyBTNTAmountTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        #endregion
+
     }
 }

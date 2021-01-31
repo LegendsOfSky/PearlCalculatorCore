@@ -29,6 +29,10 @@ namespace PearlCalculatorWFA
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TextBox ManuallyATNTXTexBox;
+            System.Windows.Forms.TextBox ManuallyATNTYTextBox;
+            System.Windows.Forms.TextBox ManuallyATNTZTextBox;
+            System.Windows.Forms.TextBox ManuallyATNTAmountTextBox;
             this.GeneralFTLInputTabPage = new System.Windows.Forms.TabPage();
             this.GeneralFTLTabControl = new System.Windows.Forms.TabControl();
             this.GeneralFTLGeneralTabPage = new System.Windows.Forms.TabPage();
@@ -72,6 +76,28 @@ namespace PearlCalculatorWFA
             this.GeneralResetSettingButton = new System.Windows.Forms.Button();
             this.GeneralSettingListView = new System.Windows.Forms.ListView();
             this.InputTabControl = new System.Windows.Forms.TabControl();
+            this.ManuallyTabPage = new System.Windows.Forms.TabPage();
+            this.ManuallyCalculatePearlMomemtumButton = new System.Windows.Forms.Button();
+            this.ManuallyCalculatePearlTraceButton = new System.Windows.Forms.Button();
+            this.ManuallyCalculateTNTAmountButton = new System.Windows.Forms.Button();
+            this.ManuallyMomemtumZLabel = new System.Windows.Forms.Label();
+            this.ManuallyMomemtumYLabel = new System.Windows.Forms.Label();
+            this.ManuallyMomemtumXLabel = new System.Windows.Forms.Label();
+            this.ManuallyMomemtumXTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyMomemtumYTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyMomemtumZTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyBTNTZTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyTNTZLabel = new System.Windows.Forms.Label();
+            this.ManuallyBTNTYTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyTNTYLabel = new System.Windows.Forms.Label();
+            this.ManuallyBTNTXTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyTNTXLabel = new System.Windows.Forms.Label();
+            this.ManuallyPearlZTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyPearlZLabel = new System.Windows.Forms.Label();
+            this.ManuallyPearlYTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyPearlYLabel = new System.Windows.Forms.Label();
+            this.ManuallyPearlXTextBox = new System.Windows.Forms.TextBox();
+            this.ManuallyPearlXLabel = new System.Windows.Forms.Label();
             this.BasicInputOutputSystem = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
             this.BasicDirectionOutSystem = new System.Windows.Forms.ListView();
@@ -80,6 +106,15 @@ namespace PearlCalculatorWFA
             this.ConsoleInputTextBox = new System.Windows.Forms.TextBox();
             this.ConsoleEnterButton = new System.Windows.Forms.Button();
             this.ConsoleListView = new System.Windows.Forms.ListView();
+            this.BaiscPictureOutputTabPage = new System.Windows.Forms.TabPage();
+            this.OutputPictureButton = new System.Windows.Forms.Button();
+            this.BasicPictureOutputSystem = new System.Windows.Forms.PictureBox();
+            this.ManuallyBTNTAmountTextBox = new System.Windows.Forms.TextBox();
+            this.TNTAmountLabel = new System.Windows.Forms.Label();
+            ManuallyATNTXTexBox = new System.Windows.Forms.TextBox();
+            ManuallyATNTYTextBox = new System.Windows.Forms.TextBox();
+            ManuallyATNTZTextBox = new System.Windows.Forms.TextBox();
+            ManuallyATNTAmountTextBox = new System.Windows.Forms.TextBox();
             this.GeneralFTLInputTabPage.SuspendLayout();
             this.GeneralFTLTabControl.SuspendLayout();
             this.GeneralFTLGeneralTabPage.SuspendLayout();
@@ -90,10 +125,37 @@ namespace PearlCalculatorWFA
             this.GeneralOffsetGroupBox.SuspendLayout();
             this.GeneralFTLSettingsTabPage.SuspendLayout();
             this.InputTabControl.SuspendLayout();
+            this.ManuallyTabPage.SuspendLayout();
             this.BasicInputOutputSystem.SuspendLayout();
             this.OutputTabPage.SuspendLayout();
             this.InputTabPage.SuspendLayout();
+            this.BaiscPictureOutputTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BasicPictureOutputSystem)).BeginInit();
             this.SuspendLayout();
+            // 
+            // ManuallyATNTXTexBox
+            // 
+            ManuallyATNTXTexBox.Location = new System.Drawing.Point(4, 158);
+            ManuallyATNTXTexBox.Name = "ManuallyATNTXTexBox";
+            ManuallyATNTXTexBox.Size = new System.Drawing.Size(180, 23);
+            ManuallyATNTXTexBox.TabIndex = 9;
+            ManuallyATNTXTexBox.TextChanged += new System.EventHandler(this.ManuallyATNTXTexBox_TextChanged);
+            // 
+            // ManuallyATNTYTextBox
+            // 
+            ManuallyATNTYTextBox.Location = new System.Drawing.Point(3, 203);
+            ManuallyATNTYTextBox.Name = "ManuallyATNTYTextBox";
+            ManuallyATNTYTextBox.Size = new System.Drawing.Size(180, 23);
+            ManuallyATNTYTextBox.TabIndex = 12;
+            ManuallyATNTYTextBox.TextChanged += new System.EventHandler(this.ManuallyATNTYTextBox_TextChanged);
+            // 
+            // ManuallyATNTZTextBox
+            // 
+            ManuallyATNTZTextBox.Location = new System.Drawing.Point(4, 248);
+            ManuallyATNTZTextBox.Name = "ManuallyATNTZTextBox";
+            ManuallyATNTZTextBox.Size = new System.Drawing.Size(180, 23);
+            ManuallyATNTZTextBox.TabIndex = 15;
+            ManuallyATNTZTextBox.TextChanged += new System.EventHandler(this.ManuallyATNTZTextBox_TextChanged);
             // 
             // GeneralFTLInputTabPage
             // 
@@ -538,16 +600,235 @@ namespace PearlCalculatorWFA
             // InputTabControl
             // 
             this.InputTabControl.Controls.Add(this.GeneralFTLInputTabPage);
+            this.InputTabControl.Controls.Add(this.ManuallyTabPage);
             this.InputTabControl.Location = new System.Drawing.Point(13, 13);
             this.InputTabControl.Name = "InputTabControl";
             this.InputTabControl.SelectedIndex = 0;
             this.InputTabControl.Size = new System.Drawing.Size(389, 548);
             this.InputTabControl.TabIndex = 0;
             // 
+            // ManuallyTabPage
+            // 
+            this.ManuallyTabPage.Controls.Add(ManuallyATNTAmountTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyBTNTAmountTextBox);
+            this.ManuallyTabPage.Controls.Add(this.TNTAmountLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyCalculatePearlMomemtumButton);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyCalculatePearlTraceButton);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyCalculateTNTAmountButton);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumZLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumYLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumXLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumXTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumYTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyMomemtumZTextBox);
+            this.ManuallyTabPage.Controls.Add(ManuallyATNTZTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyBTNTZTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyTNTZLabel);
+            this.ManuallyTabPage.Controls.Add(ManuallyATNTYTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyBTNTYTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyTNTYLabel);
+            this.ManuallyTabPage.Controls.Add(ManuallyATNTXTexBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyBTNTXTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyTNTXLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlZTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlZLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlYTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlYLabel);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlXTextBox);
+            this.ManuallyTabPage.Controls.Add(this.ManuallyPearlXLabel);
+            this.ManuallyTabPage.Location = new System.Drawing.Point(4, 24);
+            this.ManuallyTabPage.Name = "ManuallyTabPage";
+            this.ManuallyTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ManuallyTabPage.Size = new System.Drawing.Size(381, 520);
+            this.ManuallyTabPage.TabIndex = 1;
+            this.ManuallyTabPage.Text = "Manually";
+            this.ManuallyTabPage.UseVisualStyleBackColor = true;
+            // 
+            // ManuallyCalculatePearlMomemtumButton
+            // 
+            this.ManuallyCalculatePearlMomemtumButton.Location = new System.Drawing.Point(4, 491);
+            this.ManuallyCalculatePearlMomemtumButton.Name = "ManuallyCalculatePearlMomemtumButton";
+            this.ManuallyCalculatePearlMomemtumButton.Size = new System.Drawing.Size(373, 23);
+            this.ManuallyCalculatePearlMomemtumButton.TabIndex = 24;
+            this.ManuallyCalculatePearlMomemtumButton.Text = "Calculate Pearl Momemtum";
+            this.ManuallyCalculatePearlMomemtumButton.UseVisualStyleBackColor = true;
+            // 
+            // ManuallyCalculatePearlTraceButton
+            // 
+            this.ManuallyCalculatePearlTraceButton.Location = new System.Drawing.Point(4, 462);
+            this.ManuallyCalculatePearlTraceButton.Name = "ManuallyCalculatePearlTraceButton";
+            this.ManuallyCalculatePearlTraceButton.Size = new System.Drawing.Size(373, 23);
+            this.ManuallyCalculatePearlTraceButton.TabIndex = 23;
+            this.ManuallyCalculatePearlTraceButton.Text = "Calculate Pearl Trace";
+            this.ManuallyCalculatePearlTraceButton.UseVisualStyleBackColor = true;
+            // 
+            // ManuallyCalculateTNTAmountButton
+            // 
+            this.ManuallyCalculateTNTAmountButton.Location = new System.Drawing.Point(4, 433);
+            this.ManuallyCalculateTNTAmountButton.Name = "ManuallyCalculateTNTAmountButton";
+            this.ManuallyCalculateTNTAmountButton.Size = new System.Drawing.Size(373, 23);
+            this.ManuallyCalculateTNTAmountButton.TabIndex = 22;
+            this.ManuallyCalculateTNTAmountButton.Text = "Calculate TNT Amount";
+            this.ManuallyCalculateTNTAmountButton.UseVisualStyleBackColor = true;
+            // 
+            // ManuallyMomemtumZLabel
+            // 
+            this.ManuallyMomemtumZLabel.AutoSize = true;
+            this.ManuallyMomemtumZLabel.Location = new System.Drawing.Point(197, 94);
+            this.ManuallyMomemtumZLabel.Name = "ManuallyMomemtumZLabel";
+            this.ManuallyMomemtumZLabel.Size = new System.Drawing.Size(94, 15);
+            this.ManuallyMomemtumZLabel.TabIndex = 21;
+            this.ManuallyMomemtumZLabel.Text = "Momemtum Z :";
+            // 
+            // ManuallyMomemtumYLabel
+            // 
+            this.ManuallyMomemtumYLabel.AutoSize = true;
+            this.ManuallyMomemtumYLabel.Location = new System.Drawing.Point(197, 49);
+            this.ManuallyMomemtumYLabel.Name = "ManuallyMomemtumYLabel";
+            this.ManuallyMomemtumYLabel.Size = new System.Drawing.Size(94, 15);
+            this.ManuallyMomemtumYLabel.TabIndex = 20;
+            this.ManuallyMomemtumYLabel.Text = "Momemtum Y :";
+            // 
+            // ManuallyMomemtumXLabel
+            // 
+            this.ManuallyMomemtumXLabel.AutoSize = true;
+            this.ManuallyMomemtumXLabel.Location = new System.Drawing.Point(197, 5);
+            this.ManuallyMomemtumXLabel.Name = "ManuallyMomemtumXLabel";
+            this.ManuallyMomemtumXLabel.Size = new System.Drawing.Size(95, 15);
+            this.ManuallyMomemtumXLabel.TabIndex = 19;
+            this.ManuallyMomemtumXLabel.Text = "Momemtum X :";
+            // 
+            // ManuallyMomemtumXTextBox
+            // 
+            this.ManuallyMomemtumXTextBox.Location = new System.Drawing.Point(197, 23);
+            this.ManuallyMomemtumXTextBox.Name = "ManuallyMomemtumXTextBox";
+            this.ManuallyMomemtumXTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyMomemtumXTextBox.TabIndex = 18;
+            this.ManuallyMomemtumXTextBox.TextChanged += new System.EventHandler(this.ManuallyMomemtumXTextBox_TextChanged);
+            // 
+            // ManuallyMomemtumYTextBox
+            // 
+            this.ManuallyMomemtumYTextBox.Location = new System.Drawing.Point(197, 68);
+            this.ManuallyMomemtumYTextBox.Name = "ManuallyMomemtumYTextBox";
+            this.ManuallyMomemtumYTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyMomemtumYTextBox.TabIndex = 17;
+            this.ManuallyMomemtumYTextBox.TextChanged += new System.EventHandler(this.ManuallyMomemtumYTextBox_TextChanged);
+            // 
+            // ManuallyMomemtumZTextBox
+            // 
+            this.ManuallyMomemtumZTextBox.Location = new System.Drawing.Point(197, 113);
+            this.ManuallyMomemtumZTextBox.Name = "ManuallyMomemtumZTextBox";
+            this.ManuallyMomemtumZTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyMomemtumZTextBox.TabIndex = 16;
+            this.ManuallyMomemtumZTextBox.TextChanged += new System.EventHandler(this.ManuallyMomemtumZTextBox_TextChanged);
+            // 
+            // ManuallyBTNTZTextBox
+            // 
+            this.ManuallyBTNTZTextBox.Location = new System.Drawing.Point(197, 248);
+            this.ManuallyBTNTZTextBox.Name = "ManuallyBTNTZTextBox";
+            this.ManuallyBTNTZTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyBTNTZTextBox.TabIndex = 14;
+            this.ManuallyBTNTZTextBox.TextChanged += new System.EventHandler(this.ManuallyBTNTZTextBox_TextChanged);
+            // 
+            // ManuallyTNTZLabel
+            // 
+            this.ManuallyTNTZLabel.AutoSize = true;
+            this.ManuallyTNTZLabel.Location = new System.Drawing.Point(4, 229);
+            this.ManuallyTNTZLabel.Name = "ManuallyTNTZLabel";
+            this.ManuallyTNTZLabel.Size = new System.Drawing.Size(47, 15);
+            this.ManuallyTNTZLabel.TabIndex = 13;
+            this.ManuallyTNTZLabel.Text = "TNT Z :";
+            // 
+            // ManuallyBTNTYTextBox
+            // 
+            this.ManuallyBTNTYTextBox.Location = new System.Drawing.Point(197, 203);
+            this.ManuallyBTNTYTextBox.Name = "ManuallyBTNTYTextBox";
+            this.ManuallyBTNTYTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyBTNTYTextBox.TabIndex = 11;
+            this.ManuallyBTNTYTextBox.TextChanged += new System.EventHandler(this.ManuallyBTNTYTextBox_TextChanged);
+            // 
+            // ManuallyTNTYLabel
+            // 
+            this.ManuallyTNTYLabel.AutoSize = true;
+            this.ManuallyTNTYLabel.Location = new System.Drawing.Point(3, 184);
+            this.ManuallyTNTYLabel.Name = "ManuallyTNTYLabel";
+            this.ManuallyTNTYLabel.Size = new System.Drawing.Size(47, 15);
+            this.ManuallyTNTYLabel.TabIndex = 10;
+            this.ManuallyTNTYLabel.Text = "TNT Y :";
+            // 
+            // ManuallyBTNTXTextBox
+            // 
+            this.ManuallyBTNTXTextBox.Location = new System.Drawing.Point(197, 158);
+            this.ManuallyBTNTXTextBox.Name = "ManuallyBTNTXTextBox";
+            this.ManuallyBTNTXTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyBTNTXTextBox.TabIndex = 7;
+            this.ManuallyBTNTXTextBox.TextChanged += new System.EventHandler(this.ManuallyBTNTXTextBox_TextChanged);
+            // 
+            // ManuallyTNTXLabel
+            // 
+            this.ManuallyTNTXLabel.AutoSize = true;
+            this.ManuallyTNTXLabel.Location = new System.Drawing.Point(4, 139);
+            this.ManuallyTNTXLabel.Name = "ManuallyTNTXLabel";
+            this.ManuallyTNTXLabel.Size = new System.Drawing.Size(48, 15);
+            this.ManuallyTNTXLabel.TabIndex = 6;
+            this.ManuallyTNTXLabel.Text = "TNT X :";
+            // 
+            // ManuallyPearlZTextBox
+            // 
+            this.ManuallyPearlZTextBox.Location = new System.Drawing.Point(3, 113);
+            this.ManuallyPearlZTextBox.Name = "ManuallyPearlZTextBox";
+            this.ManuallyPearlZTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyPearlZTextBox.TabIndex = 5;
+            this.ManuallyPearlZTextBox.TextChanged += new System.EventHandler(this.ManuallyPearlZTextBox_TextChanged);
+            // 
+            // ManuallyPearlZLabel
+            // 
+            this.ManuallyPearlZLabel.AutoSize = true;
+            this.ManuallyPearlZLabel.Location = new System.Drawing.Point(3, 94);
+            this.ManuallyPearlZLabel.Name = "ManuallyPearlZLabel";
+            this.ManuallyPearlZLabel.Size = new System.Drawing.Size(51, 15);
+            this.ManuallyPearlZLabel.TabIndex = 4;
+            this.ManuallyPearlZLabel.Text = "Pearl Z :";
+            // 
+            // ManuallyPearlYTextBox
+            // 
+            this.ManuallyPearlYTextBox.Location = new System.Drawing.Point(3, 68);
+            this.ManuallyPearlYTextBox.Name = "ManuallyPearlYTextBox";
+            this.ManuallyPearlYTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyPearlYTextBox.TabIndex = 3;
+            this.ManuallyPearlYTextBox.TextChanged += new System.EventHandler(this.ManuallyPearlYTextBox_TextChanged);
+            // 
+            // ManuallyPearlYLabel
+            // 
+            this.ManuallyPearlYLabel.AutoSize = true;
+            this.ManuallyPearlYLabel.Location = new System.Drawing.Point(3, 49);
+            this.ManuallyPearlYLabel.Name = "ManuallyPearlYLabel";
+            this.ManuallyPearlYLabel.Size = new System.Drawing.Size(51, 15);
+            this.ManuallyPearlYLabel.TabIndex = 2;
+            this.ManuallyPearlYLabel.Text = "Pearl Y :";
+            // 
+            // ManuallyPearlXTextBox
+            // 
+            this.ManuallyPearlXTextBox.Location = new System.Drawing.Point(4, 23);
+            this.ManuallyPearlXTextBox.Name = "ManuallyPearlXTextBox";
+            this.ManuallyPearlXTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyPearlXTextBox.TabIndex = 1;
+            this.ManuallyPearlXTextBox.TextChanged += new System.EventHandler(this.ManuallyPearlXTextBox_TextChanged);
+            // 
+            // ManuallyPearlXLabel
+            // 
+            this.ManuallyPearlXLabel.AutoSize = true;
+            this.ManuallyPearlXLabel.Location = new System.Drawing.Point(4, 4);
+            this.ManuallyPearlXLabel.Name = "ManuallyPearlXLabel";
+            this.ManuallyPearlXLabel.Size = new System.Drawing.Size(52, 15);
+            this.ManuallyPearlXLabel.TabIndex = 0;
+            this.ManuallyPearlXLabel.Text = "Pearl X :";
+            // 
             // BasicInputOutputSystem
             // 
             this.BasicInputOutputSystem.Controls.Add(this.OutputTabPage);
             this.BasicInputOutputSystem.Controls.Add(this.InputTabPage);
+            this.BasicInputOutputSystem.Controls.Add(this.BaiscPictureOutputTabPage);
             this.BasicInputOutputSystem.Location = new System.Drawing.Point(409, 13);
             this.BasicInputOutputSystem.Name = "BasicInputOutputSystem";
             this.BasicInputOutputSystem.SelectedIndex = 0;
@@ -629,6 +910,60 @@ namespace PearlCalculatorWFA
             this.ConsoleListView.UseCompatibleStateImageBehavior = false;
             this.ConsoleListView.View = System.Windows.Forms.View.Details;
             // 
+            // BaiscPictureOutputTabPage
+            // 
+            this.BaiscPictureOutputTabPage.Controls.Add(this.OutputPictureButton);
+            this.BaiscPictureOutputTabPage.Controls.Add(this.BasicPictureOutputSystem);
+            this.BaiscPictureOutputTabPage.Location = new System.Drawing.Point(4, 24);
+            this.BaiscPictureOutputTabPage.Name = "BaiscPictureOutputTabPage";
+            this.BaiscPictureOutputTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.BaiscPictureOutputTabPage.Size = new System.Drawing.Size(371, 516);
+            this.BaiscPictureOutputTabPage.TabIndex = 2;
+            this.BaiscPictureOutputTabPage.Text = "Visual Viewer";
+            this.BaiscPictureOutputTabPage.UseVisualStyleBackColor = true;
+            // 
+            // OutputPictureButton
+            // 
+            this.OutputPictureButton.Location = new System.Drawing.Point(3, 490);
+            this.OutputPictureButton.Name = "OutputPictureButton";
+            this.OutputPictureButton.Size = new System.Drawing.Size(365, 23);
+            this.OutputPictureButton.TabIndex = 1;
+            this.OutputPictureButton.Text = "Output Picture";
+            this.OutputPictureButton.UseVisualStyleBackColor = true;
+            // 
+            // BasicPictureOutputSystem
+            // 
+            this.BasicPictureOutputSystem.Location = new System.Drawing.Point(0, 4);
+            this.BasicPictureOutputSystem.Name = "BasicPictureOutputSystem";
+            this.BasicPictureOutputSystem.Size = new System.Drawing.Size(368, 480);
+            this.BasicPictureOutputSystem.TabIndex = 0;
+            this.BasicPictureOutputSystem.TabStop = false;
+            // 
+            // ManuallyATNTAmountTextBox
+            // 
+            ManuallyATNTAmountTextBox.Location = new System.Drawing.Point(4, 292);
+            ManuallyATNTAmountTextBox.Name = "ManuallyATNTAmountTextBox";
+            ManuallyATNTAmountTextBox.Size = new System.Drawing.Size(180, 23);
+            ManuallyATNTAmountTextBox.TabIndex = 27;
+            ManuallyATNTAmountTextBox.TextChanged += new System.EventHandler(this.ManuallyATNTAmountTextBox_TextChanged);
+            // 
+            // ManuallyBTNTAmountTextBox
+            // 
+            this.ManuallyBTNTAmountTextBox.Location = new System.Drawing.Point(197, 292);
+            this.ManuallyBTNTAmountTextBox.Name = "ManuallyBTNTAmountTextBox";
+            this.ManuallyBTNTAmountTextBox.Size = new System.Drawing.Size(180, 23);
+            this.ManuallyBTNTAmountTextBox.TabIndex = 26;
+            this.ManuallyBTNTAmountTextBox.TextChanged += new System.EventHandler(this.ManuallyBTNTAmountTextBox_TextChanged);
+            // 
+            // TNTAmountLabel
+            // 
+            this.TNTAmountLabel.AutoSize = true;
+            this.TNTAmountLabel.Location = new System.Drawing.Point(4, 274);
+            this.TNTAmountLabel.Name = "TNTAmountLabel";
+            this.TNTAmountLabel.Size = new System.Drawing.Size(58, 15);
+            this.TNTAmountLabel.TabIndex = 25;
+            this.TNTAmountLabel.Text = "Amount :";
+            // 
             // PearlCalculatorWFA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -654,10 +989,14 @@ namespace PearlCalculatorWFA
             this.GeneralFTLSettingsTabPage.ResumeLayout(false);
             this.GeneralFTLSettingsTabPage.PerformLayout();
             this.InputTabControl.ResumeLayout(false);
+            this.ManuallyTabPage.ResumeLayout(false);
+            this.ManuallyTabPage.PerformLayout();
             this.BasicInputOutputSystem.ResumeLayout(false);
             this.OutputTabPage.ResumeLayout(false);
             this.InputTabPage.ResumeLayout(false);
             this.InputTabPage.PerformLayout();
+            this.BaiscPictureOutputTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BasicPictureOutputSystem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -715,6 +1054,34 @@ namespace PearlCalculatorWFA
         private System.Windows.Forms.RadioButton GeneralDistanceRadioButton;
         private System.Windows.Forms.RadioButton GeneralTNTRadioButton;
         private System.Windows.Forms.RadioButton GeneralDistanceWeightRadioButton;
+        private System.Windows.Forms.TabPage BaiscPictureOutputTabPage;
+        private System.Windows.Forms.PictureBox BasicPictureOutputSystem;
+        private System.Windows.Forms.Button OutputPictureButton;
+        private System.Windows.Forms.TabPage ManuallyTabPage;
+        private System.Windows.Forms.TextBox ManuallyBTNTXTextBox;
+        private System.Windows.Forms.Label ManuallyTNTXLabel;
+        private System.Windows.Forms.TextBox ManuallyPearlZTextBox;
+        private System.Windows.Forms.Label ManuallyPearlZLabel;
+        private System.Windows.Forms.TextBox ManuallyPearlYTextBox;
+        private System.Windows.Forms.Label ManuallyPearlYLabel;
+        private System.Windows.Forms.TextBox ManuallyPearlXTextBox;
+        private System.Windows.Forms.Label ManuallyPearlXLabel;
+        private System.Windows.Forms.TextBox ManuallyBTNTYTextBox;
+        private System.Windows.Forms.Label ManuallyTNTYLabel;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label ManuallyTNTZLabel;
+        private System.Windows.Forms.TextBox ManuallyBTNTZTextBox;
+        private System.Windows.Forms.TextBox ManuallyMomemtumXTextBox;
+        private System.Windows.Forms.TextBox ManuallyMomemtumYTextBox;
+        private System.Windows.Forms.TextBox ManuallyMomemtumZTextBox;
+        private System.Windows.Forms.Label ManuallyMomemtumXLabel;
+        private System.Windows.Forms.Label ManuallyMomemtumZLabel;
+        private System.Windows.Forms.Label ManuallyMomemtumYLabel;
+        private System.Windows.Forms.Button ManuallyCalculatePearlMomemtumButton;
+        private System.Windows.Forms.Button ManuallyCalculatePearlTraceButton;
+        private System.Windows.Forms.Button ManuallyCalculateTNTAmountButton;
+        private System.Windows.Forms.TextBox ManuallyBTNTAmountTextBox;
+        private System.Windows.Forms.Label TNTAmountLabel;
     }
 }
 

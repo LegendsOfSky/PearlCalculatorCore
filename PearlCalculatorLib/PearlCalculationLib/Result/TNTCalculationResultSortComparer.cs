@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+// to do : remove Data and input from somewhere else
+
 namespace PearlCalculatorLib.General.Result
 {
     static class TNTCalculationResultSortComparer
