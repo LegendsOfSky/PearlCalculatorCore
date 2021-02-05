@@ -30,11 +30,11 @@ namespace PearlCalculatorLib.General
         public static int MaxCalculateTNT;
         public static double MaxCalculateDistance;
 
-        public static List<TNTCalculationResult> TNTResult = new List<TNTCalculationResult>();
-
         public static Direction Direction = Direction.North;
 
         public static Direction DefaultRedDuper = Direction.SouthEast;
         public static Direction DefaultBlueDuper = Direction.NorthWest;
+
+        public static List<TNTCalculationResult> TNTResult = new List<TNTCalculationResult>();
     }
 }

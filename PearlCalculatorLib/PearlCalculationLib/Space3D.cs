@@ -153,34 +153,22 @@ namespace PearlCalculatorLib.CalculationLib
 
         public bool IsNorth(Space3D position2)
         {
-            if(position2.X > X)
-                return true;
-            else
-                return false;
+            return position2.X > X;
         }
 
         public bool IsSouth(Space3D position2)
         {
-            if(position2.X < X)
-                return true;
-            else
-                return false;
+            return position2.X < X;
         }
 
         public bool IsEast(Space3D position2)
         {
-            if(position2.Z < Z)
-                return true;
-            else
-                return false;
+            return position2.Z < Z;
         }
 
         public bool IsWest(Space3D position2)
         {
-            if(position2.Z > Z)
-                return true;
-            else
-                return false;
+            return position2.Z > Z;
         }
 
         public double Angle2D(Space3D position2)
@@ -195,10 +183,12 @@ namespace PearlCalculatorLib.CalculationLib
 
         public bool IsOrigin()
         {
-            if(X == 0 && Y == 0 && Z == 0)
-                return true;
-            else
-                return false;
+            return X == 0 && Y == 0 && Z == 0;
+        }
+
+        public bool IsOrigin2D()
+        {
+            return X == 0 && Y == 0;
         }
 
         public double AngleInRad(Space3D position2)
@@ -231,6 +221,24 @@ namespace PearlCalculatorLib.CalculationLib
             Space3D result = new Space3D(0 , 0 , 0);
             result.X = lenght * Math.Sin(Radinat);
             result.Z = lenght * Math.Cos(Radinat);
+            return result;
+        }
+
+        public Space3D ToChunk(Space3D position)
+        {
+            Space3D result;
+            result.X = Math.Floor(position.X / 16);
+            result.Y = Math.Floor(position.Y / 16);
+            result.Z = Math.Floor(position.Z / 16);
+            return result;
+        }
+
+        public Space3D Round(Space3D posistion)
+        {
+            Space3D result;
+            result.X = Math.Round(posistion.X);
+            result.Y = Math.Round(posistion.Y);
+            result.Z = Math.Round(posistion.Z);
             return result;
         }
     }

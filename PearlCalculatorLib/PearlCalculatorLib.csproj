@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Relay\" />
+    <Folder Include="Relay\Complex\" />
+    <Folder Include="Relay\Simple\" />
   </ItemGroup>
 
 </Project>

@@ -12,8 +12,7 @@ namespace PearlCalculatorLib.PearlCalculationLib
         public static Space3D CalculateMotion(Space3D pearlPosition, Space3D tntPosition)
         {
             tntPosition.Y += 0.0612500011921;
-            Space3D distance = Data.PearlOffset - tntPosition;
-            distance.Y = Data.Pearl.Position.Y - tntPosition.Y;
+            Space3D distance = pearlPosition - tntPosition;
             double distanceSqrt = MathHelper.Sqrt(distance.DistanceSq());
             double d12 = distanceSqrt / 8;
             Space3D vector = new Space3D(distance.X , (pearlPosition.Y + 0.25 * 0.85) - tntPosition.Y , distance.Z);

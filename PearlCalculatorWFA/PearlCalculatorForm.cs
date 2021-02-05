@@ -8,6 +8,10 @@ using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
+using GeneralData = PearlCalculatorLib.General.Data;
+using GeneralCalculation = PearlCalculatorLib.General.Calculation;
+using ManuallyData = PearlCalculatorLib.Manually.Data;
+using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
 
 namespace PearlCalculatorWFA
 {
@@ -47,15 +51,15 @@ namespace PearlCalculatorWFA
             {
                 case 0:
                     Log("Main" , "Msg" , "Sort TNT result by distance from short to far");
-                    Data.TNTResult.SortByDistance();
+                    GeneralData.TNTResult.SortByDistance();
                     break;
                 case 1:
                     Log("Main" , "Msg" , "Sort TNT result by Ticks");
-                    Data.TNTResult.SortByTick();
+                    GeneralData.TNTResult.SortByTick();
                     break;
                 case 4:
                     Log("Main" , "Msg" , "Sort TNT result by toal TNT");
-                    Data.TNTResult.SortByTotal();
+                    GeneralData.TNTResult.SortByTotal();
                     break;
                 default:
                     isSorted = false;
@@ -68,7 +72,7 @@ namespace PearlCalculatorWFA
         private void CalculateTNTButton_Click(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Calculate TNT");
-            if(Calculation.CalculateTNTAmount(MaxTicks))
+            if(GeneralCalculation.CalculateTNTAmount(MaxTicks))
             {
                 Log("Main" , "Msg" , "TNT calculated");
                 DisplayTNTAmount(false);
@@ -88,7 +92,7 @@ namespace PearlCalculatorWFA
         private void PearlSimulate()
         {
             Log("Main" , "Msg" , "Caluete pearl trace");
-            DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+            DisplayPearTrace(GeneralCalculation.CalculatePearlTrace(GeneralData.RedTNT , GeneralData.BlueTNT , MaxTicks , GeneralData.Direction));
             IsDisplayOnTNT = false;
         }
 
@@ -99,10 +103,10 @@ namespace PearlCalculatorWFA
                 return;
             Log("Main" , "Msg" , "Auto-implement");
             int index = BasicOutputSystem.FocusedItem.Index;
-            var direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
+            var direction = GeneralData.Pearl.Position.Direction(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination));
 
-            GeneralRedTNTTextBox.Text = Data.TNTResult[index].Red.ToString();
-            GeneralBlueTNTTextBox.Text = Data.TNTResult[index].Blue.ToString();
+            GeneralRedTNTTextBox.Text = GeneralData.TNTResult[index].Red.ToString();
+            GeneralBlueTNTTextBox.Text = GeneralData.TNTResult[index].Blue.ToString();
 
             switch(direction)
             {
@@ -141,30 +145,30 @@ namespace PearlCalculatorWFA
                 if(GeneralTNTRadioButton.Checked)
                 {
                     Log("Main" , "Msg" , "Sort TNT result by weighted total TNT");
-                    Data.TNTResult.SortByWeightedTotal(new TNTResultSortByWeightedArgs(Data.TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
+                    GeneralData.TNTResult.SortByWeightedTotal(new TNTResultSortByWeightedArgs(GeneralData.TNTWeight , GeneralData.MaxCalculateTNT , GeneralData.MaxCalculateDistance));
                 }
                 else if(GeneralDistanceRadioButton.Checked)
                 {
                     Log("Main" , "Msg" , "Sort TNT result by distance deviation");
-                    Data.TNTResult.SortByDistance();
+                    GeneralData.TNTResult.SortByDistance();
                 }
                 else
                 {
                     Log("Main" , "Msg" , "Sort TNT result ...");
                     Log("Main" , "Msg" , "by weighted distance deviation");
-                    Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(Data.TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
+                    GeneralData.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(GeneralData.TNTWeight , GeneralData.MaxCalculateTNT , GeneralData.MaxCalculateDistance));
                 }
             }
             Log("Main" , "Msg" , "Start outputing TNT result");
-            for(int i = 0; i < Data.TNTResult.Count; i++)
+            for(int i = 0; i < GeneralData.TNTResult.Count; i++)
             {
-                if(Data.TNTResult[i].Red >= 0 && Data.TNTResult[i].Blue >= 0)
+                if(GeneralData.TNTResult[i].Red >= 0 && GeneralData.TNTResult[i].Blue >= 0)
                 {
-                    ListViewItem result = new ListViewItem(Data.TNTResult[i].Distance.ToString());
-                    result.SubItems.Add(Data.TNTResult[i].Tick.ToString());
-                    result.SubItems.Add(Data.TNTResult[i].Blue.ToString());
-                    result.SubItems.Add(Data.TNTResult[i].Red.ToString());
-                    result.SubItems.Add(Data.TNTResult[i].TotalTNT.ToString());
+                    ListViewItem result = new ListViewItem(GeneralData.TNTResult[i].Distance.ToString());
+                    result.SubItems.Add(GeneralData.TNTResult[i].Tick.ToString());
+                    result.SubItems.Add(GeneralData.TNTResult[i].Blue.ToString());
+                    result.SubItems.Add(GeneralData.TNTResult[i].Red.ToString());
+                    result.SubItems.Add(GeneralData.TNTResult[i].TotalTNT.ToString());
                     BasicOutputSystem.Items.Add(result);
                 }
             }
@@ -176,8 +180,8 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Clear direction display");
             BasicDirectionOutSystem.Items.Clear();
             Log("Main" , "Msg" , "Calculate and display direction");
-            ListViewItem result = new ListViewItem(Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString());
-            result.SubItems.Add(Data.Pearl.Position.WorldAngle(Data.Destination).ToString());
+            ListViewItem result = new ListViewItem(GeneralData.Pearl.Position.Direction(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination)).ToString());
+            result.SubItems.Add(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination).ToString());
             BasicDirectionOutSystem.Items.Add(result);
         }
 
@@ -231,64 +235,64 @@ namespace PearlCalculatorWFA
 
         private void PearlXTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralPearlXTextBox.Text , out Data.Pearl.Position.X);
+            double.TryParse(GeneralPearlXTextBox.Text , out GeneralData.Pearl.Position.X);
         }
 
         private void PearlZTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralPearlZTextBox.Text , out Data.Pearl.Position.Z);
+            double.TryParse(GeneralPearlZTextBox.Text , out GeneralData.Pearl.Position.Z);
         }
 
         private void DestinationXTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralDestinationXTextBox.Text , out Data.Destination.X);
+            double.TryParse(GeneralDestinationXTextBox.Text , out GeneralData.Destination.X);
         }
 
         private void DestinationZTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralDestinationZTextBox.Text , out Data.Destination.Z);
+            double.TryParse(GeneralDestinationZTextBox.Text , out GeneralData.Destination.Z);
         }
 
         private void MaxTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralMaxTNTTextBox.Text , out Data.MaxTNT);
+            int.TryParse(GeneralMaxTNTTextBox.Text , out GeneralData.MaxTNT);
         }
 
         private void RedTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralRedTNTTextBox.Text , out Data.RedTNT);
+            int.TryParse(GeneralRedTNTTextBox.Text , out GeneralData.RedTNT);
         }
 
         private void BlueTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralBlueTNTTextBox.Text , out Data.BlueTNT);
+            int.TryParse(GeneralBlueTNTTextBox.Text , out GeneralData.BlueTNT);
         }
 
         private void NorthRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction = Direction.North;
+            GeneralData.Direction = Direction.North;
         }
 
         private void SouthRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction = Direction.South;
+            GeneralData.Direction = Direction.South;
         }
 
         private void EastRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction = Direction.East;
+            GeneralData.Direction = Direction.East;
         }
 
         private void WestRadioButton_CheckedChanged(object sender , EventArgs e)
         {
-            Data.Direction = Direction.West;
+            GeneralData.Direction = Direction.West;
         }
 
         private void TNTWeightTrackerSlider_Scroll(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Change TNT weight value");
-            Data.TNTWeight = GeneralTNTWeightTrackerSlider.Value;
-            Log("Main" , "Msg" , "Currently set to " + Data.TNTWeight.ToString());
+            GeneralData.TNTWeight = GeneralTNTWeightTrackerSlider.Value;
+            Log("Main" , "Msg" , "Currently set to " + GeneralData.TNTWeight.ToString());
             Log("Main" , "Msg" , $"Currently Mode: {(IsDisplayOnTNT ? "TNT amount" : "pearl simulate")}");
 
             if (IsDisplayOnTNT)
@@ -311,8 +315,8 @@ namespace PearlCalculatorWFA
             }
             else
             {
-                offset.Z = Data.PearlOffset.Z;
-                Data.PearlOffset = offset;
+                offset.Z = GeneralData.PearlOffset.Z;
+                GeneralData.PearlOffset = offset;
                 DisplaySetting();
                 OffsetXTextBoxString = GeneralOffsetXTextBox.Text;
             }
@@ -332,8 +336,8 @@ namespace PearlCalculatorWFA
             }
             else
             {
-                offset.X = Data.PearlOffset.X;
-                Data.PearlOffset = offset;
+                offset.X = GeneralData.PearlOffset.X;
+                GeneralData.PearlOffset = offset;
                 DisplaySetting();
                 OffsetZTextBoxString = GeneralOffsetZTextBox.Text;
             }
@@ -375,21 +379,21 @@ namespace PearlCalculatorWFA
 
         Settings CreateSavedSettingsData() => new Settings()
         {
-            NorthWestTNT = Data.NorthWestTNT ,
-            NorthEastTNT = Data.NorthEastTNT ,
-            SouthWestTNT = Data.SouthWestTNT ,
-            SouthEastTNT = Data.SouthEastTNT ,
+            NorthWestTNT = GeneralData.NorthWestTNT ,
+            NorthEastTNT = GeneralData.NorthEastTNT ,
+            SouthWestTNT = GeneralData.SouthWestTNT ,
+            SouthEastTNT = GeneralData.SouthEastTNT ,
 
-            Pearl = Data.Pearl ,
+            Pearl = GeneralData.Pearl ,
 
-            RedTNT = Data.RedTNT ,
-            BlueTNT = Data.BlueTNT ,
-            MaxTNT = Data.MaxTNT ,
+            RedTNT = GeneralData.RedTNT ,
+            BlueTNT = GeneralData.BlueTNT ,
+            MaxTNT = GeneralData.MaxTNT ,
 
-            Destination = Data.Destination ,
-            Offset = Data.PearlOffset ,
+            Destination = GeneralData.Destination ,
+            Offset = GeneralData.PearlOffset ,
 
-            Direction = Data.Direction
+            Direction = GeneralData.Direction
         };
 
         void ImportSettings(Settings settings)
@@ -397,34 +401,34 @@ namespace PearlCalculatorWFA
             if(settings == null)
                 return;
 
-            Data.NorthWestTNT = settings.NorthWestTNT;
-            Data.NorthEastTNT = settings.NorthEastTNT;
-            Data.SouthWestTNT = settings.SouthWestTNT;
-            Data.SouthEastTNT = settings.SouthEastTNT;
+            GeneralData.NorthWestTNT = settings.NorthWestTNT;
+            GeneralData.NorthEastTNT = settings.NorthEastTNT;
+            GeneralData.SouthWestTNT = settings.SouthWestTNT;
+            GeneralData.SouthEastTNT = settings.SouthEastTNT;
 
-            Data.Pearl = settings.Pearl;
+            GeneralData.Pearl = settings.Pearl;
 
-            Data.RedTNT = settings.RedTNT;
-            Data.BlueTNT = settings.BlueTNT;
-            Data.MaxTNT = settings.MaxTNT;
+            GeneralData.RedTNT = settings.RedTNT;
+            GeneralData.BlueTNT = settings.BlueTNT;
+            GeneralData.MaxTNT = settings.MaxTNT;
 
-            Data.Destination = settings.Destination;
-            Data.PearlOffset = settings.Offset;
+            GeneralData.Destination = settings.Destination;
+            GeneralData.PearlOffset = settings.Offset;
 
-            Data.Direction = settings.Direction;
+            GeneralData.Direction = settings.Direction;
         }
 
         void RefleshInput()
         {
-            GeneralPearlXTextBox.Text = Data.Pearl.Position.X.ToString();
-            GeneralPearlZTextBox.Text = Data.Pearl.Position.Z.ToString();
+            GeneralPearlXTextBox.Text = GeneralData.Pearl.Position.X.ToString();
+            GeneralPearlZTextBox.Text = GeneralData.Pearl.Position.Z.ToString();
 
-            GeneralDestinationXTextBox.Text = Data.Destination.X.ToString();
-            GeneralDestinationZTextBox.Text = Data.Destination.Z.ToString();
+            GeneralDestinationXTextBox.Text = GeneralData.Destination.X.ToString();
+            GeneralDestinationZTextBox.Text = GeneralData.Destination.Z.ToString();
 
-            GeneralMaxTNTTextBox.Text = Data.MaxTNT.ToString();
+            GeneralMaxTNTTextBox.Text = GeneralData.MaxTNT.ToString();
 
-            switch(Data.Direction)
+            switch(GeneralData.Direction)
             {
                 case Direction.North:
                     GeneralNorthRadioButton.Checked = true;
@@ -440,11 +444,11 @@ namespace PearlCalculatorWFA
                     break;
             }
 
-            GeneralRedTNTTextBox.Text = Data.RedTNT.ToString();
-            GeneralBlueTNTTextBox.Text = Data.BlueTNT.ToString();
+            GeneralRedTNTTextBox.Text = GeneralData.RedTNT.ToString();
+            GeneralBlueTNTTextBox.Text = GeneralData.BlueTNT.ToString();
 
-            GeneralOffsetXTextBox.Text = Data.PearlOffset.X.ToString();
-            GeneralOffsetZTextBox.Text = Data.PearlOffset.Z.ToString();
+            GeneralOffsetXTextBox.Text = GeneralData.PearlOffset.X.ToString();
+            GeneralOffsetZTextBox.Text = GeneralData.PearlOffset.Z.ToString();
 
             PearlSimulate();
             GeneralPearlSimulateButton.Focus();
@@ -460,72 +464,72 @@ namespace PearlCalculatorWFA
 
             Log("Main" , "Msg" , "Output settings");
             ListViewItem NorthWestTNTCoorX = new ListViewItem("North West TNT(X Axis)");
-            NorthWestTNTCoorX.SubItems.Add(Data.NorthWestTNT.X.ToString());
+            NorthWestTNTCoorX.SubItems.Add(GeneralData.NorthWestTNT.X.ToString());
             GeneralSettingListView.Items.Add(NorthWestTNTCoorX);
 
             ListViewItem NorthWestTNTCoorY = new ListViewItem("North West TNT(Y Axis)");
-            NorthWestTNTCoorY.SubItems.Add(Data.NorthWestTNT.Y.ToString());
+            NorthWestTNTCoorY.SubItems.Add(GeneralData.NorthWestTNT.Y.ToString());
             GeneralSettingListView.Items.Add(NorthWestTNTCoorY);
 
             ListViewItem NorthWestTNTCoorZ = new ListViewItem("North West TNT(Z Axis)");
-            NorthWestTNTCoorZ.SubItems.Add(Data.NorthWestTNT.Z.ToString());
+            NorthWestTNTCoorZ.SubItems.Add(GeneralData.NorthWestTNT.Z.ToString());
             GeneralSettingListView.Items.Add(NorthWestTNTCoorZ);
 
 
             ListViewItem NorthEastTNTCoorX = new ListViewItem("North East TNT(X Axis)");
-            NorthEastTNTCoorX.SubItems.Add(Data.NorthEastTNT.X.ToString());
+            NorthEastTNTCoorX.SubItems.Add(GeneralData.NorthEastTNT.X.ToString());
             GeneralSettingListView.Items.Add(NorthEastTNTCoorX);
 
             ListViewItem NorthEastTNTCoorY = new ListViewItem("North East TNT(Y Axis)");
-            NorthEastTNTCoorY.SubItems.Add(Data.NorthEastTNT.Y.ToString());
+            NorthEastTNTCoorY.SubItems.Add(GeneralData.NorthEastTNT.Y.ToString());
             GeneralSettingListView.Items.Add(NorthEastTNTCoorY);
 
             ListViewItem NorthEastTNTCoorZ = new ListViewItem("North East TNT(Z Axis)");
-            NorthEastTNTCoorZ.SubItems.Add(Data.NorthEastTNT.Z.ToString());
+            NorthEastTNTCoorZ.SubItems.Add(GeneralData.NorthEastTNT.Z.ToString());
             GeneralSettingListView.Items.Add(NorthEastTNTCoorZ);
 
 
             ListViewItem SouthWestTNTCoorX = new ListViewItem("South West TNT(X Axis)");
-            SouthWestTNTCoorX.SubItems.Add(Data.SouthWestTNT.X.ToString());
+            SouthWestTNTCoorX.SubItems.Add(GeneralData.SouthWestTNT.X.ToString());
             GeneralSettingListView.Items.Add(SouthWestTNTCoorX);
 
             ListViewItem SouthWestTNTCoorY = new ListViewItem("South West TNT(Y Axis)");
-            SouthWestTNTCoorY.SubItems.Add(Data.SouthWestTNT.Y.ToString());
+            SouthWestTNTCoorY.SubItems.Add(GeneralData.SouthWestTNT.Y.ToString());
             GeneralSettingListView.Items.Add(SouthWestTNTCoorY);
 
             ListViewItem SouthWestTNTCoorZ = new ListViewItem("South West TNT(Z Axis)");
-            SouthWestTNTCoorZ.SubItems.Add(Data.SouthWestTNT.Z.ToString());
+            SouthWestTNTCoorZ.SubItems.Add(GeneralData.SouthWestTNT.Z.ToString());
             GeneralSettingListView.Items.Add(SouthWestTNTCoorZ);
 
 
             ListViewItem SouthEastTNTCoorX = new ListViewItem("South East TNT(X Axis)");
-            SouthEastTNTCoorX.SubItems.Add(Data.SouthEastTNT.X.ToString());
+            SouthEastTNTCoorX.SubItems.Add(GeneralData.SouthEastTNT.X.ToString());
             GeneralSettingListView.Items.Add(SouthEastTNTCoorX);
 
             ListViewItem SouthEastTNTCoorY = new ListViewItem("South East TNT(Y Axis)");
-            SouthEastTNTCoorY.SubItems.Add(Data.SouthEastTNT.Y.ToString());
+            SouthEastTNTCoorY.SubItems.Add(GeneralData.SouthEastTNT.Y.ToString());
             GeneralSettingListView.Items.Add(SouthEastTNTCoorY);
 
             ListViewItem SouthEastTNTCoorZ = new ListViewItem("South East TNT(Z Axis)");
-            SouthEastTNTCoorZ.SubItems.Add(Data.SouthEastTNT.Z.ToString());
+            SouthEastTNTCoorZ.SubItems.Add(GeneralData.SouthEastTNT.Z.ToString());
             GeneralSettingListView.Items.Add(SouthEastTNTCoorZ);
 
 
             ListViewItem PearlOffsetX = new ListViewItem("Pearl Offset(X Axis)");
-            PearlOffsetX.SubItems.Add(Data.PearlOffset.X.ToString());
+            PearlOffsetX.SubItems.Add(GeneralData.PearlOffset.X.ToString());
             GeneralSettingListView.Items.Add(PearlOffsetX);
 
             ListViewItem PearlOffsetZ = new ListViewItem("Pearl Offset(Z Axis)");
-            PearlOffsetZ.SubItems.Add(Data.PearlOffset.Z.ToString());
+            PearlOffsetZ.SubItems.Add(GeneralData.PearlOffset.Z.ToString());
             GeneralSettingListView.Items.Add(PearlOffsetZ);
 
 
             ListViewItem PearlYCoordinate = new ListViewItem("Pearl Y Coordinate");
-            PearlYCoordinate.SubItems.Add(Data.Pearl.Position.Y.ToString());
+            PearlYCoordinate.SubItems.Add(GeneralData.Pearl.Position.Y.ToString());
             GeneralSettingListView.Items.Add(PearlYCoordinate);
 
             ListViewItem PearlYMomentum = new ListViewItem("Pearl Y Momemtum");
-            PearlYMomentum.SubItems.Add(Data.Pearl.Vector.Y.ToString());
+            PearlYMomentum.SubItems.Add(GeneralData.Pearl.Vector.Y.ToString());
             GeneralSettingListView.Items.Add(PearlYMomentum);
 
             Log("Main" , "Msg" , "Settings output finished");
@@ -570,16 +574,16 @@ namespace PearlCalculatorWFA
                 switch(j)
                 {
                     case 0:
-                        Data.NorthWestTNT = setting;
+                        GeneralData.NorthWestTNT = setting;
                         break;
                     case 1:
-                        Data.NorthEastTNT = setting;
+                        GeneralData.NorthEastTNT = setting;
                         break;
                     case 2:
-                        Data.SouthWestTNT = setting;
+                        GeneralData.SouthWestTNT = setting;
                         break;
                     case 3:
-                        Data.SouthEastTNT = setting;
+                        GeneralData.SouthEastTNT = setting;
                         break;
                     default:
                         break;
@@ -591,7 +595,7 @@ namespace PearlCalculatorWFA
                 Space3D setting = new Space3D();
                 double.TryParse(GeneralSettingInputTextBox.Text , out setting.X);
                 double.TryParse(GeneralSettingListView.Items[13].SubItems[1].Text , out setting.Z);
-                Data.PearlOffset = setting;
+                GeneralData.PearlOffset = setting;
             }
             else if(GeneralSettingListView.FocusedItem.Index == 13)
             {
@@ -599,17 +603,17 @@ namespace PearlCalculatorWFA
                 Space3D setting = new Space3D();
                 double.TryParse(GeneralSettingListView.Items[12].SubItems[1].Text , out setting.X);
                 double.TryParse(GeneralSettingInputTextBox.Text , out setting.Z);
-                Data.PearlOffset = setting;
+                GeneralData.PearlOffset = setting;
             }
             else if(GeneralSettingListView.FocusedItem.Index == 14)
             {
                 Log("Main" , "Msg" , "Update pearl Y axis position");
-                double.TryParse(GeneralSettingInputTextBox.Text , out Data.Pearl.Position.Y);
+                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Position.Y);
             }
             else if(GeneralSettingListView.FocusedItem.Index == 15)
             {
                 Log("Main" , "Msg" , "Update pearl Y axis momentum");
-                double.TryParse(GeneralSettingInputTextBox.Text , out Data.Pearl.Vector.Y);
+                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Vector.Y);
             }
             DisplaySetting();
         }
@@ -617,13 +621,13 @@ namespace PearlCalculatorWFA
         private void ResetSettingButton_Click(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Reset settings");
-            Data.NorthWestTNT = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
-            Data.NorthEastTNT = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
-            Data.SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
-            Data.SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
-            Data.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
-            Data.Pearl.Vector = new Space3D(0 , 0.2716278719434352 , 0);
-            Data.PearlOffset = new Space3D(0 , 0 , 0);
+            GeneralData.NorthWestTNT = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
+            GeneralData.NorthEastTNT = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
+            GeneralData.SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
+            GeneralData.SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
+            GeneralData.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
+            GeneralData.Pearl.Vector = new Space3D(0 , 0.2716278719434352 , 0);
+            GeneralData.PearlOffset = new Space3D(0 , 0 , 0);
             DisplaySetting();
         }
 
@@ -696,13 +700,13 @@ namespace PearlCalculatorWFA
                     break;
                 case "cmd.general.change.tntweight":
                     Log("CMD" , "Msg" , "Change TNT weight value");
-                    Data.TNTWeight = GeneralTNTWeightTrackerSlider.Value;
-                    Log("CMD" , "Msg" , "Currently set to " + Data.TNTWeight.ToString());
+                    GeneralData.TNTWeight = GeneralTNTWeightTrackerSlider.Value;
+                    Log("CMD" , "Msg" , "Currently set to " + GeneralData.TNTWeight.ToString());
                     DisplayTNTAmount(false);
                     break;
                 case "cmd.general.calculate.tnt":
                     Log("Main" , "Msg" , "Calculate TNT");
-                    if(Calculation.CalculateTNTAmount(MaxTicks))
+                    if(GeneralCalculation.CalculateTNTAmount(MaxTicks))
                     {
                         Log("Main" , "Msg" , "TNT calculated");
                         DisplayTNTAmount(false);
@@ -718,12 +722,12 @@ namespace PearlCalculatorWFA
                     break;
                 case "cmd.general.calculate.pearl.trace":
                     Log("Main" , "Msg" , "Caluete pearl trace");
-                    DisplayPearTrace(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+                    DisplayPearTrace(GeneralCalculation.CalculatePearlTrace(GeneralData.RedTNT , GeneralData.BlueTNT , MaxTicks , GeneralData.Direction));
                     IsDisplayOnTNT = false;
                     break;
                 case "cmd.general.calculate.pearl.momemtum":
                     Log("Main" , "Msg" , "Caluete pearl momemtum");
-                    DisplayPearlMomemtum(Calculation.CalculatePearlTrace(Data.RedTNT , Data.BlueTNT , MaxTicks , Data.Direction));
+                    DisplayPearlMomemtum(GeneralCalculation.CalculatePearlTrace(GeneralData.RedTNT , GeneralData.BlueTNT , MaxTicks , GeneralData.Direction));
                     IsDisplayOnTNT = false;
                     break;
                 default:
@@ -808,6 +812,15 @@ namespace PearlCalculatorWFA
 
         }
 
+        private void ManuallyDestinationXTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
+
+        private void ManuallyDestinationZTextBox_TextChanged(object sender , EventArgs e)
+        {
+
+        }
         #endregion
 
     }

@@ -1,6 +1,6 @@
 ﻿using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.General.Result;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.Result;
 using System;
 using System.Collections.Generic;
 
