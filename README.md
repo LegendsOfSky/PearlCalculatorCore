@@ -34,7 +34,7 @@ look downward for more information
 
 * General
 
-    in the class ***[Data]("./PearlCalculatorLib/General/Data.cs")***, you will need to enter all the value in order to get a correct result.
+    in the class ***[Data](PearlCalculatorLib/General/Data.cs)***, you will need to enter all the value in order to get a correct result.
 
     1. for the four **TNT** data, you need to enter a coordinate which is the exploding location of the TNT.
 
@@ -56,7 +56,7 @@ look downward for more information
 
     10. **TNTResult**, it is for keeping all the result that is calculated. it contains ticks(how many ticks the pearl need to fly), redTNT, blueTNT, distance(the distance between pearl and the destination), totalTNT(blueTNT + redTNT).
 
-    > in the class ***[Calculation]("./PearlCalculatorLib/General/Calculation.cs")***, you will see two public method called *CalculateTNTAmount()* and *CalculatePearlTrace()*.  
+    > in the class ***[Calculation](PearlCalculatorLib/General/Calculation.cs)***, you will see two public method called *CalculateTNTAmount()* and *CalculatePearlTrace()*.  
     > they calculates how much TNT you need and the trace of the pearl.
 
 * Manually  
