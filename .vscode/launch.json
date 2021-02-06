@@ -5,7 +5,7 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Console launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -15,6 +15,18 @@
             "cwd": "${workspaceFolder}/PearlCalculatorCore",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "WFA launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/PearlCalculatorWFA/bin/Debug/netcoreapp3.1/PearlCalculatorWFA.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/PearlCalculatorWFA",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "stopAtEntry": false
         },
         {
