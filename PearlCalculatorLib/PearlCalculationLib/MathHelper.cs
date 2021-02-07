@@ -25,17 +25,7 @@ namespace PearlCalculatorLib.CalculationLib
 
         public static bool IsInside(double border1 , double border2 , double num)
         {
-            return num <= GetBigger(border1 , border2) && num >= GetSmaller(border1 , border2);
-        }
-
-        public static double GetBigger(double num1 , double num2)
-        {
-            return num1 > num2 ? num1 : num2;
-        }
-
-        public static double GetSmaller(double num1 , double num2)
-        {
-            return num1 < num2 ? num1 : num2;
+            return num <= Math.Max(border1, border2) && num >= Math.Min(border1, border2);
         }
     }
 }

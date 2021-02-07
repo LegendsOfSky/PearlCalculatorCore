@@ -10,8 +10,11 @@ using System.Threading;
 namespace PearlCalculatorLib.CalculationLib
 {
     [Serializable]
-    public struct Space3D
+    public struct Space3D : IEquatable<Space3D>
     {
+        public readonly static Space3D zero = new Space3D(0, 0, 0);
+        public readonly static Space3D one = new Space3D(1, 1, 1);
+
         public double X;
         public double Y;
         public double Z;
@@ -79,8 +82,18 @@ namespace PearlCalculatorLib.CalculationLib
 
         public double Distance2D(Space3D position2) => Math.Sqrt(Math.Pow(position2.X - X , 2) + Math.Pow(position2.Z - Z , 2));
 
-
         public double DistanceSq() => X * X + Y * Y + Z * Z;
+
+        public double Distance(Space3D other)
+        {
+            var dis3 = this - other;
+            dis3.X = Math.Abs(dis3.X);
+            dis3.Y = Math.Abs(dis3.Y);
+            dis3.Z = Math.Abs(dis3.Z);
+
+            return Math.Sqrt(dis3.DistanceSq());
+        }
+
         public static Space3D operator +(Space3D @this , Space3D other) => new Space3D()
         {
             X = @this.X + other.X ,
@@ -151,6 +164,16 @@ namespace PearlCalculatorLib.CalculationLib
             Z = @this.Z / divider
         };
 
+        public static bool operator ==(Space3D left, Space3D right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Space3D left, Space3D right)
+        {
+            return !left.Equals(right);
+        }
+
         public bool IsNorth(Space3D position2)
         {
             return position2.X > X;
@@ -216,6 +239,7 @@ namespace PearlCalculatorLib.CalculationLib
                 result.Z = -Z;
             return result;
         }
+
         public Space3D PolarCoordinateToSpace3D(double lenght, double Radinat)
         {
             Space3D result = new Space3D(0 , 0 , 0);
@@ -224,22 +248,35 @@ namespace PearlCalculatorLib.CalculationLib
             return result;
         }
 
-        public Space3D ToChunk(Space3D position)
+        public Space3D ToChunk() => new Space3D()
+        {
+            X = Math.Floor(X / 16),
+            Y = Math.Floor(Y / 16),
+            Z = Math.Floor(Z / 16)
+        };
+
+        public Space3D Round()
         {
             Space3D result;
-            result.X = Math.Floor(position.X / 16);
-            result.Y = Math.Floor(position.Y / 16);
-            result.Z = Math.Floor(position.Z / 16);
+            result.X = Math.Round(X);
+            result.Y = Math.Round(Y);
+            result.Z = Math.Round(Z);
             return result;
         }
 
-        public Space3D Round(Space3D posistion)
+        public override bool Equals(object obj)
         {
-            Space3D result;
-            result.X = Math.Round(posistion.X);
-            result.Y = Math.Round(posistion.Y);
-            result.Z = Math.Round(posistion.Z);
-            return result;
+            return obj is Space3D s && Equals(s);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public bool Equals(Space3D other)
+        {
+            return X == other.X && Y == other.Y && Z == other.Z;
         }
     }
 }

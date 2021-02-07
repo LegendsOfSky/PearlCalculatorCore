@@ -1,4 +1,5 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +8,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
     public class TNTEntity : Entity
     {
-        public override Size GetSize()
-        {
-            return EntitySize.TNT;
-        }
+        public override Space3D Size => new Space3D(0.98, 0.98, 0.98);
 
         public override void Tick()
         {

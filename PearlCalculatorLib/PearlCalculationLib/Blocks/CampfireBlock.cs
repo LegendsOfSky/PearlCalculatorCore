@@ -1,12 +1,15 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class CampfireBlock : Block
     {
-        public override Size GetSize()
+        public override Space3D Size => new Space3D(1, 0.4375, 1);
+
+        public CampfireBlock(Space3D pos) : base(pos)
         {
-            return BlockSize.CampfireBlock;
         }
+
     }
 }

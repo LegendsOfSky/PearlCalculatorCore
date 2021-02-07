@@ -1,4 +1,5 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,39 +7,53 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class TrapDoorBlock : Block
     {
+
         private bool isOpened;
         private Direction direction;
 
-        public TrapDoorBlock()
+        public override Space3D Size
         {
-
-        }
-
-        public TrapDoorBlock(bool isOpened)
-        {
-            this.isOpened = isOpened;
-        }
-
-        public TrapDoorBlock(Direction direction)
-        {
-            this.direction = direction;
-        }
-
-        public override Size GetSize()
-        {
-            if(!isOpened)
-                return BlockSize.BottomTrapDoorBlock;
-            switch(direction)
+            get 
             {
-                case Direction.South:
-                    return BlockSize.SouthOpenTrapDoorBlock;
-                case Direction.East:
-                    return BlockSize.EastOpenTrapDoorBlock;
-                case Direction.West:
-                    return BlockSize.WestOpenTrapDoorBlock;
-                default:
-                    return BlockSize.NorthOpenTrapDoorBlock;
+                if (!isOpened)
+                    return new Space3D(1, 0.1875, 1);
+
+                switch (direction)
+                {
+                    case Direction.East:
+                    case Direction.West:
+                        return new Space3D(0.1875, 1, 1);
+                    default:  //N  S and other
+                        return new Space3D(1, 1, 0.1875);
+                }
             }
         }
+
+        public TrapDoorBlock(Space3D pos) : base(pos)
+        {
+
+        }
+
+        public TrapDoorBlock(Space3D pos, Direction direction) : base(pos)
+        {
+            isOpened = true;
+            this.direction = direction;
+            InitAABB();
+        }
+
+        private void InitAABB()
+        {
+            if (isOpened)
+            {
+                AABB = direction switch
+                {
+                    Direction.North => new AABBBox(Position + new Space3D(0, 0, 0.8125), Position + Space3D.one),
+                    Direction.South => new AABBBox(Position, Position + new Space3D(1, 1, 0.1875)),
+                    Direction.East  => new AABBBox(Position, Position + new Space3D(0.1875, 1, 1)),
+                    _               => new AABBBox(Position + new Space3D(0.8125, 0, 0), Position + Space3D.one),
+                };
+            }
+        }
+
     }
 }

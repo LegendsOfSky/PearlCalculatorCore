@@ -1,4 +1,5 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
@@ -8,32 +9,31 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
         private bool isOnWall;
         private Direction direction;
 
-        public SkullBlock()
+        public override Space3D Size => new Space3D(0.5, 0.5, 0.5);
+
+        public SkullBlock(Space3D pos) : base(pos)
         {
 
         }
 
-        public SkullBlock(Direction direction)
+        public SkullBlock(Space3D pos, Direction direction) : base(pos)
         {
             isOnWall = true;
             this.direction = direction;
+            InitAABB();
         }
 
-        public override Size GetSize()
+        private void InitAABB()
         {
-            if(!isOnWall)
-                return BlockSize.SkullBlock;
-            switch(direction)
+            AABB = !isOnWall 
+                ? AABB.ReSize(Position + new Space3D(0.25, 0, 0.25), Position + new Space3D(0.75, 0.5, 0.75)) 
+                : direction switch
             {
-                case Direction.South:
-                    return BlockSize.SouthWallSkullBlock;
-                case Direction.East:
-                    return BlockSize.EastWallSkullBlock;
-                case Direction.West:
-                    return BlockSize.WestWallSkullBlock;
-                default:
-                    return BlockSize.NorthWallSkullBlock;
-            }
+                Direction.North => new AABBBox(Position + new Space3D(0.25, 0.25, 0.5), Position + new Space3D(0.75, 0.75, 1)),
+                Direction.South => new AABBBox(Position + new Space3D(0.25, 0.25, 0), Position + new Space3D(0.75, 0.75, 0.5)),
+                Direction.East  => new AABBBox(Position + new Space3D(0, 0.25, 0.25), Position + new Space3D(0.5, 0.75, 0.75)),
+                _               => new AABBBox(Position + new Space3D(0.5, 0.25, 0.25), Position + new Space3D(1, 0.75, 0.75)),
+            };
         }
     }
 }

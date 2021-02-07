@@ -1,12 +1,15 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class DaylightSensor : Block
     {
-        public override Size GetSize()
+        public override Space3D Size => new Space3D(1, 0.375, 1);
+
+        public DaylightSensor(Space3D pos) : base(pos)
         {
-            return BlockSize.DaylightSensorBlock;
+
         }
     }
 }

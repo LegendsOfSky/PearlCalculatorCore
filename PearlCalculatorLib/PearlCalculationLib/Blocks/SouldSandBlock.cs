@@ -1,12 +1,15 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.SizeDataBase;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.AABB;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class SouldSandBlock : Block
     {
-        public override Size GetSize()
+        public override Space3D Size => new Space3D(1, 0.875, 1);
+
+        public SouldSandBlock(Space3D pos) : base(pos)
         {
-            return BlockSize.SoulSandBlock;
+
         }
     }
 }
