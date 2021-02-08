@@ -15,6 +15,7 @@ using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
 using System.Runtime;
 using System.Drawing.Printing;
 using System.Runtime.Serialization;
+using System.Drawing;
 
 namespace PearlCalculatorWFA
 {
@@ -842,8 +843,17 @@ namespace PearlCalculatorWFA
         #region Console
         private void Log(string thread , string type , string message)
         {
+            Log(thread, type, message, Color.Black);
+        }
+
+        private void Log(string thread , string type , string message , Color messageColor)
+        {
             ListViewItem log = new ListViewItem("[" + thread + "/" + type + "]");
-            log.SubItems.Add(message);
+            log.UseItemStyleForSubItems = false;
+
+            log.SubItems[0].ForeColor = Color.Gray;
+            log.SubItems.Add(message).ForeColor = messageColor;
+
             ConsoleListView.Items.Add(log);
         }
 
@@ -895,77 +905,77 @@ namespace PearlCalculatorWFA
             switch(cmd)
             {
                 case "cmd.help":
-                    Log("CMD" , "Msg" , "==========================");
+                    Log("CMD" , "Msg" , "==========================" , Color.Red);
                     Log("CMD" , "Msg" , "cmd.help");
                     Log("CMD" , "Msg" , "Show all cmd command and help");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.all.change.maxticks");
                     Log("CMD" , "Msg" , "Parameter : <interger>");
                     Log("CMD" , "Msg" , "Changes max ticks");
                     Log("CMD" , "Msg" , "Note : value should be more than 0");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.tntweight");
                     Log("CMD" , "Msg" , "Parameter : <interger>");
                     Log("CMD" , "Msg" , "Changes TNT weight");
                     Log("CMD" , "Msg" , "Note : Value should between 0 ~ 100");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general,change.tnt.red");
                     Log("CMD" , "Msg" , "Parameter : <interger>");
                     Log("CMD" , "Msg" , "Changes Red TNT amount");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general,change.tnt.blue");
                     Log("CMD" , "Msg" , "Parameter : <interger>");
                     Log("CMD" , "Msg" , "Changes Blue TNT amount");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.pearl.position.x");
                     Log("CMD" , "Msg" , "Parameter : <floating point number>");
                     Log("CMD" , "Msg" , "Change the value of Pearl X axix position");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.pearl.position.y");
                     Log("CMD" , "Msg" , "Parameter : <floating point number>");
                     Log("CMD" , "Msg" , "Change the value of Pearl Y axix position");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.pearl.position.z");
                     Log("CMD" , "Msg" , "Parameter : <floating point number>");
                     Log("CMD" , "Msg" , "Change the value of Pearl Z axix position");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.pearl.position.2D");
                     Log("CMD" , "Msg" , "Parameter : <X> <Z>");
                     Log("CMD" , "Msg" , "All Parameters are in floating point number");
                     Log("CMD" , "Msg" , "Change the X and Z position of the pearl");
                     Log("CMD" , "Msg" , "Note : Please input the coordinate correctly");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.pearl.position.3D");
                     Log("CMD" , "Msg" , "Parameter : <X> <Y> <Z>");
                     Log("CMD" , "Msg" , "All Parameters are in floating point number");
                     Log("CMD" , "Msg" , "Change the X , Y and Z position of the pearl");
                     Log("CMD" , "Msg" , "Note : Please input the coordinate correctly");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.change.destination");
                     Log("CMD" , "Msg" , "Parameter : <X> <Z> (Both in floating point number)");
                     Log("CMD" , "Msg" , "Change the X and Z position of your destination");
                     Log("CMD" , "Msg" , "Note : Please input the coordinate correctly");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.calculate.tnt");
                     Log("CMD" , "Msg" , "Calculate the suitable TNT setup");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.calculate.pearl,trace");
                     Log("CMD" , "Msg" , "Calculate the trace of pearl");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.general.calculate.pearl.momemtum");
                     Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.manually.calculate.tnt");
                     Log("CMD" , "Msg" , "Calculate the suitable TNT setup");
                     Log("CMD" , "Warn" , "Make sure for the TNT Coordinate");
                     Log("CMD" , "Warn" , "It might crash if you enter it incorrectly");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.manually.calculate.pearl.trace");
                     Log("CMD" , "Msg" , "Calculate the trace of pearl");
-                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.manually.calculate.pearl.momemtum");
                     Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
-                    Log("CMD" , "Msg" , "==========================");
+                    Log("CMD" , "Msg" , "==========================" , Color.Red);
                     break;
                 case "cmd.all.change.maxticks":
                     if(int.TryParse(parameter1 , out MaxTicks))
