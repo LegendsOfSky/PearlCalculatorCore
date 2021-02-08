@@ -12,6 +12,8 @@ using GeneralData = PearlCalculatorLib.General.Data;
 using GeneralCalculation = PearlCalculatorLib.General.Calculation;
 using ManuallyData = PearlCalculatorLib.Manually.Data;
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
+using System.Runtime;
+using System.Drawing.Printing;
 
 namespace PearlCalculatorWFA
 {
@@ -21,6 +23,8 @@ namespace PearlCalculatorWFA
         private string OffsetXTextBoxString = "0.";
         private string OffsetZTextBoxString = "0.";
         private int MaxTicks = 100;
+        private int ManuallyAtntAmount = 0;
+        private int ManuallyBtntAmount = 0;
 
         public PearlCalculatorWFA()
         {
@@ -633,6 +637,183 @@ namespace PearlCalculatorWFA
 
         #endregion
 
+        #region Manually : Input
+
+        private void ManuallyPearlXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyPearlXTextBox.Text , out ManuallyData.Pearl.Position.X);
+        }
+
+        private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyMomemtumXTextBox.Text , out ManuallyData.Pearl.Vector.X);
+        }
+
+        private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyPearlYTextBox.Text , out ManuallyData.Pearl.Position.Y);
+        }
+
+        private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyMomemtumYTextBox.Text , out ManuallyData.Pearl.Vector.Y);
+        }
+
+        private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyPearlZTextBox.Text , out ManuallyData.Pearl.Position.Z);
+        }
+
+        private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyMomemtumZTextBox.Text , out ManuallyData.Pearl.Vector.Z);
+        }
+
+        private void ManuallyATNTXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyATNTXTextBox.Text , out ManuallyData.ATNT.X);
+        }
+
+        private void ManuallyBTNTXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyBTNTXTextBox.Text , out ManuallyData.BTNT.X);
+        }
+
+        private void ManuallyATNTYTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyATNTYTextBox.Text , out ManuallyData.ATNT.Y);
+        }
+
+        private void ManuallyBTNTYTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyBTNTYTextBox.Text , out ManuallyData.BTNT.Y);
+        }
+
+        private void ManuallyATNTZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyATNTZTextBox.Text , out ManuallyData.ATNT.Z);   
+        }
+
+        private void ManuallyBTNTZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyBTNTZTextBox.Text , out ManuallyData.BTNT.Z);
+        }
+
+        private void ManuallyATNTAmountTextBox_TextChanged(object sender , EventArgs e)
+        {
+            int.TryParse(ManuallyATNTAmountTextBox.Text , out ManuallyAtntAmount);
+        }
+
+        private void ManuallyBTNTAmountTextBox_TextChanged(object sender , EventArgs e)
+        {
+            int.TryParse(ManuallyBTNTAmountTextBox.Text ,  out ManuallyBtntAmount);
+        }
+
+        private void ManuallyDestinationXTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyDestinationXTextBox.Text , out ManuallyData.Destination.X);
+        }
+
+        private void ManuallyDestinationZTextBox_TextChanged(object sender , EventArgs e)
+        {
+            double.TryParse(ManuallyDestinationZTextBox.Text , out ManuallyData.Destination.Z);
+        }
+        #endregion
+
+        #region Manually : Calculation
+
+        private void ManuallyCalculateTNTAmountButton_Click(object sender , EventArgs e)
+        {
+            ManuallyCalculateTNTAmount();
+        }
+
+        private void ManuallyCalculateTNTAmount()
+        {
+            List<TNTCalculationResult> tntResult;
+            if(ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination , MaxTicks , out tntResult))
+            {
+                Log("Main" , "Msg" , "Reset display");
+                BasicOutputSystem.Items.Clear();
+                BasicOutputSystem.Columns.Clear();
+                BasicOutputSystem.Columns.Add("Distance" , 120 , HorizontalAlignment.Left);
+                BasicOutputSystem.Columns.Add("Ticks" , 40 , HorizontalAlignment.Left);
+                BasicOutputSystem.Columns.Add("A TNT" , 60 , HorizontalAlignment.Left);
+                BasicOutputSystem.Columns.Add("B TNT" , 60 , HorizontalAlignment.Left);
+                BasicOutputSystem.Columns.Add("Total TNT" , 70 , HorizontalAlignment.Left);
+                Log("Main" , "Msg" , "Start outputing TNT result");
+                for(int i = 0; i < tntResult.Count; i++)
+                {
+                    if(tntResult[i].Red >= 0 && tntResult[i].Blue >= 0)
+                    {
+                        ListViewItem result = new ListViewItem(tntResult[i].Distance.ToString());
+                        result.SubItems.Add(tntResult[i].Tick.ToString());
+                        result.SubItems.Add(tntResult[i].Red.ToString());
+                        result.SubItems.Add(tntResult[i].Blue.ToString());
+                        result.SubItems.Add(tntResult[i].TotalTNT.ToString());
+                        BasicOutputSystem.Items.Add(result);
+                    }
+                }
+                Log("Main" , "Msg" , "TNT result output finished");
+            }
+        }
+
+        private void ManuallyCalculatePearlTraceButton_Click(object sender , EventArgs e)
+        {
+            ManuallyCalculatePearlTrace();
+        }
+
+        private void ManuallyCalculatePearlTrace()
+        {
+            List<Pearl> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+            Log("Main" , "Msg" , "Display pearl trace");
+            Log("Main" , "Msg" , "Clear display");
+            BasicOutputSystem.Items.Clear();
+            BasicOutputSystem.Columns.Clear();
+            BasicOutputSystem.Columns.Add("Ticks" , 50 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("X Coordinate" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Y Coordinate" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Z Coordinate" , 100 , HorizontalAlignment.Left);
+            Log("Main" , "Msg" , "Start outputing pearl trace");
+            for(int i = 0; i < pearlTrace.Count; i++)
+            {
+                ListViewItem result = new ListViewItem(i.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.X.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.Y.ToString());
+                result.SubItems.Add(pearlTrace[i].Position.Z.ToString());
+                BasicOutputSystem.Items.Add(result);
+            }
+            Log("Main" , "Msg" , "Pearl trace output finished");
+        }
+
+        private void ManuallyCalculatePearlMomemtumButton_Click(object sender , EventArgs e)
+        {
+            ManuallyCalculatePearlMomemtum();
+        }
+
+        private void ManuallyCalculatePearlMomemtum()
+        {
+            List<Pearl> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+            Log("Main" , "Msg" , "Display pearl momemtum");
+            Log("Main" , "Msg" , "Clear display");
+            BasicOutputSystem.Items.Clear();
+            BasicOutputSystem.Columns.Clear();
+            BasicOutputSystem.Columns.Add("Ticks" , 50 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("X Motion" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Y Motion" , 100 , HorizontalAlignment.Left);
+            BasicOutputSystem.Columns.Add("Z Motion" , 100 , HorizontalAlignment.Left);
+            Log("Main" , "Msg" , "Start outputing pearl trace");
+            for(int i = 0; i < pearlTrace.Count; i++)
+            {
+                ListViewItem result = new ListViewItem(i.ToString());
+                result.SubItems.Add(pearlTrace[i].Vector.X.ToString());
+                result.SubItems.Add(pearlTrace[i].Vector.Y.ToString());
+                result.SubItems.Add(pearlTrace[i].Vector.Z.ToString());
+                BasicOutputSystem.Items.Add(result);
+            }
+            Log("Main" , "Msg" , "Pearl momemtum output finished");
+        }
+        #endregion
+
         #region Console
         private void Log(string thread , string type , string message)
         {
@@ -668,11 +849,15 @@ namespace PearlCalculatorWFA
             {
                 case "cmd.help":
                     Log("CMD" , "Msg" , "==========================");
-                    Log("CMD" , "Msg" , "cmd.general.change.maxticks <Intherger>");
+                    Log("CMD" , "Msg" , "cmd.help");
+                    Log("CMD" , "Msg" , "Show all cmd command and help");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.all.change.maxticks <Intherger>");
                     Log("CMD" , "Msg" , "Changes the max ticks");
                     Log("CMD" , "Msg" , "----------------------------");
                     Log("CMD" , "Msg" , "cmd.general.change.tntweight <interger>");
                     Log("CMD" , "Msg" , "Changes the TNT weight");
+                    Log("CMD" , "Msg" , "Value should between 0 ~ 100");
                     Log("CMD" , "Msg" , "----------------------------");
                     Log("CMD" , "Msg" , "cmd.general.calculate.tnt");
                     Log("CMD" , "Msg" , "Calculate the suitable TNT setup");
@@ -682,9 +867,20 @@ namespace PearlCalculatorWFA
                     Log("CMD" , "Msg" , "----------------------------");
                     Log("CMD" , "Msg" , "cmd.general.calculate.pearl.momemtum");
                     Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.manually.calculate.tnt");
+                    Log("CMD" , "Msg" , "Calculate the suitable TNT setup");
+                    Log("CMD" , "Warn" , "Make sure for the TNT Coordinate");
+                    Log("CMD" , "Warn" , "It might crash if you enter it incorrectly");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.manually.calculate.pearl.trace");
+                    Log("CMD" , "Msg" , "Calculate the trace of pearl");
+                    Log("CMD" , "Msg" , "----------------------------");
+                    Log("CMD" , "Msg" , "cmd.manually.calculate.pearl.momemtum");
+                    Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
                     Log("CMD" , "Msg" , "==========================");
                     break;
-                case "cmd.general.change.maxticks":
+                case "cmd.all.change.maxticks":
                     if(int.TryParse(parameter1 , out MaxTicks))
                     {
                         Log("CMD" , "Msg" , "Max ticks changed");
@@ -730,6 +926,18 @@ namespace PearlCalculatorWFA
                     DisplayPearlMomemtum(GeneralCalculation.CalculatePearlTrace(GeneralData.RedTNT , GeneralData.BlueTNT , MaxTicks , GeneralData.Direction));
                     IsDisplayOnTNT = false;
                     break;
+                case "cmd.manually.calculate.tnt":
+                    Log("CMD" , "Msg" , "Calculate TNT");
+                    ManuallyCalculateTNTAmount();
+                    break;
+                case "cmd.manually.cauculate.pearl.trace":
+                    Log("CMD" , "Msg" , "Calculate pearl trace");
+                    ManuallyCalculatePearlTrace();
+                    break;
+                case "cmd.manually.calculate.pearl.momemtum":
+                    ManuallyCalculatePearlMomemtum();
+                    Log("Main" , "Msg" , "Calculate pearl momemtum");
+                    break;
                 default:
                     Log("CMD" , "Warn" , "==========================");
                     Log("CMD" , "Warn" , "Unknow instruction");
@@ -739,89 +947,5 @@ namespace PearlCalculatorWFA
             }
         }
         #endregion
-
-        #region Manually : Input
-
-        private void ManuallyPearlXTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyATNTXTexBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyBTNTXTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyATNTYTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyBTNTYTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyATNTZTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyBTNTZTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyATNTAmountTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyBTNTAmountTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyDestinationXTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-
-        private void ManuallyDestinationZTextBox_TextChanged(object sender , EventArgs e)
-        {
-
-        }
-        #endregion
-
     }
 }

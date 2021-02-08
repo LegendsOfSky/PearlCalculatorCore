@@ -1,11 +1,12 @@
 ﻿using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
-    public class TrapDoorBlock : Block
+    public class TrapDoorBlock : Block , IDisableSetAABB
     {
 
         private bool isOpened;

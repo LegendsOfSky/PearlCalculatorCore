@@ -30,16 +30,14 @@ namespace PearlCalculatorLib.General
         {
             int redTNT;
             int blueTNT;
-            Space3D distance = new Space3D();
+            Space3D distance;
             double divider = 0;
             Direction direction;
 
             distance = Data.Destination - Data.Pearl.Position;
 
             if(Math.Abs(distance.X) == 0 && Math.Abs(distance.Z) == 0)
-            {
                 return false;
-            }
             Data.TNTResult.Clear();
             direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);

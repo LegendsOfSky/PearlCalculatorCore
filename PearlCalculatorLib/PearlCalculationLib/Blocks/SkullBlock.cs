@@ -4,7 +4,7 @@ using System;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
-    public class SkullBlock : Block
+    public class SkullBlock : Block , IDisableSetAABB
     {
         private bool isOnWall;
         private Direction direction;
@@ -25,15 +25,9 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 
         private void InitAABB()
         {
-            AABB = !isOnWall 
-                ? AABB.ReSize(Position + new Space3D(0.25, 0, 0.25), Position + new Space3D(0.75, 0.5, 0.75)) 
-                : direction switch
-            {
-                Direction.North => new AABBBox(Position + new Space3D(0.25, 0.25, 0.5), Position + new Space3D(0.75, 0.75, 1)),
-                Direction.South => new AABBBox(Position + new Space3D(0.25, 0.25, 0), Position + new Space3D(0.75, 0.75, 0.5)),
-                Direction.East  => new AABBBox(Position + new Space3D(0, 0.25, 0.25), Position + new Space3D(0.5, 0.75, 0.75)),
-                _               => new AABBBox(Position + new Space3D(0.5, 0.25, 0.25), Position + new Space3D(1, 0.75, 0.75)),
-            };
+
+
+
         }
     }
 }
