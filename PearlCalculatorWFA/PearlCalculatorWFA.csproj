@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Version>2.71</Version>
+    <Authors>legendsofsky, memorydream</Authors>
   </PropertyGroup>
 
   <ItemGroup>

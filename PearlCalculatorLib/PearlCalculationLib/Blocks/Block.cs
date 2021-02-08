@@ -30,7 +30,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
                 InitAABB();
         }
 
-        protected void InitAABB()
+        private void InitAABB()
         {
             Space3D min = Position + new Space3D(0.5 , 0 , 0.5) - new Space3D(0.5 * Size.X , Size.Y , 0.5 * Size.Z);
             Space3D max = Position + new Space3D(0.5 , 0 , 0.5) + new Space3D(0.5 * Size.X , Size.Y , 0.5 * Size.Z);

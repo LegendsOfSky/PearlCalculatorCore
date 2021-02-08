@@ -14,11 +14,14 @@ using ManuallyData = PearlCalculatorLib.Manually.Data;
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
 using System.Runtime;
 using System.Drawing.Printing;
+using System.Runtime.Serialization;
 
 namespace PearlCalculatorWFA
 {
     public partial class PearlCalculatorWFA : Form
     {
+        const string DefaultImportSettingsPath = @"./settings.pcld";
+
         private bool IsDisplayOnTNT = false;
         private string OffsetXTextBoxString = "0.";
         private string OffsetZTextBoxString = "0.";
@@ -40,6 +43,8 @@ namespace PearlCalculatorWFA
             DisplaySetting();
             Log("Main" , "Msg" , "Type cmd.help to check instructions");
             BasicOutputSystem.ColumnClick += BasicOutputSystem_ColumnClick;
+
+            ImportSettingFormDefaultFile();
         }
 
         #region General : Event and Method
@@ -399,6 +404,26 @@ namespace PearlCalculatorWFA
 
             Direction = GeneralData.Direction
         };
+
+        void ImportSettingFormDefaultFile()
+        {
+            if (File.Exists(DefaultImportSettingsPath))
+            {
+                using var fs = File.OpenRead(DefaultImportSettingsPath);
+                try
+                {
+                    if (new BinaryFormatter().Deserialize(fs) is Settings settings)
+                    {
+                        ImportSettings(settings);
+                        RefleshInput();
+                    }
+                }
+                catch (SerializationException)
+                {
+                    Log("Main", "Error", "At start, found settings.pcld file, but it not is calculator's settings file");
+                }
+            }
+        }
 
         void ImportSettings(Settings settings)
         {
