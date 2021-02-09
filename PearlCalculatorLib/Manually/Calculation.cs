@@ -1,5 +1,6 @@
 ﻿using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.Result;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace PearlCalculatorLib.Manually
                 {
                     for(int b = -5; b <= 5; b++)
                     {
-                        Pearl aPearl = PearlSimulation(aTNT + a , bTNT + b , i , aTNTVector , bTNTVector);
+                        PearlEntity aPearl = PearlSimulation(aTNT + a , bTNT + b , i , aTNTVector , bTNTVector);
                         if(Math.Abs(aPearl.Position.X - destination.X) <= 10 && Math.Abs(aPearl.Position.Z - destination.Z) <= 10)
                         {
                             TNTCalculationResult tResult = new TNTCalculationResult
@@ -50,31 +51,27 @@ namespace PearlCalculatorLib.Manually
             return true;
         }
 
-        private static Pearl PearlSimulation(int aTNT, int bTNT, int ticks, Space3D aTNTVector , Space3D bTNTVector)
+        private static PearlEntity PearlSimulation(int aTNT, int bTNT, int ticks, Space3D aTNTVector , Space3D bTNTVector)
         {
-            Pearl pearl = Data.Pearl;
-            pearl.Vector += aTNT * aTNTVector + bTNT * bTNTVector;
+            PearlEntity pearl = Data.Pearl;
+            pearl.Motion += aTNT * aTNTVector + bTNT * bTNTVector;
             for(int i = 0; i < ticks; i++)
             {
-                pearl.Position += pearl.Vector;
-                pearl.Vector *= 0.99;
-                pearl.Vector.Y -= 0.03;
+                pearl.Tick();
             }
             return pearl;
         }
 
-        public static List<Pearl> CalculatePearl(int aTNT , int bTNT, int ticks)
+        public static List<Entity> CalculatePearl(int aTNT , int bTNT, int ticks)
         {
-            Pearl pearl = Data.Pearl;
+            PearlEntity pearl = new PearlEntity(Data.Pearl);
             Space3D aTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.ATNT);
             Space3D bTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.BTNT);
-            List<Pearl> pearlTrace = new List<Pearl>();
-            pearl.Vector += aTNT * aTNTVector + bTNT * bTNTVector;
+            List<Entity> pearlTrace = new List<Entity>();
+            pearl.Motion += aTNT * aTNTVector + bTNT * bTNTVector;
             for(int i = 0; i < ticks; i++)
             {
-                pearl.Position += pearl.Vector;
-                pearl.Vector *= 0.99;
-                pearl.Vector.Y -= 0.03;
+                pearl.Tick();
                 pearlTrace.Add(pearl);
             }
             return pearlTrace;

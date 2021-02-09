@@ -1,5 +1,6 @@
 ﻿using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.Result;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace PearlCalculatorLib.AttachedLLFTL
     {
         public static Stack<TNTCalculationResult> TNTResult = new Stack<TNTCalculationResult>();
 
-        public static Pearl OriginalPearl = new Pearl().
+        public static PearlEntity OriginalPearl = new PearlEntity().
             WithPosition(0 , 170.34722638929408 , 0).
             WithVector(0 , 0.2716278719434352 , 0);
 

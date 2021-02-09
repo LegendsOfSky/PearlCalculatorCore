@@ -7,23 +7,23 @@ using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorLib.General
 {
     public static class Calculation
     {
-        private static Pearl PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
+        private static PearlEntity PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
         {
-            Pearl pearl = Data.Pearl;
+            PearlEntity pearlEntity = new PearlEntity(Data.Pearl);
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            pearl.Vector = redTNT * redTNTVector + blueTNT * blueTNTVector;
+            pearlEntity.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector;
             for(int i = 0; i < ticks; i++)
             {
-                pearl.Position += pearl.Vector;
-                pearl.Vector *= 0.99;
-                pearl.Vector.Y -= 0.03;
+                pearlEntity.Tick();
             }
-            return pearl;
+            return pearlEntity;
+            
         }
 
         public static bool CalculateTNTAmount(int maxTicks)
@@ -53,12 +53,12 @@ namespace PearlCalculatorLib.General
                 {
                     for(int b = -5; b <= 5; b++)
                     {
-                        Pearl pearl = PearlSimulation(redTNT + r , blueTNT + b , tick , direction);
-                        if(Math.Abs(pearl.Position.X - Data.Destination.X) <= 10 && Math.Abs(pearl.Position.Z - Data.Destination.Z) <= 10)
+                        PearlEntity pearlEntity = PearlSimulation(redTNT + r , blueTNT + b , tick , direction);
+                        if(Math.Abs(pearlEntity.Position.X - Data.Destination.X) <= 10 && Math.Abs(pearlEntity.Position.Z - Data.Destination.Z) <= 10)
                         {
                             TNTCalculationResult result = new TNTCalculationResult
                             {
-                                Distance = pearl.Position.Distance2D(Data.Destination) ,
+                                Distance = pearlEntity.Position.Distance2D(Data.Destination) ,
                                 Tick = tick ,
                                 Blue = blueTNT + b ,
                                 Red = redTNT + r ,
@@ -80,20 +80,18 @@ namespace PearlCalculatorLib.General
             return true;
         }
 
-        public static List<Pearl> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
+        public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
          {
-            List<Pearl> result = new List<Pearl>();
-            Pearl pearl = new Pearl(Data.Pearl);
+            List<Entity> result = new List<Entity>();
+            PearlEntity pearl = new PearlEntity(Data.Pearl);
 
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            pearl.Vector = redTNT * redTNTVector + blueTNT * blueTNTVector + Data.Pearl.Vector;
+            pearl.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector + Data.Pearl.Motion;
             result.Add(pearl);
 
             for(int i = 0; i < ticks; i++)
             {
-                pearl.Position += pearl.Vector;
-                pearl.Vector *= 0.99;
-                pearl.Vector.Y -= 0.03;
+                pearl.Tick();
                 result.Add(pearl);
             }
             return result;

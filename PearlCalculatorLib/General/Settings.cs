@@ -4,6 +4,7 @@ using PearlCalculatorLib.PearlCalculationLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorLib.General
 {
@@ -18,7 +19,7 @@ namespace PearlCalculatorLib.General
         public Space3D SouthEastTNT;
         public Space3D Destination;
         public Space3D Offset;
-        public Pearl Pearl;
+        public PearlEntity Pearl;
         public int RedTNT;
         public int BlueTNT;
         public int MaxTNT;

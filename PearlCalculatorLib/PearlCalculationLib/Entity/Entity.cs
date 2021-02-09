@@ -8,7 +8,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
     public abstract class Entity
     {
-        public Space3D Momemtum;
+        public Space3D Motion;
         public Space3D Position;
 
         public abstract Space3D Size { get; }

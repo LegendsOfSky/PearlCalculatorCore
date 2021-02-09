@@ -3,6 +3,7 @@ using System.Text;
 using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorLib.General
 {
@@ -15,9 +16,7 @@ namespace PearlCalculatorLib.General
 
         public static Space3D Destination = new Space3D();
 
-        public static Pearl Pearl = new Pearl().
-            WithPosition(0 , 170.34722638929408 , 0).
-            WithVector(0 , 0.2716278719434352 , 0);
+        public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929408 , 0).WithVector(0 , 0.2716278719434352 , 0);
         public static Space3D PearlOffset = new Space3D(0 , 0 , 0);
 
         public static int BlueTNT;

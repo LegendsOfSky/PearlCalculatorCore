@@ -1,5 +1,6 @@
 ﻿using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.Blocks;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.Result;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace PearlCalculatorLib.AttachedLLFTL
         public int Blue;
         public int Red;
         public int TotalTNT;
-        public Pearl Pearl;
+        public PearlEntity Pearl;
         public Block BottomBlock;
     }
 }

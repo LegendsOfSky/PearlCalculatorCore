@@ -9,6 +9,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 
         public CampfireBlock(Space3D pos) : base(pos)
         {
+
         }
 
     }

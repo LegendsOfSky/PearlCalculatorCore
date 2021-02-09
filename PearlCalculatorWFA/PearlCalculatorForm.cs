@@ -16,6 +16,7 @@ using System.Runtime;
 using System.Drawing.Printing;
 using System.Runtime.Serialization;
 using System.Drawing;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorWFA
 {
@@ -195,7 +196,7 @@ namespace PearlCalculatorWFA
             BasicDirectionOutSystem.Items.Add(result);
         }
 
-        private void DisplayPearTrace(List<Pearl> pearlTrace)
+        private void DisplayPearTrace(List<Entity> pearlTrace)
         {
             Log("Main" , "Msg" , "Display pearl trace");
             Log("Main" , "Msg" , "Clear display");
@@ -217,7 +218,7 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Pearl trace output finished");
         }
 
-        private void DisplayPearlMomemtum(List<Pearl> pearlMomemtum)
+        private void DisplayPearlMomemtum(List<Entity> pearlMomemtum)
         {
             Log("Main" , "Msg" , "Display pearl Momemtum.");
             Log("Main" , "Msg" , "Clear display");
@@ -231,9 +232,9 @@ namespace PearlCalculatorWFA
             for(int i = 0; i < pearlMomemtum.Count; i++)
             {
                 ListViewItem result = new ListViewItem(i.ToString());
-                result.SubItems.Add(pearlMomemtum[i].Vector.X.ToString());
-                result.SubItems.Add(pearlMomemtum[i].Vector.Y.ToString());
-                result.SubItems.Add(pearlMomemtum[i].Vector.Z.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Motion.X.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Motion.Y.ToString());
+                result.SubItems.Add(pearlMomemtum[i].Motion.Z.ToString());
                 BasicOutputSystem.Items.Add(result);
             }
             Log("Main" , "Msg" , "Pearl Momemtum output finished");
@@ -559,7 +560,7 @@ namespace PearlCalculatorWFA
             GeneralSettingListView.Items.Add(PearlYCoordinate);
 
             ListViewItem PearlYMomentum = new ListViewItem("Pearl Y Momemtum");
-            PearlYMomentum.SubItems.Add(GeneralData.Pearl.Vector.Y.ToString());
+            PearlYMomentum.SubItems.Add(GeneralData.Pearl.Motion.Y.ToString());
             GeneralSettingListView.Items.Add(PearlYMomentum);
 
             Log("Main" , "Msg" , "Settings output finished");
@@ -643,7 +644,7 @@ namespace PearlCalculatorWFA
             else if(GeneralSettingListView.FocusedItem.Index == 15)
             {
                 Log("Main" , "Msg" , "Update pearl Y axis momentum");
-                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Vector.Y);
+                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Motion.Y);
             }
             DisplaySetting();
         }
@@ -656,7 +657,7 @@ namespace PearlCalculatorWFA
             GeneralData.SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
             GeneralData.SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
             GeneralData.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
-            GeneralData.Pearl.Vector = new Space3D(0 , 0.2716278719434352 , 0);
+            GeneralData.Pearl.Motion= new Space3D(0 , 0.2716278719434352 , 0);
             GeneralData.PearlOffset = new Space3D(0 , 0 , 0);
             DisplaySetting();
         }
@@ -672,7 +673,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(ManuallyMomemtumXTextBox.Text , out ManuallyData.Pearl.Vector.X);
+            double.TryParse(ManuallyMomemtumXTextBox.Text , out ManuallyData.Pearl.Motion.X);
         }
 
         private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
@@ -682,7 +683,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(ManuallyMomemtumYTextBox.Text , out ManuallyData.Pearl.Vector.Y);
+            double.TryParse(ManuallyMomemtumYTextBox.Text , out ManuallyData.Pearl.Motion.Y);
         }
 
         private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
@@ -692,7 +693,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(ManuallyMomemtumZTextBox.Text , out ManuallyData.Pearl.Vector.Z);
+            double.TryParse(ManuallyMomemtumZTextBox.Text , out ManuallyData.Pearl.Motion.Z);
         }
 
         private void ManuallyATNTXTextBox_TextChanged(object sender , EventArgs e)
@@ -790,7 +791,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyCalculatePearlTrace()
         {
-            List<Pearl> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
             Log("Main" , "Msg" , "Display pearl trace");
             Log("Main" , "Msg" , "Clear display");
             BasicOutputSystem.Items.Clear();
@@ -818,7 +819,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyCalculatePearlMomemtum()
         {
-            List<Pearl> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
             Log("Main" , "Msg" , "Display pearl momemtum");
             Log("Main" , "Msg" , "Clear display");
             BasicOutputSystem.Items.Clear();
@@ -831,9 +832,9 @@ namespace PearlCalculatorWFA
             for(int i = 0; i < pearlTrace.Count; i++)
             {
                 ListViewItem result = new ListViewItem(i.ToString());
-                result.SubItems.Add(pearlTrace[i].Vector.X.ToString());
-                result.SubItems.Add(pearlTrace[i].Vector.Y.ToString());
-                result.SubItems.Add(pearlTrace[i].Vector.Z.ToString());
+                result.SubItems.Add(pearlTrace[i].Motion.X.ToString());
+                result.SubItems.Add(pearlTrace[i].Motion.Y.ToString());
+                result.SubItems.Add(pearlTrace[i].Motion.Z.ToString());
                 BasicOutputSystem.Items.Add(result);
             }
             Log("Main" , "Msg" , "Pearl momemtum output finished");

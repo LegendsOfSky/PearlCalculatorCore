@@ -9,6 +9,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 
         public CakeBlock(Space3D pos) : base(pos)
         {
+
         }
     }
 }
