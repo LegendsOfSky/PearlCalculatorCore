@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PearlCalculatorCP.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        CanResize="False"
+        x:Class="PearlCalculatorCP.Views.MainWindow"
+        Icon="/Assets/Enderperl-icon32.ico"
+        Title="PearlCalculatorv2.71"
+        Width="1280" Height="720">
+    
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+    </Window.Styles>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Panel>
+        
+        <Grid ColumnDefinitions="3*, 0.1*, 2*">
+            
+            <Grid Column="0">
+                <TabControl>
+                    
+                    <!--General FTL Group-->
+                    <TabItem Header="General FTL">
+                        
+                        <Grid RowDefinitions="5, *, 5">
+                            <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0">
+                                
+                                <TabControl>
+                                    
+                                    <!--General-->
+                                    <TabItem Header="General">
+                                        
+                                    </TabItem>
+                                    
+                                    <!--Advanced-->
+                                    <TabItem Header="Advanced">
+                                        
+                                    </TabItem>
+                                    
+                                    <!--Settings-->
+                                    <TabItem Header="Settings">
+                                        
+                                    </TabItem>
+                                    
+                                </TabControl>
+                                
+                            </Border>
+                        </Grid>
+                        
+                    </TabItem>
+                    
+                    <!--Manually-->
+                    <TabItem Header="Manually">
+                        <Grid RowDefinitions="5, *, 5">
+                            <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0">
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                    
+                </TabControl>
+            </Grid>
+            
+            <Grid Column="1" Background="#F0F0F0" />
+            
+                <Grid Column="2">
+                <TabControl>
+                    
+                    <TabItem Header="Display">
+                        
+                    </TabItem>
+                    
+                    <TabItem Header="Console">
+                        
+                    </TabItem>
+                    
+                </TabControl>
+            </Grid>
+        </Grid>
+        
+    </Panel>
+
+</Window>
