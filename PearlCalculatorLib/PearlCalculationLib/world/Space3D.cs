@@ -1,5 +1,7 @@
-﻿using PearlCalculatorLib.General;
+﻿using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.world;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -7,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace PearlCalculatorLib.CalculationLib
+namespace PearlCalculatorLib.PearlCalculationLib.world
 {
     [Serializable]
     public struct Space3D : IEquatable<Space3D>
@@ -67,16 +69,16 @@ namespace PearlCalculatorLib.CalculationLib
 
         public Direction Direction(double angle)
         {
-            Direction direction = PearlCalculationLib.Direction.None;
+            Direction direction = world.Direction.None;
 
             if (angle > -135 && angle <= -45)
-                direction = PearlCalculationLib.Direction.East;
+                direction = world.Direction.East;
             else if (angle > -45 && angle <= 45)
-                direction = PearlCalculationLib.Direction.South;
+                direction = world.Direction.South;
             else if (angle > 45 && angle <= 135)
-                direction = PearlCalculationLib.Direction.West;
+                direction = world.Direction.West;
             else if ((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
-                direction = PearlCalculationLib.Direction.North;
+                direction = world.Direction.North;
             return direction;
         }
 
@@ -248,12 +250,10 @@ namespace PearlCalculatorLib.CalculationLib
             return result;
         }
 
-        public Space3D ToChunk() => new Space3D()
+        public Chunk ToChunk()
         {
-            X = Math.Floor(X / 16),
-            Y = Math.Floor(Y / 16),
-            Z = Math.Floor(Z / 16)
-        };
+            return new Chunk((int)Math.Floor(X / 16) , (int)Math.Floor(Z / 16));
+        }
 
         public Space3D Round()
         {

@@ -17,5 +17,6 @@ namespace PearlCalculatorLib.AttachedLLFTL
         public int TotalTNT;
         public PearlEntity Pearl;
         public Block BottomBlock;
+        public LLFTLType Type;
     }
 }
