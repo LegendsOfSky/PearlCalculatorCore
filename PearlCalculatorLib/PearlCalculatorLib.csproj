@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Relay\Complex\" />
-    <Folder Include="Relay\Simple\" />
+    <Folder Include="Relay\Simple\EnhancementRelay\" />
+    <Folder Include="Relay\Simple\RedirectingRelay\" />
   </ItemGroup>
 
 </Project>

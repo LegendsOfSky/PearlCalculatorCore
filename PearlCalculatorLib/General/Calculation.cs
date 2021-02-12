@@ -1,6 +1,7 @@
 ﻿using PearlCalculatorLib.CalculationLib;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.world;
 using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
@@ -87,12 +88,11 @@ namespace PearlCalculatorLib.General
 
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
             pearl.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector + Data.Pearl.Motion;
-            result.Add(pearl);
-
+            result.Add(new PearlEntity(pearl));
             for(int i = 0; i < ticks; i++)
             {
                 pearl.Tick();
-                result.Add(pearl);
+                result.Add(new PearlEntity(pearl));
             }
             return result;
         }
@@ -111,12 +111,12 @@ namespace PearlCalculatorLib.General
                 bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthWestTNT);
                 if(Data.DefaultBlueDuper.IsNorth())
                 {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
                 else if(Data.DefaultRedDuper.IsNorth())
                 {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition + Data.PearlOffset , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
