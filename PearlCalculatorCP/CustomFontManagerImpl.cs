@@ -24,7 +24,6 @@ namespace PearlCalculatorCP
             _defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;
         }
 
-
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
             var tf = SKTypeface.FromFile(@"./Assets/Fonts/SourceHanSansSC-Normal.otf");
