@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorLib.General
@@ -18,7 +18,7 @@ namespace PearlCalculatorLib.General
         public static Space3D Destination = new Space3D();
 
         public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929408 , 0).WithVector(0 , 0.2716278719434352 , 0);
-        public static Space3D PearlOffset = new Space3D(0 , 0 , 0);
+        public static Surface2D PearlOffset = new Surface2D(0 , 0);
 
         public static int BlueTNT;
         public static int RedTNT;

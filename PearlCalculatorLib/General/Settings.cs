@@ -1,7 +1,7 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +19,7 @@ namespace PearlCalculatorLib.General
         public Space3D SouthWestTNT;
         public Space3D SouthEastTNT;
         public Space3D Destination;
-        public Space3D Offset;
+        public Surface2D Offset;
         public PearlEntity Pearl;
         public int RedTNT;
         public int BlueTNT;

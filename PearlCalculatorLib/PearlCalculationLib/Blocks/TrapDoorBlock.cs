@@ -1,6 +1,6 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

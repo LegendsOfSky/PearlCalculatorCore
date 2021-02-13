@@ -6,7 +6,7 @@ namespace PearlCalculatorLib.AttachedLLFTL
 {
     public enum LLFTLType
     {
-        EnhancementDirection,
+        EnhanceRange,
         AntiBlindSpot
     }
 }

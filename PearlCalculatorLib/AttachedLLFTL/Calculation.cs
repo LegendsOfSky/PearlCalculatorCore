@@ -1,18 +1,26 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.PearlCalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
+using System.Runtime.InteropServices;
+using System.Linq;
+using PearlCalculatorLib.PearlCalculationLib.Blocks;
+using System.Diagnostics;
+using System.Security.Permissions;
 
 namespace PearlCalculatorLib.AttachedLLFTL
 {
     public static class Calculation
     {
+
         public static void LoadDataFromGeneral()
         {
             Data.DefaultBlueDuper = General.Data.DefaultBlueDuper;
@@ -28,177 +36,245 @@ namespace PearlCalculatorLib.AttachedLLFTL
             Data.PearlOffset = General.Data.PearlOffset;
         }
 
-        public static void CalculateSuitableAttachLocation(Direction direction)
+        public static void CalculateSuitableAttachLocation(int maxTick , Direction direction , int minChunkDistance , int maxChunkDistance)
         {
-            Chunk origin = Data.OriginalPearl.Position.ToChunk();
-
-        }
-
-        private static PearlEntity PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
-        {
-            PearlEntity pearlEntity = new PearlEntity(Data.OriginalPearl);
-            CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            pearlEntity.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector;
-            for(int i = 0; i < ticks; i++)
+            PearlEntity pearl = (PearlEntity)General.Data.Pearl.Clone();
+            Space3D NorthWestTNT = General.Data.NorthWestTNT;
+            Space3D NorthEastTNT = General.Data.NorthEastTNT;
+            Space3D SouthWestTNT = General.Data.SouthWestTNT;
+            Space3D SouthEastTNT = General.Data.SouthEastTNT;
+            Stack<Surface2D> spot = CalculateSpot(direction , minChunkDistance , maxChunkDistance , pearl.Position.ToSurface2D());
+            foreach(var temp in spot)
             {
-                pearlEntity.Tick();
-            }
-            return pearlEntity;
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="maxTicks"></param>
-        /// <param name="minChunk">the closest X or Z distance between General FTL and LLFTL</param>
-        /// <param name="maxChunk">the max X or Z distance between Genearl FTL and LLFTL</param>
-        /// <returns></returns>
-        private static Stack<TNTCalculationResult> CalculateTNTAmount(int maxTicks , int minChunk , int maxChunk)
-        {
-            int redTNT;
-            int blueTNT;
-            double divider = 0;
-            Space3D distance;
-            Space3D destination = new Space3D();
-            Direction direction;
-            Chunk orginChunk = Data.OriginalPearl.Position.ToChunk();
-            Stack<TNTCalculationResult> result = new Stack<TNTCalculationResult>();
-            distance = destination - Data.OriginalPearl.Position;
-            for(int i = minChunk; i <= maxChunk; i++)
-            {
-                Chunk AABBMax = new Chunk(orginChunk);
-                Chunk AABBMin = new Chunk(orginChunk);
-                AABBMax.X += i;
-                AABBMax.Z += i;
-                AABBMin.X += i;
-                AABBMin.Z += i;
-
-            }
-            if(distance.X == 0 || distance.Z == 0)
-                return result;
-            else
-            {
-                Data.TNTResult.Clear();
-                direction = Data.OriginalPearl.Position.Direction(Data.OriginalPearl.Position.WorldAngle(destination));
-                CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-
-                for(int tick = 1; tick <= maxTicks; tick++)
+                General.Data.Destination = temp.ToSpace3D();
+                General.Data.Pearl = (PearlEntity)pearl.Clone();
+                General.Data.NorthWestTNT = NorthWestTNT;
+                General.Data.NorthEastTNT = NorthEastTNT;
+                General.Data.SouthWestTNT = SouthWestTNT;
+                General.Data.SouthEastTNT = SouthEastTNT;
+                General.Calculation.CalculateTNTAmount(maxTick , 0.5);
+                List<TNTCalculationResult> possileResult = General.Data.TNTResult.Where(t => 
                 {
-                    divider += Math.Pow(0.99 , tick - 1);
-                    distance = (destination - Data.OriginalPearl.Position) / divider;
-                    redTNT = Convert.ToInt32(Math.Round((distance.Z * blueTNTVector.X - distance.X * blueTNTVector.Z) / (redTNTVector.Z * blueTNTVector.X - blueTNTVector.Z * redTNTVector.X)));
-                    blueTNT = Convert.ToInt32(Math.Round((distance.X - redTNT * redTNTVector.X) / blueTNTVector.X));
-
-                    for(int r = -5; r <= 5; r++)
+                    switch(direction)
                     {
-                        for(int b = -5; b <= 5; b++)
-                        {
-                            PearlEntity pearlEntity = PearlSimulation(redTNT + r , blueTNT + b , tick , direction);
-                            if(Math.Abs(pearlEntity.Position.X - destination.X) <= 10 && Math.Abs(pearlEntity.Position.Z - destination.Z) <= 10)
-                            {
-                                TNTCalculationResult temp = new TNTCalculationResult
-                                {
-                                    Distance = pearlEntity.Position.Distance2D(destination) ,
-                                    Tick = tick ,
-                                    Blue = blueTNT + b ,
-                                    Red = redTNT + r ,
-                                    TotalTNT = blueTNT + b + redTNT + r
-                                };
-                                result.Push(temp);
-                            }
-                        }
+                        case Direction.North:
+                            return t.Pearl.Position.Z / 16 < Math.Round(t.Pearl.Position.Z / 16);
+                        case Direction.South:
+                            return t.Pearl.Position.Z / 16 > Math.Round(t.Pearl.Position.Z / 16);
+                        case Direction.West:
+                            return t.Pearl.Position.X / 16 < Math.Round(t.Pearl.Position.X / 16);
+                        default:
+                            return t.Pearl.Position.X / 16 > Math.Round(t.Pearl.Position.X / 16);
                     }
+                }).ToList();
+                Data.LLFTLResult = CheckLLFTLType(RefineTNTResult(direction , possileResult));
+            }
+        }
+
+        private static Stack<TNTAndRequireButtonBlockResult> CheckLLFTLType(Stack<TNTAndRequireButtonBlockResult> unrefineResult)
+        {
+            Stack<TNTAndRequireButtonBlockResult> result = new Stack<TNTAndRequireButtonBlockResult>();
+            foreach(var temp in unrefineResult)
+            {
+                if(temp.Pearl.Position.ToSurface2D() - temp.Pearl.Position.ToChunk().ToSurface2D() <= 0.5)
+                    temp.Type = LLFTLType.AntiBlindSpot;
+                else
+                    temp.Type = LLFTLType.EnhanceRange;
+                result.Push(temp);
+            }
+            return result;
+        }
+
+        private static Stack<TNTAndRequireButtonBlockResult> RefineTNTResult(Direction direction , List<TNTCalculationResult> tntResult)
+        {
+            Stack<TNTAndRequireButtonBlockResult> result = new Stack<TNTAndRequireButtonBlockResult>();
+            foreach(var temp in tntResult)
+            {
+                if(CalculateBottomBlock(direction , temp , out List<BlockType> bottomBlock))
+                {
+                    TNTAndRequireButtonBlockResult tResult = new TNTAndRequireButtonBlockResult 
+                    { 
+                        Distance = temp.Distance,
+                        Blue = temp.Blue,
+                        Red = temp.Red,
+                        Pearl = temp.Pearl,
+                        Tick = temp.Tick,
+                        TotalTNT = temp.TotalTNT,
+                        BottomBlock = bottomBlock
+                    };
+                    result.Push(tResult);
                 }
             }
             return result;
         }
 
-        private static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
+        private static bool CalculateBottomBlock(Direction direction , TNTCalculationResult result , out List<BlockType> bottomBlock)
         {
-            Space3D aVector = new Space3D(0 , 0 , 0);
-            Space3D bVector = new Space3D(0 , 0 , 0);
-            redTNTVector = new Space3D(0 , 0 , 0);
-            blueTNTVector = new Space3D(0 , 0 , 0);
-            Space3D pearlPosition = Data.PearlOffset;
-            pearlPosition.Y = Data.OriginalPearl.Position.Y;
-            if(direction.IsSouth())
+            bottomBlock = new List<BlockType>();
+            Space3D redTNTVector, blueTNTVector;
+            Block block;
+            bool isFoundBottomBlocks = false;
+
+            General.Data.Pearl = result.Pearl;
+
+            block = new BrewingStandBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
             {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalNorthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalNorthWestTNT);
-                if(Data.DefaultBlueDuper.IsNorth())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsNorth())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
+                bottomBlock.Add(BlockType.BrewingStandBlock);
+                isFoundBottomBlocks = true;
             }
-            else if(direction.IsNorth())
+
+            block = new CakeBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
             {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalSouthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalSouthWestTNT);
-                if(Data.DefaultBlueDuper.IsSouth())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsSouth())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
+                bottomBlock.Add(BlockType.CakeBlock);
+                isFoundBottomBlocks = true;
             }
-            else if(direction.IsEast())
+
+            block = new CampfireBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
             {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalSouthWestTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalNorthWestTNT);
-                if(Data.DefaultBlueDuper.IsWest())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsWest())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
+                bottomBlock.Add(BlockType.CampfireBlock);
+                isFoundBottomBlocks = true;
             }
-            else if(direction.IsWest())
+
+            block = new DaylightSensor(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
             {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalSouthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.OriginalNorthEastTNT);
-                if(Data.DefaultBlueDuper.IsEast())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsEast())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
+                bottomBlock.Add(BlockType.DaylightSensorBlock);
+                isFoundBottomBlocks = true;
             }
-            else
-                throw new ArgumentException();
+
+            block = new EnchantingTableBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.EnchantingTableBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new FenceBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y - 1);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.FenceBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new PistonBaseBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.PistonBaseBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new SkullBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.SkullBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new SoulSandBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.SoulSandBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new StoneCutterBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.StoneCutterBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            block = new TrapDoorBlock(Space3D.zero);
+            SetTNTYPosition(result.Pearl.Position.Y + block.Size.Y);
+            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            {
+                bottomBlock.Add(BlockType.TrapDoorBlock);
+                isFoundBottomBlocks = true;
+            }
+
+            return isFoundBottomBlocks;
         }
 
-        private static Space3D TNTDirectionToCoordinate(Direction coner)
+        private static void SetTNTYPosition(double height)
         {
-            Space3D tntCoordinate = new Space3D(0 , 0 , 0);
-            if(coner == Direction.NorthEast)
-                tntCoordinate = Data.OriginalNorthEastTNT;
-            else if(coner == Direction.NorthWest)
-                tntCoordinate = Data.OriginalNorthWestTNT;
-            else if(coner == Direction.SouthEast)
-                tntCoordinate = Data.OriginalSouthEastTNT;
-            else if(coner == Direction.SouthWest)
-                tntCoordinate = Data.OriginalSouthWestTNT;
-            return tntCoordinate;
+            General.Data.NorthEastTNT.Y = height;
+            General.Data.NorthWestTNT.Y = height;
+            General.Data.SouthEastTNT.Y = height;
+            General.Data.SouthWestTNT.Y = height;
+        }
+
+        private static Stack<Surface2D> CalculateSpot(Direction direction , int minChunkDistance , int maxChunkDistance , Surface2D pearlPosition)
+        {
+            Stack<Surface2D> localSpot = new Stack<Surface2D>();
+            Stack<Surface2D> gobalSpot = new Stack<Surface2D>();
+            switch(direction)
+            {
+                case Direction.North:
+                    for(int z = minChunkDistance; z <= maxChunkDistance; z++)
+                    {
+                        for(int x = 16 * -maxChunkDistance; x <= 16 * maxChunkDistance; x++)
+                        {
+                            localSpot.Push(new Surface2D(x , 16 * -z));
+                        }
+                    }
+                    break;
+                case Direction.South:
+                    for(int z = minChunkDistance; z <= maxChunkDistance; z++)
+                    {
+                        for(int x = 16 * -maxChunkDistance; x <= 16 * maxChunkDistance; x++)
+                        {
+                            localSpot.Push(new Surface2D(x , 16 * z));
+                        }
+                    }
+                    break;
+                case Direction.West:
+                    for(int x = minChunkDistance; x <= maxChunkDistance; x++)
+                    {
+                        for(int z = 16 * -maxChunkDistance; z <= 16 * maxChunkDistance; z++)
+                        {
+                            localSpot.Push(new Surface2D(16 * -x , z));
+                        }
+                    }
+                    break;
+                default:
+                    for(int x = minChunkDistance; x <= maxChunkDistance; x++)
+                    {
+                        for(int z = 16 * -maxChunkDistance; z <= 16 * maxChunkDistance; z++)
+                        {
+                            localSpot.Push(new Surface2D(16 * x , z));
+                        }
+                    }
+                    break;
+            }
+            foreach(var temp in localSpot)
+            {
+                gobalSpot.Push(temp + pearlPosition);
+            }
+            return gobalSpot;
         }
     }
-
 }

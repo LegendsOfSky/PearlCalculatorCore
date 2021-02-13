@@ -1,5 +1,5 @@
-﻿using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
+    [Serializable]
     public abstract class Entity
     {
         public Space3D Motion;

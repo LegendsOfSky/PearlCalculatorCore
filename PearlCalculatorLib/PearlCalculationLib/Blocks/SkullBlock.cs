@@ -1,5 +1,5 @@
-﻿using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
 
@@ -26,7 +26,20 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 
         private void InitAABB()
         {
-
+            if(isOnWall)
+            {
+                switch(direction)
+                {
+                    case Direction.North:
+                        break;
+                    case Direction.South:
+                        break;
+                    case Direction.East:
+                        break;
+                    case Direction.West:
+                        break;
+                }
+            }
 
         }
     }

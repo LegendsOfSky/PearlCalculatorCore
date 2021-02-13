@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using PearlCalculatorLib.CalculationLib;
+using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using GeneralData = PearlCalculatorLib.General.Data;
 using GeneralCalculation = PearlCalculatorLib.General.Calculation;
 using ManuallyData = PearlCalculatorLib.Manually.Data;
@@ -84,7 +84,7 @@ namespace PearlCalculatorWFA
         private void CalculateTNTButton_Click(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Calculate TNT");
-            if(GeneralCalculation.CalculateTNTAmount(MaxTicks))
+            if(GeneralCalculation.CalculateTNTAmount(MaxTicks , 10))
             {
                 Log("Main" , "Msg" , "TNT calculated");
                 DisplayTNTAmount(false);
@@ -319,7 +319,7 @@ namespace PearlCalculatorWFA
             {
                 return;
             }
-            Space3D offset = new Space3D();
+            Surface2D offset = new Surface2D();
             if(!double.TryParse(GeneralOffsetXTextBox.Text , out offset.X) || offset.X >= 1)
             {
                 GeneralOffsetXTextBox.Text = OffsetXTextBoxString;
@@ -340,7 +340,7 @@ namespace PearlCalculatorWFA
             {
                 return;
             }
-            Space3D offset = new Space3D();
+            Surface2D offset = new Surface2D();
             if(!double.TryParse(GeneralOffsetZTextBox.Text , out offset.Z) || offset.Z >= 1)
             {
                 GeneralOffsetZTextBox.Text = OffsetZTextBoxString;
@@ -624,7 +624,7 @@ namespace PearlCalculatorWFA
             else if(GeneralSettingListView.FocusedItem.Index == 12)
             {
                 Log("Main" , "Msg" , "Update pearl offset");
-                Space3D setting = new Space3D();
+                Surface2D setting = new Surface2D();
                 double.TryParse(GeneralSettingInputTextBox.Text , out setting.X);
                 double.TryParse(GeneralSettingListView.Items[13].SubItems[1].Text , out setting.Z);
                 GeneralData.PearlOffset = setting;
@@ -632,7 +632,7 @@ namespace PearlCalculatorWFA
             else if(GeneralSettingListView.FocusedItem.Index == 13)
             {
                 Log("Main" , "Msg" , "Update pearl offset");
-                Space3D setting = new Space3D();
+                Surface2D setting = new Surface2D();
                 double.TryParse(GeneralSettingListView.Items[12].SubItems[1].Text , out setting.X);
                 double.TryParse(GeneralSettingInputTextBox.Text , out setting.Z);
                 GeneralData.PearlOffset = setting;
@@ -659,7 +659,7 @@ namespace PearlCalculatorWFA
             GeneralData.SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
             GeneralData.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
             GeneralData.Pearl.Motion= new Space3D(0 , 0.2716278719434352 , 0);
-            GeneralData.PearlOffset = new Space3D(0 , 0 , 0);
+            GeneralData.PearlOffset = new Surface2D();
             DisplaySetting();
         }
 
@@ -987,10 +987,10 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("CMD" , "Warn" , "==========================");
-                        Log("CMD" , "Warn" , "Unknow parameter");
-                        Log("CMD" , "Warn" , "Please check for your input");
-                        Log("CMD" , "Warn" , "==========================");
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
+                        Log("CMD" , "Warn" , "Unknow parameter" , Color.Red);
+                        Log("CMD" , "Warn" , "Please check for your input" , Color.Red);
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
                     }
                     break;
                 case "cmd.general.change.tntweight":
@@ -1009,11 +1009,11 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("CMD" , "Warn" , "==========================");
-                        Log("CMD" , "Warn" , "Pearl X does not change");
-                        Log("CMD" , "Warn" , "Check for your parameter");
-                        Log("CMD" , "Warn" , "It should be a floating point number");
-                        Log("CMD" , "Warn" , "==========================");
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
+                        Log("CMD" , "Warn" , "Pearl X does not change" , Color.Red);
+                        Log("CMD" , "Warn" , "Check for your parameter" , Color.Red);
+                        Log("CMD" , "Warn" , "It should be a floating point number" , Color.Red);
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
                     }
                     break;
                 case "cmd.general.change.pearl.position.y":
@@ -1026,11 +1026,11 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("CMD" , "Warn" , "==========================");
-                        Log("CMD" , "Warn" , "Pearl Y does not change");
-                        Log("CMD" , "Warn" , "Check for your parameter");
-                        Log("CMD" , "Warn" , "It should be a floating point number");
-                        Log("CMD" , "Warn" , "==========================");
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
+                        Log("CMD" , "Warn" , "Pearl Y does not change" , Color.Red);
+                        Log("CMD" , "Warn" , "Check for your parameter" , Color.Red);
+                        Log("CMD" , "Warn" , "It should be a floating point number" , Color.Red);
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
                     }
                     break;
                 case "cmd.general.change.pearl.position.z":
@@ -1043,15 +1043,15 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("CMD" , "Warn" , "==========================");
-                        Log("CMD" , "Warn" , "Pearl Z does not change");
-                        Log("CMD" , "Warn" , "Check for your parameter");
-                        Log("CMD" , "Warn" , "It should be a floating point number");
-                        Log("CMD" , "Warn" , "==========================");
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
+                        Log("CMD" , "Warn" , "Pearl Z does not change" , Color.Red);
+                        Log("CMD" , "Warn" , "Check for your parameter" , Color.Red);
+                        Log("CMD" , "Warn" , "It should be a floating point number" , Color.Red);
+                        Log("CMD" , "Warn" , "==========================" , Color.Red);
                     }
                     break;
                 case "cmd.general.change.pearl.position.2D":
-                    Log("CMD" , "Warn" , "Changing Pearl Position");
+                    Log("CMD" , "Msg" , "Changing Pearl Position");
                     isParameter1Correct = double.TryParse(parameter1 , out space3D.X);
                     isParameter2Correct = double.TryParse(parameter2 , out space3D.Z);
                     if(isParameter1Correct && isParameter2Correct)
@@ -1105,7 +1105,7 @@ namespace PearlCalculatorWFA
                     }
                     break;
                 case "cmd.general.change.destination":
-                    Log("CMD" , "Warn" , "Changing Destination");
+                    Log("CMD" , "Warn" , "Changing Destination" , Color.Red);
                     isParameter1Correct = double.TryParse(parameter1 , out space3D.X);
                     isParameter2Correct = double.TryParse(parameter2 , out space3D.Z);
                     if(isParameter1Correct && isParameter2Correct)
@@ -1123,7 +1123,7 @@ namespace PearlCalculatorWFA
                     break;
                 case "cmd.general.calculate.tnt":
                     Log("Main" , "Msg" , "Calculate TNT");
-                    if(GeneralCalculation.CalculateTNTAmount(MaxTicks))
+                    if(GeneralCalculation.CalculateTNTAmount(MaxTicks , 10))
                     {
                         Log("Main" , "Msg" , "TNT calculated");
                         DisplayTNTAmount(false);
@@ -1131,10 +1131,10 @@ namespace PearlCalculatorWFA
                     }
                     else
                     {
-                        Log("Main" , "Warn" , "==========================");
-                        Log("Main" , "Warn" , "TNT did not calculated");
-                        Log("Main" , "Warn" , "Please check for your input");
-                        Log("Main" , "Warn" , "==========================");
+                        Log("Main" , "Warn" , "==========================" , Color.Red);
+                        Log("Main" , "Warn" , "TNT did not calculated" , Color.Red);
+                        Log("Main" , "Warn" , "Please check for your input" , Color.Red);
+                        Log("Main" , "Warn" , "==========================" , Color.Red);
                     }
                     break;
                 case "cmd.general.calculate.pearl.trace":
@@ -1160,44 +1160,45 @@ namespace PearlCalculatorWFA
                     ManuallyCalculatePearlMomemtum();
                     break;
                 default:
-                    Log("CMD" , "Warn" , "==========================");
-                    Log("CMD" , "Warn" , "Unknow instruction");
-                    Log("CMD" , "Warn" , "Please check for your input");
-                    Log("CMD" , "Warn" , "==========================");
+                    Log("CMD" , "Warn" , "==========================" , Color.Red);
+                    Log("CMD" , "Warn" , "Unknow instruction" , Color.Red);
+                    Log("CMD" , "Warn" , "Please check for your input" , Color.Red);
+                    Log("CMD" , "Warn" , "==========================" , Color.Red);
                     break;
             }
         }
 
         private void DoubleParameterUncorrectLog(bool isParameter1Correct , bool isParameter2Correct)
         {
-            Log("CMD" , "Warn" , "==========================");
+            Log("CMD" , "Warn" , "==========================" , Color.Red);
             if(!isParameter1Correct && !isParameter1Correct)
-                Log("CMD" , "Warn" , "Both parameter is uncorrect");
+                Log("CMD" , "Warn" , "Both parameter is uncorrect" , Color.Red);
             else if(!isParameter1Correct)
-                Log("CMD" , "Warn" , "Parameter 1 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 1 is uncorrect" , Color.Red);
             else
-                Log("CMD" , "Warn" , "Parameter 2 is uncorrect");
-            Log("CMD" , "Warn" , "Please check it again");
-            Log("CMD" , "Warn" , "==========================");
+                Log("CMD" , "Warn" , "Parameter 2 is uncorrect" , Color.Red);
+            Log("CMD" , "Warn" , "Please check it again" , Color.Red);
+            Log("CMD" , "Warn" , "==========================" , Color.Red);
         }
 
         private void TribleParameterUncorectLog(bool isParameter1Correct , bool isParameter2Correct , bool isParameter3Correct)
         {
-            Log("CMD" , "Warn" , "==========================");
+            Log("CMD" , "Warn" , "==========================" , Color.Red);
             if(!isParameter1Correct && !isParameter2Correct && !isParameter3Correct)
-                Log("CMD" , "Warn" , "All Parameter is uncorrect");
+                Log("CMD" , "Warn" , "All Parameter is uncorrect" , Color.Red);
             else if(!isParameter1Correct && !isParameter2Correct)
-                Log("CMD" , "Warn" , "Parameter 1 & 2 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 1 & 2 is uncorrect" , Color.Red);
             else if(!isParameter2Correct && !isParameter3Correct)
-                Log("CMD" , "Warn" , "Parameter 2 & 3 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 2 & 3 is uncorrect" , Color.Red);
             else if(!isParameter3Correct && !isParameter1Correct)
-                Log("CMD" , "Warn" , "Parameter 1 & 3 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 1 & 3 is uncorrect" , Color.Red);
             else if(!isParameter1Correct)
-                Log("CMD" , "Warn" , "Parameter 1 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 1 is uncorrect" , Color.Red);
             else if(!isParameter2Correct)
-                Log("CMD" , "Warn" , "Parameter 2 is uncorrect");
+                Log("CMD" , "Warn" , "Parameter 2 is uncorrect" , Color.Red);
             else
-                Log("CMD" , "Warn" , "Paramater 3 is uncorrect");
+                Log("CMD" , "Warn" , "Paramater 3 is uncorrect" , Color.Red);
+            Log("CMD" , "Warn" , "==========================" , Color.Red);
         }
         #endregion
     }
