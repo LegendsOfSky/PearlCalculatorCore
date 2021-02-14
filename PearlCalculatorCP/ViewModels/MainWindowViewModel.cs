@@ -14,7 +14,14 @@ namespace PearlCalculatorCP.ViewModels
         {
             DistanceVSTNT, OnlyTNT, OnlyDistance
         }
-        
+
+        public event Func<string, string, bool> OnPearlOffsetXTextChanged;
+        public event Func<string, string, bool> OnPearlOffsetZTextChanged;
+
+        private bool _isSupressX = false;
+        private bool _isSupressZ = false;
+
+
         public int TNTWeight
         {
             get => Data.TNTWeight;
@@ -69,14 +76,36 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
         }
 
+        private string _pearlOffsetX = "0.";
+        public string PearlOffsetX
+        {
+            get => _pearlOffsetX;
+            set
+            {
+                if (!_isSupressX && OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value))
+                    this.RaiseAndSetIfChanged(ref _pearlOffsetX, value);
+                if (_isSupressX) _isSupressX = false;
+            }   
+        }
 
+        private string _pearlOffsetZ = "0.";
+        public string PearlOffsetZ
+        {
+            get => _pearlOffsetZ;
+            set
+            {
+                if (!_isSupressZ && OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value))
+                    this.RaiseAndSetIfChanged(ref _pearlOffsetZ, value);
+                if (_isSupressZ) _isSupressZ = false;
+            }
+        }
+        
         private TNTWeightModeEnum _tntWeight;
         public TNTWeightModeEnum TNTWeightMode
         {
             get => _tntWeight;
             set => this.RaiseAndSetIfChanged(ref _tntWeight, value);
         }
-
 
         public List<TNTCalculationResult> TNTResult
         {
@@ -91,14 +120,12 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _direction, value);
         }
 
-        public string _angle = string.Empty;
+        private string _angle = string.Empty;
         public string Angle
         {
             get => _angle;
             set => this.RaiseAndSetIfChanged(ref _angle, value);
         }
-            
-            
 
         private bool _isDisplayOnTNT = true;
         public bool IsDisplayOnTNT
@@ -106,5 +133,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _isDisplayOnTNT;
             set => this.RaiseAndSetIfChanged(ref _isDisplayOnTNT, value);
         }
+
+        public void SupressNextOffsetXUpdate() => _isSupressX = true;
+        public void SupressNextOffsetZUpdate() => _isSupressZ = true;
     }
 }
