@@ -16,12 +16,17 @@ namespace PearlCalculatorLib.AttachedLLFTL
         public int Red;
         public int TotalTNT;
         public PearlEntity Pearl;
-        public List<BlockType> BottomBlock;
+        public List<Type> BottomBlock;
         public LLFTLType Type;
 
         public override string ToString()
         {
-            return $"Distance : {Distance} , Tick : {Tick} , Blue : {Blue} , Red : {Red} , Total TNT : {TotalTNT} , Pearl[Motion : {Pearl.Motion} , Position : {Pearl.Position} ] , Type : {Type} , BlockType : {BottomBlock}";
+            var bottomBlocksStr = new StringBuilder();
+
+            foreach (var item in BottomBlock)
+                bottomBlocksStr.Append($"{item.Name} , ");
+
+            return $"Distance : {Distance} , Tick : {Tick} , Blue : {Blue} , Red : {Red} , Total TNT : {TotalTNT} , Pearl[Motion : {Pearl.Motion} , Position : {Pearl.Position} ] , Type : {Type}\nBlockType : {bottomBlocksStr.ToString()}";
         }
     }
 }

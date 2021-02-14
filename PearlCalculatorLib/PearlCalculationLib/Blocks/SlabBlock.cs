@@ -7,7 +7,9 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class SlabBlock : Block
     {
-        public override Space3D Size => new Space3D(1, 0.5, 1);
+        public static readonly Space3D BlockSize = new Space3D(1, 0.5, 1);
+
+        public override Space3D Size => BlockSize;
 
         public SlabBlock(Space3D pos) : base(pos)
         {

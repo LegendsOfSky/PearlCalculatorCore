@@ -7,10 +7,12 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class SkullBlock : Block , IDisableSetAABB
     {
+        public static readonly Space3D BlockSize = new Space3D(0.5, 0.5, 0.5);
+
         private bool isOnWall;
         private Direction direction;
 
-        public override Space3D Size => new Space3D(0.5, 0.5, 0.5);
+        public override Space3D Size => BlockSize;
 
         public SkullBlock(Space3D pos) : base(pos)
         {

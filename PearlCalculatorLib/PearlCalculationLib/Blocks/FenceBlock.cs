@@ -9,7 +9,9 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
     public class FenceBlock : Block
     {
-        public override Space3D Size => new Space3D(0.25 , 1.5 , 0.25);
+        public static readonly Space3D BlockSize = new Space3D(0.25, 1.5, 0.25);
+
+        public override Space3D Size => BlockSize;
 
         public FenceBlock(Space3D pos) : base(pos)
         {
