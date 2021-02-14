@@ -8,26 +8,30 @@ using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Blocks
 {
+    [DefaultBlockSize(nameof(TrapDoorBlock.BlockSize_Closed))]
     public class TrapDoorBlock : Block , IDisableSetAABB
     {
+        public static readonly Space3D BlockSize_Closed = new Space3D(1, 0.1875, 1);
+        public static readonly Space3D BlockSize_EW = new Space3D(0.1875, 1, 1);
+        public static readonly Space3D BlockSize_NS = new Space3D(1, 1, 0.1875);
 
         private bool isOpened;
         private Direction direction;
 
         public override Space3D Size
         {
-            get 
+            get
             {
                 if (!isOpened)
-                    return new Space3D(1, 0.1875, 1);
+                    return BlockSize_Closed;
 
                 switch (direction)
                 {
                     case Direction.East:
                     case Direction.West:
-                        return new Space3D(0.1875, 1, 1);
+                        return BlockSize_EW;
                     default:  //N  S and other
-                        return new Space3D(1, 1, 0.1875);
+                        return BlockSize_NS;
                 }
             }
         }
