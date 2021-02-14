@@ -1,5 +1,5 @@
-﻿using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
 using System.Collections.Generic;

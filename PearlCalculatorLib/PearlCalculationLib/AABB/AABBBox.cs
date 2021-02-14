@@ -1,6 +1,6 @@
 ﻿using System;
-using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 
 namespace PearlCalculatorLib.PearlCalculationLib.AABB
 {

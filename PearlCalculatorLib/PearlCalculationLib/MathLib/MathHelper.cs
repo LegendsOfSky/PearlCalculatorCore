@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace PearlCalculatorLib.CalculationLib
+namespace PearlCalculatorLib.PearlCalculationLib.MathLib
 {
     public static class MathHelper
     {
@@ -25,7 +25,7 @@ namespace PearlCalculatorLib.CalculationLib
 
         public static bool IsInside(double border1 , double border2 , double num)
         {
-            return num <= Math.Max(border1, border2) && num >= Math.Min(border1, border2);
+            return num <= Math.Max(border1 , border2) && num >= Math.Min(border1 , border2);
         }
     }
 }

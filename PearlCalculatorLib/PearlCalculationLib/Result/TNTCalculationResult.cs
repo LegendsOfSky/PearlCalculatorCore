@@ -1,4 +1,6 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
+using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +14,7 @@ namespace PearlCalculatorLib.Result
         public int Blue;
         public int Red;
         public int TotalTNT;
+        public PearlEntity Pearl;
 
         public override string ToString()
         {

@@ -1,6 +1,6 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.Result;
 using System;
@@ -70,10 +70,11 @@ namespace PearlCalculatorLib.Manually
             Space3D bTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.BTNT);
             List<Entity> pearlTrace = new List<Entity>();
             pearl.Motion += aTNT * aTNTVector + bTNT * bTNTVector;
+            pearlTrace.Add(new PearlEntity(pearl));
             for(int i = 0; i < ticks; i++)
             {
                 pearl.Tick();
-                pearlTrace.Add(pearl);
+                pearlTrace.Add(new PearlEntity(pearl)); ;
             }
             return pearlTrace;
         }

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 
-namespace PearlCalculatorLib.PearlCalculationLib.world
+namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     [Flags]
     [Serializable]

@@ -1,9 +1,9 @@
-﻿using PearlCalculatorLib.CalculationLib;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PearlCalculatorLib.PearlCalculationLib.world
+namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     public class Chunk
     {
@@ -27,10 +27,9 @@ namespace PearlCalculatorLib.PearlCalculationLib.world
             Z = chunk.Z;
         }
 
-        public Space3D ToSpace3D()
-        {
-            return new Space3D(X * 16 , 0 , Z * 16);
-        }
+        public Space3D ToSpace3D() => new Space3D(16 * X , 0 , 16 * Z);
+
+        public Surface2D ToSurface2D() => new Surface2D(16 * X , 16 * Z);
 
         public static Chunk operator +(Chunk @this , Chunk other) => new Chunk()
         {

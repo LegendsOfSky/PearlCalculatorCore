@@ -1,21 +1,22 @@
-﻿using PearlCalculatorLib.CalculationLib;
-using PearlCalculatorLib.General;
+﻿using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.MathLib;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml.Serialization;
 
-namespace PearlCalculatorLib.PearlCalculationLib.world
+namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     [Serializable]
     public struct Space3D : IEquatable<Space3D>
     {
-        public readonly static Space3D zero = new Space3D(0, 0, 0);
-        public readonly static Space3D one = new Space3D(1, 1, 1);
+        public static readonly Space3D zero = new Space3D();
+        public static readonly Space3D one = new Space3D(1, 1, 1);
 
         public double X;
         public double Y;
@@ -29,6 +30,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.world
         }
 
         public Space3D(Space3D space3D) : this(space3D.X , space3D.Y , space3D.Z) { }
+
+        public override string ToString() => $"Coordinate : {X} , {Y} , {Z}";
 
         public double WorldAngle(Space3D position2)
         {
@@ -69,16 +72,16 @@ namespace PearlCalculatorLib.PearlCalculationLib.world
 
         public Direction Direction(double angle)
         {
-            Direction direction = world.Direction.None;
+            Direction direction = World.Direction.None;
 
             if (angle > -135 && angle <= -45)
-                direction = world.Direction.East;
+                direction = World.Direction.East;
             else if (angle > -45 && angle <= 45)
-                direction = world.Direction.South;
+                direction = World.Direction.South;
             else if (angle > 45 && angle <= 135)
-                direction = world.Direction.West;
+                direction = World.Direction.West;
             else if ((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
-                direction = world.Direction.North;
+                direction = World.Direction.North;
             return direction;
         }
 
@@ -96,6 +99,61 @@ namespace PearlCalculatorLib.PearlCalculationLib.world
             return Math.Sqrt(dis3.DistanceSq());
         }
 
+
+        public Surface2D ToSurface2D() => new Surface2D(X , Z);
+
+        public bool IsNorth(Space3D position2) => position2.X > X;
+
+        public bool IsSouth(Space3D position2) => position2.X < X;
+
+        public bool IsEast(Space3D position2) => position2.Z < Z;
+
+        public bool IsWest(Space3D position2) => position2.Z > Z;
+
+        public double AngleElevation(Space3D position2) => Math.Atan((position2.Y - Y) / (position2.X - X)) / Math.PI * 180;
+
+        public bool IsOrigin() => X == 0 && Y == 0 && Z == 0;
+
+        public double AngleInRad(Space3D position2) => Math.Atan((position2.Z - Z) / (position2.X - X));
+
+        public Space3D Rotate(double degree)
+        {
+            Space3D result;
+            double distance = Math.Sqrt(X * X + Z * Z);
+            double angle = new Space3D(0 , 0 , 0).AngleInRad(this) + MathHelper.DegreeToRadiant(degree);
+            result = FromPolarCoordinate(new Space3D(0 , 0 , 0).Distance2D(this) , angle);
+            result.X = distance * Math.Sin(angle);
+            result.Z = distance * Math.Cos(angle);
+            return result;
+        }
+
+        public Space3D Mirror(bool onXAxis, bool onZAxis)
+        {
+            Space3D result = new Space3D(0 , Y , 0);
+            if(onXAxis)
+                result.X = -X;
+            if(onZAxis)
+                result.Z = -Z;
+            return result;
+        }
+
+        public static Space3D FromPolarCoordinate(double lenght, double Radinat)
+        {
+            Space3D result = new Space3D(0 , 0 , 0);
+            result.X = lenght * Math.Sin(Radinat);
+            result.Z = lenght * Math.Cos(Radinat);
+            return result;
+        }
+
+        public Chunk ToChunk() => new Chunk((int)Math.Floor(X / 16) , (int)Math.Floor(Z / 16));
+
+        public Space3D Round() => new Space3D(Math.Round(X) , Math.Round(Y) , Math.Round(Z));
+
+        public override bool Equals(object obj) => obj is Space3D s && Equals(s);
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        public bool Equals(Space3D other) => X == other.X && Y == other.Y && Z == other.Z;
         public static Space3D operator +(Space3D @this , Space3D other) => new Space3D()
         {
             X = @this.X + other.X ,
@@ -166,117 +224,12 @@ namespace PearlCalculatorLib.PearlCalculationLib.world
             Z = @this.Z / divider
         };
 
-        public static bool operator ==(Space3D left, Space3D right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(Space3D left , Space3D right) => left.Equals(right);
 
-        public static bool operator !=(Space3D left, Space3D right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator >(Space3D left , double right) => left.X > right && left.Y > right && left.Z > right;
 
-        public bool IsNorth(Space3D position2)
-        {
-            return position2.X > X;
-        }
+        public static bool operator <(Space3D left , double right) => left.X < right && left.Y < right && left.Z < right;
 
-        public bool IsSouth(Space3D position2)
-        {
-            return position2.X < X;
-        }
-
-        public bool IsEast(Space3D position2)
-        {
-            return position2.Z < Z;
-        }
-
-        public bool IsWest(Space3D position2)
-        {
-            return position2.Z > Z;
-        }
-
-        public double Angle2D(Space3D position2)
-        {
-            return Math.Atan(position2.Z - Z / position2.X - X) / Math.PI * 180;
-        }
-
-        public double AngleElevation(Space3D position2)
-        {
-            return Math.Atan(position2.Y - Y / position2.X - X) / Math.PI * 180;
-        }
-
-        public bool IsOrigin()
-        {
-            return X == 0 && Y == 0 && Z == 0;
-        }
-
-        public bool IsOrigin2D()
-        {
-            return X == 0 && Y == 0;
-        }
-
-        public double AngleInRad(Space3D position2)
-        {
-            return Math.Atan(position2.Z - Z / position2.X - X);
-        }
-
-        public Space3D Rotate(double degree)
-        {
-            Space3D result;
-            double distance = Math.Sqrt(X * X + Z * Z);
-            double angle = new Space3D(0 , 0 , 0).AngleInRad(this) + MathHelper.DegreeToRadiant(degree);
-            result = PolarCoordinateToSpace3D(new Space3D(0 , 0 , 0).Distance2D(this) , angle);
-            result.X = distance * Math.Sin(angle);
-            result.Z = distance * Math.Cos(angle);
-            return result;
-        }
-
-        public Space3D Mirror(bool onXAxis, bool onZAxis)
-        {
-            Space3D result = new Space3D(0 , Y , 0);
-            if(onXAxis)
-                result.X = -X;
-            if(onZAxis)
-                result.Z = -Z;
-            return result;
-        }
-
-        public Space3D PolarCoordinateToSpace3D(double lenght, double Radinat)
-        {
-            Space3D result = new Space3D(0 , 0 , 0);
-            result.X = lenght * Math.Sin(Radinat);
-            result.Z = lenght * Math.Cos(Radinat);
-            return result;
-        }
-
-        public Chunk ToChunk()
-        {
-            return new Chunk((int)Math.Floor(X / 16) , (int)Math.Floor(Z / 16));
-        }
-
-        public Space3D Round()
-        {
-            Space3D result;
-            result.X = Math.Round(X);
-            result.Y = Math.Round(Y);
-            result.Z = Math.Round(Z);
-            return result;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Space3D s && Equals(s);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public bool Equals(Space3D other)
-        {
-            return X == other.X && Y == other.Y && Z == other.Z;
-        }
+        public static bool operator !=(Space3D left , Space3D right) => !left.Equals(right);
     }
 }
