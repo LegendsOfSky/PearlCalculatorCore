@@ -15,8 +15,8 @@ namespace PearlCalculatorCP.ViewModels
             DistanceVSTNT, OnlyTNT, OnlyDistance
         }
 
-        public event Func<string, string, bool> OnPearlOffsetXTextChanged;
-        public event Func<string, string, bool> OnPearlOffsetZTextChanged;
+        public event Func<string, string, bool>? OnPearlOffsetXTextChanged;
+        public event Func<string, string, bool>? OnPearlOffsetZTextChanged;
 
         private bool _isSupressX = false;
         private bool _isSupressZ = false;
@@ -82,7 +82,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlOffsetX;
             set
             {
-                if (!_isSupressX && OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value))
+                if (!_isSupressX && OnPearlOffsetXTextChanged != null && OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value))
                     this.RaiseAndSetIfChanged(ref _pearlOffsetX, value);
                 if (_isSupressX) _isSupressX = false;
             }   
@@ -94,7 +94,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlOffsetZ;
             set
             {
-                if (!_isSupressZ && OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value))
+                if (!_isSupressZ && OnPearlOffsetZTextChanged != null && OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value))
                     this.RaiseAndSetIfChanged(ref _pearlOffsetZ, value);
                 if (_isSupressZ) _isSupressZ = false;
             }

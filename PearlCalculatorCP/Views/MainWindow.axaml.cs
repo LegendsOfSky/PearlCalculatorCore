@@ -9,7 +9,7 @@ using Avalonia.Markup.Xaml;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.world;
+using PearlCalculatorLib.PearlCalculationLib.World;
 
 #nullable disable
 
@@ -61,7 +61,7 @@ namespace PearlCalculatorCP.Views
 
         private void CalculateTNTBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Calculation.CalculateTNTAmount(this.MaxTicks);
+            Calculation.CalculateTNTAmount(this.MaxTicks, 10);
         }
 
         private void PearlSimulateBtn_OnClick(object sender, RoutedEventArgs e)
