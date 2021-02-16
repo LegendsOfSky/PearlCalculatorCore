@@ -35,29 +35,12 @@ namespace PearlCalculatorLib.AttachedLLFTL
 
                 foreach (var type in types)
                 {
-                    if(type.BaseType.Equals(blockBaseType))
+                    if(type.BaseType == blockBaseType)
                         _blocksType.Add(type);
                 }
 
                 return _blocksType;
             }
-        }
-
-
-
-        public static void LoadDataFromGeneral()
-        {
-            Data.DefaultBlueDuper = General.Data.DefaultBlueDuper;
-            Data.DefaultRedDuper = General.Data.DefaultRedDuper;
-            Data.Destination = General.Data.Destination;
-            Data.Direction = General.Data.Direction;
-            Data.MaxTNT = General.Data.MaxTNT;
-            Data.OriginalNorthEastTNT = General.Data.NorthEastTNT;
-            Data.OriginalNorthWestTNT = General.Data.NorthWestTNT;
-            Data.OriginalSouthEastTNT = General.Data.SouthEastTNT;
-            Data.OriginalSouthWestTNT = General.Data.SouthWestTNT;
-            Data.OriginalPearl = General.Data.Pearl;
-            Data.PearlOffset = General.Data.PearlOffset;
         }
 
         public static void CalculateSuitableAttachLocation(int maxTick , Direction direction , int minChunkDistance , int maxChunkDistance)

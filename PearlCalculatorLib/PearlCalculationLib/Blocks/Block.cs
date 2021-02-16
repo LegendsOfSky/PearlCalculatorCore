@@ -65,7 +65,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Blocks
             var fieldInfo = type.GetField(fieldName, 
             BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetField);
 
-            if(fieldInfo != null)
+            if (fieldInfo != null && fieldInfo.FieldType == typeof(Space3D))
             {
                 size = (Space3D)fieldInfo.GetValue(null);
                 BlockUtils.BlockSizeOfType.Add(type, size);
