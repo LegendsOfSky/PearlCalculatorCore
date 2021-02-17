@@ -83,12 +83,12 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
 
         public static bool operator==(AABBBox left, AABBBox right)
         {
-            return left.Equals(right);
+            return left is { } && left.Equals(right);
         }
 
         public static bool operator!=(AABBBox left, AABBBox right)
         {
-            return !left.Equals(right);
+            return left is { } && !left.Equals(right);
         }
 
         public override int GetHashCode()

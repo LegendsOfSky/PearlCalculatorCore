@@ -384,29 +384,10 @@ namespace PearlCalculatorWFA
             if(fileDialog.ShowDialog() == DialogResult.OK)
             {
                 var fs = File.Open(fileDialog.FileName , FileMode.OpenOrCreate);
-                bf.Serialize(fs , CreateSavedSettingsData());
+                bf.Serialize(fs , Settings.CreateSettingsFormData());
                 fs.Close();
             }
         }
-
-        Settings CreateSavedSettingsData() => new Settings()
-        {
-            NorthWestTNT = GeneralData.NorthWestTNT ,
-            NorthEastTNT = GeneralData.NorthEastTNT ,
-            SouthWestTNT = GeneralData.SouthWestTNT ,
-            SouthEastTNT = GeneralData.SouthEastTNT ,
-
-            Pearl = GeneralData.Pearl ,
-
-            RedTNT = GeneralData.RedTNT ,
-            BlueTNT = GeneralData.BlueTNT ,
-            MaxTNT = GeneralData.MaxTNT ,
-
-            Destination = GeneralData.Destination ,
-            Offset = GeneralData.PearlOffset ,
-
-            Direction = GeneralData.Direction
-        };
 
         void ImportSettingFormDefaultFile()
         {

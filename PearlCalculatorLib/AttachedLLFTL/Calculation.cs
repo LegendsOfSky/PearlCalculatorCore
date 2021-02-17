@@ -35,29 +35,12 @@ namespace PearlCalculatorLib.AttachedLLFTL
 
                 foreach (var type in types)
                 {
-                    if(type.BaseType.Equals(blockBaseType))
+                    if(type.BaseType == blockBaseType)
                         _blocksType.Add(type);
                 }
 
                 return _blocksType;
             }
-        }
-
-
-
-        public static void LoadDataFromGeneral()
-        {
-            Data.DefaultBlueDuper = General.Data.DefaultBlueDuper;
-            Data.DefaultRedDuper = General.Data.DefaultRedDuper;
-            Data.Destination = General.Data.Destination;
-            Data.Direction = General.Data.Direction;
-            Data.MaxTNT = General.Data.MaxTNT;
-            Data.OriginalNorthEastTNT = General.Data.NorthEastTNT;
-            Data.OriginalNorthWestTNT = General.Data.NorthWestTNT;
-            Data.OriginalSouthEastTNT = General.Data.SouthEastTNT;
-            Data.OriginalSouthWestTNT = General.Data.SouthWestTNT;
-            Data.OriginalPearl = General.Data.Pearl;
-            Data.PearlOffset = General.Data.PearlOffset;
         }
 
         public static void CalculateSuitableAttachLocation(int maxTick , Direction direction , int minChunkDistance , int maxChunkDistance)
@@ -140,110 +123,18 @@ namespace PearlCalculatorLib.AttachedLLFTL
 
             General.Data.Pearl = result.Pearl;
 
-            //memorydream:
-            //我没有测试过这部分的代码，它逻辑上可行
-            //我注释掉它，经过测试后可以使用下面的循环替换掉大量重复的代码
-
-            // foreach (var item in BlocksType)
-            // {
-            //     if(Block.TryGetBlockSize(item, out var size))
-            //     {
-            //         SetTNTYPosition(result.Pearl.Position.Y + size.Y);
-            //         General.Calculation.CalculateTNTVector(direction, out redTNTVector, out blueTNTVector);
-            //         if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            //         {
-            //             bottomBlock.Add(item);
-            //             isFoundBottomBlocks = true;
-            //         }
-            //     }
-            // }
-
-            SetTNTYPosition(result.Pearl.Position.Y + BrewingStandBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+            foreach(var item in BlocksType)
             {
-                bottomBlock.Add(typeof(BrewingStandBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + CakeBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(CakeBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + CampfireBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(CampfireBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + DaylightSensor.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(DaylightSensor));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + EnchantingTableBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(EnchantingTableBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + FenceBlock.BlockSize.Y - 1);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(FenceBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + PistonBaseBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(PistonBaseBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + SkullBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(SkullBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + SoulSandBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(SoulSandBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + StoneCutterBlock.BlockSize.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(StoneCutterBlock));
-                isFoundBottomBlocks = true;
-            }
-
-            SetTNTYPosition(result.Pearl.Position.Y + TrapDoorBlock.BlockSize_Closed.Y);
-            General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
-            if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
-            {
-                bottomBlock.Add(typeof(TrapDoorBlock));
-                isFoundBottomBlocks = true;
+                if(Block.TryGetBlockSize(item , out var size))
+                {
+                    SetTNTYPosition(result.Pearl.Position.Y + size.Y);
+                    General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+                    if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
+                    {
+                        bottomBlock.Add(item);
+                        isFoundBottomBlocks = true;
+                    }
+                }
             }
 
             return isFoundBottomBlocks;

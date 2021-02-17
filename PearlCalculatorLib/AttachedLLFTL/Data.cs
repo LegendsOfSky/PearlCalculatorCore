@@ -34,5 +34,23 @@ namespace PearlCalculatorLib.AttachedLLFTL
 
         public static Direction DefaultRedDuper = Direction.SouthEast;
         public static Direction DefaultBlueDuper = Direction.NorthWest;
+        
+        /// <summary>
+        /// Load data form General <see cref="General.Data"/>
+        /// </summary>
+        public static void LoadDataFromGeneral()
+        {
+            DefaultBlueDuper = General.Data.DefaultBlueDuper;
+            DefaultRedDuper = General.Data.DefaultRedDuper;
+            Destination = General.Data.Destination;
+            Direction = General.Data.Direction;
+            MaxTNT = General.Data.MaxTNT;
+            OriginalNorthEastTNT = General.Data.NorthEastTNT;
+            OriginalNorthWestTNT = General.Data.NorthWestTNT;
+            OriginalSouthEastTNT = General.Data.SouthEastTNT;
+            OriginalSouthWestTNT = General.Data.SouthWestTNT;
+            OriginalPearl = General.Data.Pearl;
+            PearlOffset = General.Data.PearlOffset;
+        }
     }
 }
