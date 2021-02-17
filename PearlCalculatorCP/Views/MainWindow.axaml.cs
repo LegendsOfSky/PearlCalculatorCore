@@ -110,7 +110,7 @@ namespace PearlCalculatorCP.Views
             {
                 var bf = new BinaryFormatter();
                 using var fs = File.Open(path, FileMode.OpenOrCreate);
-                bf.Serialize(fs, Settings.GetSettingsFormData());
+                bf.Serialize(fs, Settings.CreateSettingsFormData());
             }
         }
         
