@@ -25,5 +25,24 @@ namespace PearlCalculatorLib.General
         public int BlueTNT;
         public int MaxTNT;
         public Direction Direction;
+        
+        public static Settings GetSettingsFormData() => new Settings()
+        {
+            NorthWestTNT = Data.NorthWestTNT ,
+            NorthEastTNT = Data.NorthEastTNT ,
+            SouthWestTNT = Data.SouthWestTNT ,
+            SouthEastTNT = Data.SouthEastTNT ,
+
+            Pearl = Data.Pearl ,
+
+            RedTNT = Data.RedTNT ,
+            BlueTNT = Data.BlueTNT ,
+            MaxTNT = Data.MaxTNT ,
+
+            Destination = Data.Destination ,
+            Offset = Data.PearlOffset ,
+
+            Direction = Data.Direction
+        };
     }
 }

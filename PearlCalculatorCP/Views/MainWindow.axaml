@@ -90,22 +90,22 @@
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Pearl X :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding PearlPosX, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <TextBox Text="{Binding PearlPosX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosXInputBox" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Pearl Z :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding PearlPosZ, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <TextBox Text="{Binding PearlPosZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosZInputBox" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Destination X :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding DestinationX, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <TextBox Text="{Binding DestinationX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationXInputBox" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Destination Z :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding DestinationZ, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <TextBox Text="{Binding DestinationZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationZInputBox" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
@@ -117,10 +117,10 @@
                                                 
                                                 <Grid ColumnDefinitions="*, *, *, *" ColumnSpan="5">
                                                     
-                                                    <RadioButton Grid.Column="0" IsChecked="True" Checked="OnDirectionSelectChanged" Content="North" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="1" Checked="OnDirectionSelectChanged" Content="South" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="2" Checked="OnDirectionSelectChanged" Content="East" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="3" Checked="OnDirectionSelectChanged" Content="West" GroupName="DirectionSelectGroup" />
+                                                    <RadioButton Grid.Column="0" IsChecked="True" Checked="OnDirectionSelectChanged" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                                    <RadioButton Grid.Column="1" Checked="OnDirectionSelectChanged" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                                    <RadioButton Grid.Column="2" Checked="OnDirectionSelectChanged" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                                    <RadioButton Grid.Column="3" Checked="OnDirectionSelectChanged" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
                                                     
                                                 </Grid>
                                                 
@@ -177,9 +177,9 @@
                                             <StackPanel Orientation="Horizontal" Spacing="30">
                                                 
                                                 <!--use CommandParameter mark target TNTWeightMode value-->
-                                                <RadioButton Name="DistanceVSTNTRB" Content="Distance VS TNT" Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSort" CommandParameter="0" />
-                                                <RadioButton Name="OnlyTNTRB"       Content="Only TNT"        Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSort" CommandParameter="1" />
-                                                <RadioButton Name="OnlyDistanceRB"  Content="Only Distance"   Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSort" CommandParameter="2" />
+                                                <RadioButton Name="DistanceVSTNTRB" Content="Distance VS TNT" Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="0" />
+                                                <RadioButton Name="OnlyTNTRB"       Content="Only TNT"        Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="1" />
+                                                <RadioButton Name="OnlyDistanceRB"  Content="Only Distance"   Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="2" />
 
                                             </StackPanel>
                                             
@@ -250,13 +250,13 @@
                                     <Border Grid.Column="0" BorderBrush="#F0F0F0" BorderThickness="0,0,2,0">
                                         <Grid RowDefinitions="*, *" Margin="5, 0">
                                             <TextBlock Grid.Row="0" Text="Direction" VerticalAlignment="Center" />
-                                            <TextBlock Grid.Row="1" Text="{Binding Direction}" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Row="1" Text="{Binding ResultDirection}" VerticalAlignment="Center" />
                                         </Grid>
                                     </Border>
                                     
                                     <Grid Grid.Column="1" RowDefinitions="*, *" Margin="5, 0">
                                         <TextBlock Grid.Row="0" Text="Angle" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Row="1" Text="{Binding Angle}" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Row="1" Text="{Binding ResultAngle}" VerticalAlignment="Center" />
                                     </Grid>
                                     
                                 </Grid>

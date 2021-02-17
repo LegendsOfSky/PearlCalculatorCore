@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.VisualTree;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib;
@@ -17,11 +21,20 @@ namespace PearlCalculatorCP.Views
 {
     public class MainWindow : Window
     {
+        private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
+        {
+            new FileDialogFilter
+            {
+                Name = "pcld",
+                Extensions = {"pcld"}
+            }
+        };
+        
         private MainWindowViewModel _vm;
 
         private TextBox _offsetXInputBox;
         private TextBox _offsetZInputBox;
-
+        
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
         //so, I use reflection set the field to false
@@ -39,10 +52,11 @@ namespace PearlCalculatorCP.Views
             {
                 _vm = DataContext as MainWindowViewModel;
 
-                _vm.TNTWeightMode = MainWindowViewModel.TNTWeightModeEnum.DistanceVSTNT;
-
-                _vm.OnPearlOffsetXTextChanged += OnPearlOffsetXTextChanged;
-                _vm.OnPearlOffsetZTextChanged += OnPearlOffsetZTextChanged;
+                _vm.OnPearlOffsetXTextChanged += (lastText, nextText, supressCallback, backingField) =>
+                    OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetXInputBox, backingField);
+                
+                _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback, backingField) =>
+                        OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox, backingField);
             };
             
 #if DEBUG
@@ -69,48 +83,88 @@ namespace PearlCalculatorCP.Views
             throw new NotImplementedException();
         }
 
-        private void ImportSettingsBtn_OnClick(object sender, RoutedEventArgs e)
+        #region Settings Import/Export
+
+        private async void ImportSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new OpenFileDialog {Filters = FileDialogFilter, AllowMultiple = false};
+            var result = await dialog.ShowAsync(this.GetVisualRoot() as Window);
+
+            if (result != null && File.Exists(result[0]))
+            {
+                var path = result[0];
+                using var fs = File.OpenRead(path);
+                if (new BinaryFormatter().Deserialize(fs) is Settings settings)
+                {
+                    ImportSettings(settings);
+                }
+            }
         }
 
-        private void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
+        private async void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new SaveFileDialog {Filters = FileDialogFilter};
+            var path = await dialog.ShowAsync(this.GetVisualRoot() as Window);
+
+            if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrEmpty(path))
+            {
+                var bf = new BinaryFormatter();
+                using var fs = File.Open(path, FileMode.OpenOrCreate);
+                bf.Serialize(fs, Settings.GetSettingsFormData());
+            }
+        }
+        
+        private void ImportSettings(Settings settings)
+        {
+            Data.NorthWestTNT = settings.NorthWestTNT;
+            Data.NorthEastTNT = settings.NorthEastTNT;
+            Data.SouthWestTNT = settings.SouthWestTNT;
+            Data.SouthEastTNT = settings.SouthEastTNT;
+
+            Data.Pearl = settings.Pearl;
+            
+            Data.Destination = settings.Destination;
+            
+            _vm.PearlPosX = settings.Pearl.Position.X;
+            _vm.PearlPosZ = settings.Pearl.Position.Z;
+            _vm.DestinationX = settings.Destination.X;
+            _vm.DestinationZ = settings.Destination.Z;
+            _vm.PearlOffsetX = settings.Offset.X.ToString();
+            _vm.PearlOffsetZ = settings.Offset.Z.ToString();
+            _vm.BlueTNT = (uint)settings.BlueTNT;
+            _vm.RedTNT = (uint) settings.RedTNT;
+            _vm.MaxTNT = (uint)settings.MaxTNT;
+
+            if (this.FindControl<RadioButton>($"{settings.Direction.ToString()}RB") is { } rb)
+                rb.IsChecked = true;
         }
 
+        #endregion
+        
         private void OnDirectionSelectChanged(object sender, RoutedEventArgs e)
         {
-            if(sender is RadioButton rb)
-                Data.Direction = DirectionUtils.FormName(rb.Content.ToString());
+            if(sender is RadioButton {GroupName:"DirectionSelectGroup"} rb)
+                _vm.Direction = DirectionUtils.FormName(rb.Content.ToString());
         }
 
         private void OnTNTWeightModeChanged(object sender, RoutedEventArgs e)
         {
-            if (sender is RadioButton {GroupName: "TNTAmountResultSort"} rb)
+            if (sender is RadioButton {GroupName: "TNTAmountResultSortMode"} rb)
                 _vm.TNTWeightMode = (MainWindowViewModel.TNTWeightModeEnum)int.Parse(rb.CommandParameter.ToString());
         }
 
-        private bool OnPearlOffsetXTextChanged(string lastText, string nextText) =>
-            OnPearlOffsetTextChanged(lastText, nextText, _vm.SupressNextOffsetXUpdate, _offsetXInputBox, ref Data.PearlOffset.X);
-
-        private bool OnPearlOffsetZTextChanged(string lastText, string nextText) => 
-            OnPearlOffsetTextChanged(lastText, nextText, _vm.SupressNextOffsetZUpdate, _offsetZInputBox, ref Data.PearlOffset.Z);
-
-        private bool OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox, ref double backingField)
+        private (bool, double) OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox, double backingField)
         {
-            if (nextText.Length < 2 || nextText.Substring(0, 2) != "0." ||
+            if (nextText.Length < 2 || nextText[..2] != "0." ||
                 !(double.TryParse(nextText, out var result) && result != backingField))
             {
-                supressCallback.Invoke();
+                supressCallback?.Invoke();
                 IgnoreTextChangesFieldInfo.SetValue(textBox, false);
                 textBox.Text = lastText;
                 textBox.CaretIndex = lastText.Length;
-                return false;
+                return (false, 0);
             }
-
-            backingField = result;
-            return true;
+            return (true, result);
 
         }
 

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using PearlCalculatorLib.General;
+using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
 
@@ -15,8 +14,26 @@ namespace PearlCalculatorCP.ViewModels
             DistanceVSTNT, OnlyTNT, OnlyDistance
         }
 
-        public event Func<string, string, bool>? OnPearlOffsetXTextChanged;
-        public event Func<string, string, bool>? OnPearlOffsetZTextChanged;
+        /// <summary>
+        /// On pearl offset x value changed
+        /// <param name="parameter1">last value</param>
+        /// <param name="parameter2">next value</param>
+        /// <param name="parameter3">supress callback</param>
+        /// <param name="Parameter4">backing field value</param>
+        /// </summary>
+        /// <returns>can change, if true, please change backing value, else rollback text to last value and return false</returns>
+        public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetXTextChanged;
+        
+        /// <summary>
+        /// On pearl offset z value changed
+        /// <param name="parameter1">last value</param>
+        /// <param name="parameter2">next value</param>
+        /// <param name="parameter3">supress callback</param>
+        /// <param name="Parameter4">backing field value</param>
+        /// </summary>
+        /// <returns>can change, if true, please change backing value, else rollback text to last value and return false</returns>
+
+        public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetZTextChanged;
 
         private bool _isSupressX = false;
         private bool _isSupressZ = false;
@@ -25,43 +42,67 @@ namespace PearlCalculatorCP.ViewModels
         public int TNTWeight
         {
             get => Data.TNTWeight;
+            set => this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
+        }
+
+        private double _pearlPosX;
+        public double PearlPosX
+        {
+            get => _pearlPosX;
             set
             {
-                if(this.RaiseAndSetIfChanged(ref Data.TNTWeight, value) != value)
-                {
-                    
-                }
+                this.RaiseAndSetIfChanged(ref _pearlPosX, value);
+                if (_pearlPosX != Data.Pearl.Position.X)
+                    Data.Pearl.Position.X = _pearlPosX;
             }
         }
 
-        public double PearlPosX
-        {
-            get => Data.Pearl.Position.X;
-            set => this.RaiseAndSetIfChanged(ref Data.Pearl.Position.X, value);
-        }
-
+        private double _pearlPosZ;
         public double PearlPosZ
         {
-            get => Data.Pearl.Position.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.Pearl.Position.Z, value);
+            get => _pearlPosZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _pearlPosZ, value);
+                if (_pearlPosZ != Data.Pearl.Position.Z)
+                    Data.Pearl.Position.Z = _pearlPosZ;
+            }
         }
 
+        private double _destinationX;
         public double DestinationX
         {
-            get => Data.Destination.X;
-            set => this.RaiseAndSetIfChanged(ref Data.Destination.X, value);
+            get => _destinationX;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _destinationX, value);
+                if (_destinationX != Data.Destination.X)
+                    Data.Destination.X = _destinationX;
+            }
         }
-        
+
+        private double _destinationZ;
         public double DestinationZ
         {
-            get => Data.Destination.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.Destination.Z, value);
+            get => _destinationZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _destinationZ, value);
+                if (_destinationZ != Data.Destination.Z)
+                    Data.Destination.Z = _destinationZ;
+            }
         }
 
         public uint MaxTNT
         {
             get => (uint)Data.MaxTNT;
             set => this.RaiseAndSetIfChanged(ref Data.MaxTNT, (int)value);
+        }
+
+        public Direction Direction
+        {
+            get => Data.Direction;
+            set => this.RaiseAndSetIfChanged(ref Data.Direction, value);
         }
 
         public uint RedTNT
@@ -82,9 +123,14 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlOffsetX;
             set
             {
-                if (!_isSupressX && OnPearlOffsetXTextChanged != null && OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value))
+                (bool, double) callbackResult;
+                if (!_isSupressX && OnPearlOffsetXTextChanged != null &&
+                    (callbackResult = OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value, () => _isSupressX = true, Data.PearlOffset.Z)).Item1)
+                {
                     this.RaiseAndSetIfChanged(ref _pearlOffsetX, value);
-                if (_isSupressX) _isSupressX = false;
+                    Data.PearlOffset.X = callbackResult.Item2;
+                }
+                else _isSupressX = false;
             }   
         }
 
@@ -94,9 +140,14 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlOffsetZ;
             set
             {
-                if (!_isSupressZ && OnPearlOffsetZTextChanged != null && OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value))
+                (bool, double) callbackResult;
+                if (!_isSupressZ && OnPearlOffsetZTextChanged != null &&
+                    (callbackResult = OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value, () => _isSupressZ = true, Data.PearlOffset.Z)).Item1)
+                {
                     this.RaiseAndSetIfChanged(ref _pearlOffsetZ, value);
-                if (_isSupressZ) _isSupressZ = false;
+                    Data.PearlOffset.Z = callbackResult.Item2;
+                }
+                else _isSupressZ = false;
             }
         }
         
@@ -113,18 +164,18 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref Data.TNTResult, value);
         }
 
-        private string _direction = string.Empty;
-        public string Direction
+        private string _resultDirection = string.Empty;
+        public string ResultDirection
         {
-            get => _direction;
-            set => this.RaiseAndSetIfChanged(ref _direction, value);
+            get => _resultDirection;
+            set => this.RaiseAndSetIfChanged(ref _resultDirection, value);
         }
 
-        private string _angle = string.Empty;
-        public string Angle
+        private string _resultAngle = string.Empty;
+        public string ResultAngle
         {
-            get => _angle;
-            set => this.RaiseAndSetIfChanged(ref _angle, value);
+            get => _resultAngle;
+            set => this.RaiseAndSetIfChanged(ref _resultAngle, value);
         }
 
         private bool _isDisplayOnTNT = true;
@@ -134,7 +185,5 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isDisplayOnTNT, value);
         }
 
-        public void SupressNextOffsetXUpdate() => _isSupressX = true;
-        public void SupressNextOffsetZUpdate() => _isSupressZ = true;
     }
 }

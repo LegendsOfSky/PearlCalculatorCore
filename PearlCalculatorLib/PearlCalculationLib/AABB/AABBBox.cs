@@ -4,6 +4,7 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 
 namespace PearlCalculatorLib.PearlCalculationLib.AABB
 {
+    [Serializable]
     public class AABBBox : IEquatable<AABBBox>
     {
         public Space3D Min;
