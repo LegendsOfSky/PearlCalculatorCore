@@ -188,6 +188,7 @@ namespace PearlCalculatorCP.ViewModels
                 if (value >= 0 && value < TNTResult.Count)
                 {
                     this.RaiseAndSetIfChanged(ref _tntResultSelectedIndex, value);
+                    Direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
                     BlueTNT = (uint)_tntResult[value].Blue;
                     RedTNT = (uint) _tntResult[value].Red;
                 }
@@ -196,12 +197,16 @@ namespace PearlCalculatorCP.ViewModels
         
         #endregion
 
+        #region Pearl trace
+
         private List<PearlTraceModel>? _pearlTraceList;
         public List<PearlTraceModel>? PearlTraceList
         {
             get => _pearlTraceList;
             set => this.RaiseAndSetIfChanged(ref _pearlTraceList, value);
         }
+        
+        #endregion
 
         private string _resultDirection = string.Empty;
         public string ResultDirection
@@ -285,6 +290,27 @@ namespace PearlCalculatorCP.ViewModels
                     Data.TNTResult.SortByDistance();
                     break;
             }
+        }
+
+        public void SortTNTResultByDistance()
+        {
+            TNTResult.SortByDistance();
+            TNTResult = null;
+            TNTResult = Data.TNTResult;
+        }
+
+        public void SortTNTResultByTicks()
+        {
+            TNTResult.SortByTick();
+            TNTResult = null;
+            TNTResult = Data.TNTResult;
+        }
+
+        public void SortTNTResultByTotal()
+        {
+            TNTResult.SortByTotal();
+            TNTResult = null;
+            TNTResult = Data.TNTResult;
         }
     }
     
