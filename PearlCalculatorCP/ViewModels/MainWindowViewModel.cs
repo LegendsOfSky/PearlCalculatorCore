@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PearlCalculatorLib.General;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
@@ -9,10 +11,6 @@ namespace PearlCalculatorCP.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public enum TNTWeightModeEnum
-        {
-            DistanceVSTNT, OnlyTNT, OnlyDistance
-        }
 
         /// <summary>
         /// On pearl offset x value changed
@@ -21,7 +19,7 @@ namespace PearlCalculatorCP.ViewModels
         /// <param name="parameter3">supress callback</param>
         /// <param name="Parameter4">backing field value</param>
         /// </summary>
-        /// <returns>can change, if true, please change backing value, else rollback text to last value and return false</returns>
+        /// <returns>bool: can change this value; double: target value</returns>
         public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetXTextChanged;
         
         /// <summary>
@@ -31,20 +29,16 @@ namespace PearlCalculatorCP.ViewModels
         /// <param name="parameter3">supress callback</param>
         /// <param name="Parameter4">backing field value</param>
         /// </summary>
-        /// <returns>can change, if true, please change backing value, else rollback text to last value and return false</returns>
-
+        /// <returns>bool: can change this value; double: target value</returns>
         public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetZTextChanged;
 
         private bool _isSupressX = false;
         private bool _isSupressZ = false;
 
+        private int MaxTicks { get; set; } = 100;
 
-        public int TNTWeight
-        {
-            get => Data.TNTWeight;
-            set => this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
-        }
-
+        #region GeneralFTL General Input Data
+        
         private double _pearlPosX;
         public double PearlPosX
         {
@@ -117,6 +111,10 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
         }
 
+        #endregion
+
+        #region GeneralFTL Advanced Input Data
+
         private string _pearlOffsetX = "0.";
         public string PearlOffsetX
         {
@@ -151,17 +149,40 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
         
+        public int TNTWeight
+        {
+            get => Data.TNTWeight;
+            set => this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
+        }
+        
         private TNTWeightModeEnum _tntWeight;
         public TNTWeightModeEnum TNTWeightMode
         {
             get => _tntWeight;
             set => this.RaiseAndSetIfChanged(ref _tntWeight, value);
         }
+        
+        #endregion
 
-        public List<TNTCalculationResult> TNTResult
+        #region GeneralFTL Result Data
+
+
+        private List<TNTCalculationResult>? _tntResult;
+        public List<TNTCalculationResult>? TNTResult
         {
-            get => Data.TNTResult;
-            set => this.RaiseAndSetIfChanged(ref Data.TNTResult, value);
+            get => _tntResult;
+            set
+            {
+                _tntResult = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private List<Entity>? _pearlTarceList;
+        public List<Entity>? PearlTarceList
+        {
+            get => _pearlTarceList;
+            set => this.RaiseAndSetIfChanged(ref _pearlTarceList, value);
         }
 
         private string _resultDirection = string.Empty;
@@ -178,12 +199,75 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _resultAngle, value);
         }
 
-        private bool _isDisplayOnTNT = true;
-        public bool IsDisplayOnTNT
+        private bool _isDisplayTntAmount = true;
+        public bool IsDisplayTNTAmount
         {
-            get => _isDisplayOnTNT;
-            set => this.RaiseAndSetIfChanged(ref _isDisplayOnTNT, value);
+            get => _isDisplayTntAmount;
+            set => this.RaiseAndSetIfChanged(ref _isDisplayTntAmount, value);
         }
 
+        #endregion
+        
+        public void LoadDataFormSettings(Settings settings)
+        {
+            Data.NorthWestTNT = settings.NorthWestTNT;
+            Data.NorthEastTNT = settings.NorthEastTNT;
+            Data.SouthWestTNT = settings.SouthWestTNT;
+            Data.SouthEastTNT = settings.SouthEastTNT;
+            
+            Data.Pearl = settings.Pearl;
+            
+            Data.Destination = settings.Destination;
+            
+            PearlPosX = settings.Pearl.Position.X;
+            PearlPosZ = settings.Pearl.Position.Z;
+            DestinationX = settings.Destination.X;
+            DestinationZ = settings.Destination.Z;
+            PearlOffsetX = settings.Offset.X.ToString();
+            PearlOffsetZ = settings.Offset.Z.ToString();
+            BlueTNT = (uint)settings.BlueTNT;
+            RedTNT = (uint) settings.RedTNT;
+            MaxTNT = (uint)settings.MaxTNT;
+            Direction = settings.Direction;
+        }
+
+        public void CalculateTNTAmount()
+        {
+            if (Calculation.CalculateTNTAmount(MaxTicks, 10))
+            {
+                Data.TNTResult = Data.TNTResult.Where(result => result.Red > 0 && result.Blue > 0).ToList();
+                SortTNTResult();
+                TNTResult = Data.TNTResult;
+                ResultDirection = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
+                ResultAngle = Data.Pearl.Position.WorldAngle(Data.Destination).ToString();
+            }
+        }
+
+        public void PearlSimulate()
+        {
+            PearlTarceList = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+            IsDisplayTNTAmount = false;
+        }
+
+        private void SortTNTResult()
+        {
+            switch (TNTWeightMode)
+            {
+                case TNTWeightModeEnum.DistanceVSTNT:
+                    Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
+                    break;
+                case TNTWeightModeEnum.OnlyTNT:
+                    Data.TNTResult.SortByWeightedTotal(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
+                    break;
+                case TNTWeightModeEnum.OnlyDistance:
+                    Data.TNTResult.SortByDistance();
+                    break;
+            }
+        }
+    }
+    
+    public enum TNTWeightModeEnum
+    {
+        DistanceVSTNT, OnlyTNT, OnlyDistance
     }
 }

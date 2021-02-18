@@ -9,12 +9,12 @@ namespace PearlCalculatorLib.Result
 {
     public struct TNTCalculationResult
     {
-        public double Distance;
-        public int Tick;
-        public int Blue;
-        public int Red;
-        public int TotalTNT;
-        public PearlEntity Pearl;
+        public double Distance { get; set; }
+        public int Tick { get; set; }
+        public int Blue { get; set; }
+        public int Red { get; set; }
+        public int TotalTNT { get; set; }
+        public PearlEntity Pearl { get; set; }
 
         public override string ToString()
         {

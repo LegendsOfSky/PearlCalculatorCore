@@ -5,7 +5,7 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Utilities;
 
-namespace PearlCalculatorCP
+namespace PearlCalculatorCP.Converters
 {
     public class StringToNumericConverter : IValueConverter
     {

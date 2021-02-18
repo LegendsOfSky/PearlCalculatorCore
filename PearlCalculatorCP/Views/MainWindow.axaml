@@ -1,7 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
-        xmlns:local="using:PearlCalculatorCP"
+        xmlns:converters="using:PearlCalculatorCP.Converters"
+        xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
         xmlns:result="using:PearlCalculatorLib.Result"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,11 +10,12 @@
         CanResize="False"
         x:Class="PearlCalculatorCP.Views.MainWindow"
         Icon="/Assets/Enderperl-icon32.ico"
-        Title="PearlCalculatorv2.71"
+        Title="PearlCalculator v2.71"
         Width="1000" Height="800">
     
     <Window.Resources>
-        <local:StringToNumericConverter x:Key="STNConverter" />
+        <converters:StringToNumericConverter x:Key="STNConverter" />
+        <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
     </Window.Resources>
     
     <!--Styles define-->
@@ -117,10 +119,10 @@
                                                 
                                                 <Grid ColumnDefinitions="*, *, *, *" ColumnSpan="5">
                                                     
-                                                    <RadioButton Grid.Column="0" IsChecked="True" Checked="OnDirectionSelectChanged" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
-                                                    <RadioButton Grid.Column="1" Checked="OnDirectionSelectChanged" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
-                                                    <RadioButton Grid.Column="2" Checked="OnDirectionSelectChanged" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
-                                                    <RadioButton Grid.Column="3" Checked="OnDirectionSelectChanged" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                                    <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                                    <RadioButton Grid.Column="1" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                                    <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                                    <RadioButton Grid.Column="3" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
                                                     
                                                 </Grid>
                                                 
@@ -136,8 +138,8 @@
                                                 <TextBox Text="{Binding BlueTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
                                             </StackPanel>
                                                 
-                                            <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Click="CalculateTNTBtn_OnClick" />
-                                            <Button Classes="GeneralButtonStyle" Content="Pearl Simulate" Click="PearlSimulateBtn_OnClick" />
+                                            <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Command="{Binding CalculateTNTAmount}" />
+                                            <Button Classes="GeneralButtonStyle" Content="Pearl Simulate" Command="{Binding PearlSimulate}" />
                                             <Button Classes="GeneralButtonStyle" Content="Import Settings" Click="ImportSettingsBtn_OnClick" />
                                             <Button Classes="GeneralButtonStyle" Content="Save Settings" Click="SaveSettingsBtn_OnClick" />
                                             
@@ -177,9 +179,9 @@
                                             <StackPanel Orientation="Horizontal" Spacing="30">
                                                 
                                                 <!--use CommandParameter mark target TNTWeightMode value-->
-                                                <RadioButton Name="DistanceVSTNTRB" Content="Distance VS TNT" Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="0" />
-                                                <RadioButton Name="OnlyTNTRB"       Content="Only TNT"        Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="1" />
-                                                <RadioButton Name="OnlyDistanceRB"  Content="Only Distance"   Click="OnTNTWeightModeChanged" GroupName="TNTAmountResultSortMode" CommandParameter="2" />
+                                                <RadioButton Name="DistanceVSTNTRB" Content="Distance VS TNT" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.DistanceVSTNT}}" />
+                                                <RadioButton Name="OnlyTNTRB"       Content="Only TNT"        GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}"  />
+                                                <RadioButton Name="OnlyDistanceRB"  Content="Only Distance"   GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}"  />
 
                                             </StackPanel>
                                             
@@ -222,24 +224,53 @@
                             <Border Grid.Row="1" Classes="GlobalGeneralBorder" Padding="5, 0">
                                 <Panel>
                                     <!--Calculate TNT Amount Mode-->
-                                    <StackPanel IsVisible="{Binding IsDisplayOnTNT}">
+                                    <Grid IsVisible="{Binding IsDisplayTNTAmount}">
 
+                                        <Grid RowDefinitions="Auto, *">
                                         <!--Header-->
-                                        <Grid>
+                                        <Grid Grid.Row="0" ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
+                                            <TextBlock Grid.Column="0" Text="Distance" Padding="5, 2" Name="amountModeDistance" />
+                                            <TextBlock Grid.Column="2" Text="Tick" Padding="5, 2" Name="amountModeTick"/>
+                                            <TextBlock Grid.Column="4" Text="Blue" Padding="5, 2" Name="amountModeBlue"/>
+                                            <TextBlock Grid.Column="6" Text="Red" Padding="5, 2" Name="amountModeRed"/>
+                                            <TextBlock Grid.Column="8" Text="Total" Padding="5, 2" Name="amountModeTotal"/>
+                                            
+                                            <Grid Background="#F0F0F0" Column="1" />
+                                            <Grid Background="#F0F0F0" Column="3" />
+                                            <Grid Background="#F0F0F0" Column="5" />
+                                            <Grid Background="#F0F0F0" Column="7" />
 
                                         </Grid>
-
-                                        <!--Content-->
-                                        <ItemsRepeater>
-                                            
-                                        </ItemsRepeater>
                                         
-                                    </StackPanel>
+                                        <!--Content-->
+                                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                            <ItemsControl Items="{Binding TNTResult}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
+                                                            <TextBlock Grid.Column="0" Text="{Binding Distance}" Padding="2, 1" Width="{Binding #amountModeDistance.Width}" />
+                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }" Padding="2, 1" Width="{Binding #amountModeTick.Width}" />
+                                                            <TextBlock Grid.Column="4" Text="{Binding Blue}" Padding="2, 1" Width="{Binding #amountModeBlue.Width}" />
+                                                            <TextBlock Grid.Column="6" Text="{Binding Red}" Padding="2, 1" Width="{Binding #amountModeRed.Width}" />
+                                                            <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Padding="2, 1" Width="{Binding #amountModeTotal.Width}" />
+                                                            
+                                                            <Grid Background="#F0F0F0" Column="1" />
+                                                            <Grid Background="#F0F0F0" Column="3" />
+                                                            <Grid Background="#F0F0F0" Column="5" />
+                                                            <Grid Background="#F0F0F0" Column="7" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        </ScrollViewer>
+                                        
+                                    </Grid>
+                                    </Grid>
 
                                     <!--Pearl Track Mode-->
-                                    <StackPanel IsVisible="{Binding !IsDisplayOnTNT}">
+                                    <Grid IsVisible="{Binding !IsDisplayTNTAmount}">
                                         
-                                    </StackPanel>
+                                    </Grid>
                                 </Panel>
                             </Border>
                             
