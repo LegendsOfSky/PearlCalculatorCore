@@ -3,7 +3,6 @@
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
         xmlns:converters="using:PearlCalculatorCP.Converters"
         xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
-        xmlns:result="using:PearlCalculatorLib.Result"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="1400"
@@ -238,7 +237,7 @@
                                             <!--Header-->
                                             <Grid Grid.Row="0" ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
                                                 <TextBlock Grid.Column="0" Text="Distance" Padding="5, 2" Name="amountModeDistance" />
-                                                <TextBlock Grid.Column="2" Text="Tick" Padding="5, 2" Name="amountModeTick"/>
+                                                <TextBlock Grid.Column="2" Text="Ticks" Padding="5, 2" Name="amountModeTicks"/>
                                                 <TextBlock Grid.Column="4" Text="Blue" Padding="5, 2" Name="amountModeBlue"/>
                                                 <TextBlock Grid.Column="6" Text="Red" Padding="5, 2" Name="amountModeRed"/>
                                                 <TextBlock Grid.Column="8" Text="Total" Padding="5, 2" Name="amountModeTotal"/>
@@ -252,11 +251,11 @@
                                         
                                             <!--Content-->
                                             <ListBox Grid.Row="1" Items="{Binding TNTResult}" SelectedIndex="{Binding TNTResultSelectedIndex}" Name="amountTNTResult" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                                <SelectingItemsControl.ItemTemplate>
+                                                <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *" Width="{Binding #amountTNTResult.Bounds.Width}">
                                                             <TextBlock Grid.Column="0" Text="{Binding Distance}" Padding="2, 1" Width="{Binding #amountModeDistance.Width}" />
-                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }" Padding="2, 1" Width="{Binding #amountModeTick.Width}" />
+                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }" Padding="2, 1" Width="{Binding #amountModeTicks.Width}" />
                                                             <TextBlock Grid.Column="4" Text="{Binding Blue}" Padding="2, 1" Width="{Binding #amountModeBlue.Width}" />
                                                             <TextBlock Grid.Column="6" Text="{Binding Red}" Padding="2, 1" Width="{Binding #amountModeRed.Width}" />
                                                             <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Padding="2, 1" Width="{Binding #amountModeTotal.Width}" />
@@ -267,16 +266,53 @@
                                                             <Grid Background="#F0F0F0" Column="7" />
                                                         </Grid>
                                                     </DataTemplate>
-                                                </SelectingItemsControl.ItemTemplate>
+                                                </ListBox.ItemTemplate>
                                             </ListBox>
                                         
                                         </Grid>
                                     </Panel>
 
-                                    <!--Pearl Track Mode-->
-                                    <Grid IsVisible="{Binding !IsDisplayTNTAmount}">
+                                    <!--Pearl Trace Mode-->
+                                    <Panel IsVisible="{Binding !IsDisplayTNTAmount}">
                                         
-                                    </Grid>
+                                        <Grid RowDefinitions="Auto, *">
+                                            <!--Header-->
+                                            <Grid Grid.Row="0" ColumnDefinitions="0.3*, 2, *, 2, *, 2, *">
+                                                
+                                                <TextBlock Grid.Column="0" Text="Ticks" Name="pearlTraceTicks" />
+                                                <TextBlock Grid.Column="2" Text="X Coordinate" Name="pearlTraceXCoor" />
+                                                <TextBlock Grid.Column="4" Text="Y Coordinate" Name="pearlTraceYCoor" />
+                                                <TextBlock Grid.Column="6" Text="Z Coordinate" Name="pearlTraceZCoor" />
+                                                
+                                                <Grid Background="#F0F0F0" Column="1" />
+                                                <Grid Background="#F0F0F0" Column="3" />
+                                                <Grid Background="#F0F0F0" Column="5" />
+
+                                            </Grid>
+                                            
+                                            <!--Content-->
+                                            <ListBox Grid.Row="1" Items="{Binding PearlTraceList}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="pearlTraceResult">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="0.3*, 2, *, 2, *, 2, *" Width="{Binding #pearlTraceResult.Bounds.Width}">
+                                                
+                                                            <TextBlock Grid.Column="0" Text="{Binding Tick}" Name="pearlTraceTicks" />
+                                                            <TextBlock Grid.Column="2" Text="{Binding XCoor}" Name="pearlTraceXCoor" />
+                                                            <TextBlock Grid.Column="4" Text="{Binding YCoor}" Name="pearlTraceYCoor" />
+                                                            <TextBlock Grid.Column="6" Text="{Binding ZCoor}" Name="pearlTraceZCoor" />
+                                                
+                                                            <Grid Background="#F0F0F0" Column="1" />
+                                                            <Grid Background="#F0F0F0" Column="3" />
+                                                            <Grid Background="#F0F0F0" Column="5" />
+
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            
+                                        </Grid>
+                                        
+                                    </Panel>
                                 </Panel>
                             </Border>
                             

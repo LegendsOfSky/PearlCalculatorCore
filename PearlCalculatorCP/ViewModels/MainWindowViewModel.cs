@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using PearlCalculatorCP.Models;
 using PearlCalculatorLib.General;
-using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
@@ -195,11 +196,11 @@ namespace PearlCalculatorCP.ViewModels
         
         #endregion
 
-        private List<Entity>? _pearlTarceList;
-        public List<Entity>? PearlTarceList
+        private List<PearlTraceModel>? _pearlTraceList;
+        public List<PearlTraceModel>? PearlTraceList
         {
-            get => _pearlTarceList;
-            set => this.RaiseAndSetIfChanged(ref _pearlTarceList, value);
+            get => _pearlTraceList;
+            set => this.RaiseAndSetIfChanged(ref _pearlTraceList, value);
         }
 
         private string _resultDirection = string.Empty;
@@ -262,7 +263,11 @@ namespace PearlCalculatorCP.ViewModels
 
         public void PearlSimulate()
         {
-            PearlTarceList = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+            var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Motion.X, YCoor = t.Motion.Y, ZCoor = t.Motion.Z}));
+            PearlTraceList = traces;
+            
             IsDisplayTNTAmount = false;
         }
 

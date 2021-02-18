@@ -5,15 +5,11 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data.Converters;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
-using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.World;
 
 #nullable disable
 
