@@ -165,6 +165,7 @@ namespace PearlCalculatorCP.ViewModels
 
         #region GeneralFTL Result Data
 
+        #region Calculation TNT Amount
 
         private List<TNTCalculationResult>? _tntResult;
         public List<TNTCalculationResult>? TNTResult
@@ -191,6 +192,8 @@ namespace PearlCalculatorCP.ViewModels
                 }
             }
         }
+        
+        #endregion
 
         private List<Entity>? _pearlTarceList;
         public List<Entity>? PearlTarceList
@@ -254,6 +257,7 @@ namespace PearlCalculatorCP.ViewModels
                 ResultDirection = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
                 ResultAngle = Data.Pearl.Position.WorldAngle(Data.Destination).ToString();
             }
+            IsDisplayTNTAmount = true;
         }
 
         public void PearlSimulate()

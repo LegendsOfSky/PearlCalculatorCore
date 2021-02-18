@@ -78,7 +78,7 @@ namespace PearlCalculatorCP.Views
             var dialog = new OpenFileDialog {Filters = FileDialogFilter, AllowMultiple = false};
             var result = await dialog.ShowAsync(this.GetVisualRoot() as Window);
 
-            if (result == null || !File.Exists(result[0])) return;
+            if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
             
             var path = result[0];
             await using var fs = File.OpenRead(path);
