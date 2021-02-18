@@ -274,11 +274,11 @@
                                         <Grid RowDefinitions="Auto, *">
                                             <!--Header-->
                                             <Grid Grid.Row="0" ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
-                                                <Button Grid.Column="0" Content="Distance" Name="amountModeDistance" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByDistance}"/>
-                                                <Button Grid.Column="2" Content="Ticks" Name="amountModeTicks" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTicks}"/>
-                                                <Button Grid.Column="4" Content="Blue" Name="amountModeBlue" Classes="TNTAmountResultHeader" IsEnabled="False"/>
-                                                <Button Grid.Column="6" Content="Red" Name="amountModeRed" Classes="TNTAmountResultHeader" IsEnabled="False"/>
-                                                <Button Grid.Column="8" Content="Total" Name="amountModeTotal" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTotal}"/>
+                                                <Button Grid.Column="0" Content="Distance" Name="AmountModeDistance" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByDistance}"/>
+                                                <Button Grid.Column="2" Content="Ticks" Name="AmountModeTicks" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTicks}"/>
+                                                <Button Grid.Column="4" Content="Blue" Name="AmountModeBlue" Classes="TNTAmountResultHeader" IsEnabled="False"/>
+                                                <Button Grid.Column="6" Content="Red" Name="AmountModeRed" Classes="TNTAmountResultHeader" IsEnabled="False"/>
+                                                <Button Grid.Column="8" Content="Total" Name="AmountModeTotal" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTotal}"/>
                                             
                                                 <Grid Background="#F0F0F0" Column="1" />
                                                 <Grid Background="#F0F0F0" Column="3" />
@@ -287,15 +287,15 @@
                                             </Grid>
                                         
                                             <!--Content-->
-                                            <ListBox Grid.Row="1" Items="{Binding TNTResult}" SelectedIndex="{Binding TNTResultSelectedIndex}" Name="amountTNTResult" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                            <ListBox Grid.Row="1" Items="{Binding TNTResult}" SelectedIndex="{Binding TNTResultSelectedIndex}" Name="AmountTNTResult" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *" Width="{Binding #amountTNTResult.Bounds.Width}">
-                                                            <TextBlock Grid.Column="0" Text="{Binding Distance}" Width="{Binding #amountModeDistance.Width}"  Classes="ResultListTBPadding" />
-                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }"    Width="{Binding #amountModeTicks.Width}"  Classes="ResultListTBPadding" />
-                                                            <TextBlock Grid.Column="4" Text="{Binding Blue}"     Width="{Binding #amountModeBlue.Width}"  Classes="ResultListTBPadding" />
-                                                            <TextBlock Grid.Column="6" Text="{Binding Red}"      Width="{Binding #amountModeRed.Width}"  Classes="ResultListTBPadding" />
-                                                            <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Width="{Binding #amountModeTotal.Width}"  Classes="ResultListTBPadding" />
+                                                        <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *" Width="{Binding #AmountTNTResult.Bounds.Width}">
+                                                            <TextBlock Grid.Column="0" Text="{Binding Distance}" Width="{Binding #AmountModeDistance.Width}"  Classes="ResultListTBPadding" />
+                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }"    Width="{Binding #AmountModeTicks.Width}"  Classes="ResultListTBPadding" />
+                                                            <TextBlock Grid.Column="4" Text="{Binding Blue}"     Width="{Binding #AmountModeBlue.Width}"  Classes="ResultListTBPadding" />
+                                                            <TextBlock Grid.Column="6" Text="{Binding Red}"      Width="{Binding #AmountModeRed.Width}"  Classes="ResultListTBPadding" />
+                                                            <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Width="{Binding #AmountModeTotal.Width}"  Classes="ResultListTBPadding" />
                                                                 
                                                             <Grid Background="#F0F0F0" Column="1" />
                                                             <Grid Background="#F0F0F0" Column="3" />
@@ -316,10 +316,10 @@
                                             <!--Header-->
                                             <Grid Grid.Row="0" ColumnDefinitions="0.3*, 3, *, 3, *, 3, *">
                                                 
-                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Ticks" Name="pearlTraceTicks" />
-                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="X Coordinate" Name="pearlTraceXCoor" />
-                                                <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="Y Coordinate" Name="pearlTraceYCoor" />
-                                                <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="Z Coordinate" Name="pearlTraceZCoor" />
+                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Ticks" Name="PearlTraceTicks" />
+                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="X Coordinate" Name="PearlTraceXCoor" />
+                                                <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="Y Coordinate" Name="PearlTraceYCoor" />
+                                                <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="Z Coordinate" Name="PearlTraceZCoor" />
                                                 
                                                 <Grid Background="#F0F0F0" Column="1" />
                                                 <Grid Background="#F0F0F0" Column="3" />
@@ -328,15 +328,15 @@
                                             </Grid>
                                             
                                             <!--Content-->
-                                            <ListBox Grid.Row="1" Items="{Binding PearlTraceList}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="pearlTraceResult">
+                                            <ListBox Grid.Row="1" Items="{Binding PearlTraceList}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="PearlTraceResult">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Grid ColumnDefinitions="0.3*, 3, *, 3, *, 3, *" Width="{Binding #pearlTraceResult.Bounds.Width}">
+                                                        <Grid ColumnDefinitions="0.3*, 3, *, 3, *, 3, *" Width="{Binding #PearlTraceResult.Bounds.Width}">
                                                 
-                                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Name="pearlTraceTicks" />
-                                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Name="pearlTraceXCoor" />
-                                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Name="pearlTraceYCoor" />
-                                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Name="pearlTraceZCoor" />
+                                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlTraceTicks.Bounds.Width}" />
+                                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlTraceXCoor.Bounds.Width}" />
+                                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlTraceYCoor.Bounds.Width}" />
+                                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlTraceZCoor.Bounds.Width}" />
                                                 
                                                             <Grid Background="#F0F0F0" Column="1" />
                                                             <Grid Background="#F0F0F0" Column="3" />

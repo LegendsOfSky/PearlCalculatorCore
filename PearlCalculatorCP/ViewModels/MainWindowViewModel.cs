@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using PearlCalculatorCP.Models;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -168,8 +170,8 @@ namespace PearlCalculatorCP.ViewModels
 
         #region Calculation TNT Amount
 
-        private List<TNTCalculationResult>? _tntResult;
-        public List<TNTCalculationResult>? TNTResult
+        private ObservableCollection<TNTCalculationResult>? _tntResult;
+        public ObservableCollection<TNTCalculationResult>? TNTResult
         {
             get => _tntResult;
             set
@@ -259,7 +261,7 @@ namespace PearlCalculatorCP.ViewModels
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
                 SortTNTResult();
-                TNTResult = Data.TNTResult;
+                TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
                 ResultDirection = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
                 ResultAngle = Data.Pearl.Position.WorldAngle(Data.Destination).ToString();
             }
@@ -294,23 +296,20 @@ namespace PearlCalculatorCP.ViewModels
 
         public void SortTNTResultByDistance()
         {
-            TNTResult.SortByDistance();
-            TNTResult = null;
-            TNTResult = Data.TNTResult;
+            Data.TNTResult.SortByDistance();
+            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
         }
 
         public void SortTNTResultByTicks()
         {
-            TNTResult.SortByTick();
-            TNTResult = null;
-            TNTResult = Data.TNTResult;
+            Data.TNTResult.SortByTick();
+            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
         }
 
         public void SortTNTResultByTotal()
         {
-            TNTResult.SortByTotal();
-            TNTResult = null;
-            TNTResult = Data.TNTResult;
+            Data.TNTResult.SortByTotal();
+            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
         }
     }
     
