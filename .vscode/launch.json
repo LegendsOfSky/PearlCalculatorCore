@@ -9,11 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/PearlCalculatorCore/bin/Debug/netcoreapp3.1/PearlCalculatorCore.dll",
             "args": [],
             "cwd": "${workspaceFolder}/PearlCalculatorCore",
-            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "externalTerminal",
             "stopAtEntry": false
         },
@@ -22,11 +20,19 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/PearlCalculatorWFA/bin/Debug/netcoreapp3.1/PearlCalculatorWFA.dll",
             "args": [],
             "cwd": "${workspaceFolder}/PearlCalculatorWFA",
-            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "stopAtEntry": false
+        },
+        {
+            "name": "Cross-platform launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/PearlCalculatorCP/bin/Debug/netcoreapp3.1/PearlCalculatorCP.dll",
+            "args":[],
+            "cwd": "${workspaceFolder}/PearlCalculatorCP",
             "stopAtEntry": false
         },
         {

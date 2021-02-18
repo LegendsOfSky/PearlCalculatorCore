@@ -1,0 +1,321 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PearlCalculatorCP.ViewModels"
+        xmlns:converters="using:PearlCalculatorCP.Converters"
+        xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
+        xmlns:result="using:PearlCalculatorLib.Result"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="1400"
+        CanResize="False"
+        x:Class="PearlCalculatorCP.Views.MainWindow"
+        Icon="/Assets/Enderperl-icon32.ico"
+        Title="PearlCalculator v2.71"
+        Width="1000" Height="800">
+    
+    <Window.Resources>
+        <converters:StringToNumericConverter x:Key="STNConverter" />
+        <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
+    </Window.Resources>
+    
+    <!--Styles define-->
+    <Window.Styles>
+        
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        
+        <Style Selector="Button.GeneralButtonStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="5, 2" />
+        </Style>
+        
+        <Style Selector="TextBlock.InputBoxTB">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="2,2,2,4" />
+        </Style>
+        
+        <Style Selector="TextBox.InputBox:error /template/Border">
+            <Setter Property="Margin" Value="0,0,0,-2" />
+        </Style>
+        
+        <Style Selector="GridSplitter">
+            <Setter Property="Foreground" Value="#F0F0F0" />
+            <Setter Property="Background" Value="#F0F0F0" />
+            <Setter Property="Width" Value="2" />
+            <Setter Property="MinWidth" Value="1" />
+        </Style>
+        
+        <Style Selector="Border.GlobalGeneralBorder">
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="BorderBrush" Value="#F0F0F0" />
+        </Style>
+        
+    </Window.Styles>
+    
+    
+    <!--DataTemplates Define-->
+    <Window.DataTemplates>
+        
+
+        
+    </Window.DataTemplates>
+    
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Panel>
+        
+        <Grid ColumnDefinitions="2*, 4, 2*">
+            
+            <Grid Column="0">
+                <TabControl>
+                    
+                    <!--General FTL Group-->
+                    <TabItem Header="General FTL">
+                        
+                        <Grid RowDefinitions="5, *, 5">
+                            <Border Grid.Row="1" Classes="GlobalGeneralBorder">
+                                
+                                <TabControl>
+                                    
+                                    <!--General-->
+                                    <TabItem Header="General">
+                                        
+                                        <StackPanel x:Name="GeneralRootSP">
+                                            
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Pearl X :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding PearlPosX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosXInputBox" />
+                                            </StackPanel>
+                                            
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Pearl Z :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding PearlPosZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosZInputBox" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Destination X :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding DestinationX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationXInputBox" />
+                                            </StackPanel>
+                                            
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Destination Z :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding DestinationZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationZInputBox" />
+                                            </StackPanel>
+
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Max TNT :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding MaxTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                            </StackPanel>
+
+                                            <Border BorderThickness="2" Margin="5, 5, 2, 0">
+                                                
+                                                <Grid ColumnDefinitions="*, *, *, *" ColumnSpan="5">
+                                                    
+                                                    <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                                    <RadioButton Grid.Column="1" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                                    <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                                    <RadioButton Grid.Column="3" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                                    
+                                                </Grid>
+                                                
+                                            </Border>
+                                            
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Red TNT :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding RedTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                            </StackPanel>
+                                            
+                                            <StackPanel Margin="4">
+                                                <TextBlock Text="Blue TNT :" Classes="InputBoxTB" />
+                                                <TextBox Text="{Binding BlueTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                            </StackPanel>
+                                                
+                                            <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Command="{Binding CalculateTNTAmount}" />
+                                            <Button Classes="GeneralButtonStyle" Content="Pearl Simulate" Command="{Binding PearlSimulate}" />
+                                            <Button Classes="GeneralButtonStyle" Content="Import Settings" Click="ImportSettingsBtn_OnClick" />
+                                            <Button Classes="GeneralButtonStyle" Content="Save Settings" Click="SaveSettingsBtn_OnClick" />
+                                            
+                                        </StackPanel>
+                                        
+                                    </TabItem>
+                                    
+                                    <!--Advanced-->
+                                    <TabItem Header="Advanced">
+                                        <StackPanel>
+                                            
+                                            <Border BorderThickness="1" BorderBrush="#F0F0F0" CornerRadius="5" Padding="20, 5">
+                                                
+                                                <StackPanel>
+                                                    
+                                                    <TextBlock Text="Offsets :" Margin="5, 2, 0, 10" />
+                                                    
+                                                    <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
+                                                        <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
+                                                        <TextBox Grid.Column="1" Name="OffsetXInputBox" Text="{Binding PearlOffsetX}" />
+                                                    </Grid>
+                                                    
+                                                    <Grid ColumnDefinitions="1*, 9*">
+                                                        <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
+                                                        <TextBox Grid.Column="1" Name="OffsetZInputBox" Text="{Binding PearlOffsetZ}" />
+                                                    </Grid>
+                                                    
+                                                </StackPanel>
+                                                
+                                            </Border>
+                                            
+                                            <Grid ColumnDefinitions="3*, 9*">
+                                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="TNT Weight" Padding="0,2,0,0" />
+                                                <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
+                                            </Grid>
+                                            
+                                            <StackPanel Orientation="Horizontal" Spacing="30">
+                                                
+                                                <!--use CommandParameter mark target TNTWeightMode value-->
+                                                <RadioButton Name="DistanceVSTNTRB" Content="Distance VS TNT" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.DistanceVSTNT}}" />
+                                                <RadioButton Name="OnlyTNTRB"       Content="Only TNT"        GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}"  />
+                                                <RadioButton Name="OnlyDistanceRB"  Content="Only Distance"   GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}"  />
+
+                                            </StackPanel>
+                                            
+                                        </StackPanel>
+                                    </TabItem>
+                                    
+                                    <!--Settings-->
+                                    <TabItem Header="Settings">
+                                        
+                                    </TabItem>
+                                    
+                                </TabControl>
+                                
+                            </Border>
+                        </Grid>
+                        
+                    </TabItem>
+                    
+                    <!--Manually-->
+                    <TabItem Header="Manually">
+                        <Grid RowDefinitions="5, *, 5">
+                            <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0">
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                    
+                </TabControl>
+            </Grid>
+            
+            <Grid Column="1" Background="#F0F0F0" />
+            
+                <Grid Column="2">
+                <TabControl>
+                    
+                    <!--Result Display-->
+                    <TabItem Header="Display">
+                        <Grid RowDefinitions="5, 10*, 1*, 5">
+
+                            <!--Result List-->
+                            <Border Grid.Row="1" Classes="GlobalGeneralBorder" Padding="5, 0">
+                                <Panel>
+                                    <!--Calculate TNT Amount Mode-->
+                                    <Grid IsVisible="{Binding IsDisplayTNTAmount}">
+
+                                        <Grid RowDefinitions="Auto, *">
+                                        <!--Header-->
+                                        <Grid Grid.Row="0" ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
+                                            <TextBlock Grid.Column="0" Text="Distance" Padding="5, 2" Name="amountModeDistance" />
+                                            <TextBlock Grid.Column="2" Text="Tick" Padding="5, 2" Name="amountModeTick"/>
+                                            <TextBlock Grid.Column="4" Text="Blue" Padding="5, 2" Name="amountModeBlue"/>
+                                            <TextBlock Grid.Column="6" Text="Red" Padding="5, 2" Name="amountModeRed"/>
+                                            <TextBlock Grid.Column="8" Text="Total" Padding="5, 2" Name="amountModeTotal"/>
+                                            
+                                            <Grid Background="#F0F0F0" Column="1" />
+                                            <Grid Background="#F0F0F0" Column="3" />
+                                            <Grid Background="#F0F0F0" Column="5" />
+                                            <Grid Background="#F0F0F0" Column="7" />
+
+                                        </Grid>
+                                        
+                                        <!--Content-->
+                                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                            <ItemsControl Items="{Binding TNTResult}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
+                                                            <TextBlock Grid.Column="0" Text="{Binding Distance}" Padding="2, 1" Width="{Binding #amountModeDistance.Width}" />
+                                                            <TextBlock Grid.Column="2" Text="{Binding Tick }" Padding="2, 1" Width="{Binding #amountModeTick.Width}" />
+                                                            <TextBlock Grid.Column="4" Text="{Binding Blue}" Padding="2, 1" Width="{Binding #amountModeBlue.Width}" />
+                                                            <TextBlock Grid.Column="6" Text="{Binding Red}" Padding="2, 1" Width="{Binding #amountModeRed.Width}" />
+                                                            <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Padding="2, 1" Width="{Binding #amountModeTotal.Width}" />
+                                                            
+                                                            <Grid Background="#F0F0F0" Column="1" />
+                                                            <Grid Background="#F0F0F0" Column="3" />
+                                                            <Grid Background="#F0F0F0" Column="5" />
+                                                            <Grid Background="#F0F0F0" Column="7" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        </ScrollViewer>
+                                        
+                                    </Grid>
+                                    </Grid>
+
+                                    <!--Pearl Track Mode-->
+                                    <Grid IsVisible="{Binding !IsDisplayTNTAmount}">
+                                        
+                                    </Grid>
+                                </Panel>
+                            </Border>
+                            
+                            <!--Result direction-->
+                            <Border Grid.Row="2" Classes="GlobalGeneralBorder" Margin="0, 5, 0, 0">
+                                <Grid ColumnDefinitions="*, 4*">
+                                    
+                                    <Border Grid.Column="0" BorderBrush="#F0F0F0" BorderThickness="0,0,2,0">
+                                        <Grid RowDefinitions="*, *" Margin="5, 0">
+                                            <TextBlock Grid.Row="0" Text="Direction" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Row="1" Text="{Binding ResultDirection}" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                    
+                                    <Grid Grid.Column="1" RowDefinitions="*, *" Margin="5, 0">
+                                        <TextBlock Grid.Row="0" Text="Angle" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Row="1" Text="{Binding ResultAngle}" VerticalAlignment="Center" />
+                                    </Grid>
+                                    
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                            
+                            
+                    </TabItem>
+                    
+                    <!--Console-->
+                    <TabItem Header="Console">
+                        
+                        <Grid RowDefinitions="5, *, 5">
+                            
+                            <Border Grid.Row="1" Classes="GlobalGeneralBorder">
+                                
+                            </Border>
+
+                        </Grid>
+                        
+                        
+                    </TabItem>
+                    
+                </TabControl>
+            </Grid>
+        </Grid>
+        
+    </Panel>
+
+</Window>

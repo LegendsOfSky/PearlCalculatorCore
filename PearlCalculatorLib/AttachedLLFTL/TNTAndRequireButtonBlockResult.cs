@@ -10,14 +10,14 @@ namespace PearlCalculatorLib.AttachedLLFTL
 {
     public class TNTAndRequireButtonBlockResult
     {
-        public double Distance;
-        public int Tick;
-        public int Blue;
-        public int Red;
-        public int TotalTNT;
-        public PearlEntity Pearl;
-        public List<Type> BottomBlock;
-        public LLFTLType Type;
+        public double Distance { get; set; }
+        public int Tick { get; set; }
+        public int Blue { get; set; }
+        public int Red { get; set; }
+        public int TotalTNT { get; set; }
+        public PearlEntity Pearl { get; set; }
+        public List<Type> BottomBlock { get; set; }
+        public LLFTLType Type { get; set; }
 
         public override string ToString()
         {
