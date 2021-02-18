@@ -4,6 +4,7 @@ using PearlCalculatorLib.PearlCalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -79,6 +80,8 @@ namespace PearlCalculatorLib.General
                     }
                 }
             }
+
+            Data.TNTResult = Data.TNTResult.Where(result => result.Blue > 0 && result.Red > 0).ToList();
             return true;
         }
 

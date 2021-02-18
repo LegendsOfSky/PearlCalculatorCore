@@ -174,15 +174,13 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Start outputing TNT result");
             for(int i = 0; i < GeneralData.TNTResult.Count; i++)
             {
-                if(GeneralData.TNTResult[i].Red >= 0 && GeneralData.TNTResult[i].Blue >= 0)
-                {
-                    ListViewItem result = new ListViewItem(GeneralData.TNTResult[i].Distance.ToString());
-                    result.SubItems.Add(GeneralData.TNTResult[i].Tick.ToString());
-                    result.SubItems.Add(GeneralData.TNTResult[i].Blue.ToString());
-                    result.SubItems.Add(GeneralData.TNTResult[i].Red.ToString());
-                    result.SubItems.Add(GeneralData.TNTResult[i].TotalTNT.ToString());
-                    BasicOutputSystem.Items.Add(result);
-                }
+
+                ListViewItem result = new ListViewItem(GeneralData.TNTResult[i].Distance.ToString());
+                result.SubItems.Add(GeneralData.TNTResult[i].Tick.ToString());
+                result.SubItems.Add(GeneralData.TNTResult[i].Blue.ToString());
+                result.SubItems.Add(GeneralData.TNTResult[i].Red.ToString());
+                result.SubItems.Add(GeneralData.TNTResult[i].TotalTNT.ToString());
+                BasicOutputSystem.Items.Add(result);
             }
             Log("Main" , "Msg" , "TNT result output finished");
         }

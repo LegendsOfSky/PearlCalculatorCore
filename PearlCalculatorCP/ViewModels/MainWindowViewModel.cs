@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -235,7 +234,6 @@ namespace PearlCalculatorCP.ViewModels
         {
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
-                Data.TNTResult = Data.TNTResult.Where(result => result.Red > 0 && result.Blue > 0).ToList();
                 SortTNTResult();
                 TNTResult = Data.TNTResult;
                 ResultDirection = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
