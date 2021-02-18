@@ -100,8 +100,7 @@ namespace PearlCalculatorCP.Views
 
         private (bool, double) OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox, double backingField)
         {
-            if (nextText.Length < 2 || nextText[..2] != "0." ||
-                !(double.TryParse(nextText, out var result) && result != backingField))
+            if (nextText.Length < 2 || nextText[..2] != "0." || !double.TryParse(nextText, out var result))
             {
                 supressCallback?.Invoke();
                 IgnoreTextChangesFieldInfo.SetValue(textBox, false);

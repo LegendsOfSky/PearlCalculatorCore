@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using PearlCalculatorCP.Models;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -131,7 +130,7 @@ namespace PearlCalculatorCP.ViewModels
                     Data.PearlOffset.X = callbackResult.Item2;
                 }
                 else _isSupressX = false;
-            }   
+            }
         }
 
         private string _pearlOffsetZ = "0.";
