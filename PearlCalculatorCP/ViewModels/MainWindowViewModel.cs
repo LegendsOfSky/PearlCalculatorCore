@@ -177,6 +177,21 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
+        private int _tntResultSelectedIndex = -1;
+        public int TNTResultSelectedIndex
+        {
+            get => _tntResultSelectedIndex;
+            set
+            {
+                if (value >= 0 && value < TNTResult.Count)
+                {
+                    this.RaiseAndSetIfChanged(ref _tntResultSelectedIndex, value);
+                    BlueTNT = (uint)_tntResult[value].Blue;
+                    RedTNT = (uint) _tntResult[value].Red;
+                }
+            }
+        }
+
         private List<Entity>? _pearlTarceList;
         public List<Entity>? PearlTarceList
         {
