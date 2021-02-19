@@ -38,6 +38,9 @@ namespace PearlCalculatorCP.Views
         //and then i can reset the property value
         private static readonly FieldInfo IgnoreTextChangesFieldInfo = typeof(TextBox).GetField("_ignoreTextChanges",
             BindingFlags.GetField | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
+
+        private List<string> _commandHistory = new List<string>(100);
+        private int _historyIndex = -1;
         
         public MainWindow()
         {
@@ -116,7 +119,39 @@ namespace PearlCalculatorCP.Views
         private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
+            {
+                _commandHistory.Add(_vm.CommandText);
+                _historyIndex = -1;
                 _vm.SendCmd();
+            }
+            else if (e.Key == Key.Up)
+            {
+                if (_historyIndex == -1)
+                    _historyIndex = _commandHistory.Count - 1;
+                else
+                {
+                    _historyIndex--;
+                    if (_historyIndex == -1)
+                        _historyIndex = -2;
+                }
+
+                if (_historyIndex >= 0 && _historyIndex < _commandHistory.Count)
+                    _vm.CommandText = _commandHistory[_historyIndex];
+                else
+                    _vm.CommandText = string.Empty;
+            }
+            else if (e.Key == Key.Down)
+            {
+                if (_historyIndex == -2)
+                    _historyIndex = 0;
+                else if (_historyIndex < _commandHistory.Count)
+                    _historyIndex++;
+
+                if (_historyIndex >= 0 && _historyIndex < _commandHistory.Count)
+                    _vm.CommandText = _commandHistory[_historyIndex];
+                else
+                    _vm.CommandText = string.Empty;
+            }
         }
     }
 }
