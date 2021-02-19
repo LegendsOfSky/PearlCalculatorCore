@@ -543,6 +543,15 @@ namespace PearlCalculatorWFA
             PearlYMomentum.SubItems.Add(GeneralData.Pearl.Motion.Y.ToString());
             GeneralSettingListView.Items.Add(PearlYMomentum);
 
+            ListViewItem DefaultRedTNTPosition = new ListViewItem("Default Red TNT Position");
+            DefaultRedTNTPosition.SubItems.Add(GeneralData.DefaultRedDuper.ToString());
+            GeneralSettingListView.Items.Add(DefaultRedTNTPosition);
+
+            ListViewItem DefaultBlueTNTPosition = new ListViewItem("Default Blue TNT Position");
+            DefaultBlueTNTPosition.SubItems.Add(GeneralData.DefaultBlueDuper.ToString());
+            GeneralSettingListView.Items.Add(DefaultBlueTNTPosition);
+
+
             Log("Main" , "Msg" , "Settings output finished");
         }
 
@@ -604,27 +613,43 @@ namespace PearlCalculatorWFA
             {
                 Log("Main" , "Msg" , "Update pearl offset");
                 Surface2D setting = new Surface2D();
-                double.TryParse(GeneralSettingInputTextBox.Text , out setting.X);
-                double.TryParse(GeneralSettingListView.Items[13].SubItems[1].Text , out setting.Z);
-                GeneralData.PearlOffset = setting;
+                if(double.TryParse(GeneralSettingInputTextBox.Text , out setting.X) && double.TryParse(GeneralSettingListView.Items[13].SubItems[1].Text , out setting.Z))
+                {
+                    Log("Main" , "Msg" , "Updated pearl offset");
+                    GeneralData.PearlOffset = setting;
+                }
             }
             else if(GeneralSettingListView.FocusedItem.Index == 13)
             {
                 Log("Main" , "Msg" , "Update pearl offset");
                 Surface2D setting = new Surface2D();
-                double.TryParse(GeneralSettingListView.Items[12].SubItems[1].Text , out setting.X);
-                double.TryParse(GeneralSettingInputTextBox.Text , out setting.Z);
+                if(double.TryParse(GeneralSettingListView.Items[12].SubItems[1].Text , out setting.X) && double.TryParse(GeneralSettingInputTextBox.Text , out setting.Z))
+                    Log("Main" , "Msg" , "Updated pearl offset");
                 GeneralData.PearlOffset = setting;
             }
             else if(GeneralSettingListView.FocusedItem.Index == 14)
             {
                 Log("Main" , "Msg" , "Update pearl Y axis position");
-                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Position.Y);
+                if(double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Position.Y))
+                    Log("Main" , "Msg" , "Updated pearl Y axis position");
             }
             else if(GeneralSettingListView.FocusedItem.Index == 15)
             {
                 Log("Main" , "Msg" , "Update pearl Y axis momentum");
-                double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Motion.Y);
+                if(double.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.Pearl.Motion.Y))
+                    Log("Main" , "Msg" , "Updated pearl Y axis momentum");
+            }
+            else if(GeneralSettingListView.FocusedItem.Index == 16)
+            {
+                Log("Main" , "Msg" , "Update Default Red TNT Position");
+                if(DirectionExtension.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultRedDuper))
+                    Log("Main" , "Msg" , "Updated Default Red TNT Position");
+            }
+            else if(GeneralSettingListView.FocusedItem.Index == 17)
+            {
+                Log("Main" , "Msg" , "Update Default Blue TNT Position");
+                if(DirectionExtension.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultBlueDuper))
+                    Log("Main" , "Msg" , "Updated Default Blue TNT Position");
             }
             DisplaySetting();
         }
