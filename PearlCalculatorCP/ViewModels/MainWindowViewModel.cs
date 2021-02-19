@@ -231,7 +231,46 @@ namespace PearlCalculatorCP.ViewModels
         }
 
         #endregion
+
+        #region Console
         
+        private string _commandText;
+        public string CommandText
+        {
+            get => _commandText;
+            set => this.RaiseAndSetIfChanged(ref _commandText, value);
+        }
+
+        private ObservableCollection<ConsoleOutputItemModel>? _consoleOutputs;
+        public ObservableCollection<ConsoleOutputItemModel>? ConsoleOutputs
+        {
+            get => _consoleOutputs;
+            set => this.RaiseAndSetIfChanged(ref _consoleOutputs, value);
+        }
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            ConsoleOutputs ??= new ObservableCollection<ConsoleOutputItemModel>();
+            
+            CommandManager.Instance.OnMessageSend += AddConsoleMessage;
+        }
+        
+        ~MainWindowViewModel()
+        {
+            CommandManager.Instance.OnMessageSend -= AddConsoleMessage;
+        }
+
+        private void AddConsoleMessage(ConsoleOutputItemModel messages)
+        {
+            if(ConsoleOutputs.Count >= 500)
+                for (int i = 0; i < 50; i++)
+                    ConsoleOutputs.RemoveAt(0);
+            
+            ConsoleOutputs.Add(messages);
+        }
+
         public void LoadDataFormSettings(Settings settings)
         {
             Data.NorthWestTNT = settings.NorthWestTNT;
@@ -255,6 +294,8 @@ namespace PearlCalculatorCP.ViewModels
             Direction = settings.Direction;
         }
 
+        #region Calculate
+        
         public void CalculateTNTAmount()
         {
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
@@ -276,6 +317,10 @@ namespace PearlCalculatorCP.ViewModels
             
             IsDisplayTNTAmount = false;
         }
+        
+        #endregion
+        
+        #region TNTResultSort
 
         private void SortTNTResult()
         {
@@ -310,6 +355,20 @@ namespace PearlCalculatorCP.ViewModels
             Data.TNTResult.SortByTotal();
             TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
         }
+        
+        #endregion
+
+        public void SendCmd()
+        {
+            if(string.IsNullOrEmpty(CommandText) || string.IsNullOrWhiteSpace(CommandText) || CommandText[0] != '/')
+                return;
+
+            var cmd = CommandText[1..];
+            CommandText = string.Empty;
+            
+            CommandManager.Instance.ExcuteCommand(cmd);
+        }
+
     }
     
     public enum TNTWeightModeEnum

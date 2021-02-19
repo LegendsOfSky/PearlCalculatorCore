@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
+using PearlCalculatorCP.Commands;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorCP.Views;
 
@@ -25,12 +27,23 @@ namespace PearlCalculatorCP
             }
 
             base.OnFrameworkInitializationCompleted();
+            
+            RegisterCmds();
         }
 
         public override void RegisterServices()
         {
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
             base.RegisterServices();
+        }
+
+        public void RegisterCmds()
+        {
+            CommandManager.Register("showData", new ShowGeneralData(), new List<string>
+            {
+                "show some General Data",
+                "you can check these values"
+            });
         }
     }
 }

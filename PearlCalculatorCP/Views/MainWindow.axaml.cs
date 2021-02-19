@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
@@ -112,5 +113,10 @@ namespace PearlCalculatorCP.Views
 
         }
 
+        private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                _vm.SendCmd();
+        }
     }
 }
