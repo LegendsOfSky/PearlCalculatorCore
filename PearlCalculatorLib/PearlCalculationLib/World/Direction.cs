@@ -33,56 +33,57 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public static bool IsWest(this Direction direction) => (direction & Direction.West) > 0;
 
-        public static bool TryParse(string s , out Direction direction)
-        {
-            switch(s)
-            {
-                case "N":
-                case "North":
-                    direction = Direction.North;
-                    return true;
-                case "S":
-                case "South":
-                    direction = Direction.South;
-                    return true;
-                case "E":
-                case "East":
-                    direction = Direction.East;
-                    return true;
-                case "W":
-                case "West":
-                    direction = Direction.West;
-                    return true;
-                case "NW":
-                case "NorthWest":
-                case "North West":
-                    direction = Direction.NorthWest;
-                    return true;
-                case "NE":
-                case "NorthEast":
-                case "North East":
-                    direction = Direction.NorthEast;
-                    return true;
-                case "SW":
-                case "SouthWest":
-                case "South West":
-                    direction = Direction.SouthWest;
-                    return true;
-                case "SE":
-                case "SouthEast":
-                case "South East":
-                    direction = Direction.SouthEast;
-                    return true;
-                default:
-                    direction = Direction.None;
-                    return false;
-            }
-            
-        }
     }
 
     public static class DirectionUtils
     {
         public static Direction FormName(string name) => Enum.TryParse<Direction>(name, out var value) ? value : Direction.None;
+
+        public static bool TryParse(string s , out Direction result)
+        {
+            switch(s)
+            {
+                case "N":
+                case "North":
+                    result = Direction.North;
+                    return true;
+                case "S":
+                case "South":
+                    result = Direction.South;
+                    return true;
+                case "E":
+                case "East":
+                    result = Direction.East;
+                    return true;
+                case "W":
+                case "West":
+                    result = Direction.West;
+                    return true;
+                case "NW":
+                case "NorthWest":
+                case "North West":
+                    result = Direction.NorthWest;
+                    return true;
+                case "NE":
+                case "NorthEast":
+                case "North East":
+                    result = Direction.NorthEast;
+                    return true;
+                case "SW":
+                case "SouthWest":
+                case "South West":
+                    result = Direction.SouthWest;
+                    return true;
+                case "SE":
+                case "SouthEast":
+                case "South East":
+                    result = Direction.SouthEast;
+                    return true;
+                default:
+                    result = Direction.None;
+                    return false;
+            }
+
+        }
     }
 }

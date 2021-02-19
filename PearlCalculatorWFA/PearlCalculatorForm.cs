@@ -642,13 +642,13 @@ namespace PearlCalculatorWFA
             else if(GeneralSettingListView.FocusedItem.Index == 16)
             {
                 Log("Main" , "Msg" , "Update Default Red TNT Position");
-                if(DirectionExtension.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultRedDuper))
+                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultRedDuper))
                     Log("Main" , "Msg" , "Updated Default Red TNT Position");
             }
             else if(GeneralSettingListView.FocusedItem.Index == 17)
             {
                 Log("Main" , "Msg" , "Update Default Blue TNT Position");
-                if(DirectionExtension.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultBlueDuper))
+                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultBlueDuper))
                     Log("Main" , "Msg" , "Updated Default Blue TNT Position");
             }
             DisplaySetting();
@@ -664,6 +664,8 @@ namespace PearlCalculatorWFA
             GeneralData.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
             GeneralData.Pearl.Motion= new Space3D(0 , 0.2716278719434352 , 0);
             GeneralData.PearlOffset = new Surface2D();
+            GeneralData.DefaultRedDuper = Direction.SouthEast;
+            GeneralData.DefaultBlueDuper = Direction.NorthWest;
             DisplaySetting();
         }
 
