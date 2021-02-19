@@ -44,6 +44,11 @@ namespace PearlCalculatorCP
                 "show some General Data",
                 "you can check these values"
             });
+
+            CommandManager.Register("changeMaxTicks", new ChangeMaxTicks(), new List<string> 
+            {
+                "change MaxTicks"
+            });
         }
     }
 }

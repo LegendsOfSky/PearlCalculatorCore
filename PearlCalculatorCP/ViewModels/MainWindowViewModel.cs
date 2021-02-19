@@ -36,7 +36,7 @@ namespace PearlCalculatorCP.ViewModels
         private bool _isSupressX = false;
         private bool _isSupressZ = false;
 
-        private int MaxTicks { get; set; } = 100;
+        public static int MaxTicks { get; set; } = 100;
 
         #region GeneralFTL General Input Data
         

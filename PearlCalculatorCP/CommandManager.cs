@@ -18,8 +18,8 @@ namespace PearlCalculatorCP
         internal class CommandRegistration
         {
             public readonly string Command;
-            public ICommand Handler;
-            public List<ConsoleOutputItemModel> Help;
+            public readonly ICommand Handler;
+            public readonly List<ConsoleOutputItemModel> Help;
 
             public CommandRegistration(string command, ICommand handler, List<string> help)
             {
@@ -127,7 +127,7 @@ namespace PearlCalculatorCP
             if (cmd is null)
                 SendMessage(DefineCmdOutput.NullCmd);
             else
-                SendMessage(DefineCmdOutput.ErrorTemplate($"Don't find command \"{cmd}\""));
+                SendMessage(DefineCmdOutput.ErrorTemplate($"command \"{cmd}\" not found"));
         }
 
         void LogInit()
