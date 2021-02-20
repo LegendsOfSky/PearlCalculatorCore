@@ -28,27 +28,13 @@ namespace PearlCalculatorCP
 
             base.OnFrameworkInitializationCompleted();
             
-            RegisterCmds();
+            CommandReg.Register();
         }
 
         public override void RegisterServices()
         {
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
             base.RegisterServices();
-        }
-
-        public void RegisterCmds()
-        {
-            CommandManager.Register("showData", new ShowGeneralData(), new List<string>
-            {
-                "show some General Data",
-                "you can check these values"
-            });
-
-            CommandManager.Register("changeMaxTicks", new ChangeMaxTicks(), new List<string> 
-            {
-                "change MaxTicks"
-            });
         }
     }
 }
