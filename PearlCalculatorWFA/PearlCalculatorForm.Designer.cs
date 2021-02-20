@@ -738,27 +738,27 @@ namespace PearlCalculatorWFA
             this.ManuallyMomemtumZLabel.AutoSize = true;
             this.ManuallyMomemtumZLabel.Location = new System.Drawing.Point(197, 94);
             this.ManuallyMomemtumZLabel.Name = "ManuallyMomemtumZLabel";
-            this.ManuallyMomemtumZLabel.Size = new System.Drawing.Size(94, 15);
+            this.ManuallyMomemtumZLabel.Size = new System.Drawing.Size(90, 15);
             this.ManuallyMomemtumZLabel.TabIndex = 21;
-            this.ManuallyMomemtumZLabel.Text = "Momemtum Z :";
+            this.ManuallyMomemtumZLabel.Text = "Momentum Z :";
             // 
             // ManuallyMomemtumYLabel
             // 
             this.ManuallyMomemtumYLabel.AutoSize = true;
             this.ManuallyMomemtumYLabel.Location = new System.Drawing.Point(197, 49);
             this.ManuallyMomemtumYLabel.Name = "ManuallyMomemtumYLabel";
-            this.ManuallyMomemtumYLabel.Size = new System.Drawing.Size(94, 15);
+            this.ManuallyMomemtumYLabel.Size = new System.Drawing.Size(90, 15);
             this.ManuallyMomemtumYLabel.TabIndex = 20;
-            this.ManuallyMomemtumYLabel.Text = "Momemtum Y :";
+            this.ManuallyMomemtumYLabel.Text = "Momentum Y :";
             // 
             // ManuallyMomemtumXLabel
             // 
             this.ManuallyMomemtumXLabel.AutoSize = true;
             this.ManuallyMomemtumXLabel.Location = new System.Drawing.Point(197, 5);
             this.ManuallyMomemtumXLabel.Name = "ManuallyMomemtumXLabel";
-            this.ManuallyMomemtumXLabel.Size = new System.Drawing.Size(95, 15);
+            this.ManuallyMomemtumXLabel.Size = new System.Drawing.Size(91, 15);
             this.ManuallyMomemtumXLabel.TabIndex = 19;
-            this.ManuallyMomemtumXLabel.Text = "Momemtum X :";
+            this.ManuallyMomemtumXLabel.Text = "Momentum X :";
             // 
             // ManuallyMomemtumXTextBox
             // 

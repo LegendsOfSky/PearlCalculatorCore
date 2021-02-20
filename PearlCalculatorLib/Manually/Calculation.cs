@@ -54,7 +54,7 @@ namespace PearlCalculatorLib.Manually
 
         private static PearlEntity PearlSimulation(int aTNT, int bTNT, int ticks, Space3D aTNTVector , Space3D bTNTVector)
         {
-            PearlEntity pearl = Data.Pearl;
+            PearlEntity pearl = new PearlEntity(Data.Pearl);
             pearl.Motion += aTNT * aTNTVector + bTNT * bTNTVector;
             for(int i = 0; i < ticks; i++)
             {
