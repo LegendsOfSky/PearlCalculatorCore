@@ -4,9 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using PearlCalculatorCP.Models;
 using PearlCalculatorLib.General;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
+
+using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
+using ManuallyData = PearlCalculatorLib.Manually.Data;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -223,11 +227,18 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _resultAngle, value);
         }
 
-        private bool _isDisplayTntAmount = true;
+        private bool _isDisplayTNTAmount = true;
         public bool IsDisplayTNTAmount
         {
-            get => _isDisplayTntAmount;
-            set => this.RaiseAndSetIfChanged(ref _isDisplayTntAmount, value);
+            get => _isDisplayTNTAmount;
+            set => this.RaiseAndSetIfChanged(ref _isDisplayTNTAmount, value);
+        }
+
+        private bool _isDisplayMotion = false;
+        public bool IsDisplayMotion
+        {
+            get => _isDisplayMotion;
+            set => this.RaiseAndSetIfChanged(ref _isDisplayMotion, value);
         }
 
         #endregion
@@ -262,13 +273,13 @@ namespace PearlCalculatorCP.ViewModels
             CommandManager.Instance.OnMessageSend -= AddConsoleMessage;
         }
 
-        private void AddConsoleMessage(ConsoleOutputItemModel messages)
+        private void AddConsoleMessage(ConsoleOutputItemModel message)
         {
             if(ConsoleOutputs.Count >= 500)
                 for (int i = 0; i < 50; i++)
                     ConsoleOutputs.RemoveAt(0);
             
-            ConsoleOutputs.Add(messages);
+            ConsoleOutputs.Add(message);
         }
 
         public void LoadDataFormSettings(Settings settings)
@@ -301,26 +312,19 @@ namespace PearlCalculatorCP.ViewModels
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
                 SortTNTResult();
-                TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
-                ResultDirection = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination)).ToString();
-                ResultAngle = Data.Pearl.Position.WorldAngle(Data.Destination).ToString();
+                ShowTNTAmount(Data.TNTResult);
             }
             IsDisplayTNTAmount = true;
         }
 
         public void PearlSimulate()
         {
-            var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
-            var traces = new List<PearlTraceModel>(entities.Count);
-            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Motion.X, YCoor = t.Motion.Y, ZCoor = t.Motion.Z}));
-            PearlTraceList = traces;
-            
-            IsDisplayTNTAmount = false;
+            ShowPearlTrace(Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction));
         }
         
         #endregion
         
-        #region TNTResultSort
+        #region TNT Result Sort
 
         private void SortTNTResult()
         {
@@ -358,6 +362,61 @@ namespace PearlCalculatorCP.ViewModels
         
         #endregion
 
+        #region Maunally Calcualte
+
+        public void ManuallyCalculateTNTAmount()
+        {
+            if (ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination, MaxTicks, out var result))
+                ShowTNTAmount(result);
+            IsDisplayTNTAmount = true;
+        }
+
+        public void ManuallyCalculatePearlTrace()
+        {
+            ShowPearlTrace(ManuallyCalculation.CalculatePearl(ManuallyData.ATNTAmount, ManuallyData.BTNTAmount, MaxTicks));
+            
+            ResultDirection = string.Empty;
+            ResultAngle = string.Empty;
+        }
+
+        public void ManuallyCalculatePearlMomentum()
+        {
+            var entities = ManuallyCalculation.CalculatePearl(ManuallyData.ATNTAmount, ManuallyData.BTNTAmount, MaxTicks);
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Motion.X, YCoor = t.Motion.Y, ZCoor = t.Motion.Z}));
+            PearlTraceList = traces;
+
+            IsDisplayTNTAmount = false;
+            IsDisplayMotion = true;
+            ResultDirection = string.Empty;
+            ResultAngle = string.Empty;
+
+        }
+
+        #endregion
+
+        #region Result Show
+        
+        private void ShowPearlTrace(List<Entity> entities)
+        {
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
+            PearlTraceList = traces;
+
+            IsDisplayTNTAmount = false;
+            IsDisplayMotion = false;
+        }
+
+        private void ShowTNTAmount(List<TNTCalculationResult> result)
+        {
+            TNTResult = new ObservableCollection<TNTCalculationResult>(result);
+            var angle = ManuallyData.Pearl.Position.WorldAngle(ManuallyData.Destination);
+            ResultDirection = ManuallyData.Pearl.Position.Direction(angle).ToString();
+            ResultAngle = angle.ToString();
+        }
+        
+        #endregion
+        
         public void SendCmd()
         {
             if(string.IsNullOrEmpty(CommandText) || string.IsNullOrWhiteSpace(CommandText) || CommandText[0] != '/')

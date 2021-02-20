@@ -153,5 +153,20 @@ namespace PearlCalculatorCP.Views
                     _vm.CommandText = string.Empty;
             }
         }
+
+        private void ManuallyCalculateTNTAmount(object sender, RoutedEventArgs e)
+        {
+            _vm.ManuallyCalculateTNTAmount();
+        }
+
+        private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e)
+        {
+            _vm.ManuallyCalculatePearlTrace();
+        }
+
+        private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e)
+        {
+            _vm.ManuallyCalculatePearlMomentum();
+        }
     }
 }

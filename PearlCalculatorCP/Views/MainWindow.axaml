@@ -3,6 +3,7 @@
         xmlns:local="using:PearlCalculatorCP"
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
         xmlns:models="using:PearlCalculatorCP.Models"
+        xmlns:views="using:PearlCalculatorCP.Views"
         xmlns:converters="using:PearlCalculatorCP.Converters"
         xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -249,10 +250,9 @@
                     
                     <!--Manually-->
                     <TabItem Header="Manually">
-                        <Grid RowDefinitions="5, *, 5">
-                            <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0">
-                            </Border>
-                        </Grid>
+                        <views:Manually CalculateTNTAmount="ManuallyCalculateTNTAmount"
+                                        CalculatePearlTrace="ManuallyCalculatePearlTrace"
+                                        CalculatePearlMomentum="ManuallyCalculatePearlMomentum"/>
                     </TabItem>
                     
                 </TabControl>
@@ -260,7 +260,7 @@
             
             <Grid Column="1" Background="#F0F0F0" />
             
-                <Grid Column="2">
+            <Grid Column="2">
                 <TabControl>
                     
                     <!--Result Display-->
@@ -312,16 +312,25 @@
                                     </Panel>
 
                                     <!--Pearl Trace Mode-->
+                                    <!--this panel show General pearl trace, Manually pearl trace and Manually Motion-->
                                     <Panel IsVisible="{Binding !IsDisplayTNTAmount}">
                                         
                                         <Grid RowDefinitions="Auto, *">
                                             <!--Header-->
                                             <Grid Grid.Row="0" ColumnDefinitions="0.3*, 3, *, 3, *, 3, *">
                                                 
-                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Ticks" Name="PearlTraceTicks" />
-                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="X Coordinate" Name="PearlTraceXCoor" />
-                                                <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="Y Coordinate" Name="PearlTraceYCoor" />
-                                                <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="Z Coordinate" Name="PearlTraceZCoor" />
+                                                <!--pearl trace-->
+                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Ticks" Name="PearlTraceTicks" IsVisible="{Binding !IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="X Coordinate" Name="PearlTraceXCoor" IsVisible="{Binding !IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="Y Coordinate" Name="PearlTraceYCoor" IsVisible="{Binding !IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="Z Coordinate" Name="PearlTraceZCoor" IsVisible="{Binding !IsDisplayMotion}" />
+                                                
+                                                <!--motion-->
+                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Ticks" Name="PearlMotionTicks" IsVisible="{Binding IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="X Motion" Name="PearlMotionX" IsVisible="{Binding IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="Y Motion" Name="PearlMotionY" IsVisible="{Binding IsDisplayMotion}" />
+                                                <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="Z Motion" Name="PearlMotionZ" IsVisible="{Binding IsDisplayMotion}" />
+
                                                 
                                                 <Grid Background="#F0F0F0" Column="1" />
                                                 <Grid Background="#F0F0F0" Column="3" />
@@ -335,10 +344,18 @@
                                                     <DataTemplate>
                                                         <Grid ColumnDefinitions="0.3*, 3, *, 3, *, 3, *" Width="{Binding #PearlTraceResult.Bounds.Width}">
                                                 
-                                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlTraceTicks.Bounds.Width}" />
-                                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlTraceXCoor.Bounds.Width}" />
-                                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlTraceYCoor.Bounds.Width}" />
-                                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlTraceZCoor.Bounds.Width}" />
+                                                            <!--pearl trace-->
+                                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlTraceTicks.Bounds.Width}" IsVisible="{Binding #PearlTraceTicks.IsVisible}" />
+                                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlTraceXCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceXCoor.IsVisible}" />
+                                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlTraceYCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceYCoor.IsVisible}" />
+                                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlTraceZCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceZCoor.IsVisible}" />
+                                                            
+                                                            <!--motion-->
+                                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlMotionTicks.Bounds.Width}" IsVisible="{Binding #PearlMotionTicks.IsVisible}" />
+                                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlMotionX.Bounds.Width}" IsVisible="{Binding #PearlMotionX.IsVisible}" />
+                                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlMotionY.Bounds.Width}" IsVisible="{Binding #PearlMotionY.IsVisible}" />
+                                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlMotionZ.Bounds.Width}" IsVisible="{Binding #PearlMotionZ.IsVisible}" />
+
                                                 
                                                             <Grid Background="#F0F0F0" Column="1" />
                                                             <Grid Background="#F0F0F0" Column="3" />
