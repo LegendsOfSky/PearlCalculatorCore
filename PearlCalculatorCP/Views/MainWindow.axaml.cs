@@ -31,6 +31,8 @@ namespace PearlCalculatorCP.Views
 
         private TextBox _offsetXInputBox;
         private TextBox _offsetZInputBox;
+
+        private TextBox _consoleInputBox;
         
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
@@ -67,8 +69,10 @@ namespace PearlCalculatorCP.Views
             AvaloniaXamlLoader.Load(this);
             this.FindControl<RadioButton>("DistanceVSTNTRB").IsChecked = true;
 
-            _offsetXInputBox = this.Find<TextBox>("OffsetXInputBox");
-            _offsetZInputBox = this.Find<TextBox>("OffsetZInputBox");
+            _offsetXInputBox = this.FindControl<TextBox>("OffsetXInputBox");
+            _offsetZInputBox = this.FindControl<TextBox>("OffsetZInputBox");
+
+            _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
         }
 
         #region Settings Import/Export
@@ -118,6 +122,8 @@ namespace PearlCalculatorCP.Views
 
         private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
         {
+            bool isSetCaretIndex = false;
+            
             if (e.Key == Key.Enter)
             {
                 _commandHistory.Add(_vm.CommandText);
@@ -134,11 +140,8 @@ namespace PearlCalculatorCP.Views
                     if (_historyIndex == -1)
                         _historyIndex = -2;
                 }
-
-                if (_historyIndex >= 0 && _historyIndex < _commandHistory.Count)
-                    _vm.CommandText = _commandHistory[_historyIndex];
-                else
-                    _vm.CommandText = string.Empty;
+                
+                isSetCaretIndex = true;
             }
             else if (e.Key == Key.Down)
             {
@@ -146,11 +149,18 @@ namespace PearlCalculatorCP.Views
                     _historyIndex = 0;
                 else if (_historyIndex < _commandHistory.Count)
                     _historyIndex++;
+                
+                isSetCaretIndex = true;
+            }
 
+            if (isSetCaretIndex)
+            {
                 if (_historyIndex >= 0 && _historyIndex < _commandHistory.Count)
                     _vm.CommandText = _commandHistory[_historyIndex];
                 else
                     _vm.CommandText = string.Empty;
+                
+                _consoleInputBox.CaretIndex = _vm.CommandText.Length;
             }
         }
 
