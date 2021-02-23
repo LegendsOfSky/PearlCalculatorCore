@@ -9,6 +9,8 @@ namespace PearlCalculatorCP
 
         public static void Register()
         {
+            if (isRegistered) return;
+        
             CommandManager.Register("showData", new ShowGeneralData(), new List<string>
             {
                 "show some General Data",
@@ -19,6 +21,8 @@ namespace PearlCalculatorCP
             {
                 "change MaxTicks"
             });
+            
+            isRegistered = true;
         }
     }
 }

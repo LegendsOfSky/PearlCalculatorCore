@@ -14,6 +14,8 @@ namespace PearlCalculatorCP
         public const string HelpType = "Help";
         public const string MsgType = "Msg";
         public const string ErrorType = "Error";
+
+        static readonly List<string> EmptyList = new List<string>(0);
         
         internal class CommandRegistration
         {
@@ -39,7 +41,7 @@ namespace PearlCalculatorCP
         }
         
         
-        private static CommandManager _instance;
+        private static CommandManager? _instance;
         public static CommandManager Instance => _instance ??= new CommandManager();
 
         
@@ -56,9 +58,9 @@ namespace PearlCalculatorCP
             remove => _onMessageSend -= value;
         }
 
-        internal List<CommandRegistration> CommandList = new List<CommandRegistration>(1000);
+        internal List<CommandRegistration> CommandList { get; private set; } = new List<CommandRegistration>(1000);
 
-        private Action<ConsoleOutputItemModel> _messageSender;
+        private readonly Action<ConsoleOutputItemModel> _messageSender;
 
         private CommandManager()
         {
@@ -83,9 +85,9 @@ namespace PearlCalculatorCP
             }
         }
 
-        public static void Register(string command, ICommand handler, List<string> help)
+        public static void Register(string command, ICommand handler, List<string>? help)
         {
-            Instance.CommandList.Add(new CommandRegistration(command, handler, help));
+            Instance.CommandList.Add(new CommandRegistration(command, handler, help ?? EmptyList));
         }
 
         public void ExcuteCommand(string command)
