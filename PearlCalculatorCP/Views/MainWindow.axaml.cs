@@ -134,7 +134,7 @@ namespace PearlCalculatorCP.Views
             {
                 if (_historyIndex == -1)
                     _historyIndex = _commandHistory.Count - 1;
-                else
+                else if (_historyIndex >= 0)
                 {
                     _historyIndex--;
                     if (_historyIndex == -1)
