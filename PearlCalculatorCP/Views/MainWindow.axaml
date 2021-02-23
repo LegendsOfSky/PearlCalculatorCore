@@ -239,6 +239,18 @@
                                     <!--Settings-->
                                     <TabItem Header="Settings">
                                         
+                                        <Border BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2">
+                                            <Grid RowDefinitions="Auto, *" Margin="2, 0">
+                                        
+                                                <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="Name" Padding="8, 2" />
+                                                    <TextBlock Grid.Column="2" Text="Value" Padding="8, 2" />
+                                            
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
+                                            
+                                            </Grid>
+                                        </Border>
                                     </TabItem>
                                     
                                 </TabControl>
@@ -428,7 +440,7 @@
                                 </Grid>
                             </Border>
                             
-                            <TextBox Grid.Row="2" Text="{Binding CommandText}" KeyUp="OnCmdInput_KeyUp" />
+                            <TextBox Grid.Row="2" Text="{Binding CommandText}" KeyUp="OnCmdInput_KeyUp" Name="ConsoleInputBox" />
 
                         </Grid>
                         
