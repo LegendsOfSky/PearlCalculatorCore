@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -84,9 +85,10 @@ namespace PearlCalculatorCP.Views
             _blueDuperCB = this.FindControl<ComboBox>("BlueDuperCB");
         }
         
-        private void Window_OnTapped(object? sender, RoutedEventArgs e)
+        private void Window_OnTapped(object sender, RoutedEventArgs e)
         {
-            this.Focus();
+            if (!(e.Source is TextPresenter))
+                this.Focus();
         }
 
         #region Settings Import/Export
