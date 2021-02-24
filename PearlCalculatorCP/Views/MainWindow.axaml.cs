@@ -33,6 +33,9 @@ namespace PearlCalculatorCP.Views
         private TextBox _offsetZInputBox;
 
         private TextBox _consoleInputBox;
+
+        private ComboBox _redDuperCB;
+        private ComboBox _blueDuperCB;
         
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
@@ -40,6 +43,9 @@ namespace PearlCalculatorCP.Views
         //and then i can reset the property value
         private static readonly FieldInfo IgnoreTextChangesFieldInfo = typeof(TextBox).GetField("_ignoreTextChanges",
             BindingFlags.GetField | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
+
+        private static readonly PropertyInfo selectionBoxItemProeprtyInfo = typeof(ComboBox).GetProperty("SelectionBoxItem",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.GetProperty);
 
         private List<string> _commandHistory = new List<string>(100);
         private int _historyIndex = -1;
@@ -73,6 +79,14 @@ namespace PearlCalculatorCP.Views
             _offsetZInputBox = this.FindControl<TextBox>("OffsetZInputBox");
 
             _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
+
+            _redDuperCB = this.FindControl<ComboBox>("RedDuperCB");
+            _blueDuperCB = this.FindControl<ComboBox>("BlueDuperCB");
+        }
+        
+        private void Window_OnTapped(object? sender, RoutedEventArgs e)
+        {
+            this.Focus();
         }
 
         #region Settings Import/Export
@@ -177,6 +191,16 @@ namespace PearlCalculatorCP.Views
         private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e)
         {
             _vm.ManuallyCalculatePearlMomentum();
+        }
+
+        private void RedDuperCB_OnAttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        {
+            selectionBoxItemProeprtyInfo.SetValue(_redDuperCB, _vm.DefaultRedDuper.ToString());
+        }
+
+        private void BlueDuperCB_OnAttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e)
+        {
+            selectionBoxItemProeprtyInfo.SetValue(_blueDuperCB, _vm.DefaultBlueDuper.ToString());
         }
     }
 }

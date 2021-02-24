@@ -51,8 +51,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _pearlPosX, value);
-                if (_pearlPosX != Data.Pearl.Position.X)
-                    Data.Pearl.Position.X = _pearlPosX;
+                DataUpdate(ref _pearlPosX, ref Data.Pearl.Position.X);
             }
         }
 
@@ -63,8 +62,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _pearlPosZ, value);
-                if (_pearlPosZ != Data.Pearl.Position.Z)
-                    Data.Pearl.Position.Z = _pearlPosZ;
+                DataUpdate(ref _pearlPosZ, ref Data.Pearl.Position.Z);
             }
         }
 
@@ -75,8 +73,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _destinationX, value);
-                if (_destinationX != Data.Destination.X)
-                    Data.Destination.X = _destinationX;
+                DataUpdate(ref _destinationX, ref Data.Destination.X);
             }
         }
 
@@ -87,8 +84,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _destinationZ, value);
-                if (_destinationZ != Data.Destination.Z)
-                    Data.Destination.Z = _destinationZ;
+                DataUpdate (ref _destinationZ, ref Data.Destination.Z);
             }
         }
 
@@ -243,6 +239,95 @@ namespace PearlCalculatorCP.ViewModels
 
         #endregion
 
+        #region Settings Data
+
+        public double NorthWestTNTX
+        {
+            get => Data.NorthWestTNT.X;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.X, value);
+        }
+        
+        public double NorthWestTNTY
+        {
+            get => Data.NorthWestTNT.Y;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.Y, value);
+        }
+
+        public double NorthWestTNTZ
+        {
+            get => Data.NorthWestTNT.Z;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.Z, value);
+        }
+
+        public double NorthEastTNTX
+        {
+            get => Data.NorthEastTNT.X;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.X, value);
+        }
+        
+        public double NorthEastTNTY
+        {
+            get => Data.NorthEastTNT.Y;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.Y, value);
+        }
+        
+        public double NorthEastTNTZ
+        {
+            get => Data.NorthEastTNT.Z;
+            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.Z, value);
+        }
+
+        public double SouthWestTNTX
+        {
+            get => Data.SouthWestTNT.X;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.X, value);
+        }
+        
+        public double SouthWestTNTY
+        {
+            get => Data.SouthWestTNT.Y;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.Y, value);
+        }
+        
+        public double SouthWestTNTZ
+        {
+            get => Data.SouthWestTNT.Z;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.Z, value);
+        }
+
+        public double SouthEastTNTX
+        {
+            get => Data.SouthEastTNT.X;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.X, value);
+        }
+        
+        public double SouthEastTNTY
+        {
+            get => Data.SouthEastTNT.Y;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.Y, value);
+        }
+        
+        public double SouthEastTNTZ
+        {
+            get => Data.SouthEastTNT.Z;
+            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.Z, value);
+        }
+
+
+        public Direction DefaultRedDuper
+        {
+            get => Data.DefaultRedDuper;
+            set => this.RaiseAndSetIfChanged(ref Data.DefaultRedDuper, value);
+        }
+
+        public Direction DefaultBlueDuper
+        {
+            get => Data.DefaultBlueDuper;
+            set => this.RaiseAndSetIfChanged(ref Data.DefaultBlueDuper, value);
+        }
+
+        #endregion
+        
         #region Console
         
         private string _commandText;
@@ -284,14 +369,26 @@ namespace PearlCalculatorCP.ViewModels
 
         public void LoadDataFormSettings(Settings settings)
         {
-            Data.NorthWestTNT = settings.NorthWestTNT;
-            Data.NorthEastTNT = settings.NorthEastTNT;
-            Data.SouthWestTNT = settings.SouthWestTNT;
-            Data.SouthEastTNT = settings.SouthEastTNT;
-            
             Data.Pearl = settings.Pearl;
             
             Data.Destination = settings.Destination;
+
+            NorthWestTNTX = settings.NorthWestTNT.X;
+            NorthWestTNTY = settings.NorthWestTNT.Y;
+            NorthWestTNTZ = settings.NorthWestTNT.Z;
+
+            NorthEastTNTX = settings.NorthEastTNT.X;
+            NorthEastTNTY = settings.NorthEastTNT.Y;
+            NorthEastTNTZ = settings.NorthEastTNT.Z;
+
+            SouthWestTNTX = settings.SouthWestTNT.X;
+            SouthWestTNTY = settings.SouthWestTNT.Y;
+            SouthWestTNTZ = settings.SouthWestTNT.Z;
+
+            SouthEastTNTX = settings.SouthEastTNT.X;
+            SouthEastTNTY = settings.SouthEastTNT.Y;
+            SouthEastTNTZ = settings.SouthEastTNT.Z;
+
             
             PearlPosX = settings.Pearl.Position.X;
             PearlPosZ = settings.Pearl.Position.Z;
@@ -428,6 +525,12 @@ namespace PearlCalculatorCP.ViewModels
             CommandManager.Instance.ExcuteCommand(cmd);
         }
 
+
+        private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
+        {
+            if (!vmBacking.Equals(dataBacking))
+                dataBacking = vmBacking;
+        }
     }
     
     public enum TNTWeightModeEnum
