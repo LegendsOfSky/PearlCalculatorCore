@@ -21,6 +21,8 @@ namespace PearlCalculatorCP
             {
                 "change MaxTicks"
             });
+
+            CommandManager.Register("clear", new Clear(), null);
             
             isRegistered = true;
         }

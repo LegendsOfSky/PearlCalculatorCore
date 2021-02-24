@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using Avalonia.Media;
@@ -88,6 +89,13 @@ namespace PearlCalculatorCP
         public static void Register(string command, ICommand handler, List<string>? help)
         {
             Instance.CommandList.Add(new CommandRegistration(command, handler, help ?? EmptyList));
+        }
+
+        public bool TryGetCommandHandler<T>(string command, out T handler) where T : class, ICommand
+        {
+            var registration = CommandList.FirstOrDefault(registration => command == registration.Command);
+            handler = registration is null ? null : (T)registration.Handler;
+            return handler is null;
         }
 
         public void ExcuteCommand(string command)

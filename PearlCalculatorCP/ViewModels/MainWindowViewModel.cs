@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using PearlCalculatorCP.Models;
+using PearlCalculatorCP.Commands;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -432,6 +433,7 @@ namespace PearlCalculatorCP.ViewModels
             ConsoleOutputs ??= new ObservableCollection<ConsoleOutputItemModel>();
             
             CommandManager.Instance.OnMessageSend += AddConsoleMessage;
+            Clear.OnExcute += OnClear;
             
             InitData();
         }
@@ -461,6 +463,7 @@ namespace PearlCalculatorCP.ViewModels
         ~MainWindowViewModel()
         {
             CommandManager.Instance.OnMessageSend -= AddConsoleMessage;
+            Clear.OnExcute -= OnClear;
         }
 
         private void AddConsoleMessage(ConsoleOutputItemModel message)
@@ -470,6 +473,11 @@ namespace PearlCalculatorCP.ViewModels
                     ConsoleOutputs.RemoveAt(0);
             
             ConsoleOutputs.Add(message);
+        }
+
+        private void OnClear()
+        {
+            ConsoleOutputs.Clear();
         }
 
         public void LoadDataFormSettings(Settings settings)
