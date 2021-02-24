@@ -382,6 +382,26 @@
                                                     
                                                     
                                                     <Grid ColumnDefinitions="*, 2, *" >
+                                                        <TextBlock Grid.Column="0" Text="Pearl Y Coordinate" Padding="8, 2" VerticalAlignment="Center" />
+                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                            <TextBox Grid.Column="0" Text="{Binding PearlYCoor, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                            <CheckBox Grid.Column="1" />
+                                                        </Grid>
+                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                    </Grid>
+
+                                                    <Grid ColumnDefinitions="*, 2, *" >
+                                                        <TextBlock Grid.Column="0" Text="Pearl Y Momentum" Padding="8, 2" VerticalAlignment="Center" />
+                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                            <TextBox Grid.Column="0" Text="{Binding PearlYMomentum, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                            <CheckBox Grid.Column="1" />
+                                                        </Grid>
+                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                    </Grid>
+
+                                                    
+                                                    
+                                                    <Grid ColumnDefinitions="*, 2, *" >
                                                         <TextBlock Grid.Column="0" Text="Default Red TNT Position" Padding="8, 2" VerticalAlignment="Center" />
                                                         <ComboBox Grid.Column="2" FontSize="12" SelectedItem="{Binding DefaultRedDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="RedDuperCB" AttachedToVisualTree="RedDuperCB_OnAttachedToVisualTree">
                                                             <ComboBoxItem Content="NorthWest" />

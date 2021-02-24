@@ -241,78 +241,159 @@ namespace PearlCalculatorCP.ViewModels
 
         #region Settings Data
 
+        private double _northWestTNTX;
         public double NorthWestTNTX
         {
-            get => Data.NorthWestTNT.X;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.X, value);
+            get => _northWestTNTX;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northWestTNTX, value);
+                DataUpdate(ref _northWestTNTX, ref Data.NorthWestTNT.X);
+            }
         }
-        
+
+        private double _northWestTNTY;
         public double NorthWestTNTY
         {
-            get => Data.NorthWestTNT.Y;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.Y, value);
+            get => _northWestTNTY;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northWestTNTY, value);
+                DataUpdate(ref _northWestTNTY, ref Data.NorthWestTNT.Y);
+            }
         }
 
+        private double _northWestTNTZ;
         public double NorthWestTNTZ
         {
-            get => Data.NorthWestTNT.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthWestTNT.Z, value);
+            get => _northWestTNTZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northWestTNTZ, value);
+                DataUpdate(ref _northWestTNTZ, ref Data.NorthWestTNT.Z);
+            }
         }
 
+        private double _northEastTNTX;
         public double NorthEastTNTX
         {
-            get => Data.NorthEastTNT.X;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.X, value);
+            get => _northEastTNTX;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northEastTNTX, value);
+                DataUpdate(ref _northEastTNTX, ref Data.NorthEastTNT.X);
+            }
         }
-        
+
+        private double _northEastTNTY;
         public double NorthEastTNTY
         {
-            get => Data.NorthEastTNT.Y;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.Y, value);
+            get => _northEastTNTY;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northEastTNTY, value);
+                DataUpdate(ref _northEastTNTY, ref Data.NorthEastTNT.Y);
+            }
         }
-        
+
+        private double _northEastTNTZ;
         public double NorthEastTNTZ
         {
-            get => Data.NorthEastTNT.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.NorthEastTNT.Z, value);
+            get => _northEastTNTZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _northEastTNTZ, value);
+                DataUpdate(ref _northEastTNTZ, ref Data.NorthEastTNT.Z);
+            }
         }
 
+        private double _southWestTNTX;
         public double SouthWestTNTX
         {
-            get => Data.SouthWestTNT.X;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.X, value);
+            get => _southWestTNTX;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southWestTNTX, value);
+                DataUpdate(ref _southWestTNTX, ref Data.SouthWestTNT.X);
+            }
         }
-        
+
+        private double _southWestTNTY;
         public double SouthWestTNTY
         {
-            get => Data.SouthWestTNT.Y;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.Y, value);
+            get => _southWestTNTY;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southWestTNTY, value);
+                DataUpdate(ref _southWestTNTY, ref Data.SouthWestTNT.Y);
+            }
         }
-        
+
+        private double _southWestTNTZ;
         public double SouthWestTNTZ
         {
-            get => Data.SouthWestTNT.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthWestTNT.Z, value);
+            get => _southWestTNTZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southWestTNTZ, value);
+                DataUpdate(ref _southWestTNTZ, ref Data.SouthWestTNT.Z);
+            }
         }
 
+        private double _southEastTNTX;
         public double SouthEastTNTX
         {
-            get => Data.SouthEastTNT.X;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.X, value);
-        }
-        
-        public double SouthEastTNTY
-        {
-            get => Data.SouthEastTNT.Y;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.Y, value);
-        }
-        
-        public double SouthEastTNTZ
-        {
-            get => Data.SouthEastTNT.Z;
-            set => this.RaiseAndSetIfChanged(ref Data.SouthEastTNT.Z, value);
+            get => _southEastTNTX;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southEastTNTX, value);
+                DataUpdate(ref _southEastTNTX, ref Data.SouthEastTNT.X);
+            }
         }
 
+        private double _southEastTNTY;
+        public double SouthEastTNTY
+        {
+            get => _southEastTNTY;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southEastTNTY, value);
+                DataUpdate(ref _southEastTNTY, ref Data.SouthEastTNT.Y);
+            }
+        }
+
+        private double _southEastTNTZ;
+        public double SouthEastTNTZ
+        {
+            get => _southEastTNTZ;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _southEastTNTZ, value);
+                DataUpdate(ref _southEastTNTZ, ref Data.SouthEastTNT.Z);
+            }
+        }
+
+        private double _pearlYCoor;
+        public double PearlYCoor
+        {
+            get => _pearlYCoor;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _pearlYCoor, value);
+                DataUpdate(ref _pearlYCoor, ref Data.Pearl.Position.Y);
+            }
+        }
+
+        private double _pearlYMomentum;
+        public double PearlYMomentum
+        {
+            get => _pearlYMomentum;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _pearlYMomentum, value);
+                DataUpdate(ref _pearlYMomentum, ref Data.Pearl.Motion.Y);
+            }
+        }
 
         public Direction DefaultRedDuper
         {
@@ -351,6 +432,30 @@ namespace PearlCalculatorCP.ViewModels
             ConsoleOutputs ??= new ObservableCollection<ConsoleOutputItemModel>();
             
             CommandManager.Instance.OnMessageSend += AddConsoleMessage;
+            
+            InitData();
+        }
+
+        void InitData()
+        {
+            _northEastTNTX = Data.NorthEastTNT.X;
+            _northEastTNTY = Data.NorthEastTNT.Y;
+            _northEastTNTZ = Data.NorthEastTNT.Z;
+
+            _northWestTNTX = Data.NorthWestTNT.X;
+            _northWestTNTY = Data.NorthWestTNT.Y;
+            _northWestTNTZ = Data.NorthWestTNT.Z;
+
+            _southEastTNTX = Data.SouthEastTNT.X;
+            _southEastTNTY = Data.SouthEastTNT.Y;
+            _southEastTNTZ = Data.SouthEastTNT.Z;
+
+            _southWestTNTX = Data.SouthWestTNT.X;
+            _southWestTNTY = Data.SouthWestTNT.Y;
+            _southWestTNTZ = Data.SouthWestTNT.Z;
+
+            _pearlYCoor = Data.Pearl.Position.Y;
+            _pearlYMomentum = Data.Pearl.Motion.Y;
         }
         
         ~MainWindowViewModel()
@@ -391,7 +496,9 @@ namespace PearlCalculatorCP.ViewModels
 
             
             PearlPosX = settings.Pearl.Position.X;
+            PearlYCoor = settings.Pearl.Position.Y;
             PearlPosZ = settings.Pearl.Position.Z;
+            PearlYMomentum = settings.Pearl.Motion.Y;
             DestinationX = settings.Destination.X;
             DestinationZ = settings.Destination.Z;
             PearlOffsetX = settings.Offset.X.ToString();
