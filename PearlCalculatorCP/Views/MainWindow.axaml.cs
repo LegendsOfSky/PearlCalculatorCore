@@ -124,7 +124,6 @@ namespace PearlCalculatorCP.Views
                 return (false, 0);
             }
             return (true, result);
-
         }
 
         private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
@@ -171,19 +170,10 @@ namespace PearlCalculatorCP.Views
             }
         }
 
-        private void ManuallyCalculateTNTAmount(object sender, RoutedEventArgs e)
-        {
-            _vm.ManuallyCalculateTNTAmount();
-        }
+        private void ManuallyCalculateTNTAmount(object sender, RoutedEventArgs e) => _vm.ManuallyCalculateTNTAmount();
 
-        private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e)
-        {
-            _vm.ManuallyCalculatePearlTrace();
-        }
+        private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlTrace();
 
-        private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e)
-        {
-            _vm.ManuallyCalculatePearlMomentum();
-        }
+        private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlMomentum();
     }
 }

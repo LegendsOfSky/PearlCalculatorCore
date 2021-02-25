@@ -466,10 +466,10 @@ namespace PearlCalculatorCP.ViewModels
             _southWestTNTY = Data.SouthWestTNT.Y;
             _southWestTNTZ = Data.SouthWestTNT.Z;
 
-            _pearlYCoor = Data.Pearl.Position.Y;
+            _pearlYCoor     = Data.Pearl.Position.Y;
             _pearlYMomentum = Data.Pearl.Motion.Y;
             
-            DefaultRedDuperIndex = (int)Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
+            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
             DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
         }
 
@@ -494,16 +494,16 @@ namespace PearlCalculatorCP.ViewModels
             SouthEastTNTZ = Data.SouthEastTNT.Z;
 
             
-            PearlPosX = Data.Pearl.Position.X;
-            PearlYCoor = Data.Pearl.Position.Y;
-            PearlPosZ = Data.Pearl.Position.Z;
+            PearlPosX      = Data.Pearl.Position.X;
+            PearlYCoor     = Data.Pearl.Position.Y;
+            PearlPosZ      = Data.Pearl.Position.Z;
             PearlYMomentum = Data.Pearl.Motion.Y;
-            DestinationX = Data.Destination.X;
-            DestinationZ = Data.Destination.Z;
-            PearlOffsetX = Data.PearlOffset.X.ToString();
-            PearlOffsetZ = Data.PearlOffset.Z.ToString();
+            DestinationX   = Data.Destination.X;
+            DestinationZ   = Data.Destination.Z;
+            PearlOffsetX   = Data.PearlOffset.X.ToString();
+            PearlOffsetZ   = Data.PearlOffset.Z.ToString();
 
-            DefaultRedDuperIndex = (int)Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
+            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
             DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
         }
         
@@ -522,10 +522,7 @@ namespace PearlCalculatorCP.ViewModels
             ConsoleOutputs.Add(message);
         }
 
-        private void OnClear()
-        {
-            ConsoleOutputs.Clear();
-        }
+        private void OnClear() => ConsoleOutputs.Clear();
 
         public void LoadDataFormSettings(Settings settings)
         {
@@ -550,18 +547,18 @@ namespace PearlCalculatorCP.ViewModels
             SouthEastTNTZ = settings.SouthEastTNT.Z;
 
             
-            PearlPosX = settings.Pearl.Position.X;
-            PearlYCoor = settings.Pearl.Position.Y;
-            PearlPosZ = settings.Pearl.Position.Z;
+            PearlPosX      = settings.Pearl.Position.X;
+            PearlYCoor     = settings.Pearl.Position.Y;
+            PearlPosZ      = settings.Pearl.Position.Z;
             PearlYMomentum = settings.Pearl.Motion.Y;
-            DestinationX = settings.Destination.X;
-            DestinationZ = settings.Destination.Z;
-            PearlOffsetX = settings.Offset.X.ToString();
-            PearlOffsetZ = settings.Offset.Z.ToString();
-            BlueTNT = (uint)settings.BlueTNT;
-            RedTNT = (uint) settings.RedTNT;
-            MaxTNT = (uint)settings.MaxTNT;
-            Direction = settings.Direction;
+            DestinationX   = settings.Destination.X;
+            DestinationZ   = settings.Destination.Z;
+            PearlOffsetX   = settings.Offset.X.ToString();
+            PearlOffsetZ   = settings.Offset.Z.ToString();
+            BlueTNT        = (uint) settings.BlueTNT;
+            RedTNT         = (uint) settings.RedTNT;
+            MaxTNT         = (uint) settings.MaxTNT;
+            Direction      = settings.Direction;
         }
 
         #region Calculate

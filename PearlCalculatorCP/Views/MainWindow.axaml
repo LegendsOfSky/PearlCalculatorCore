@@ -2,7 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:PearlCalculatorCP"
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
-        xmlns:models="using:PearlCalculatorCP.Models"
         xmlns:views="using:PearlCalculatorCP.Views"
         xmlns:converters="using:PearlCalculatorCP.Converters"
         xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
@@ -19,7 +18,6 @@
     <Window.Resources>
         <converters:StringToNumericConverter x:Key="STNConverter" />
         <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
-        <converters:StringToDiretionConverter x:Key="STDConverter" />
     </Window.Resources>
     
     <!--Styles define-->
@@ -107,7 +105,7 @@
         
         <!--Button.TNTAmountResultHeader Styles End-->
         
-        <!--Setting TextBox Styles-->
+        <!--Settings Styles-->
         
         <Style Selector="TextBox.SettingInput">
             <Setter Property="Margin" Value="8,0,0,4" />
@@ -409,10 +407,9 @@
                                                         </Grid>
 
                                                         
-                                                        
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Default Red TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch" Name="RedDuperCB">
+                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
                                                                 <ComboBoxItem Content="NorthWest" />
                                                                 <ComboBoxItem Content="NorthEast" />
                                                                 <ComboBoxItem Content="SouthWest" />
@@ -423,7 +420,7 @@
                                                         
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Default Blue TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch" Name="BlueDuperCB">
+                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
                                                                 <ComboBoxItem Content="NorthWest" />
                                                                 <ComboBoxItem Content="NorthEast" />
                                                                 <ComboBoxItem Content="SouthWest" />
