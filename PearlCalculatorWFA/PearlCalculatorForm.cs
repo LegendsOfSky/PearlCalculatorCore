@@ -657,15 +657,7 @@ namespace PearlCalculatorWFA
         private void ResetSettingButton_Click(object sender , EventArgs e)
         {
             Log("Main" , "Msg" , "Reset settings");
-            GeneralData.NorthWestTNT = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
-            GeneralData.NorthEastTNT = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
-            GeneralData.SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
-            GeneralData.SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
-            GeneralData.Pearl.Position = new Space3D(0 , 170.34722638929408 , 0);
-            GeneralData.Pearl.Motion= new Space3D(0 , 0.2716278719434352 , 0);
-            GeneralData.PearlOffset = new Surface2D();
-            GeneralData.DefaultRedDuper = Direction.SouthEast;
-            GeneralData.DefaultBlueDuper = Direction.NorthWest;
+            GeneralData.Reset();
             DisplaySetting();
         }
 
