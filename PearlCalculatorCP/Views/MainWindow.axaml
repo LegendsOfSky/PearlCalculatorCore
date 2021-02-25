@@ -110,7 +110,8 @@
         <!--Setting TextBox Styles-->
         
         <Style Selector="TextBox.SettingInput">
-            
+            <Setter Property="Margin" Value="8,0,0,4" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         
         <Style Selector="TextBox.SettingInput:disabled /template/Border#PART_BorderElement">
@@ -125,9 +126,15 @@
         <Style Selector="CheckBox">
             <Setter Property="MinWidth" Value="20" />
             <Setter Property="Width" Value="20" />
-            <Setter Property="Margin" Value="10,0,5,0" />
+            <Setter Property="Margin" Value="10,0,5,3" />
         </Style>
 
+        <Style Selector="ComboBox">
+            <Setter Property="Margin" Value="8,0,5,4" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="12,4,0,4" />
+        </Style>
         
         <!--End-->
         
@@ -403,7 +410,7 @@
                                                     
                                                     <Grid ColumnDefinitions="*, 2, *" >
                                                         <TextBlock Grid.Column="0" Text="Default Red TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <ComboBox Grid.Column="2" FontSize="12" SelectedItem="{Binding DefaultRedDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="RedDuperCB" AttachedToVisualTree="RedDuperCB_OnAttachedToVisualTree">
+                                                        <ComboBox Grid.Column="2" SelectedItem="{Binding DefaultRedDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="RedDuperCB" AttachedToVisualTree="RedDuperCB_OnAttachedToVisualTree">
                                                             <ComboBoxItem Content="NorthWest" />
                                                             <ComboBoxItem Content="NorthEast" />
                                                             <ComboBoxItem Content="SouthWest" />
@@ -414,7 +421,7 @@
                                                     
                                                     <Grid ColumnDefinitions="*, 2, *" >
                                                         <TextBlock Grid.Column="0" Text="Default Blue TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <ComboBox Grid.Column="2" FontSize="12" SelectedItem="{Binding DefaultBlueDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="BlueDuperCB" AttachedToVisualTree="BlueDuperCB_OnAttachedToVisualTree">
+                                                        <ComboBox Grid.Column="2" SelectedItem="{Binding DefaultBlueDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="BlueDuperCB" AttachedToVisualTree="BlueDuperCB_OnAttachedToVisualTree">
                                                             <ComboBoxItem Content="NorthWest" />
                                                             <ComboBoxItem Content="NorthEast" />
                                                             <ComboBoxItem Content="SouthWest" />
