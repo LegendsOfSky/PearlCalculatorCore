@@ -396,16 +396,26 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        public Direction DefaultRedDuper
+        private int _defaultRedDuperIndex;
+        public int DefaultRedDuperIndex
         {
-            get => Data.DefaultRedDuper;
-            set => this.RaiseAndSetIfChanged(ref Data.DefaultRedDuper, value);
+            get => _defaultRedDuperIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _defaultRedDuperIndex, value);
+                Data.DefaultRedDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+            }
         }
 
-        public Direction DefaultBlueDuper
+        private int _defaultBlueDuperIndex;
+        public int DefaultBlueDuperIndex
         {
-            get => Data.DefaultBlueDuper;
-            set => this.RaiseAndSetIfChanged(ref Data.DefaultBlueDuper, value);
+            get => _defaultBlueDuperIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _defaultBlueDuperIndex, value);
+                Data.DefaultBlueDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+            }
         }
 
         #endregion
@@ -458,6 +468,43 @@ namespace PearlCalculatorCP.ViewModels
 
             _pearlYCoor = Data.Pearl.Position.Y;
             _pearlYMomentum = Data.Pearl.Motion.Y;
+            
+            DefaultRedDuperIndex = (int)Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
+            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
+        }
+
+        void ResetSettings()
+        {
+            Data.Reset();
+            
+            NorthWestTNTX = Data.NorthWestTNT.X;
+            NorthWestTNTY = Data.NorthWestTNT.Y;
+            NorthWestTNTZ = Data.NorthWestTNT.Z;
+
+            NorthEastTNTX = Data.NorthEastTNT.X;
+            NorthEastTNTY = Data.NorthEastTNT.Y;
+            NorthEastTNTZ = Data.NorthEastTNT.Z;
+
+            SouthWestTNTX = Data.SouthWestTNT.X;
+            SouthWestTNTY = Data.SouthWestTNT.Y;
+            SouthWestTNTZ = Data.SouthWestTNT.Z;
+
+            SouthEastTNTX = Data.SouthEastTNT.X;
+            SouthEastTNTY = Data.SouthEastTNT.Y;
+            SouthEastTNTZ = Data.SouthEastTNT.Z;
+
+            
+            PearlPosX = Data.Pearl.Position.X;
+            PearlYCoor = Data.Pearl.Position.Y;
+            PearlPosZ = Data.Pearl.Position.Z;
+            PearlYMomentum = Data.Pearl.Motion.Y;
+            DestinationX = Data.Destination.X;
+            DestinationZ = Data.Destination.Z;
+            PearlOffsetX = Data.PearlOffset.X.ToString();
+            PearlOffsetZ = Data.PearlOffset.Z.ToString();
+
+            DefaultRedDuperIndex = (int)Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
+            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
         }
         
         ~MainWindowViewModel()
@@ -651,5 +698,19 @@ namespace PearlCalculatorCP.ViewModels
     public enum TNTWeightModeEnum
     {
         DistanceVSTNT, OnlyTNT, OnlyDistance
+    }
+    
+    //I don't know why ComboBox.SelectedItem cause a issue
+    //avalonia can't resolve item form string
+    //may need to ComboBoxItem?
+    //So, i decide use a Enum link Direction Enum to ComboBox.SelectedIndex
+    //and selectedIndex form the enum
+    //it's value(int) is the same as ComboBoxItem index
+    internal enum ComboBoxDireEnum
+    {
+        NorthWest,
+        NorthEast,
+        SouthWest,
+        SouthEast
     }
 }

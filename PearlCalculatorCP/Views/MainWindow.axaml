@@ -264,177 +264,183 @@
                                     <!--Settings-->
                                     <TabItem Header="Settings">
                                         
-                                        <Border BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2">
-                                            <Grid RowDefinitions="Auto, *" Margin="2, 0">
-                                        
-                                                <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
-                                                    <TextBlock Grid.Column="0" Text="Name" Padding="8, 2" />
-                                                    <TextBlock Grid.Column="2" Text="Value" Padding="8, 2" />
+                                        <Grid RowDefinitions="*, Auto">
                                             
-                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                </Grid>
+                                            <Border Grid.Row="0" BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2">
+                                                <Grid RowDefinitions="Auto, *" Margin="2, 0">
+                                            
+                                                    <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
+                                                        <TextBlock Grid.Column="0" Text="Name" Padding="8, 2" />
+                                                        <TextBlock Grid.Column="2" Text="Value" Padding="8, 2" />
                                                 
-                                                <StackPanel Grid.Row="1">
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
                                                         <Grid Grid.Column="1" Background="#F0F0F0" />
                                                     </Grid>
                                                     
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                    <StackPanel Grid.Row="1">
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="North East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding NorthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="North East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="South East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding SouthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="Pearl Y Coordinate" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding PearlYCoor, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="South East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
+                                                        
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="Pearl Y Coordinate" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding PearlYCoor, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                        </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="Pearl Y Momentum" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <TextBox Grid.Column="0" Text="{Binding PearlYMomentum, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
-                                                            <CheckBox Grid.Column="1" />
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="Pearl Y Momentum" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                                <TextBox Grid.Column="0" Text="{Binding PearlYMomentum, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <CheckBox Grid.Column="1" />
+                                                            </Grid>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
                                                         </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
 
+                                                        
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="Default Red TNT Position" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch" Name="RedDuperCB">
+                                                                <ComboBoxItem Content="NorthWest" />
+                                                                <ComboBoxItem Content="NorthEast" />
+                                                                <ComboBoxItem Content="SouthWest" />
+                                                                <ComboBoxItem Content="SouthEast" />
+                                                            </ComboBox>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                        </Grid>
+                                                        
+                                                        <Grid ColumnDefinitions="*, 2, *" >
+                                                            <TextBlock Grid.Column="0" Text="Default Blue TNT Position" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch" Name="BlueDuperCB">
+                                                                <ComboBoxItem Content="NorthWest" />
+                                                                <ComboBoxItem Content="NorthEast" />
+                                                                <ComboBoxItem Content="SouthWest" />
+                                                                <ComboBoxItem Content="SouthEast" />
+                                                            </ComboBox>
+                                                            <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                        </Grid>
+                                                        
+                                                    </StackPanel>
                                                     
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="Default Red TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <ComboBox Grid.Column="2" SelectedItem="{Binding DefaultRedDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="RedDuperCB" AttachedToVisualTree="RedDuperCB_OnAttachedToVisualTree">
-                                                            <ComboBoxItem Content="NorthWest" />
-                                                            <ComboBoxItem Content="NorthEast" />
-                                                            <ComboBoxItem Content="SouthWest" />
-                                                            <ComboBoxItem Content="SouthEast" />
-                                                        </ComboBox>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                    <Grid ColumnDefinitions="*, 2, *" >
-                                                        <TextBlock Grid.Column="0" Text="Default Blue TNT Position" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <ComboBox Grid.Column="2" SelectedItem="{Binding DefaultBlueDuper, Converter={StaticResource STDConverter}}" HorizontalAlignment="Stretch" Name="BlueDuperCB" AttachedToVisualTree="BlueDuperCB_OnAttachedToVisualTree">
-                                                            <ComboBoxItem Content="NorthWest" />
-                                                            <ComboBoxItem Content="NorthEast" />
-                                                            <ComboBoxItem Content="SouthWest" />
-                                                            <ComboBoxItem Content="SouthEast" />
-                                                        </ComboBox>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
-                                                    
-                                                </StackPanel>
-
+                                                </Grid>
+                                            </Border>
+                                        
+                                            <Button Grid.Row="1" Classes="GeneralButtonStyle" Content="Reset To Default" Margin="0, 5" Command="{Binding ResetSettings}" />
                                             
-                                            </Grid>
-                                        </Border>
+                                        </Grid>
+                                        
                                     </TabItem>
                                     
                                 </TabControl>
