@@ -14,7 +14,7 @@ namespace PearlCalculatorCP.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value?.Equals(true) == true ? parameter : BindingOperations.DoNothing;
+            return value?.Equals(true) != null ? parameter : BindingOperations.DoNothing;
         }
     }
 }

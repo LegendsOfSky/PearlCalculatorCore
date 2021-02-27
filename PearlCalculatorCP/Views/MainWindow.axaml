@@ -16,12 +16,18 @@
         Tapped="Window_OnTapped">
     
     <Window.Resources>
-        <converters:StringToNumericConverter x:Key="STNConverter" />
         <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
     </Window.Resources>
     
     <!--Styles define-->
     <Window.Styles>
+        
+        <!--i can't set NumericUpDown > Border for disabled-->
+        <!--so i set Border for global-->
+        <Style Selector="Border#PART_BorderElement:disabled">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
         
         <Style Selector="TabItem">
             <Setter Property="FontSize" Value="16" />
@@ -41,8 +47,9 @@
             <Setter Property="Margin" Value="2,2,2,4" />
         </Style>
         
-        <Style Selector="TextBox.InputBox:error /template/Border">
-            <Setter Property="Margin" Value="0,0,0,-2" />
+        <Style Selector="NumericUpDown">
+            <Setter Property="ShowButtonSpinner" Value="False" />
+            <Setter Property="Increment" Value="0" />
         </Style>
         
         <Style Selector="GridSplitter">
@@ -107,17 +114,16 @@
         
         <!--Settings Styles-->
         
-        <Style Selector="TextBox.SettingInput">
+        <Style Selector="NumericUpDown.SettingInput">
             <Setter Property="Margin" Value="8,0,0,4" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
         
-        <Style Selector="TextBox.SettingInput:disabled /template/Border#PART_BorderElement">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="#00000000" />
+        <Style Selector="NumericUpDown.SettingInput:disabled">
+            <Setter Property="BorderBrush" Value="Transparent" />
         </Style>
         
-        <Style Selector="TextBox.SettingInput:disabled">
+        <Style Selector="NumericUpDown.SettingInput:disabled /template/TextBox#PART_TextBox">
             <Setter Property="Foreground" Value="#727272" />
         </Style>
         
@@ -164,27 +170,28 @@
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Pearl X :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding PearlPosX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosXInputBox" />
+                                                <NumericUpDown Value="{Binding PearlPosX}" />
+                                                
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Pearl Z :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding PearlPosZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="PearlPosZInputBox" />
+                                                <NumericUpDown Value="{Binding PearlPosZ}" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Destination X :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding DestinationX, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationXInputBox" />
+                                                <NumericUpDown Value="{Binding DestinationX}" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Destination Z :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding DestinationZ, Converter={StaticResource STNConverter}}" Classes="InputBox" Name="DestinationZInputBox" />
+                                                <NumericUpDown Value="{Binding DestinationZ}" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Max TNT :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding MaxTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
 
                                             <Border BorderThickness="2" Margin="5, 5, 2, 0">
@@ -202,12 +209,12 @@
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Red TNT :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding RedTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
                                                 <TextBlock Text="Blue TNT :" Classes="InputBoxTB" />
-                                                <TextBox Text="{Binding BlueTNT, Converter={StaticResource STNConverter}}" Classes="InputBox" />
+                                                <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
                                                 
                                             <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Command="{Binding CalculateTNTAmount}" />
@@ -279,7 +286,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -288,7 +295,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -297,7 +304,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -307,7 +314,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -316,7 +323,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -325,7 +332,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding NorthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -335,7 +342,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -344,7 +351,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -353,7 +360,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthWestTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -363,7 +370,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTX, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -372,7 +379,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTY, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -381,7 +388,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding SouthEastTNTZ, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -391,7 +398,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Pearl Y Coordinate" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding PearlYCoor, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding PearlYCoor}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -400,7 +407,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Pearl Y Momentum" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <TextBox Grid.Column="0" Text="{Binding PearlYMomentum, Converter={StaticResource STNConverter}}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Text="{Binding PearlYMomentum}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />

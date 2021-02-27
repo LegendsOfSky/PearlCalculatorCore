@@ -10,6 +10,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
+using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 
@@ -175,5 +176,10 @@ namespace PearlCalculatorCP.Views
         private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlTrace();
 
         private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlMomentum();
+
+        private void NumericUpDownToUInt_OnValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
+        {
+            NumericBoxUtils.ToUInt(sender as NumericUpDown, e);
+        }
     }
 }

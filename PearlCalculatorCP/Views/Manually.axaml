@@ -6,11 +6,7 @@
              xmlns:vm="using:PearlCalculatorCP.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PearlCalculatorCP.Views.Manually">
-    
-    <UserControl.Resources>
-        <converters:StringToNumericConverter x:Key="STNConverter" />
-    </UserControl.Resources>
-    
+        
     <UserControl.Styles>
         <Style Selector="Button">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -19,13 +15,14 @@
             <Setter Property="Margin" Value="5, 6" />
         </Style>
         
+        <Style Selector="NumericUpDown">
+            <Setter Property="ShowButtonSpinner" Value="False" />
+            <Setter Property="Increment" Value="0" />
+        </Style>
+        
         <Style Selector="TextBlock.InputBoxTB">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="2,2,2,4" />
-        </Style>
-        
-        <Style Selector="TextBox.InputBox:error /template/Border">
-            <Setter Property="Margin" Value="0,0,0,-2" />
         </Style>
         
     </UserControl.Styles>
@@ -46,17 +43,17 @@
                         <StackPanel Grid.Column="0">
                             <StackPanel Margin="4">
                                 <TextBlock Text="Pearl X:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding PearlX, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding PearlX}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
                                 <TextBlock Text="Pearl Y:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding PearlY, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding PearlY}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
                                 <TextBlock Text="Pearl Z:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding PearlZ, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding PearlZ}" />
                             </StackPanel>
                         </StackPanel>
                                             
@@ -64,17 +61,17 @@
                         <StackPanel Grid.Column="2">
                             <StackPanel Margin="4">
                                 <TextBlock Text="Momentum X:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding MomentumX, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding MomentumX}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
                                 <TextBlock Text="Momentum Y:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding MomentumY, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding MomentumY}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
                                 <TextBlock Text="Momentum Z:" Classes="InputBoxTB" />
-                                <TextBox Classes="InputBox" Text="{Binding MomentumZ, Converter={StaticResource STNConverter}}" />
+                                <NumericUpDown Value="{Binding MomentumZ}" />
                             </StackPanel>
                         </StackPanel>
                                             
@@ -84,8 +81,8 @@
                     <StackPanel Margin="4">
                         <TextBlock Text="TNT X:"  />
                         <Grid ColumnDefinitions="*, 12, *">
-                            <TextBox Grid.Column="0" Classes="InputBox" Text="{Binding ATX, Converter={StaticResource STNConverter}}" />
-                            <TextBox Grid.Column="2" Classes="InputBox" Text="{Binding BTX, Converter={StaticResource STNConverter}}" />
+                            <NumericUpDown Grid.Column="0" Value="{Binding ATX}" />
+                            <NumericUpDown Grid.Column="2" Value="{Binding BTX}" />
                         </Grid>
                     </StackPanel>
                     
@@ -93,8 +90,8 @@
                     <StackPanel Margin="4">
                         <TextBlock Text="TNT Y:"  />
                         <Grid ColumnDefinitions="*, 12, *">
-                            <TextBox Grid.Column="0" Classes="InputBox" Text="{Binding ATY, Converter={StaticResource STNConverter}}" />
-                            <TextBox Grid.Column="2" Classes="InputBox" Text="{Binding BTY, Converter={StaticResource STNConverter}}" />
+                            <NumericUpDown Grid.Column="0" Value="{Binding ATY}" />
+                            <NumericUpDown Grid.Column="2" Value="{Binding BTY}" />
                         </Grid>
                     </StackPanel>
                     
@@ -102,8 +99,8 @@
                     <StackPanel Margin="4">
                         <TextBlock Text="TNT Z:"  />
                         <Grid ColumnDefinitions="*, 12, *">
-                            <TextBox Grid.Column="0" Classes="InputBox" Text="{Binding ATZ, Converter={StaticResource STNConverter}}" />
-                            <TextBox Grid.Column="2" Classes="InputBox" Text="{Binding BTZ, Converter={StaticResource STNConverter}}" />
+                            <NumericUpDown Grid.Column="0" Value="{Binding ATZ}" />
+                            <NumericUpDown Grid.Column="2" Value="{Binding BTZ}" />
                         </Grid>
                     </StackPanel>
                     
@@ -111,20 +108,20 @@
                     <StackPanel Margin="4">
                         <TextBlock Text="Amount:"  />
                         <Grid ColumnDefinitions="*, 12, *">
-                            <TextBox Grid.Column="0" Classes="InputBox" Text="{Binding ATNTAmount, Converter={StaticResource STNConverter}}" />
-                            <TextBox Grid.Column="2" Classes="InputBox" Text="{Binding BTNTAmount, Converter={StaticResource STNConverter}}" />
+                            <NumericUpDown Grid.Column="0" Value="{Binding  ATNTAmount}" ValueChanged="TNTAmount_OnValueChanged" />
+                            <NumericUpDown Grid.Column="2" Value="{Binding BTNTAmount}" ValueChanged="TNTAmount_OnValueChanged" />
                         </Grid>
                     </StackPanel>
                     
                     <!--Destination-->
                     <StackPanel Margin="4">
                         <TextBlock Text="Destination X:" />
-                        <TextBox Text="{Binding DestinationX, Converter={StaticResource STNConverter}}" />
+                        <NumericUpDown Value="{Binding DestinationX}" />
                     </StackPanel>
                     
                     <StackPanel Margin="4">
                         <TextBlock Text="Destination Z:" />
-                        <TextBox Text="{Binding DestinationZ, Converter={StaticResource STNConverter}}" />
+                        <NumericUpDown Value="{Binding DestinationZ}" />
                     </StackPanel>
                     
                 </StackPanel>

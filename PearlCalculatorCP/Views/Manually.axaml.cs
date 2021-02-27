@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using PearlCalculatorCP.Utils;
 
 namespace PearlCalculatorCP.Views
 {
@@ -14,7 +15,6 @@ namespace PearlCalculatorCP.Views
         private Button _tntAmountBtn;
         private Button _pearlTraceBtn;
         private Button _pearlMomentumBtn;
-        
 
         public event EventHandler<RoutedEventArgs> CalculateTNTAmount;
 
@@ -49,6 +49,11 @@ namespace PearlCalculatorCP.Views
         private void PearlMomentumBtn_OnClick(object? sender, RoutedEventArgs e)
         {
             CalculatePearlMomentum?.Invoke(this, e);
+        }
+
+        private void TNTAmount_OnValueChanged(object? sender, NumericUpDownValueChangedEventArgs e)
+        {
+            NumericBoxUtils.ToInt(sender as NumericUpDown, e);
         }
     }
 }
