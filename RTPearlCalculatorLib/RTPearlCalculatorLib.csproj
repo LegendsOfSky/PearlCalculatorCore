@@ -10,4 +10,8 @@
     <None Remove="Relay\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
+  </ItemGroup>
+
 </Project>
