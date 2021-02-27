@@ -12,9 +12,6 @@ using System.Linq;
 using PearlCalculatorLib.PearlCalculationLib.Blocks;
 using System.Diagnostics;
 using System.Security.Permissions;
-using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.PearlCalculationLib.World;
-using PearlCalculatorLib.Result;
 
 namespace RTPearlCalculatorLib.AttachedLLFTL
 {
@@ -44,22 +41,22 @@ namespace RTPearlCalculatorLib.AttachedLLFTL
 
         public static void CalculateSuitableAttachLocation(int maxTick , Direction direction , int minChunkDistance , int maxChunkDistance)
         {
-            PearlEntity pearl = (PearlEntity)PearlCalculatorLib.General.Data.Pearl.Clone();
-            Space3D NorthWestTNT = PearlCalculatorLib.General.Data.NorthWestTNT;
-            Space3D NorthEastTNT = PearlCalculatorLib.General.Data.NorthEastTNT;
-            Space3D SouthWestTNT = PearlCalculatorLib.General.Data.SouthWestTNT;
-            Space3D SouthEastTNT = PearlCalculatorLib.General.Data.SouthEastTNT;
+            PearlEntity pearl = (PearlEntity)General.Data.Pearl.Clone();
+            Space3D NorthWestTNT = General.Data.NorthWestTNT;
+            Space3D NorthEastTNT = General.Data.NorthEastTNT;
+            Space3D SouthWestTNT = General.Data.SouthWestTNT;
+            Space3D SouthEastTNT = General.Data.SouthEastTNT;
             Stack<Surface2D> spot = CalculateSpot(direction , minChunkDistance , maxChunkDistance , pearl.Position.ToSurface2D());
             foreach(var temp in spot)
             {
-                PearlCalculatorLib.General.Data.Destination = temp.ToSpace3D();
-                PearlCalculatorLib.General.Data.Pearl = (PearlEntity)pearl.Clone();
-                PearlCalculatorLib.General.Data.NorthWestTNT = NorthWestTNT;
-                PearlCalculatorLib.General.Data.NorthEastTNT = NorthEastTNT;
-                PearlCalculatorLib.General.Data.SouthWestTNT = SouthWestTNT;
-                PearlCalculatorLib.General.Data.SouthEastTNT = SouthEastTNT;
-                PearlCalculatorLib.General.Calculation.CalculateTNTAmount(maxTick , 0.5);
-                List<TNTCalculationResult> possileResult = PearlCalculatorLib.General.Data.TNTResult.Where(t =>
+                General.Data.Destination = temp.ToSpace3D();
+                General.Data.Pearl = (PearlEntity)pearl.Clone();
+                General.Data.NorthWestTNT = NorthWestTNT;
+                General.Data.NorthEastTNT = NorthEastTNT;
+                General.Data.SouthWestTNT = SouthWestTNT;
+                General.Data.SouthEastTNT = SouthEastTNT;
+                General.Calculation.CalculateTNTAmount(maxTick , 0.5);
+                List<TNTCalculationResult> possileResult = General.Data.TNTResult.Where(t => 
                 {
                     switch(direction)
                     {
@@ -120,14 +117,14 @@ namespace RTPearlCalculatorLib.AttachedLLFTL
             Space3D redTNTVector, blueTNTVector;
             bool isFoundBottomBlocks = false;
 
-            PearlCalculatorLib.General.Data.Pearl = result.Pearl;
+            General.Data.Pearl = result.Pearl;
 
             foreach(var item in BlocksType)
             {
                 if(Block.TryGetBlockSize(item , out var size))
                 {
                     SetTNTYPosition(result.Pearl.Position.Y + size.Y);
-                    PearlCalculatorLib.General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
+                    General.Calculation.CalculateTNTVector(direction , out redTNTVector , out blueTNTVector);
                     if(redTNTVector.Y > 0 && redTNTVector.Y <= 0.02 && blueTNTVector.Y > 0 && blueTNTVector.Y <= 0.02)
                     {
                         bottomBlock.Add(item);
@@ -141,10 +138,10 @@ namespace RTPearlCalculatorLib.AttachedLLFTL
 
         private static void SetTNTYPosition(double height)
         {
-            PearlCalculatorLib.General.Data.NorthEastTNT.Y = height;
-            PearlCalculatorLib.General.Data.NorthWestTNT.Y = height;
-            PearlCalculatorLib.General.Data.SouthEastTNT.Y = height;
-            PearlCalculatorLib.General.Data.SouthWestTNT.Y = height;
+            General.Data.NorthEastTNT.Y = height;
+            General.Data.NorthWestTNT.Y = height;
+            General.Data.SouthEastTNT.Y = height;
+            General.Data.SouthWestTNT.Y = height;
         }
 
         private static Stack<Surface2D> CalculateSpot(Direction direction , int minChunkDistance , int maxChunkDistance , Surface2D pearlPosition)

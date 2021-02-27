@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Relay\**" />
-    <EmbeddedResource Remove="Relay\**" />
-    <None Remove="Relay\**" />
+    <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
   </ItemGroup>
 
 </Project>

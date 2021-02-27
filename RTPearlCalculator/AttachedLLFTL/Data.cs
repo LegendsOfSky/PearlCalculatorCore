@@ -1,6 +1,4 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.PearlCalculationLib.World;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -37,17 +35,17 @@ namespace RTPearlCalculatorLib.AttachedLLFTL
         /// </summary>
         public static void LoadDataFromGeneral()
         {
-            DefaultBlueDuper = PearlCalculatorLib.General.Data.DefaultBlueDuper;
-            DefaultRedDuper = PearlCalculatorLib.General.Data.DefaultRedDuper;
-            Destination = PearlCalculatorLib.General.Data.Destination;
-            Direction = PearlCalculatorLib.General.Data.Direction;
-            MaxTNT = PearlCalculatorLib.General.Data.MaxTNT;
-            OriginalNorthEastTNT = PearlCalculatorLib.General.Data.NorthEastTNT;
-            OriginalNorthWestTNT = PearlCalculatorLib.General.Data.NorthWestTNT;
-            OriginalSouthEastTNT = PearlCalculatorLib.General.Data.SouthEastTNT;
-            OriginalSouthWestTNT = PearlCalculatorLib.General.Data.SouthWestTNT;
-            OriginalPearl = PearlCalculatorLib.General.Data.Pearl;
-            PearlOffset = PearlCalculatorLib.General.Data.PearlOffset;
+            DefaultBlueDuper = General.Data.DefaultBlueDuper;
+            DefaultRedDuper = General.Data.DefaultRedDuper;
+            Destination = General.Data.Destination;
+            Direction = General.Data.Direction;
+            MaxTNT = General.Data.MaxTNT;
+            OriginalNorthEastTNT = General.Data.NorthEastTNT;
+            OriginalNorthWestTNT = General.Data.NorthWestTNT;
+            OriginalSouthEastTNT = General.Data.SouthEastTNT;
+            OriginalSouthWestTNT = General.Data.SouthWestTNT;
+            OriginalPearl = General.Data.Pearl;
+            PearlOffset = General.Data.PearlOffset;
         }
     }
 }
