@@ -117,6 +117,7 @@
         <Style Selector="NumericUpDown.SettingInput">
             <Setter Property="Margin" Value="8,0,0,4" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
         
         <Style Selector="NumericUpDown.SettingInput:disabled">
@@ -286,7 +287,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -295,7 +296,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -304,7 +305,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -314,7 +315,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -323,7 +324,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -332,7 +333,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="North East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding NorthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -342,7 +343,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -351,7 +352,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -360,7 +361,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South West TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -370,7 +371,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(X Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -379,7 +380,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(Y Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -388,7 +389,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="South East TNT(Z Axis)" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding SouthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -398,7 +399,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Pearl Y Coordinate" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding PearlYCoor}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding PearlYCoor}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
@@ -407,7 +408,7 @@
                                                         <Grid ColumnDefinitions="*, 2, *" >
                                                             <TextBlock Grid.Column="0" Text="Pearl Y Momentum" Padding="8, 2" VerticalAlignment="Center" />
                                                             <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                                <NumericUpDown Grid.Column="0" Text="{Binding PearlYMomentum}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" HorizontalAlignment="Stretch" />
+                                                                <NumericUpDown Grid.Column="0" Value="{Binding PearlYMomentum}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
                                                                 <CheckBox Grid.Column="1" />
                                                             </Grid>
                                                             <Grid Grid.Column="1" Background="#F0F0F0" />
