@@ -129,7 +129,7 @@ namespace PearlCalculatorCP
             }
             
             if (!isFindCmd)
-                LogSyntaxError(command);
+                LogSyntaxError(cmdName);
         }
 
         void LogSyntaxError(string? cmd)
