@@ -8,11 +8,11 @@ namespace PearlCalculatorCP.Commands
 {
     public class ChangeMaxTicks : ICommand
     {
-        public void Excute(string[]? paramaters, Action<ConsoleOutputItemModel> messageSender)
+        public void Excute(string[]? parameters, Action<ConsoleOutputItemModel> messageSender)
         {
-            if(paramaters != null && paramaters.Length != 0)
+            if(parameters != null && parameters.Length != 0)
             {
-                int.TryParse(paramaters[0], out int maxTicks);
+                int.TryParse(parameters[0], out int maxTicks);
                 if(maxTicks > 0)
                 {
                     MainWindowViewModel.MaxTicks = maxTicks;

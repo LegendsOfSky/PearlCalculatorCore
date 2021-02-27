@@ -144,6 +144,9 @@ namespace PearlCalculatorCP
         {
             SendMessage(new ConsoleOutputItemModel{Type = MsgType, Message = "CommandManager Linked"});
             SendMessage(new ConsoleOutputItemModel{Type = MsgType, Message = "Input \"/help\" or \"/?\" to check instructions"});
+
+            foreach (var reg in CommandList)
+                reg.Handler.OnLinkOutput(_messageSender);
         }
     }
 

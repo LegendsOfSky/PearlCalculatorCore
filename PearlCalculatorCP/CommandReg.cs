@@ -24,6 +24,8 @@ namespace PearlCalculatorCP
 
             CommandManager.Register("clear", new Clear(), null);
             
+            CommandManager.Register("changeLang", new ChangeLanguage(), null);
+            
             isRegistered = true;
         }
     }

@@ -5,6 +5,8 @@ namespace PearlCalculatorCP.Commands
 {
     public interface ICommand
     {
-        public void Excute(string[]? paramaters, Action<ConsoleOutputItemModel> messageSender);
+        public virtual void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender){}
+        
+        public void Excute(string[]? parameters, Action<ConsoleOutputItemModel> messageSender);
     }
 }
