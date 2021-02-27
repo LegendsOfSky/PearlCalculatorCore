@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using PearlCalculatorCP.Commands;
+using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorCP.Views;
 
@@ -13,6 +14,9 @@ namespace PearlCalculatorCP
     {
         public override void Initialize()
         {
+            Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
+            CommandReg.Register();
+
             AvaloniaXamlLoader.Load(this);
         }
 
@@ -27,8 +31,6 @@ namespace PearlCalculatorCP
             }
 
             base.OnFrameworkInitializationCompleted();
-            
-            CommandReg.Register();
         }
 
         public override void RegisterServices()

@@ -7,6 +7,7 @@
         xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="1400"
         CanResize="False"
         x:Class="PearlCalculatorCP.Views.MainWindow"
@@ -157,7 +158,7 @@
                 <TabControl>
                     
                     <!--General FTL Group-->
-                    <TabItem Header="General FTL">
+                    <TabItem Header="{i18n:Translate GeneralFTLHeader, Fallback='General FTL'}">
                         
                         <Grid RowDefinitions="5, *, 5">
                             <Border Grid.Row="1" Classes="GlobalGeneralBorder">
@@ -165,33 +166,33 @@
                                 <TabControl>
                                     
                                     <!--General-->
-                                    <TabItem Header="General">
+                                    <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
                                         
                                         <StackPanel x:Name="GeneralRootSP">
                                             
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Pearl X :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding PearlPosX}" />
                                                 
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Pearl Z :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding PearlPosZ}" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Destination X :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding DestinationX}" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Destination Z :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding DestinationZ}" />
                                             </StackPanel>
 
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Max TNT :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
 
@@ -209,33 +210,33 @@
                                             </Border>
                                             
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Red TNT :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
                                             
                                             <StackPanel Margin="4">
-                                                <TextBlock Text="Blue TNT :" Classes="InputBoxTB" />
+                                                <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
                                                 <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
-                                                
+                                            
                                             <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Command="{Binding CalculateTNTAmount}" />
                                             <Button Classes="GeneralButtonStyle" Content="Pearl Simulate" Command="{Binding PearlSimulate}" />
-                                            <Button Classes="GeneralButtonStyle" Content="Import Settings" Click="ImportSettingsBtn_OnClick" />
-                                            <Button Classes="GeneralButtonStyle" Content="Save Settings" Click="SaveSettingsBtn_OnClick" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
                                             
                                         </StackPanel>
                                         
                                     </TabItem>
                                     
                                     <!--Advanced-->
-                                    <TabItem Header="Advanced">
+                                    <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
                                         <StackPanel>
                                             
                                             <Border BorderThickness="1" BorderBrush="#F0F0F0" CornerRadius="5" Padding="20, 5">
                                                 
                                                 <StackPanel>
                                                     
-                                                    <TextBlock Text="Offsets :" Margin="5, 2, 0, 10" />
+                                                    <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="5, 2, 0, 10" />
                                                     
                                                     <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
                                                         <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
@@ -268,7 +269,7 @@
                                     </TabItem>
                                     
                                     <!--Settings-->
-                                    <TabItem Header="Settings">
+                                    <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
                                         
                                         <Grid RowDefinitions="*, Auto">
                                             
@@ -456,7 +457,7 @@
                     </TabItem>
                     
                     <!--Manually-->
-                    <TabItem Header="Manually">
+                    <TabItem Header="{i18n:Translate ManuallyHeader, Fallback='Manually'}">
                         <views:Manually CalculateTNTAmount="ManuallyCalculateTNTAmount"
                                         CalculatePearlTrace="ManuallyCalculatePearlTrace"
                                         CalculatePearlMomentum="ManuallyCalculatePearlMomentum"/>
@@ -471,7 +472,7 @@
                 <TabControl>
                     
                     <!--Result Display-->
-                    <TabItem Header="Display">
+                    <TabItem Header="{i18n:Translate DisplayHeader, Fallback='Display'}">
                         <Grid RowDefinitions="5, 10*, 1*, 5">
 
                             <!--Result List-->
@@ -604,7 +605,7 @@
                     </TabItem>
                     
                     <!--Console-->
-                    <TabItem Header="Console">
+                    <TabItem Header="{i18n:Translate ConsoleHeader, Fallback='Console'}">
                         
                         <Grid RowDefinitions="5, *, 0.05*, 5">
                             

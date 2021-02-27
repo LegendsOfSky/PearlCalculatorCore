@@ -1,0 +1,25 @@
+{
+    "GeneralFTLHeader" : "普通FTL",
+    "ManuallyHeader" : "手动计算器",
+    
+    "GeneralFTLGeneralHeader" : "一般选项",
+    "GeneralFTLAdvancedHeader" : "高级选项",
+    "GeneralFTLSettingsHeader" : "更多底层选项",
+    
+    "PearlPosX" : "珍珠X坐标 :",
+    "PearlPosZ" : "珍珠Z坐标 :",
+    
+    "DestinationX" : "目标点X坐标 :",
+    "DestinationZ" : "目标点Z坐标 :",
+    
+    "MaxTNT" : "最大TNT当量",
+    "RedTNT" : "",
+    "BlueTNT" : "",
+    "Offset" : "",
+    
+    "ImportSettings" : "导入软件设置",
+    "SaveSettings" : "保存软件设置",
+    
+    "DisplayHeader" : "结果输出",
+    "ConsoleHeader" : "控制台"
+}
