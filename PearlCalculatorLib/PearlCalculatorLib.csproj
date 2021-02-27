@@ -2,12 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>memorydream , LegendsOfSky</Authors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Relay\Complex\" />
-    <Folder Include="Relay\Simple\EnhancementRelay\" />
-    <Folder Include="Relay\Simple\RedirectingRelay\" />
-  </ItemGroup>
 
 </Project>

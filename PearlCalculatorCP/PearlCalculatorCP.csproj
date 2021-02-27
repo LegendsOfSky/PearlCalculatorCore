@@ -3,6 +3,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
+    <Authors>memorydream</Authors>
+    <Company></Company>
+    <Product>PearlCalculatorCP</Product>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
