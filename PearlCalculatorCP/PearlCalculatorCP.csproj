@@ -6,6 +6,7 @@
     <Authors>memorydream</Authors>
     <Company></Company>
     <Product>PearlCalculatorCP</Product>
+    <ApplicationIcon>Assets\Enderperl-icon32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
