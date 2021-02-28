@@ -11,7 +11,7 @@ namespace PearlCalculatorLib.Manually
     {
         public static Space3D ATNT;
         public static Space3D BTNT;
-        public static Space3D Destination;
+        public static Surface2D Destination = new Surface2D();
         public static PearlEntity Pearl = new PearlEntity();
         public static int ATNTAmount;
         public static int BTNTAmount;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
@@ -51,6 +52,16 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             result.Z = lenght * Math.Cos(Radinat);
             return result;
         }
+
+        public bool AxialDistanceLessThan(double distance) => Math.Abs(X) < distance && Math.Abs(Z) < distance;
+
+        public bool AxialDistanceLargerThan(double distance) => Math.Abs(X) > distance && Math.Abs(Z) > distance;
+
+        public bool AxialDistanceEqualTo(double distance) => Math.Abs(X) == distance && Math.Abs(Z) == distance;
+
+        public bool AxialDistanceLessOrEqualTo(double distance) => AxialDistanceLessThan(distance) || AxialDistanceEqualTo(distance);
+
+        public bool AxialDistanceLargerOrEqualTo(double distance) => AxialDistanceLargerThan(distance) || AxialDistanceEqualTo(distance);
 
         public Chunk ToChunk() => new Chunk((int)Math.Floor(X / 16) , (int)Math.Floor(Z / 16));
 
