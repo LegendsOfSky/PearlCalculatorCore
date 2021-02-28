@@ -115,7 +115,7 @@ namespace PearlCalculatorCP
 
             var paras = command.TrimEnd().TrimStart().Split(" ");
             var cmdName = paras[0];
-            string[]? cmdParas = paras.Length > 1 ? paras[1..] : null;
+            paras = paras.Length > 1 ? paras[1..] : null;
 
             bool isFindCmd = CommandList.TryGetValue(cmdName, out var registration);
 
