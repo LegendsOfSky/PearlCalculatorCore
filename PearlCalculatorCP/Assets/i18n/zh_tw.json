@@ -1,2 +1,25 @@
 {
+    "GeneralFTLHeader" : "普通FTL",
+    "ManuallyHeader" : "手動計算機",
+    
+    "GeneralFTLGeneralHeader" : "一般選項",
+    "GeneralFTLAdvancedHeader" : "進階選項",
+    "GeneralFTLSettingsHeader" : "更多基礎設定",
+    
+    "PearlPosX" : "珍珠X座標 :",
+    "PearlPosZ" : "珍珠Z座標 :",
+    
+    "DestinationX" : "目標點X座標 :",
+    "DestinationZ" : "目標點Z座標 :",
+    
+    "MaxTNT" : "最大TNT當量",
+    "RedTNT" : "紅色陣列",
+    "BlueTNT" : "藍色陣列",
+    "Offset" : "偏差",
+    
+    "ImportSettings" : "導入軟件設定檔",
+    "SaveSettings" : "保存當前設置",
+    
+    "DisplayHeader" : "結果輸出",
+    "ConsoleHeader" : "控制台"
 }
