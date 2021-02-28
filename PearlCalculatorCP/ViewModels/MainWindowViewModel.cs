@@ -574,7 +574,7 @@ namespace PearlCalculatorCP.ViewModels
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
                 SortTNTResult();
-                ShowTNTAmount(Data.TNTResult, ref Data.Pearl.Position, ref Data.Destination);
+                ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
             }
             IsDisplayTNTAmount = true;
         }
@@ -629,7 +629,7 @@ namespace PearlCalculatorCP.ViewModels
         public void ManuallyCalculateTNTAmount()
         {
             if (ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination, MaxTicks, out var result))
-                ShowTNTAmount(result, ref ManuallyData.Pearl.Position, ref ManuallyData.Destination);
+                ShowTNTAmount(result, ManuallyData.Pearl.Position, ManuallyData.Destination.ToSpace3D());
             IsDisplayTNTAmount = true;
         }
 
@@ -669,7 +669,7 @@ namespace PearlCalculatorCP.ViewModels
             IsDisplayMotion = false;
         }
 
-        private void ShowTNTAmount(List<TNTCalculationResult> result, ref Space3D pearlPos, ref Space3D destination)
+        private void ShowTNTAmount(List<TNTCalculationResult> result, Space3D pearlPos, Space3D destination)
         {
             TNTResult = new ObservableCollection<TNTCalculationResult>(result);
             var angle = pearlPos.WorldAngle(destination);
