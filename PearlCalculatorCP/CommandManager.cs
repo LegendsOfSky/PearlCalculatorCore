@@ -122,7 +122,7 @@ namespace PearlCalculatorCP
             {
                 if (cmdName.Equals(cmd.Command))
                 {
-                    cmd.Handler.Excute(cmdParas, _messageSender);
+                    cmd.Handler.Excute(cmdParas, cmdName, _messageSender);
                     isFindCmd = true;
                     break;
                 }

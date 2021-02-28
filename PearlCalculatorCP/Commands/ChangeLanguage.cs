@@ -7,7 +7,7 @@ namespace PearlCalculatorCP.Commands
 {
     public class ChangeLanguage : ICommand
     {
-        private string _langOpt = String.Empty;
+        private string _langOpt = string.Empty;
         
         public void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender)
         {
@@ -18,14 +18,14 @@ namespace PearlCalculatorCP.Commands
             }
         }
         
-        public void Excute(string[]? parameters, Action<ConsoleOutputItemModel> messageSender)
+        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             var len = parameters?.Length ?? 0;
             var opt = len == 1 ? parameters[0].ToLower() : string.Empty;
 
             if (parameters is null || len != 1)
             {
-                messageSender(DefineCmdOutput.ErrorTemplate($"this cmd don't accept {len} parameters"));
+                messageSender(DefineCmdOutput.ErrorTemplate($"\"{cmdName}\" don't accept {len} parameters"));
                 messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {GetLanguagesOptional()}"));
             }
             else if (Translator.Instance.CurrentLanguage == opt)
@@ -46,7 +46,7 @@ namespace PearlCalculatorCP.Commands
                 }
                 else
                 {
-                    messageSender(DefineCmdOutput.ErrorTemplate($"language option \"{parameters[0]}\" not found"));
+                    messageSender(DefineCmdOutput.ErrorTemplate($"language option \"{opt}\" not found"));
                     messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {GetLanguagesOptional()}"));
                 }
             }
