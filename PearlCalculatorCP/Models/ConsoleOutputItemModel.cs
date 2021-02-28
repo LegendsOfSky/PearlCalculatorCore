@@ -6,15 +6,18 @@ namespace PearlCalculatorCP.Models
     {
         public string Type { get; set; }
         public string Message { get; set; }
-        public IBrush TextColor { get; set; } = Brushes.Black;
+        public IBrush TextColor { get; set; }
 
-        public ConsoleOutputItemModel() { }
+        public ConsoleOutputItemModel()
+        {
+            this.TextColor = Brushes.Black;
+        }
 
-        public ConsoleOutputItemModel(string type, string message, IBrush textColor = null)
+        public ConsoleOutputItemModel(string type, string message, IBrush? textColor = null)
         {
             this.Type = type;
             this.Message = message;
-            this.TextColor = textColor is null ? Brushes.Black : textColor;
+            this.TextColor = textColor ?? Brushes.Black;
         }
     }
 }

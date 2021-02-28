@@ -59,7 +59,7 @@ namespace PearlCalculatorCP
             remove => _onMessageSend -= value;
         }
 
-        internal List<CommandRegistration> CommandList { get; private set; } = new List<CommandRegistration>(1000);
+        internal Dictionary<string ,CommandRegistration> CommandList { get; private set; } = new Dictionary<string, CommandRegistration>(1000);
 
         private readonly Action<ConsoleOutputItemModel> _messageSender;
 
@@ -76,7 +76,7 @@ namespace PearlCalculatorCP
 
         public void Help()
         {
-            foreach (var cmd in CommandList)
+            foreach (var cmd in CommandList.Values)
             {
                 SendMessage(new ConsoleOutputItemModel($"{HelpType}/Cmd", $"/{cmd.Command}", HelpCmdTextColor));
                 foreach (var help in cmd.Help)
@@ -88,14 +88,15 @@ namespace PearlCalculatorCP
 
         public static void Register(string command, ICommand handler, List<string>? help)
         {
-            Instance.CommandList.Add(new CommandRegistration(command, handler, help ?? EmptyList));
+            if (!Instance.CommandList.TryAdd(command, new CommandRegistration(command, handler, help ?? EmptyList)))
+                throw new ArgumentException($"you are trying to import an existed command {command}");
         }
 
         public bool TryGetCommandHandler<T>(string command, out T handler) where T : class, ICommand
         {
-            var registration = CommandList.FirstOrDefault(registration => command == registration.Command);
-            handler = registration is null ? null : (T)registration.Handler;
-            return handler is null;
+            var isFinded = CommandList.TryGetValue(command, out var registration);
+            handler = isFinded ? (T)registration.Handler : null;
+            return isFinded;
         }
 
         public void ExcuteCommand(string command)
@@ -116,19 +117,11 @@ namespace PearlCalculatorCP
             var cmdName = paras[0];
             string[]? cmdParas = paras.Length > 1 ? paras[1..] : null;
 
-            bool isFindCmd = false;
-            
-            foreach (var cmd in CommandList)
-            {
-                if (cmdName.Equals(cmd.Command))
-                {
-                    cmd.Handler.Excute(cmdParas, cmdName, _messageSender);
-                    isFindCmd = true;
-                    break;
-                }
-            }
-            
-            if (!isFindCmd)
+            bool isFindCmd = CommandList.TryGetValue(cmdName, out var registration);
+
+            if (isFindCmd)
+                registration.Handler.Excute(paras, cmdName, _messageSender);
+            else
                 LogSyntaxError(cmdName);
         }
 
@@ -145,7 +138,7 @@ namespace PearlCalculatorCP
             SendMessage(new ConsoleOutputItemModel{Type = MsgType, Message = "CommandManager Linked"});
             SendMessage(new ConsoleOutputItemModel{Type = MsgType, Message = "Input \"/help\" or \"/?\" to check instructions"});
 
-            foreach (var reg in CommandList)
+            foreach (var reg in CommandList.Values)
                 reg.Handler.OnLinkOutput(_messageSender);
         }
     }
