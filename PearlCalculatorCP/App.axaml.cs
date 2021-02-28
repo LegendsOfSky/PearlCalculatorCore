@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -14,7 +16,7 @@ namespace PearlCalculatorCP
     {
         public override void Initialize()
         {
-            Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
+            LoadLanuageSetting();
             CommandReg.Register();
             ProgramInfo.Init();
 
@@ -38,6 +40,19 @@ namespace PearlCalculatorCP
         {
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
             base.RegisterServices();
+        }
+
+        private void LoadLanuageSetting()
+        {
+            var path = $"{AppDomain.CurrentDomain.BaseDirectory}language";
+            if (File.Exists(path))
+            {
+                var langIdentifier = File.ReadAllText(path).TrimEnd().TrimStart();
+                if (Translator.Instance.Exists(langIdentifier))
+                    Translator.Instance.LoadLanguage(langIdentifier);
+            }
+            else
+                Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
         }
     }
 }

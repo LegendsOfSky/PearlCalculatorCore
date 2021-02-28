@@ -77,6 +77,8 @@ namespace PearlCalculatorCP.Localizer
             }
         }
 
+        public bool Exists(string? language) => !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) && Languages.Exists((opt) => opt.Equals(language));
+
         public event PropertyChangedEventHandler? PropertyChanged;
         
         public void Invalidate()
