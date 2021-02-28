@@ -144,6 +144,22 @@
         
         <!--End-->
         
+        <!--Tooltip Styles-->
+        
+        <Style Selector="ToolTip">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        
+        
+        <Style Selector="Border.ToolTipContentBorder">
+            <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
+            <Setter Property="Padding" Value="2" />
+        </Style>
+        
+        <!--End-->
+        
     </Window.Styles>
     
     <Design.DataContext>
@@ -417,7 +433,14 @@
 
                                                         
                                                         <Grid ColumnDefinitions="*, 2, *" >
-                                                            <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
+                                                                <ToolTip.Tip>
+                                                                    <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultRedTNTPosDescTooltip, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                                                        <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" />
+                                                                    </Border>
+                                                                </ToolTip.Tip>
+                                                            </TextBlock>
+                                                            
                                                             <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
                                                                 <ComboBoxItem Content="NorthWest" />
                                                                 <ComboBoxItem Content="NorthEast" />
@@ -428,7 +451,14 @@
                                                         </Grid>
                                                         
                                                         <Grid ColumnDefinitions="*, 2, *" >
-                                                            <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                            <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
+                                                                <ToolTip.Tip>
+                                                                    <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultBlueTNTPosDescTooltip, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                                                        <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" />
+                                                                    </Border>
+                                                                </ToolTip.Tip>
+                                                            </TextBlock>
+                                                            
                                                             <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
                                                                 <ComboBoxItem Content="NorthWest" />
                                                                 <ComboBoxItem Content="NorthEast" />
