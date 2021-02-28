@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              xmlns:converters="using:PearlCalculatorCP.Converters"
              xmlns:vm="using:PearlCalculatorCP.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -42,17 +43,17 @@
                         <!--Pearl XYZ-->
                         <StackPanel Grid.Column="0">
                             <StackPanel Margin="4">
-                                <TextBlock Text="Pearl X:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding PearlX}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
-                                <TextBlock Text="Pearl Y:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate PearlPosY, Fallback='Pearl Y :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding PearlY}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
-                                <TextBlock Text="Pearl Z:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding PearlZ}" />
                             </StackPanel>
                         </StackPanel>
@@ -60,17 +61,17 @@
                         <!--Momentum XYZ-->
                         <StackPanel Grid.Column="2">
                             <StackPanel Margin="4">
-                                <TextBlock Text="Momentum X:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate MomentumX, Fallback='Momentum X :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding MomentumX}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
-                                <TextBlock Text="Momentum Y:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate MomentumY, Fallback='Momentum Y :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding MomentumY}" />
                             </StackPanel>
                                                 
                             <StackPanel Margin="4">
-                                <TextBlock Text="Momentum Z:" Classes="InputBoxTB" />
+                                <TextBlock Text="{i18n:Translate MomentumZ, Fallback='Momentum Z :'}" Classes="InputBoxTB" />
                                 <NumericUpDown Value="{Binding MomentumZ}" />
                             </StackPanel>
                         </StackPanel>
@@ -79,7 +80,7 @@
                     
                     <!--TNT X-->
                     <StackPanel Margin="4">
-                        <TextBlock Text="TNT X:"  />
+                        <TextBlock Text="{i18n:Translate TNTX, Fallback='TNT X:'}"  />
                         <Grid ColumnDefinitions="*, 12, *">
                             <NumericUpDown Grid.Column="0" Value="{Binding ATX}" />
                             <NumericUpDown Grid.Column="2" Value="{Binding BTX}" />
@@ -88,7 +89,7 @@
                     
                     <!--TNT Y-->
                     <StackPanel Margin="4">
-                        <TextBlock Text="TNT Y:"  />
+                        <TextBlock Text="{i18n:Translate TNTY, Fallback='TNT Y:'}"  />
                         <Grid ColumnDefinitions="*, 12, *">
                             <NumericUpDown Grid.Column="0" Value="{Binding ATY}" />
                             <NumericUpDown Grid.Column="2" Value="{Binding BTY}" />
@@ -97,7 +98,7 @@
                     
                     <!--TNT Z-->
                     <StackPanel Margin="4">
-                        <TextBlock Text="TNT Z:"  />
+                        <TextBlock Text="{i18n:Translate TNTZ, Fallback='TNT Z:'}"  />
                         <Grid ColumnDefinitions="*, 12, *">
                             <NumericUpDown Grid.Column="0" Value="{Binding ATZ}" />
                             <NumericUpDown Grid.Column="2" Value="{Binding BTZ}" />
@@ -106,7 +107,7 @@
                     
                     <!--Amount-->
                     <StackPanel Margin="4">
-                        <TextBlock Text="Amount:"  />
+                        <TextBlock Text="{i18n:Translate Amount, Fallback='Amount:'}"  />
                         <Grid ColumnDefinitions="*, 12, *">
                             <NumericUpDown Grid.Column="0" Value="{Binding  ATNTAmount}" ValueChanged="TNTAmount_OnValueChanged" />
                             <NumericUpDown Grid.Column="2" Value="{Binding BTNTAmount}" ValueChanged="TNTAmount_OnValueChanged" />
@@ -115,12 +116,12 @@
                     
                     <!--Destination-->
                     <StackPanel Margin="4">
-                        <TextBlock Text="Destination X:" />
+                        <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" />
                         <NumericUpDown Value="{Binding DestinationX}" />
                     </StackPanel>
                     
                     <StackPanel Margin="4">
-                        <TextBlock Text="Destination Z:" />
+                        <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" />
                         <NumericUpDown Value="{Binding DestinationZ}" />
                     </StackPanel>
                     
@@ -128,9 +129,9 @@
                 
                 <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="0, 4">
                     
-                    <Button Content="Calculate TNT Amount" Name="TNTAmountBtn" Click="TNTAmountBtn_OnClick" />
-                    <Button Content="Calculate Pearl Trace" Name="PearlTraceBtn" Click="PearlTraceBtn_OnClick" />
-                    <Button Content="Calculate Pearl Momentum" Name="PearlMomentumBtn" Click="PearlMomentumBtn_OnClick" />
+                    <Button Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Name="TNTAmountBtn" Click="TNTAmountBtn_OnClick" />
+                    <Button Content="{i18n:Translate CalculatePearlTrace, Fallback='Calculate Pearl Trace'}" Name="PearlTraceBtn" Click="PearlTraceBtn_OnClick" />
+                    <Button Content="{i18n:Translate CalculatePearlMomentum, Fallback='Calculate Pearl Momentum'}" Name="PearlMomentumBtn" Click="PearlMomentumBtn_OnClick" />
                     
                 </StackPanel>
                                         

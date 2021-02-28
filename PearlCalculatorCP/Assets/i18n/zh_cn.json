@@ -3,8 +3,8 @@
     "ManuallyHeader" : "手动计算器",
     
     "GeneralFTLGeneralHeader" : "一般选项",
-    "GeneralFTLAdvancedHeader" : "高级选项",
-    "GeneralFTLSettingsHeader" : "更多底层选项",
+    "GeneralFTLAdvancedHeader" : "进阶选项",
+    "GeneralFTLSettingsHeader" : "更多基础设定",
     
     "PearlPosX" : "珍珠X坐标 :",
     "PearlPosZ" : "珍珠Z坐标 :",
@@ -13,17 +13,75 @@
     "DestinationZ" : "目标点Z坐标 :",
     
     "MaxTNT" : "最大TNT当量",
-    "RedTNT" : "",
-    "BlueTNT" : "",
+    "RedTNT" : "红色阵列",
+    "BlueTNT" : "蓝色阵列",
+    "Offset" : "偏差",
+    "TNTWeight" : "TNT权重",
     
-    "CalculateTNTAmount" : "",
-    "PearlSimulate" : "",
+    "PearlSimulate" : "珍珠模拟",
     "ImportSettings" : "导入软件设置",
-    "SaveSettings" : "保存软件设置",
-
-    "Offset" : "",
-    "TNTWeight" : "",   
+    "SaveSettings" : "保存当前设置",
     
     "DisplayHeader" : "结果输出",
-    "ConsoleHeader" : "控制台"
+    "ConsoleHeader" : "控制台",
+
+    "ResetToDefault":"重置为默认值",
+
+    "MomentumX" : "X矢量 :",
+    "MomentumY" : "Y矢量 :",
+    "MomentumZ" : "Z矢量 :",
+
+    "DisplayXMotion" : "X矢量",
+    "DisplayYMotion" : "Y矢量",
+    "DisplayZMotion" : "Z矢量",
+
+    "XCoor" : "X坐标",
+    "YCoor" : "Y坐标",
+    "ZCoor" : "Z坐标",
+
+    "TNTX" : "TNT的X坐标 :",
+    "TNTY" : "TNT的Y坐标 :",
+    "TNTZ" : "TNT的Z坐标 :",
+
+    "Amount" : "TNT当量 :",
+
+    "CalculateTNTAmount" : "计算TNT当量",
+    "CalculatePearlTrace" : "计算珍珠轨迹",
+    "CalculatePearlMomentum" : "计算珍珠矢量",
+
+    "PearlYCoordinate" : "珍珠Y坐标",
+    "PearlYMomentum" : "珍珠Y矢量",
+    "DefaultRedTNTPos" : "预设红色TNT方位",
+    "DefaultRedTNTPosDesc" : "预设从红色阵列复制的TNT\n在不被粘液块改位置下相对于珍珠的方位",
+    "DefaultBlueTNTPos" : "预设蓝色TNT方位",
+    "DefaultBlueTNTPosDesc" : "预设从蓝色阵列复制的TNT\n在不被粘液块改位置下相对于珍珠的方位",
+
+    "DisplayDistance" : "距离偏差",
+    "DisplayTicks" : "游戏刻",
+    "DisplayBlue" : "蓝色",
+    "DisplayRed" : "红色",
+    "DisplayTotal" : "总量",
+
+    "DisplayDirection" : "方位",
+    "DisplayAngle" : "方向角",
+
+    "SettingsName" : "名称",
+    "SettingsValue" : "数值",
+
+    "SettingsNorthWestTNTX" : "North West TNT(X坐标)",
+    "SettingsNorthWestTNTY" : "North West TNT(Y坐标)",
+    "SettingsNorthWestTNTZ" : "North West TNT(Z坐标)",
+    "SettingsNorthEastTNTX" : "North East TNT(X坐标)",
+    "SettingsNorthEastTNTY" : "North East TNT(Y坐标)",
+    "SettingsNorthEastTNTZ" : "North East TNT(Z坐标)",
+    "SettingsSouthWestTNTX" : "South West TNT(X坐标)",
+    "SettingsSouthWestTNTY" : "South West TNT(Y坐标)",
+    "SettingsSouthWestTNTZ" : "South West TNT(Z坐标)",
+    "SettingsSouthEastTNTX" : "South East TNT(X坐标)",
+    "SettingsSouthEastTNTY" : "South East TNT(Y坐标)",
+    "SettingsSouthEastTNTZ" : "South East TNT(Z坐标)",
+
+    "DistanceVSTNT" : "距离偏差 VS TNT",
+    "OnlyTNT" : "仅TNT",
+    "OnlyDistance" : "仅距离偏差"
 }
