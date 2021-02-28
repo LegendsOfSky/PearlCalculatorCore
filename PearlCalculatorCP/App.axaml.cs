@@ -16,6 +16,7 @@ namespace PearlCalculatorCP
         {
             Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
             CommandReg.Register();
+            ProgramInfo.Init();
 
             AvaloniaXamlLoader.Load(this);
         }

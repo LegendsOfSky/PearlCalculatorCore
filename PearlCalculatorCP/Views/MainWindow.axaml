@@ -8,11 +8,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
-        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="1400"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
         CanResize="False"
         x:Class="PearlCalculatorCP.Views.MainWindow"
         Icon="/Assets/Enderperl-icon32.ico"
-        Title="PearlCalculator v2.71"
+        Title="PearlCalculator"
         Width="1000" Height="800"
         Tapped="Window_OnTapped">
     
@@ -219,8 +219,8 @@
                                                 <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
                                             
-                                            <Button Classes="GeneralButtonStyle" Content="Calculate TNT Amount" Command="{Binding CalculateTNTAmount}" />
-                                            <Button Classes="GeneralButtonStyle" Content="Pearl Simulate" Command="{Binding PearlSimulate}" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
                                             
@@ -253,7 +253,7 @@
                                             </Border>
                                             
                                             <Grid ColumnDefinitions="3*, 9*">
-                                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="TNT Weight" Padding="0,2,0,0" />
+                                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
                                                 <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
                                             </Grid>
                                             

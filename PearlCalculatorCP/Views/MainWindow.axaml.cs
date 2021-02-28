@@ -60,6 +60,8 @@ namespace PearlCalculatorCP.Views
                 _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback, backingField) =>
                         OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox, backingField);
             };
+
+            Title = ProgramInfo.Title;
             
 #if DEBUG
             this.AttachDevTools();

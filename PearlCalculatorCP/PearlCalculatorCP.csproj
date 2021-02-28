@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
     <Authors>memorydream</Authors>
-    <Company></Company>
     <Product>PearlCalculatorCP</Product>
     <ApplicationIcon>Assets\Enderperl-icon32.ico</ApplicationIcon>
+    <Version>2.718</Version>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
