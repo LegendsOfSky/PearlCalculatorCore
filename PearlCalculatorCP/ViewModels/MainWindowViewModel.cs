@@ -157,9 +157,17 @@ namespace PearlCalculatorCP.ViewModels
         public int TNTWeight
         {
             get => Data.TNTWeight;
-            set => this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
+                if (IsDisplayTNTAmount)
+                {
+                    SortTNTResult();
+                    ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
+                }
+            }
         }
-        
+
         private TNTWeightModeEnum _tntWeight;
         public TNTWeightModeEnum TNTWeightMode
         {
