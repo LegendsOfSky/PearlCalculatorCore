@@ -10,7 +10,7 @@ namespace PearlCalculatorLib.Manually
 {
     public static class Calculation
     {
-        public static bool CalculateTNTAmount(Space3D destination , int ticks , out List<TNTCalculationResult> result)
+        public static bool CalculateTNTAmount(Surface2D destination , int ticks , out List<TNTCalculationResult> result)
         {
             Space3D aTNTVector;
             Space3D bTNTVector;
@@ -18,11 +18,13 @@ namespace PearlCalculatorLib.Manually
             int aTNT;
             int bTNT;
             result = new List<TNTCalculationResult>();
-            Space3D distance = destination - Data.Pearl.Position;
+            Space3D distance = destination.ToSpace3D() - Data.Pearl.Position;
             if(Math.Abs(distance.X) == 0 && Math.Abs(distance.Z) == 0)
                 return false;
             aTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.ATNT);
             bTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.BTNT);
+            if(aTNTVector.Z * bTNTVector.X - bTNTVector.Z * aTNTVector.X == 0)
+                return false;
             for(int i = 1; i <= ticks; i++)
             {
                 divider += Math.Pow(0.99 , i - 1);
@@ -34,11 +36,12 @@ namespace PearlCalculatorLib.Manually
                     for(int b = -5; b <= 5; b++)
                     {
                         PearlEntity aPearl = PearlSimulation(aTNT + a , bTNT + b , i , aTNTVector , bTNTVector);
-                        if(Math.Abs(aPearl.Position.X - destination.X) <= 10 && Math.Abs(aPearl.Position.Z - destination.Z) <= 10)
+                        Surface2D difference = aPearl.Position.ToSurface2D() - destination;
+                        if(difference.AxialDistanceLessOrEqualTo(10) && bTNT + b > 0 && aTNT + a > 0)
                         {
                             TNTCalculationResult tResult = new TNTCalculationResult
                             {
-                                Distance = Data.Pearl.Position.Distance2D(destination) ,
+                                Distance = aPearl.Position.Distance2D(destination.ToSpace3D()) ,
                                 Tick = i ,
                                 Blue = bTNT + b ,
                                 Red = aTNT + a ,
