@@ -2,18 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Reactive.Disposables;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Avalonia;
-using Avalonia.Data;
-using Avalonia.Platform;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace PearlCalculatorCP.Localizer
 {
-    public class Translator : INotifyPropertyChanged
+    public partial class Translator : INotifyPropertyChanged
     {
         private const string IndexerName = "Item";
         private const string IndexerArrayName = "Item[]";
@@ -25,7 +21,10 @@ namespace PearlCalculatorCP.Localizer
         private static Translator? _instance;
         public static Translator Instance => _instance ??= new Translator();
 
+
         private Dictionary<string, string>? _translateDict = null;
+        private FallbackTranslate _fallbackTranslate = new FallbackTranslate();
+        
         
         public string CurrentLanguage { get; private set; }
 
@@ -37,8 +36,7 @@ namespace PearlCalculatorCP.Localizer
         };
         
         private Translator()
-        { 
-            
+        {
         }
 
         public bool LoadLanguage(string language)
@@ -73,11 +71,16 @@ namespace PearlCalculatorCP.Localizer
                 if (_translateDict != null && _translateDict.TryGetValue(key, out var res) && 
                     !(string.IsNullOrWhiteSpace(res) || string.IsNullOrEmpty(res)))
                     return res;
-                return FallbackTranslate.Instance[key];
+                return _fallbackTranslate[key];
             }
         }
 
         public bool Exists(string? language) => !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) && Languages.Exists((opt) => opt.Equals(language));
+
+
+        public void AddFallbackTranslate(string key, string value) => _fallbackTranslate.AddFallbackItem(key, value);
+
+        public bool TryGetFallbackTranslate(string key, out string value) => _fallbackTranslate.TranslateDict.TryGetValue(key, out value);
 
         public event PropertyChangedEventHandler? PropertyChanged;
         
@@ -88,7 +91,7 @@ namespace PearlCalculatorCP.Localizer
         }
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

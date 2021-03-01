@@ -23,7 +23,7 @@ namespace PearlCalculatorCP.Localizer
                 Source = Translator.Instance,
             };
             
-            FallbackTranslate.Instance.AddFallbackItem(Key, Fallback);
+            Translator.Instance.AddFallbackTranslate(Key, Fallback);
 
             return binding.ProvideValue(serviceProvider);
         }
