@@ -7,7 +7,6 @@ namespace PearlCalculatorCP.Commands
 {
     public class ChangeLanguage : ICommand
     {
-        private string _langOpt = string.Empty;
         
         public void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender)
         {
@@ -26,7 +25,7 @@ namespace PearlCalculatorCP.Commands
             if (parameters is null || len != 1)
             {
                 messageSender(DefineCmdOutput.ErrorTemplate($"\"{cmdName}\" don't accept {len} parameters"));
-                messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {GetLanguagesOptional()}"));
+                messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {Translator.Instance.GetLanguagesOptional()}"));
             }
             else if (Translator.Instance.CurrentLanguage == opt)
                 messageSender(DefineCmdOutput.MsgTemplate("you don't need change language"));
@@ -47,22 +46,9 @@ namespace PearlCalculatorCP.Commands
                 else
                 {
                     messageSender(DefineCmdOutput.ErrorTemplate($"language option \"{opt}\" not found"));
-                    messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {GetLanguagesOptional()}"));
+                    messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {Translator.Instance.GetLanguagesOptional()}"));
                 }
             }
-        }
-
-        private string GetLanguagesOptional()
-        {
-            if (_langOpt != string.Empty)
-                return _langOpt;
-            
-            StringBuilder sb = new StringBuilder();
-            foreach (var lang in Translator.Instance.Languages)
-                sb.Append($"\"{lang}\" , ");
-
-            _langOpt = sb.ToString();
-            return _langOpt;
         }
     }
 }

@@ -75,7 +75,14 @@ namespace PearlCalculatorCP.Localizer
             }
         }
 
-        public bool Exists(string? language) => !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) && Languages.Exists((opt) => opt.Equals(language));
+        public bool Exists(string? language)
+        {
+            if (language == CurrentLanguage)
+                return true;
+            
+            return !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) &&
+                   Languages.Exists((opt) => opt.Equals(language));
+        }
 
 
         public void AddFallbackTranslate(string key, string value) => _fallbackTranslate.AddFallbackItem(key, value);

@@ -26,7 +26,7 @@ namespace PearlCalculatorCP
 
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
-            var path = $"{AppDomain.CurrentDomain.BaseDirectory}Assets/Fonts/SourceHanSansSC-Normal.otf";
+            var path = $"{ProgramInfo.BaseDirectory}Assets/Fonts/SourceHanSansSC-Normal.otf";
             var tf = SKTypeface.FromFile(path);
 
             return new GlyphTypefaceImpl(tf);

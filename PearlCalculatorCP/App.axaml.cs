@@ -18,7 +18,6 @@ namespace PearlCalculatorCP
         {
             LoadLanuageSetting();
             CommandReg.Register();
-            ProgramInfo.Init();
 
             AvaloniaXamlLoader.Load(this);
         }
@@ -44,7 +43,7 @@ namespace PearlCalculatorCP
 
         private void LoadLanuageSetting()
         {
-            var path = $"{AppDomain.CurrentDomain.BaseDirectory}language";
+            var path = $"{ProgramInfo.BaseDirectory}language";
             if (File.Exists(path))
             {
                 var langIdentifier = File.ReadAllText(path).TrimEnd().TrimStart();
