@@ -12,8 +12,8 @@ namespace PearlCalculatorCP.Localizer
                 return _langOpt;
             
             StringBuilder sb = new StringBuilder();
-            foreach (var lang in Translator.Instance.Languages)
-                sb.Append($"\"{lang}\" , ");
+            foreach (var lang in translator.Languages)
+                sb.Append($"\"{lang}\"  ");
 
             _langOpt = sb.ToString();
             return _langOpt;
