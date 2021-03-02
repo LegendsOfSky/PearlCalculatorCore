@@ -71,7 +71,10 @@ namespace PearlCalculatorCP
         private void SendMessage(ConsoleOutputItemModel? message)
         {
             if (message is { })
+            {
+                Console.WriteLine($"{message.Type} : {message.Message}");
                 _onMessageSend?.Invoke(message);
+            }
         }
 
         public void Help()
@@ -92,6 +95,8 @@ namespace PearlCalculatorCP
                 throw new ArgumentException($"you are trying to import an existed command {command}");
         }
 
+
+#nullable disable
         public bool TryGetCommandHandler<T>(string command, out T handler) where T : class, ICommand
         {
             var isFinded = CommandList.TryGetValue(command, out var registration);
@@ -124,6 +129,7 @@ namespace PearlCalculatorCP
             else
                 LogSyntaxError(cmdName);
         }
+#nullable enable
 
         void LogSyntaxError(string? cmd)
         {

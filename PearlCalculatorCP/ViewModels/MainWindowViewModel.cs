@@ -196,6 +196,7 @@ namespace PearlCalculatorCP.ViewModels
         public int TNTResultSelectedIndex
         {
             get => _tntResultSelectedIndex;
+#nullable disable
             set
             {
                 if (value >= 0 && value < TNTResult.Count)
@@ -206,6 +207,7 @@ namespace PearlCalculatorCP.ViewModels
                     RedTNT = (uint) _tntResult[value].Red;
                 }
             }
+#nullable enable
         }
         
         #endregion
@@ -433,7 +435,7 @@ namespace PearlCalculatorCP.ViewModels
         
         #region Console
         
-        private string _commandText;
+        private string _commandText = string.Empty;
         public string CommandText
         {
             get => _commandText;
@@ -527,6 +529,7 @@ namespace PearlCalculatorCP.ViewModels
             Clear.OnExcute -= OnClear;
         }
 
+#nullable disable
         private void AddConsoleMessage(ConsoleOutputItemModel message)
         {
             if(ConsoleOutputs.Count >= 500)
@@ -537,6 +540,7 @@ namespace PearlCalculatorCP.ViewModels
         }
 
         private void OnClear() => ConsoleOutputs.Clear();
+#nullable enable
 
         public void LoadDataFormSettings(Settings settings)
         {

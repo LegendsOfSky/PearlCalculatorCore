@@ -8,7 +8,7 @@ namespace PearlCalculatorCP.Localizer
     public class TranslateExtension : MarkupExtension
     {
         public string Key { get; set; }
-        public string Fallback { get; set; }
+        public string Fallback { get; set; } = string.Empty;
         
         public TranslateExtension(string key)
         {

@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace PearlCalculatorCP.Localizer
 {
@@ -26,7 +26,7 @@ namespace PearlCalculatorCP.Localizer
         private FallbackTranslate _fallbackTranslate = new FallbackTranslate();
         
         
-        public string CurrentLanguage { get; private set; }
+        public string CurrentLanguage { get; private set; } = string.Empty;
 
         public List<string> Languages { get; private set; } = new List<string>()
         {
@@ -39,29 +39,55 @@ namespace PearlCalculatorCP.Localizer
         {
         }
 
-        public bool LoadLanguage(string language)
+        public bool LoadLanguage(string language, Action<string>? exceptionMessageSender = null)
         {
             if (language == Fallbacklanguage)
             {
-                _translateDict = new Dictionary<string, string>();
-                CurrentLanguage = language;
-                Invalidate();
-                OnLanguageChanged?.Invoke();
+                LoadFallback();
                 return true;
+            }
+
+            var path = Path.Combine(ProgramInfo.BaseDirectory, $"Assets/i18n/{language}.json");
+            if (!File.Exists(path))
+            {
+                if (CurrentLanguage == string.Empty) //at app launch load i18n file
+                    LoadFallback();
+                return false;
             }
             
-            var path = $"{AppDomain.CurrentDomain.BaseDirectory}Assets/i18n/{language}.json";
-
-            if (File.Exists(path))
+            bool isLoaded = false;
+            using var sr = new StreamReader(path, Encoding.UTF8);
+            
+            try
             {
-                using var sr = new StreamReader(path, Encoding.UTF8);
-                _translateDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
+                _translateDict = JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd());
                 CurrentLanguage = language;
                 Invalidate();
                 OnLanguageChanged?.Invoke();
-                return true;
+                isLoaded = true;
             }
-            return false;
+            catch (Exception)
+            {
+                exceptionMessageSender?.Invoke($"\"{Path.GetRelativePath(ProgramInfo.BaseDirectory, path)}\" is not a not a qualified json file");
+                exceptionMessageSender?.Invoke("it maybe not is json file or not is only string-string kv");
+            }
+            finally
+            {
+                if (CurrentLanguage == string.Empty)
+                    LoadFallback();
+            }
+            
+            return isLoaded;
+        }
+
+        private void LoadFallback()
+        {
+            if (CurrentLanguage == Fallbacklanguage) return;
+
+            _translateDict = new Dictionary<string, string>();
+            CurrentLanguage = Fallbacklanguage;
+            Invalidate();
+            OnLanguageChanged?.Invoke();
         }
 
         public object? this[string key]
@@ -87,7 +113,9 @@ namespace PearlCalculatorCP.Localizer
 
         public void AddFallbackTranslate(string key, string value) => _fallbackTranslate.AddFallbackItem(key, value);
 
+#nullable disable
         public bool TryGetFallbackTranslate(string key, out string value) => _fallbackTranslate.TranslateDict.TryGetValue(key, out value);
+#nullable enable
 
         public event PropertyChangedEventHandler? PropertyChanged;
         
@@ -98,7 +126,7 @@ namespace PearlCalculatorCP.Localizer
         }
 
         [NotifyPropertyChangedInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

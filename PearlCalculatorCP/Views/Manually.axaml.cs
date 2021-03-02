@@ -12,15 +12,15 @@ namespace PearlCalculatorCP.Views
     {
 
 
-        private Button _tntAmountBtn;
-        private Button _pearlTraceBtn;
-        private Button _pearlMomentumBtn;
+        private Button? _tntAmountBtn;
+        private Button? _pearlTraceBtn;
+        private Button? _pearlMomentumBtn;
 
-        public event EventHandler<RoutedEventArgs> CalculateTNTAmount;
+        public event EventHandler<RoutedEventArgs>? CalculateTNTAmount;
 
-        public event EventHandler<RoutedEventArgs> CalculatePearlTrace;
+        public event EventHandler<RoutedEventArgs>? CalculatePearlTrace;
 
-        public event EventHandler<RoutedEventArgs> CalculatePearlMomentum;
+        public event EventHandler<RoutedEventArgs>? CalculatePearlMomentum;
         
         public Manually()
         {
@@ -53,7 +53,8 @@ namespace PearlCalculatorCP.Views
 
         private void TNTAmount_OnValueChanged(object? sender, NumericUpDownValueChangedEventArgs e)
         {
-            NumericBoxUtils.ToInt(sender as NumericUpDown, e);
+            if (sender is NumericUpDown n)
+                NumericBoxUtils.ToInt(n, e);
         }
     }
 }

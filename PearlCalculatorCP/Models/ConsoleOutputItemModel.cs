@@ -8,10 +8,7 @@ namespace PearlCalculatorCP.Models
         public string Message { get; set; }
         public IBrush TextColor { get; set; }
 
-        public ConsoleOutputItemModel()
-        {
-            this.TextColor = Brushes.Black;
-        }
+        public ConsoleOutputItemModel() : this(string.Empty, string.Empty, Brushes.Black){}
 
         public ConsoleOutputItemModel(string type, string message, IBrush? textColor = null)
         {
