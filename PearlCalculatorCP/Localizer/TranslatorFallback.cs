@@ -1,20 +1,23 @@
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace PearlCalculatorCP.Localizer
 {
     public partial class Translator
     {
-        private class FallbackTranslate
+        
+        private Dictionary<string, string> _fallbackTranslateDict = new Dictionary<string, string>(50);
+
+
+        public void AddFallbackTranslate(string key, string value)
         {
-            public Dictionary<string, string> TranslateDict { get; set; } = new Dictionary<string, string>(50);
-
-            public string this[string key] => TranslateDict[key];
-
-            public void AddFallbackItem(string key, string value)
-            {
-                if (!TranslateDict.ContainsKey(key))
-                    TranslateDict.Add(key ,value);
-            }
+            if (key is null) return;
+ 
+            _fallbackTranslateDict.TryAdd(key, value);
         }
+
+        public bool TryGetFallbackTranslate(string key, out string value) => _fallbackTranslateDict.TryGetValue(key, out value);
+        
     }
 }

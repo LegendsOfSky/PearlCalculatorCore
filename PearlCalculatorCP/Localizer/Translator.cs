@@ -23,7 +23,6 @@ namespace PearlCalculatorCP.Localizer
 
 
         private Dictionary<string, string>? _translateDict = null;
-        private FallbackTranslate _fallbackTranslate = new FallbackTranslate();
         
         
         public string CurrentLanguage { get; private set; } = string.Empty;
@@ -68,7 +67,7 @@ namespace PearlCalculatorCP.Localizer
             }
             catch (Exception)
             {
-                exceptionMessageSender?.Invoke($"\"{Path.GetRelativePath(ProgramInfo.BaseDirectory, path)}\" is not a not a qualified json file");
+                exceptionMessageSender?.Invoke($"\"{Path.GetRelativePath(ProgramInfo.BaseDirectory, path)}\" is not a qualified json file");
                 exceptionMessageSender?.Invoke("it maybe not is json file or not is only string-string kv");
             }
             finally
@@ -97,7 +96,7 @@ namespace PearlCalculatorCP.Localizer
                 if (_translateDict != null && _translateDict.TryGetValue(key, out var res) && 
                     !(string.IsNullOrWhiteSpace(res) || string.IsNullOrEmpty(res)))
                     return res;
-                return _fallbackTranslate[key];
+                return _fallbackTranslateDict[key];
             }
         }
 
@@ -109,13 +108,6 @@ namespace PearlCalculatorCP.Localizer
             return !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) &&
                    Languages.Exists((opt) => opt.Equals(language));
         }
-
-
-        public void AddFallbackTranslate(string key, string value) => _fallbackTranslate.AddFallbackItem(key, value);
-
-#nullable disable
-        public bool TryGetFallbackTranslate(string key, out string value) => _fallbackTranslate.TranslateDict.TryGetValue(key, out value);
-#nullable enable
 
         public event PropertyChangedEventHandler? PropertyChanged;
         
