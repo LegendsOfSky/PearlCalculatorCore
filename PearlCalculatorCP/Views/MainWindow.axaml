@@ -235,10 +235,12 @@
                                                 <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
                                             
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
+                                            <StackPanel Spacing="2" Margin="0,5,0,0">
+                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
+                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
+                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
+                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
+                                            </StackPanel>
                                             
                                         </StackPanel>
                                         

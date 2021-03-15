@@ -5,7 +5,7 @@
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              xmlns:converters="using:PearlCalculatorCP.Converters"
              xmlns:vm="using:PearlCalculatorCP.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
              x:Class="PearlCalculatorCP.Views.Manually">
         
     <UserControl.Styles>
@@ -33,7 +33,7 @@
     </UserControl.DataContext>
     
     <Grid RowDefinitions="5, *, 5">
-        <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0">
+        <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0" CornerRadius="5" Padding="12, 0">
             <DockPanel>
                                      
                 <StackPanel DockPanel.Dock="Top">
