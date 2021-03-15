@@ -35,6 +35,8 @@ namespace PearlCalculatorCP.Views
         private TextBox _offsetZInputBox;
 
         private TextBox _consoleInputBox;
+
+        private ListBox _consoleOutputListBox;
         
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
@@ -77,6 +79,7 @@ namespace PearlCalculatorCP.Views
             _offsetZInputBox = this.FindControl<TextBox>("OffsetZInputBox");
 
             _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
+            _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");
         }
         
         private void Window_OnTapped(object sender, RoutedEventArgs e)
@@ -138,14 +141,14 @@ namespace PearlCalculatorCP.Views
                 _commandHistory.Add(_vm.CommandText);
                 _historyIndex = -1;
                 _vm.SendCmd();
+                _consoleOutputListBox.Scroll.Offset = new Vector(0, 100);
             }
             else if (e.Key == Key.Up)
             {
                 if (_historyIndex == -1)
                     _historyIndex = _commandHistory.Count - 1;
-                else if (_historyIndex >= 0)
+                else if (_historyIndex-- >= 0)
                 {
-                    _historyIndex--;
                     if (_historyIndex == -1)
                         _historyIndex = -2;
                 }
@@ -164,11 +167,10 @@ namespace PearlCalculatorCP.Views
 
             if (isSetCaretIndex)
             {
-                if (_historyIndex >= 0 && _historyIndex < _commandHistory.Count)
-                    _vm.CommandText = _commandHistory[_historyIndex];
-                else
-                    _vm.CommandText = string.Empty;
-                
+                _vm.CommandText = _historyIndex >= 0 && _historyIndex < _commandHistory.Count
+                    ? _commandHistory[_historyIndex]
+                    : string.Empty;
+
                 _consoleInputBox.CaretIndex = _vm.CommandText.Length;
             }
         }

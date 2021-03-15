@@ -212,17 +212,13 @@
                                                 <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                             </StackPanel>
 
-                                            <Border BorderThickness="2" Margin="5, 5, 2, 0">
-                                                
-                                                <Grid ColumnDefinitions="*, *, *, *" ColumnSpan="5">
-                                                    
-                                                    <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
-                                                    <RadioButton Grid.Column="1" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
-                                                    <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
-                                                    <RadioButton Grid.Column="3" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
-                                                    
-                                                </Grid>
-                                                
+                                            <Border Margin="10,5,0,0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                                </StackPanel>
                                             </Border>
                                             
                                             <StackPanel Margin="4">
@@ -291,7 +287,7 @@
                                         
                                         <Grid RowDefinitions="*, Auto">
                                             
-                                            <Border Grid.Row="0" BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2">
+                                            <Border Grid.Row="0" BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2" CornerRadius="3">
                                                 <Grid RowDefinitions="Auto, *" Margin="2, 0">
                                             
                                                     <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
