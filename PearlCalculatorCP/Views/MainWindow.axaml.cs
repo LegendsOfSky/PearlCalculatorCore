@@ -35,7 +35,6 @@ namespace PearlCalculatorCP.Views
         private TextBox _offsetZInputBox;
 
         private TextBox _consoleInputBox;
-
         private ListBox _consoleOutputListBox;
         
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
@@ -141,15 +140,16 @@ namespace PearlCalculatorCP.Views
                 _commandHistory.Add(_vm.CommandText);
                 _historyIndex = -1;
                 _vm.SendCmd();
-                _consoleOutputListBox.Scroll.Offset = new Vector(0, 100);
+                
+                (_consoleOutputListBox.Scroll as ScrollViewer).ScrollToEnd();
             }
             else if (e.Key == Key.Up)
             {
                 if (_historyIndex == -1)
                     _historyIndex = _commandHistory.Count - 1;
-                else if (_historyIndex-- >= 0)
+                else if (_historyIndex >= 0)
                 {
-                    if (_historyIndex == -1)
+                    if (--_historyIndex == -1)
                         _historyIndex = -2;
                 }
                 
