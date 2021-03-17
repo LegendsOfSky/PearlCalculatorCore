@@ -30,7 +30,7 @@
         
     </Window.Styles>
     
-    <Border CornerRadius="5" BorderThickness="2" Background="#E0E0E0">
+    <Border CornerRadius="5" BorderThickness="2" Background="#F0F0F0">
         <Grid RowDefinitions="*, Auto" Margin="6, 10">
             <StackPanel Grid.Row="0" DockPanel.Dock="Top" Margin="12, 6" Spacing="12">
                 <TextBlock Text="Authors : memorydream , LegendsOfSky , whats2000_" />
@@ -49,7 +49,40 @@
                 </StackPanel>
 
             </StackPanel>
-            <Button Grid.Row="1" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Content="Close" Click="CloseBtn_OnClick" Margin="0,0,0,10" Padding="20,0" />
+            <Button Grid.Row="1" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Click="CloseBtn_OnClick" Margin="0" Padding="0"
+                    Background="Transparent" Cursor="Hand">
+                
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                    
+                    <Style Selector="Button:pressed > /template/ ContentPresenter">
+                        <Style.Animations>
+                            <Animation Duration="0:0:1">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="0.5" />
+                                    <Setter Property="ScaleTransform.ScaleY" Value="0.5" />
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                </Button.Styles>
+                
+                <Button.Content>
+                    <Panel Width="30" Height="30">
+                        <Ellipse Width="28" Height="28" Fill="#A0A0A0" />
+                        <Ellipse Width="24" Height="24" Fill="White" />
+                        
+                        <Line Stroke="Black" StrokeThickness="1.5" StartPoint="10.5,9.5" EndPoint="19.5,20.5" />
+                        <Line Stroke="Black" StrokeThickness="1.5" StartPoint="10.5,20.5" EndPoint="19.5,9.5" />
+                    </Panel>
+                </Button.Content>
+            </Button>
         </Grid>
     </Border>
         
