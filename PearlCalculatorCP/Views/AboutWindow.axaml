@@ -2,10 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="260"
+        xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="300"
         x:Class="PearlCalculatorCP.AboutWindow"
         CanResize="False" SystemDecorations="None"
-        Width="400" Height="260"
+        Width="600" Height="300"
         Closed="TopLevel_OnClosed"
         Icon="/Assets/Enderperl-icon32.ico"
         Title="About" Background="Transparent" TransparencyLevelHint="Transparent"
@@ -33,15 +34,27 @@
     <Border CornerRadius="5" BorderThickness="2" Background="#F0F0F0">
         <Grid RowDefinitions="*, Auto" Margin="6, 10">
             <StackPanel Grid.Row="0" DockPanel.Dock="Top" Margin="12, 6" Spacing="12">
-                <TextBlock Text="Authors : memorydream , LegendsOfSky , whats2000_" />
+              
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{i18n:Translate Authors, Fallback='Authors : '}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text ="memorydream , "/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text ="LegendsOfSky , "/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text ="{i18n:Translate whats2000_, Fallback='whats2000_(Auto Memory Dolls, see more in Violet Evergarden)'}"/>
+                </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Version : " />
+                    <TextBlock Text="{i18n:Translate Version, Fallback='Version : '}" />
                     <TextBlock Name="VerNumTB" />
                 </StackPanel>
 
-                <TextBlock Text="Youtube tutorial : coming soon" />
-                <TextBlock Text='Credit : Mojang for his "best" coding' />
+                <TextBlock Text="{i18n:Translate Youtube, Fallback='Youtube tutorial : coming soon'}" />
+                <TextBlock Text="{i18n:Translate Credit, Fallback='Credit : Mojang for his &quot;best&quot; coding'}" />
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Discord : " />
