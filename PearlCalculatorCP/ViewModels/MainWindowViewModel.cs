@@ -5,6 +5,7 @@ using System.Linq;
 using Avalonia.Media;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.Commands;
+using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
@@ -716,6 +717,13 @@ namespace PearlCalculatorCP.ViewModels
             CommandManager.Instance.ExcuteCommand(cmd);
         }
 
+        public void ChangeLanguageOptional(string parameter)
+        {
+            CommandManager.Instance.ExcuteCommand(
+                Translator.Instance.CurrentLanguage == parameter
+                ? $"setDefaultLang {parameter}"
+                : $"changeLang {parameter}");
+        }
 
         private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
         {
