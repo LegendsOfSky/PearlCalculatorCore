@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="260"
+        x:Class="PearlCalculatorCP.AboutWindow"
+        CanResize="False" SystemDecorations="None"
+        Width="400" Height="260"
+        Closed="TopLevel_OnClosed"
+        Icon="/Assets/Enderperl-icon32.ico"
+        Title="About" Background="Transparent" TransparencyLevelHint="Transparent"
+        PointerPressed="Window_OnPointerPressed" PointerReleased="Window_OnPinterReleased" PointerMoved="Window_OnPointerMoved">
+        
+    <Window.Styles>
+        
+        <Style Selector="Button.Url">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,-1,0,0" />
+            <Setter Property="Foreground" Value="#5B6AFF" />
+        </Style>
+        
+        <Style Selector="Button.Url:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        
+        <Style Selector="Button.Url:pointerover > TextBlock">
+            <Setter Property="Foreground" Value="#5B6AFF" />
+        </Style>
+        
+    </Window.Styles>
+    
+    <Border CornerRadius="5" BorderThickness="2" Background="#E0E0E0">
+        <Grid RowDefinitions="*, Auto" Margin="6, 10">
+            <StackPanel Grid.Row="0" DockPanel.Dock="Top" Margin="12, 6" Spacing="12">
+                <TextBlock Text="Authors : memorydream , LegendsOfSky , whats2000_" />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Version : " />
+                    <TextBlock Name="VerNumTB" />
+                </StackPanel>
+
+                <TextBlock Text="Youtube tutorial : coming soon" />
+                <TextBlock Text='Credit : Mojang for his "best" coding' />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Discord : " />
+                    <Button Content="https://discord.gg/MMzsVuuSxT" Classes="Url" Click="DiscordUrlBtn_OnClick" Cursor="Hand" />
+                </StackPanel>
+
+            </StackPanel>
+            <Button Grid.Row="1" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Content="Close" Click="CloseBtn_OnClick" Margin="0,0,0,10" Padding="20,0" />
+        </Grid>
+    </Border>
+        
+</Window>

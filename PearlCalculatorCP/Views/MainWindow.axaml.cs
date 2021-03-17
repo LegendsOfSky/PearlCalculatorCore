@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,6 +10,8 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using Avalonia.VisualTree;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
@@ -20,6 +23,7 @@ namespace PearlCalculatorCP.Views
 {
     public class MainWindow : Window
     {
+
         private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
         {
             new FileDialogFilter
@@ -36,6 +40,8 @@ namespace PearlCalculatorCP.Views
 
         private TextBox _consoleInputBox;
         private ListBox _consoleOutputListBox;
+
+        private Button _moreInfoBtn;
         
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
@@ -79,6 +85,8 @@ namespace PearlCalculatorCP.Views
 
             _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
             _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");
+
+            _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
         }
         
         private void Window_OnTapped(object sender, RoutedEventArgs e)
@@ -185,5 +193,28 @@ namespace PearlCalculatorCP.Views
         {
             NumericBoxUtils.ToUInt(sender as NumericUpDown, e);
         }
+
+        private void MoreInfoBtn_OnPointerEnter(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.OnEnterMoreInfoBrush;
+
+        private void MoreInfoBtn_OnPointerLeave(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
+
+        private void MoreInfoBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            _moreInfoBtn.ContextMenu.PlacementTarget = (Control)sender;
+            _moreInfoBtn.ContextMenu.PlacementMode = PlacementMode.Bottom;
+            _moreInfoBtn.ContextMenu.Open();
+        }
+
+        private void OpenVideoLink(object sender, RoutedEventArgs e) => Process.Start(UrlStartInfo.VideoUrlInfo);
+        
+        private void OpenGithubLink(object sender, RoutedEventArgs e) => Process.Start(UrlStartInfo.GithubUrlInfo);
+
+        private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
+    }
+
+    static class MainWindowMoreInfoColor
+    {
+        public static readonly IBrush DefaultMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#CCCCCC"));
+        public static readonly IBrush OnEnterMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#999999"));
     }
 }

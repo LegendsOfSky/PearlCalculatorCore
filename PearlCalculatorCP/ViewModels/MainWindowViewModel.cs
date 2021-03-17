@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Media;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.Commands;
+using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -450,6 +452,18 @@ namespace PearlCalculatorCP.ViewModels
         }
 
         #endregion
+
+        private IBrush _moreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
+        public IBrush MoreInfoBrush
+        {
+            get => _moreInfoBrush;
+            set
+            {
+                this.RaisePropertyChanging();
+                _moreInfoBrush = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         public MainWindowViewModel()
         {
