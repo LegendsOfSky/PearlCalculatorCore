@@ -53,7 +53,7 @@ namespace PearlCalculatorCP
             }
             
             var x = (int)((parent.Width - _window.Width) * 0.5) + parent.Position.X;
-            var y = (int) ((parent.Height - _window.Height) * 0.5) + parent.Position.Y;
+            var y = (int)((parent.Height - _window.Height) * 0.5) + parent.Position.Y;
             _window.Position = new PixelPoint(x, y);
         }
 
