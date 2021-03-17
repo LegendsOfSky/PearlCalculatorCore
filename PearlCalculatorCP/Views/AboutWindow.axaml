@@ -40,7 +40,7 @@
                     <StackPanel Margin="15, 0">
                         <TextBlock Text ="memorydream , "/>
                         <TextBlock Text ="LegendsOfSky , "/>
-                        <TextBlock Text ="{i18n:Translate whats2000_, Fallback='whats2000_(Auto Memory Dolls, see more in Violet Evergarden)'}"/>
+                        <TextBlock Text ="{i18n:Translate whats2000_, Fallback='whats2000_ (Auto Memory Dolls, see more in Violet Evergarden)'}"/>
                     </StackPanel>
                 </StackPanel>
 
