@@ -526,8 +526,8 @@
                                 <MenuItem Header="{i18n:Translate About, Fallback='About'}" Click="OpenAboutWindow" />
                                 <MenuItem Header="{i18n:Translate Languages, Fallback='Languages'}">
                                     <MenuItem Header="en" Command="{Binding ChangeLanguageOptional}" CommandParameter="en" />
-                                    <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn"  />
-                                    <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw"/>
+                                    <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn" />
+                                    <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw" />
                                 </MenuItem>
                             </ContextMenu>
                         </Button.ContextMenu>

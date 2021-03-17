@@ -50,15 +50,11 @@ namespace PearlCalculatorCP
             {
                 _window = new AboutWindow();
                 _window.Show(parent);
-
-                var x = (int)((parent.Width - _window.Width) * 0.5) + parent.Position.X;
-                var y = (int) ((parent.Height - _window.Height) * 0.5) + parent.Position.Y;
-                _window.Position = new PixelPoint(x, y);
             }
-            else
-            {
-                _window.Activate();
-            }
+            
+            var x = (int)((parent.Width - _window.Width) * 0.5) + parent.Position.X;
+            var y = (int) ((parent.Height - _window.Height) * 0.5) + parent.Position.Y;
+            _window.Position = new PixelPoint(x, y);
         }
 
         public static void CloseWindow() => _window?.Close();
