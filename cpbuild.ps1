@@ -1,4 +1,4 @@
-$publishFolderRoot = ".\artifacts";
+$publishFolderRoot = ".\artifacts"
 $dotnetVer = "netcoreapp3.1"
 
 $rids = "win-x64", "linux-x64", "osx-x64"
