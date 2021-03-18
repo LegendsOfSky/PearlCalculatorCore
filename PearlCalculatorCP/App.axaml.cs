@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
-using PearlCalculatorCP.Commands;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorCP.Views;
@@ -50,7 +47,7 @@ namespace PearlCalculatorCP
                 if (Translator.Instance.Exists(langIdentifier))
                     Translator.Instance.LoadLanguage(langIdentifier);
             }
-            else
+            else if (!Translator.Instance.LoadLanguage("en"))
                 Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
         }
     }
