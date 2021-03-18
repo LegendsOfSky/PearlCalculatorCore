@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Media;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Models;
 
@@ -14,7 +15,7 @@ namespace PearlCalculatorCP.Commands
                 messageSender(new ConsoleOutputItemModel("Msg/i18n", $"{Translator.Fallbacklanguage} currently in use"));
             }
             else
-                messageSender(new ConsoleOutputItemModel("Msg/i18n", $"i18n file \"{Translator.Instance.CurrentLanguage}\" loaded"));
+                messageSender(new ConsoleOutputItemModel("Msg/i18n", $"i18n file \"{Translator.Instance.CurrentActivedI18nFile}\" loaded"));
         }
         
         public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
@@ -41,7 +42,7 @@ namespace PearlCalculatorCP.Commands
                         _ => opt
                     };
                     
-                    if (Translator.Instance.LoadLanguage(lang, s => messageSender(DefineCmdOutput.ErrorTemplate(s))))
+                    if (Translator.Instance.LoadLanguage(lang, s => messageSender(new ConsoleOutputItemModel("Error/i18n", s, Brushes.Red))))
                         messageSender(DefineCmdOutput.MsgTemplate("change language success"));
                 }
                 else

@@ -27,6 +27,10 @@ namespace PearlCalculatorCP.Localizer
         
         public string CurrentLanguage { get; private set; } = string.Empty;
 
+        public string CurrentActivedI18nFile => CurrentLanguage == Fallbacklanguage || CurrentLanguage == string.Empty
+            ? string.Empty
+            : $"{CurrentLanguage}.json";
+
         public List<string> Languages { get; private set; } = new List<string>()
         {
             "zh_cn",
@@ -51,6 +55,9 @@ namespace PearlCalculatorCP.Localizer
             {
                 if (CurrentLanguage == string.Empty) //at app launch load i18n file
                     LoadFallback();
+                else
+                    exceptionMessageSender?.Invoke($"file \"{language}.json\" not found");
+                
                 return false;
             }
             
