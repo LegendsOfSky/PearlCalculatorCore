@@ -1,2 +1,4 @@
 {
+    "DefaultRedTNTPosDesc": "Preset the position of the TNT duped from the red array relative to the pearl without being changed by the slime block",
+    "DefaultBlueTNTPosDesc": "Preset the position of the TNT duped from the blue array relative to the pearl without being changed by the slime block"
 }

@@ -433,7 +433,7 @@
                                                         <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
                                                             <ToolTip.Tip>
                                                                 <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultRedTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                                                    <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" />
+                                                                    <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" TextWrapping="WrapWithOverflow"/>
                                                                 </Border>
                                                             </ToolTip.Tip>
                                                         </TextBlock>
@@ -451,7 +451,7 @@
                                                         <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
                                                             <ToolTip.Tip>
                                                                 <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultBlueTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                                                    <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" />
+                                                                    <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" TextWrapping="WrapWithOverflow"/>
                                                                 </Border>
                                                             </ToolTip.Tip>
                                                         </TextBlock>
