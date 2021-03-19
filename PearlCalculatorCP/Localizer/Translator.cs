@@ -68,8 +68,8 @@ namespace PearlCalculatorCP.Localizer
             {
                 _translateDict = JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd());
                 CurrentLanguage = language;
-                Invalidate();
                 OnLanguageChanged?.Invoke();
+                Invalidate();
                 isLoaded = true;
             }
             catch (Exception)
@@ -92,8 +92,8 @@ namespace PearlCalculatorCP.Localizer
 
             _translateDict = new Dictionary<string, string>();
             CurrentLanguage = Fallbacklanguage;
-            Invalidate();
             OnLanguageChanged?.Invoke();
+            Invalidate();
         }
 
         public object? this[string key]
@@ -105,6 +105,11 @@ namespace PearlCalculatorCP.Localizer
                     return res;
                 return _fallbackTranslateDict[key];
             }
+        }
+
+        public bool TryAddTranslate(string? key, string? value)
+        {
+            return key is { } && _translateDict!.TryAdd(key, value ?? string.Empty);
         }
 
         public bool Exists(string? language)
