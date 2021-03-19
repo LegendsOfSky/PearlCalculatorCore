@@ -81,7 +81,7 @@ namespace PearlCalculatorLib.General
                 }
             }
 
-            Data.TNTResult = Data.TNTResult.Where(result => result.Blue > 0 && result.Red > 0).ToList();
+            Data.TNTResult = Data.TNTResult.Where(result => result.Blue >= 0 && result.Red >= 0).ToList();
             return true;
         }
 
