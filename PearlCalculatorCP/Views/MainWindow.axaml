@@ -169,8 +169,8 @@
 
     <Grid ColumnDefinitions="2*, 4, 2*">
 
-        <Grid Column="0">
-            <TabControl>
+        <Grid Column="0" ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+            <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
                 
                 <!--General FTL Group-->
                 <TabItem Header="{i18n:Translate GeneralFTLHeader, Fallback='General FTL'}">
@@ -493,49 +493,44 @@
             </TabControl>
             
             <!--More info btn-->
-            <Grid RowDefinitions="Auto, *" ZIndex="1">
-                <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
-                    <Button Name="MoreInfoBtn" Grid.Column="1" DockPanel.Dock="Right" Margin="12, 12" 
-                            PointerEnter="MoreInfoBtn_OnPointerEnter" PointerLeave="MoreInfoBtn_OnPointerLeave"
-                            Click="MoreInfoBtn_OnClick">
-                        
-                        <Button.Styles>
-                            <Style Selector="Button">
-                                <Setter Property="Background" Value="Transparent" />
-                            </Style>
-                            <Style Selector="Button:pointerover /template/ContentPresenter">
-                                <Setter Property="Background" Value="#66E0E0E0" />
-                            </Style>
-                            <Style Selector="Button:pressed /template/ContentPresenter">
-                                <Setter Property="Background" Value="#BBE0E0E0" />
-                            </Style>
-                        </Button.Styles>
-                        
-                        <Button.Content>
-                            <StackPanel Spacing="2">
-                                <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                                <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                                <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                            </StackPanel>
-                        </Button.Content>
-                    
-                        <Button.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="{i18n:Translate VideoLink, Fallback='Video'}" Click="OpenVideoLink" IsEnabled="False" />
-                                <MenuItem Header="{i18n:Translate GithubLink, Fallback='Github'}" Click="OpenGithubLink" />
-                                <MenuItem Header="{i18n:Translate About, Fallback='About'}" Click="OpenAboutWindow" />
-                                <MenuItem Header="{i18n:Translate Languages, Fallback='Languages'}">
-                                    <MenuItem Header="en" Command="{Binding ChangeLanguageOptional}" CommandParameter="en" />
-                                    <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn" />
-                                    <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw" />
-                                </MenuItem>
-                            </ContextMenu>
-                        </Button.ContextMenu>
-                        
-                    </Button>
-                </Grid>
+            <Button Grid.Row="0" Grid.Column="1" Name="MoreInfoBtn" Margin="12, 12"
+                    PointerEnter="MoreInfoBtn_OnPointerEnter" PointerLeave="MoreInfoBtn_OnPointerLeave"
+                    Click="MoreInfoBtn_OnClick">
 
-            </Grid>
+                <Button.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                    <Style Selector="Button:pointerover /template/ContentPresenter">
+                        <Setter Property="Background" Value="#66E0E0E0" />
+                    </Style>
+                    <Style Selector="Button:pressed /template/ContentPresenter">
+                        <Setter Property="Background" Value="#BBE0E0E0" />
+                    </Style>
+                </Button.Styles>
+
+                <Button.Content>
+                    <StackPanel Spacing="2">
+                        <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
+                        <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
+                        <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
+                    </StackPanel>
+                </Button.Content>
+
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{i18n:Translate VideoLink, Fallback='Video'}" Click="OpenVideoLink" IsEnabled="False" />
+                        <MenuItem Header="{i18n:Translate GithubLink, Fallback='Github'}" Click="OpenGithubLink" />
+                        <MenuItem Header="{i18n:Translate About, Fallback='About'}" Click="OpenAboutWindow" />
+                        <MenuItem Header="{i18n:Translate Languages, Fallback='Languages'}">
+                            <MenuItem Header="en" Command="{Binding ChangeLanguageOptional}" CommandParameter="en" />
+                            <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn" />
+                            <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw" />
+                        </MenuItem>
+                    </ContextMenu>
+                </Button.ContextMenu>
+
+            </Button>
             
         </Grid>
 
