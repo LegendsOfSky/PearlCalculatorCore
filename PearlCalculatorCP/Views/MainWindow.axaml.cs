@@ -100,7 +100,7 @@ namespace PearlCalculatorCP.Views
         private async void ImportSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog {Filters = FileDialogFilter, AllowMultiple = false};
-            var result = await dialog.ShowAsync(this.GetVisualRoot() as Window);
+            var result = await dialog.ShowAsync(this);
 
             if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
             
@@ -115,7 +115,7 @@ namespace PearlCalculatorCP.Views
         private async void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var dialog = new SaveFileDialog {Filters = FileDialogFilter};
-            var path = await dialog.ShowAsync(this.GetVisualRoot() as Window);
+            var path = await dialog.ShowAsync(this);
 
             if (string.IsNullOrWhiteSpace(path) || string.IsNullOrEmpty(path)) return;
             
@@ -205,9 +205,10 @@ namespace PearlCalculatorCP.Views
             _moreInfoBtn.ContextMenu.Open();
         }
 
-        private void OpenVideoLink(object sender, RoutedEventArgs e) => Process.Start(UrlStartInfo.VideoUrlInfo);
+        //not link
+        private void OpenVideoLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl(null);
         
-        private void OpenGithubLink(object sender, RoutedEventArgs e) => Process.Start(UrlStartInfo.GithubUrlInfo);
+        private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
 
         private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
     }

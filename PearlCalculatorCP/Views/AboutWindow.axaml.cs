@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.Views;
 
 #nullable disable
@@ -61,10 +62,7 @@ namespace PearlCalculatorCP
         
         private void TopLevel_OnClosed(object sender, EventArgs e) => _window = null;
 
-        private void DiscordUrlBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start(UrlStartInfo.DiscordUrlInfo);
-        }
+        private void DiscordUrlBtn_OnClick(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/MMzsVuuSxT");
 
         private void Window_OnPointerPressed(object sender, PointerPressedEventArgs e)
         {
