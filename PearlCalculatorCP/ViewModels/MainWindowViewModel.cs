@@ -592,6 +592,9 @@ namespace PearlCalculatorCP.ViewModels
             RedTNT         = (uint) settings.RedTNT;
             MaxTNT         = (uint) settings.MaxTNT;
             Direction      = settings.Direction;
+            
+            ShowDirectionResult(Data.Pearl.Position, Data.Destination);
+            PearlSimulate();
         }
 
         #region Calculate
@@ -699,6 +702,11 @@ namespace PearlCalculatorCP.ViewModels
         private void ShowTNTAmount(List<TNTCalculationResult> result, Space3D pearlPos, Space3D destination)
         {
             TNTResult = new ObservableCollection<TNTCalculationResult>(result);
+            ShowDirectionResult(pearlPos, destination);
+        }
+
+        private void ShowDirectionResult(Space3D pearlPos, Space3D destination)
+        {
             var angle = pearlPos.WorldAngle(destination);
             ResultDirection = pearlPos.Direction(angle).ToString();
             ResultAngle = angle.ToString();
