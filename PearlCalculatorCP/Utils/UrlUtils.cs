@@ -11,7 +11,7 @@ namespace PearlCalculatorCP.Utils
     {
         private static ProcessStartInfo UrlStartInfo = new ProcessStartInfo { UseShellExecute = true };
 
-        private static Regex UrlRegex = new Regex(@"^(https?|ftp|file|ws)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
+        private static readonly Regex UrlRegex = new Regex(@"^(https?|ftp|file|ws)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
 
 
         public static bool OpenUrl(string? url)

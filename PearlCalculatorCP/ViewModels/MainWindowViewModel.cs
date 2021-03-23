@@ -471,7 +471,7 @@ namespace PearlCalculatorCP.ViewModels
             ConsoleOutputs ??= new ObservableCollection<ConsoleOutputItemModel>();
             
             CommandManager.Instance.OnMessageSend += AddConsoleMessage;
-            Clear.OnExcute += OnClear;
+            Clear.OnExcute += ClearConsole;
             
             InitData();
         }
@@ -541,7 +541,7 @@ namespace PearlCalculatorCP.ViewModels
         ~MainWindowViewModel()
         {
             CommandManager.Instance.OnMessageSend -= AddConsoleMessage;
-            Clear.OnExcute -= OnClear;
+            Clear.OnExcute -= ClearConsole;
         }
 
 #nullable disable
@@ -554,7 +554,7 @@ namespace PearlCalculatorCP.ViewModels
             ConsoleOutputs.Add(message);
         }
 
-        private void OnClear() => ConsoleOutputs.Clear();
+        private void ClearConsole() => ConsoleOutputs?.Clear();
 #nullable enable
 
         public void LoadDataFormSettings(Settings settings)
@@ -725,12 +725,12 @@ namespace PearlCalculatorCP.ViewModels
             CommandManager.Instance.ExcuteCommand(cmd);
         }
 
-        public void ChangeLanguageOptional(string parameter)
+        public void ChangeLanguageOptional(string lang)
         {
             CommandManager.Instance.ExcuteCommand(
-                Translator.Instance.CurrentLanguage == parameter
-                ? $"setDefaultLang {parameter}"
-                : $"changeLang {parameter}");
+                Translator.Instance.CurrentLanguage == lang
+                ? $"setDefaultLang {lang}"
+                : $"changeLang {lang}");
         }
 
         private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>

@@ -131,12 +131,12 @@ namespace PearlCalculatorCP
         }
 #nullable enable
 
-        void LogSyntaxError(string? cmd)
+        void LogSyntaxError(string? command)
         {
-            if (cmd is null)
+            if (command is null)
                 SendMessage(DefineCmdOutput.NullCmd);
             else
-                SendMessage(DefineCmdOutput.ErrorTemplate($"command \"{cmd}\" not found"));
+                SendMessage(DefineCmdOutput.ErrorTemplate($"command \"{command}\" not found"));
         }
 
         void LogInit()
