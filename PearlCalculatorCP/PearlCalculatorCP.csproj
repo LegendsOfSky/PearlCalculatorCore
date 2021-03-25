@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,26 +7,40 @@
     <Authors>memorydream</Authors>
     <Product>PearlCalculatorCP</Product>
     <ApplicationIcon>Assets\Enderperl-icon32.ico</ApplicationIcon>
-    <Version>2.7182</Version>
   </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'DEBUG' ">
+    <Version>2.71</Version>
+    <FileVersion>2.71828</FileVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'RELEASE' ">
+    <Version>1.41</Version>
+    <FileVersion>1.41</FileVersion>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\*.ico" />
   </ItemGroup>
+  
   <ItemGroup>
     <EmbeddedResource Include="Assets\Fonts\SourceHanSansSC-Normal.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Update="Assets\i18n\zh_cn.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -37,4 +52,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  
 </Project>

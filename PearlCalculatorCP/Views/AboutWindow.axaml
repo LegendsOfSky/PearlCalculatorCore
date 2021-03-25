@@ -46,7 +46,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{i18n:Translate Version, Fallback='Version : '}" />
-                    <TextBlock Name="VerNumTB" />
+                    <TextBlock Name="VerTextTB" />
                 </StackPanel>
 
                 <TextBlock Text="{i18n:Translate Youtube, Fallback='Youtube tutorial : coming soon'}" />

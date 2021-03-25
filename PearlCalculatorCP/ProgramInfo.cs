@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 
 #nullable disable
@@ -15,7 +16,7 @@ namespace PearlCalculatorCP
 
         static ProgramInfo()
         {
-            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString()[..^4];
+            Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
     }

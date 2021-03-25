@@ -18,7 +18,7 @@ namespace PearlCalculatorCP
         
         private static AboutWindow _window;
 
-        private TextBlock _verNumTB;
+        private TextBlock _verTextTB;
 
         
         private bool _isPressed;
@@ -36,8 +36,12 @@ namespace PearlCalculatorCP
         {
             AvaloniaXamlLoader.Load(this);
 
-            _verNumTB = this.FindControl<TextBlock>("VerNumTB");
-            _verNumTB.Text = ProgramInfo.Version;
+            _verTextTB = this.FindControl<TextBlock>("VerTextTB");
+#if DEBUG
+            _verTextTB.Text = $"{ProgramInfo.Version} (development)";
+#else
+            _verTextTB.Text = $"{ProgramInfo.Version} (release)";
+#endif
         }
 
         private void CloseBtn_OnClick(object sender, RoutedEventArgs e)
