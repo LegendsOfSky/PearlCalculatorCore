@@ -16,7 +16,7 @@ namespace PearlCalculatorCP
         private readonly string _defaultFamilyName;
 
         //需要填充这个字段的值为嵌入的字体资源路径
-        private readonly Typeface _defaultTypeface = new Typeface("resm:PearlCalculatorCP.Assets.Fonts.SourceHanSansSC-Normal#思源黑体 Normal");
+        private readonly Typeface _defaultTypeface = new Typeface("resm:PearlCalculatorCP.Assets.Fonts.SourceHanSansSC-Normal#Source Han Sans SC");
 
         public CustomFontManagerImpl()
         {
@@ -26,13 +26,13 @@ namespace PearlCalculatorCP
 
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
-            var path = $"{ProgramInfo.BaseDirectory}Assets/Fonts/SourceHanSansSC-Normal.otf";
-            var tf = SKTypeface.FromFile(path);
-
-            return new GlyphTypefaceImpl(tf);
+            var skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name);
+            return new GlyphTypefaceImpl(skTypeface);
         }
 
         public string GetDefaultFontFamilyName() => _defaultFamilyName;
+        
+        private readonly string[] _bcp47 = { CultureInfo.CurrentCulture.ThreeLetterISOLanguageName, CultureInfo.CurrentCulture.TwoLetterISOLanguageName };
 
         public IEnumerable<string> GetInstalledFontFamilyNames(bool checkForUpdates = false) =>
             _customTypefaces.Select(x => x.FontFamily.Name);
