@@ -15,7 +15,7 @@ namespace PearlCalculatorCP
         
         public override Settings Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var document = JsonDocument.ParseValue(ref reader);
+            using var document = JsonDocument.ParseValue(ref reader);
             var rootElement = document.RootElement;
 
             var settings = new Settings();
