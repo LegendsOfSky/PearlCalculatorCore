@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
@@ -12,10 +10,16 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using Avalonia.VisualTree;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
+
+#if ENABLE_JSON_SETTINGS
+using System.Text;
+using System.Text.Json;
+#else
+using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 #nullable disable
 
@@ -28,10 +32,30 @@ namespace PearlCalculatorCP.Views
         {
             new FileDialogFilter
             {
+#if ENABLE_JSON_SETTINGS
+                Name = "json",
+                Extensions = {"json"}
+#else
                 Name = "pcld",
                 Extensions = {"pcld"}
+#endif
             }
         };
+
+#if ENABLE_JSON_SETTINGS
+        private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
+        
+        private static JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
+        {
+            Converters = { JsonConverter },
+            WriteIndented = true
+        };
+
+        private static JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
+        {
+            Converters = {JsonConverter}
+        };
+#endif
         
         private MainWindowViewModel _vm;
 
@@ -105,11 +129,24 @@ namespace PearlCalculatorCP.Views
             if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
             
             var path = result[0];
+
+#if ENABLE_JSON_SETTINGS
+            var json = await File.ReadAllTextAsync(path, Encoding.UTF8);
+            try
+            {
+                _vm.LoadDataFormSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
+            }
+            catch (Exception exception)
+            {
+                _vm.ConsoleOutputs.Add(DefineCmdOutput.ErrorTemplate("settings json file format error"));
+            }
+#else
             await using var fs = File.OpenRead(path);
             if (new BinaryFormatter().Deserialize(fs) is Settings settings)
             {
                 _vm.LoadDataFormSettings(settings);
             }
+#endif
         }
 
         private async void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
@@ -119,9 +156,14 @@ namespace PearlCalculatorCP.Views
 
             if (string.IsNullOrWhiteSpace(path) || string.IsNullOrEmpty(path)) return;
             
+#if ENABLE_JSON_SETTINGS
+            var json = JsonSerializer.Serialize(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+            await File.WriteAllTextAsync(path, json, Encoding.UTF8);
+#else
             var bf = new BinaryFormatter();
-            await using var fs = File.Open(path, FileMode.OpenOrCreate);
+            await using var fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             bf.Serialize(fs, Settings.CreateSettingsFormData());
+#endif
         }
 
         #endregion
