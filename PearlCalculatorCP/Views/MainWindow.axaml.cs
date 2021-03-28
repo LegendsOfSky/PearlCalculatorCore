@@ -102,11 +102,11 @@ namespace PearlCalculatorCP.Views
             {
                 _vm = DataContext as MainWindowViewModel;
 
-                _vm.OnPearlOffsetXTextChanged += (lastText, nextText, supressCallback, backingField) =>
-                    OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetXInputBox, backingField);
+                _vm.OnPearlOffsetXTextChanged += (lastText, nextText, supressCallback) =>
+                    OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetXInputBox);
                 
-                _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback, backingField) =>
-                        OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox, backingField);
+                _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback) =>
+                        OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox);
             };
 
             Title = ProgramInfo.Title;
@@ -226,7 +226,7 @@ namespace PearlCalculatorCP.Views
 
         #endregion
 
-        private (bool, double) OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox, double backingField)
+        private (bool, double) OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox)
         {
             if (nextText.Length < 2 || nextText[..2] != "0." || !double.TryParse(nextText, out var result))
             {

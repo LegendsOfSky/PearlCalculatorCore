@@ -26,23 +26,21 @@ namespace PearlCalculatorCP.ViewModels
         /// <param name="parameter1">last value</param>
         /// <param name="parameter2">next value</param>
         /// <param name="parameter3">supress callback</param>
-        /// <param name="Parameter4">backing field value</param>
         /// </summary>
         /// <returns>bool: can change this value; double: target value</returns>
-        public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetXTextChanged;
+        public event Func<string, string, Action, (bool, double)>? OnPearlOffsetXTextChanged;
         
         /// <summary>
         /// On pearl offset z value changed
         /// <param name="parameter1">last value</param>
         /// <param name="parameter2">next value</param>
         /// <param name="parameter3">supress callback</param>
-        /// <param name="Parameter4">backing field value</param>
         /// </summary>
         /// <returns>bool: can change this value; double: target value</returns>
-        public event Func<string, string, Action, double, (bool, double)>? OnPearlOffsetZTextChanged;
+        public event Func<string, string, Action, (bool, double)>? OnPearlOffsetZTextChanged;
 
-        private bool _isSupressX = false;
-        private bool _isSupressZ = false;
+        private bool _isSupressX;
+        private bool _isSupressZ;
 
         //this field for RaiseAndSetIfChanged()
         private bool _isEnableIfChanged = true;
@@ -131,7 +129,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 (bool, double) callbackResult;
                 if (!_isSupressX && OnPearlOffsetXTextChanged != null &&
-                    (callbackResult = OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value, () => _isSupressX = true, Data.PearlOffset.Z)).Item1)
+                    (callbackResult = OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value, () => _isSupressX = true)).Item1)
                 {
                     this.RaiseAndSetIfChanged(ref _pearlOffsetX, value);
                     Data.PearlOffset.X = callbackResult.Item2;
@@ -148,7 +146,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 (bool, double) callbackResult;
                 if (!_isSupressZ && OnPearlOffsetZTextChanged != null &&
-                    (callbackResult = OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value, () => _isSupressZ = true, Data.PearlOffset.Z)).Item1)
+                    (callbackResult = OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value, () => _isSupressZ = true)).Item1)
                 {
                     this.RaiseAndSetIfChanged(ref _pearlOffsetZ, value);
                     Data.PearlOffset.Z = callbackResult.Item2;
