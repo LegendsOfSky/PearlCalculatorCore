@@ -11,6 +11,8 @@ namespace PearlCalculatorCP
 {
     public class App : Application
     {
+        CustomFontManagerImpl _fontManager = new CustomFontManagerImpl();
+
         public override void Initialize()
         {
             LoadLanuageSetting();
@@ -34,7 +36,7 @@ namespace PearlCalculatorCP
 
         public override void RegisterServices()
         {
-            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
             base.RegisterServices();
         }
 

@@ -5,6 +5,7 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -15,27 +16,24 @@ namespace PearlCalculatorCP
         private readonly Typeface[] _customTypefaces;
         private readonly string _defaultFamilyName;
 
-        //需要填充这个字段的值为嵌入的字体资源路径
-        private readonly Typeface _defaultTypeface = new Typeface("resm:PearlCalculatorCP.Assets.Fonts.SourceHanSansSC-Normal#Source Han Sans SC");
-        //我不知道为什么，在不同的电脑和不同的操作系统上
-        //使用SC和CN拿到的结果完全不一致
-        //只好写两个尝试做兼容性了
-        private readonly Typeface _backTypeface = new Typeface("resm:PearlCalculatorCP.Assets.Fonts.SourceHanSansSC-Normal#Source Han Sans CN");
+        private readonly Typeface _defaultTypeface;
+
+        private SKTypeface _defaultSKT;
 
         public CustomFontManagerImpl()
         {
+            var filePath = Path.Combine(ProgramInfo.BaseDirectory, "Assets/Fonts/SourceHanSansSC-Normal.otf");
+
+            _defaultSKT = SKTypeface.FromFile(filePath);
+            _defaultTypeface = new Typeface($"{filePath}#{_defaultSKT.FamilyName}");
+
             _customTypefaces = new[] { _defaultTypeface };
             _defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;
         }
 
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
-            var skTypeface = SKTypeface.FromFamilyName(_defaultFamilyName);
-
-            if (skTypeface is null || skTypeface.FamilyName != _defaultFamilyName)
-                skTypeface = SKTypeface.FromFamilyName(_backTypeface.FontFamily.Name);
-
-            return new GlyphTypefaceImpl(skTypeface);
+            return new GlyphTypefaceImpl(_defaultSKT);
         }
 
         public string GetDefaultFontFamilyName() => _defaultFamilyName;

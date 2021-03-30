@@ -26,10 +26,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Fonts\SourceHanSansSC-Normal.otf" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
   </ItemGroup>
   
@@ -41,6 +37,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="Assets\Fonts\SourceHanSansSC-Normal.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\i18n\zh_cn.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
