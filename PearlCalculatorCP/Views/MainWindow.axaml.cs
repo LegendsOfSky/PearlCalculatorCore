@@ -168,7 +168,7 @@ namespace PearlCalculatorCP.Views
             {
                 _vm.LoadDataFormSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 _vm.ConsoleOutputs.Add(DefineCmdOutput.ErrorTemplate("settings json file format error"));
             }

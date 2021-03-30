@@ -32,7 +32,7 @@ namespace PearlCalculatorCP
         {
             var skTypeface = SKTypeface.FromFamilyName(_defaultFamilyName);
 
-            if (skTypeface.FamilyName != _defaultFamilyName)
+            if (skTypeface is null || skTypeface.FamilyName != _defaultFamilyName)
                 skTypeface = SKTypeface.FromFamilyName(_backTypeface.FontFamily.Name);
 
             return new GlyphTypefaceImpl(skTypeface);
