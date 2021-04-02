@@ -210,8 +210,14 @@ namespace PearlCalculatorCP.Views
 #if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
         private async void SaveSettingsToJson(string path)
         {
-            var json = JsonSerializer.Serialize(Settings.CreateSettingsFormData(), WriteSerializerOptions);
-            await File.WriteAllTextAsync(path, json, Encoding.UTF8);
+            var jsonStr = JsonSerializer.Serialize(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+
+            if (File.Exists(path)) File.Delete(path);
+
+            using var sr = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write);
+            var json = Encoding.UTF8.GetBytes(jsonStr);
+
+            await sr.WriteAsync(json.AsMemory());
         }
 #endif
 
