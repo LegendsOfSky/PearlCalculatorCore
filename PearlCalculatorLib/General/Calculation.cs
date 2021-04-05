@@ -27,6 +27,16 @@ namespace PearlCalculatorLib.General
             return pearlEntity;
         }
 
+        /// <summary>
+        /// Calculate all the suitable TNT combination
+        /// <para>There are some other parameters you had to input in <see cref="Data"/> for it to work correctly</para>
+        /// <para>See more detail in <see cref="Data"/></para>
+        /// </summary>
+        /// <param name="maxTicks">The maximum time the Ender Pearl allowed to travel</param>
+        /// <param name="maxDistance">The maximum difference between Ender Pearl drop off and Destination in each axis</param>
+        /// <returns>Returns a true or false value indicate whether the calculation is correctly executed
+        /// <para>TNT combination result will be stored into <see cref="Data.TNTResult"/></para>
+        /// </returns>
         public static bool CalculateTNTAmount(int maxTicks , double maxDistance)
         {
             int redTNT;
@@ -85,6 +95,16 @@ namespace PearlCalculatorLib.General
             return true;
         }
 
+        /// <summary>
+        /// Calculate the trace of the Ender Pearl
+        /// <para>There are some other parameters you had to input in the <see cref="Data"/> class for it to work correctly</para>
+        /// <para>See more detail in <see cref="Data"/> class</para>
+        /// </summary>
+        /// <param name="redTNT">The Amount of Red TNT for Accelerating Ender Pearl</param>
+        /// <param name="blueTNT">The Amount of Blue TNT for Accelerating Ender Pearl</param>
+        /// <param name="ticks">The Maximum Tick the Ender Pearl Allowed to travel</param>
+        /// <param name="direction">The accelerating Direction of the Ender Pearl. Only Allow North, South, East, West</param>
+        /// <returns>Return A List of Entity contains the Motion and Position in each Ticks</returns>
         public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
          {
             List<Entity> result = new List<Entity>();
@@ -101,6 +121,12 @@ namespace PearlCalculatorLib.General
             return result;
         }
 
+        /// <summary>
+        /// Calculate the accelerating vector of each Blue and Red TNT in given Direction
+        /// </summary>
+        /// <param name="direction">The Acceleration Direction of the Ender Pearl</param>
+        /// <param name="redTNTVector">Return am accelerating vector of Red TNT</param>
+        /// <param name="blueTNTVector">Return an accelerating vector of Blue TNT</param>
         public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
             Space3D aVector = new Space3D(0 , 0 , 0);
