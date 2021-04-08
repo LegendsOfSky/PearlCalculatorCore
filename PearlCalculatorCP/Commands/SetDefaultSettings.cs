@@ -14,7 +14,7 @@ namespace PearlCalculatorCP.Commands
             }
 
             AppSettings.Instance.DefaultLoadSettingsFile = parameters[0];
-            AppSettings.Instance.OnModifyProperty();
+            AppSettings.Instance.MarkProeprtyChanged();
             messageSender(DefineCmdOutput.MsgTemplate("will auto import settings file at app launch"));
         }
     }

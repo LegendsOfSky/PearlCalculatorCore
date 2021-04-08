@@ -53,7 +53,7 @@ namespace PearlCalculatorCP
                 Translator.Instance.LoadLanguage(lang);
             }
             else if (!Translator.Instance.LoadLanguage("en"))
-                Translator.Instance.LoadLanguage(Translator.Fallbacklanguage);
+                Translator.Instance.LoadLanguage(Translator.FallbackLanguage);
         }
     }
 
@@ -81,35 +81,16 @@ namespace PearlCalculatorCP
             }
         }
 
-        private bool _isModify;
-
-        private string _lanuage = string.Empty;
-        private string _defaultLoadSettingsFile = string.Empty;
-
-
-        public string Lanuage
-        {
-            get => _lanuage;
-            set
-            {
-                _lanuage = value;
-            }
-        }
-
-        public string DefaultLoadSettingsFile
-        {
-            get => _defaultLoadSettingsFile;
-            set
-            {
-                _defaultLoadSettingsFile = value;
-            }
-        }
+        private bool _hasChanged;
+        
+        public string Lanuage { get; set; } = string.Empty;
+        public string DefaultLoadSettingsFile { get; set; } = string.Empty;
 
         private AppSettings() { }
 
         public static void Save()
         {
-            if (!Instance._isModify && File.Exists(FilePath)) return;
+            if (!Instance._hasChanged && File.Exists(FilePath)) return;
 
             var json = JsonSerializer.SerializeToUtf8Bytes(Instance);
             using var fs = File.OpenWrite(FilePath);
@@ -117,6 +98,6 @@ namespace PearlCalculatorCP
             fs.Write(json);
         }
 
-        public void OnModifyProperty() => _isModify = true;
+        public void MarkProeprtyChanged() => _hasChanged = true;
     }
 }

@@ -14,7 +14,7 @@ namespace PearlCalculatorCP.Localizer
         private const string IndexerName = "Item";
         private const string IndexerArrayName = "Item[]";
 
-        public const string Fallbacklanguage = "en(fallback)";
+        public const string FallbackLanguage = "en(fallback)";
 
         public event Action? OnLanguageChanged;
         
@@ -27,7 +27,7 @@ namespace PearlCalculatorCP.Localizer
         
         public string CurrentLanguage { get; private set; } = string.Empty;
 
-        public string CurrentActivedI18nFile => CurrentLanguage == Fallbacklanguage || CurrentLanguage == string.Empty
+        public string CurrentActivedI18nFile => CurrentLanguage == FallbackLanguage || CurrentLanguage == string.Empty
             ? string.Empty
             : $"{CurrentLanguage}.json";
 
@@ -44,7 +44,7 @@ namespace PearlCalculatorCP.Localizer
 
         public bool LoadLanguage(string language, Action<string>? exceptionMessageSender = null)
         {
-            if (language == Fallbacklanguage)
+            if (language == FallbackLanguage)
             {
                 LoadFallback();
                 return true;
@@ -88,10 +88,10 @@ namespace PearlCalculatorCP.Localizer
 
         private void LoadFallback()
         {
-            if (CurrentLanguage == Fallbacklanguage) return;
+            if (CurrentLanguage == FallbackLanguage) return;
 
             _translateDict = new Dictionary<string, string>();
-            CurrentLanguage = Fallbacklanguage;
+            CurrentLanguage = FallbackLanguage;
             OnLanguageChanged?.Invoke();
             Invalidate();
         }

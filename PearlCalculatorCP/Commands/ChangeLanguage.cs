@@ -9,10 +9,10 @@ namespace PearlCalculatorCP.Commands
     {
         public void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender)
         {
-            if (Translator.Instance.CurrentLanguage == Translator.Fallbacklanguage)
+            if (Translator.Instance.CurrentLanguage == Translator.FallbackLanguage)
             {
                 messageSender(new ConsoleOutputItemModel("Msg/i18n", "haven't default language setting file or can't load i18n file"));
-                messageSender(new ConsoleOutputItemModel("Msg/i18n", $"{Translator.Fallbacklanguage} currently in use"));
+                messageSender(new ConsoleOutputItemModel("Msg/i18n", $"{Translator.FallbackLanguage} currently in use"));
             }
             else
                 messageSender(new ConsoleOutputItemModel("Msg/i18n", $"i18n file \"{Translator.Instance.CurrentActivedI18nFile}\" loaded"));
