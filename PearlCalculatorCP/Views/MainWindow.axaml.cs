@@ -34,6 +34,14 @@ namespace PearlCalculatorCP.Views
 
         private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
         {
+#if ENABLE_ALL_SETTINGS
+            new FileDialogFilter
+            {
+                Name = "pcld;json",
+                Extensions = {"pcld", "json"}
+            },
+#endif
+            
 #if ENABLE_ALL_SETTINGS || !ENABLE_JSON_SETTINGS
             new FileDialogFilter
             {
@@ -47,14 +55,6 @@ namespace PearlCalculatorCP.Views
             {
                 Name = "json",
                 Extensions = {"json"}
-            },
-#endif
-            
-#if ENABLE_ALL_SETTINGS
-            new FileDialogFilter
-            {
-                Name = "pcld;json",
-                Extensions = {"pcld", "json"}
             },
 #endif
         };
@@ -73,6 +73,7 @@ namespace PearlCalculatorCP.Views
             Converters = {JsonConverter}
         };
 #endif
+        private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
 
@@ -83,7 +84,7 @@ namespace PearlCalculatorCP.Views
         private ListBox _consoleOutputListBox;
 
         private Button _moreInfoBtn;
-        
+
         //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
         //can't change the property when the field's value is true
         //so, I use reflection set the field to false
@@ -107,10 +108,17 @@ namespace PearlCalculatorCP.Views
                 
                 _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback) =>
                         OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox);
+
+                if (!_isLoadDefaultSettings)
+                {
+                    var path = AppSettings.Instance.DefaultLoadSettingsFile;
+                    if (File.Exists(path))
+                        ImportSettings(path);
+                    _isLoadDefaultSettings = true;
+                }
             };
 
             Title = ProgramInfo.Title;
-            
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -129,7 +137,7 @@ namespace PearlCalculatorCP.Views
 
             _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
         }
-        
+
         private void Window_OnTapped(object sender, RoutedEventArgs e)
         {
             if (!(e.Source is TextPresenter))
@@ -144,9 +152,11 @@ namespace PearlCalculatorCP.Views
             var result = await dialog.ShowAsync(this);
 
             if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
-            
-            var path = result[0];
+            ImportSettings(result[0]);
+        }
 
+        public void ImportSettings(string path)
+        {
 #if ENABLE_ALL_SETTINGS
             if (Path.GetExtension(path) == ".json")
                 ImportSettingsFormJson(path);
@@ -210,13 +220,10 @@ namespace PearlCalculatorCP.Views
 #if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
         private async void SaveSettingsToJson(string path)
         {
-            var jsonStr = JsonSerializer.Serialize(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+            var json = JsonSerializer.SerializeToUtf8Bytes(Settings.CreateSettingsFormData(), WriteSerializerOptions);
 
-            if (File.Exists(path)) File.Delete(path);
-
-            using var sr = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write);
-            var json = Encoding.UTF8.GetBytes(jsonStr);
-
+            using var sr = File.OpenWrite(path);
+            sr.SetLength(0);
             await sr.WriteAsync(json.AsMemory());
         }
 #endif
@@ -317,6 +324,16 @@ namespace PearlCalculatorCP.Views
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
 
         private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
+
+        private async void SetDefaultSettings(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog {Filters = FileDialogFilter};
+            var result = await dialog.ShowAsync(this);
+
+            if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
+
+            CommandManager.Instance.ExcuteCommand($"setDefaultSettings {result[0]}", false);
+        }
     }
 
     static class MainWindowMoreInfoColor

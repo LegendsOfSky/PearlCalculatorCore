@@ -104,7 +104,7 @@ namespace PearlCalculatorCP
             return isFinded;
         }
 
-        public void ExcuteCommand(string command)
+        public void ExcuteCommand(string command, bool splitParameter = true)
         {
             if (string.IsNullOrWhiteSpace(command) || string.IsNullOrEmpty(command))
             {
@@ -118,9 +118,22 @@ namespace PearlCalculatorCP
                 return;
             }
 
-            var paras = command.TrimEnd().TrimStart().Split(" ");
-            var cmdName = paras[0];
-            paras = paras.Length > 1 ? paras[1..] : null;
+            command = command.TrimEnd().TrimStart();
+            string[] paras;
+            var cmdName = string.Empty;
+            
+            if (splitParameter)
+            {
+                paras = command.Split(" ");
+                cmdName = paras[0];
+                paras = paras.Length > 1 ? paras[1..] : null;
+            }
+            else
+            {
+                var index = command.IndexOf(" ", StringComparison.Ordinal);
+                cmdName = index == -1 ? command : command[..index];
+                paras = index == -1 ? null : new []{command[(index+1)..]};
+            }
 
             bool isFindCmd = CommandList.TryGetValue(cmdName, out var registration);
 
