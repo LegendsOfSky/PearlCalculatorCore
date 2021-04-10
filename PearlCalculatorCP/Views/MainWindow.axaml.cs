@@ -32,6 +32,9 @@ namespace PearlCalculatorCP.Views
     public class MainWindow : Window
     {
 
+        public const double MaxOffsetValue = 0.99999999d;
+        public const double MinOffsetValue = -0.99999999d;
+
         private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
         {
 #if ENABLE_ALL_SETTINGS
@@ -70,15 +73,12 @@ namespace PearlCalculatorCP.Views
 
         private static JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
         {
-            Converters = {JsonConverter}
+            Converters = { JsonConverter }
         };
 #endif
         private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
-
-        private TextBox _offsetXInputBox;
-        private TextBox _offsetZInputBox;
 
         private TextBox _consoleInputBox;
         private ListBox _consoleOutputListBox;
@@ -102,13 +102,7 @@ namespace PearlCalculatorCP.Views
             DataContextChanged += (sender, args) =>
             {
                 _vm = DataContext as MainWindowViewModel;
-
-                _vm.OnPearlOffsetXTextChanged += (lastText, nextText, supressCallback) =>
-                    OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetXInputBox);
                 
-                _vm.OnPearlOffsetZTextChanged += (lastText, nextText, supressCallback) =>
-                        OnPearlOffsetTextChanged(lastText, nextText, supressCallback, _offsetZInputBox);
-
                 if (!_isLoadDefaultSettings)
                 {
                     var path = AppSettings.Instance.DefaultLoadSettingsFile;
@@ -128,9 +122,6 @@ namespace PearlCalculatorCP.Views
         {
             AvaloniaXamlLoader.Load(this);
             this.FindControl<RadioButton>("DistanceVSTNTRB").IsChecked = true;
-
-            _offsetXInputBox = this.FindControl<TextBox>("OffsetXInputBox");
-            _offsetZInputBox = this.FindControl<TextBox>("OffsetZInputBox");
 
             _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
             _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");
@@ -238,20 +229,7 @@ namespace PearlCalculatorCP.Views
 #endif
 
         #endregion
-
-        private (bool, double) OnPearlOffsetTextChanged(string lastText, string nextText, Action supressCallback, TextBox textBox)
-        {
-            if (nextText.Length < 2 || nextText[..2] != "0." || !double.TryParse(nextText, out var result))
-            {
-                supressCallback?.Invoke();
-                IgnoreTextChangesFieldInfo.SetValue(textBox, false);
-                textBox.Text = lastText;
-                textBox.CaretIndex = lastText.Length;
-                return (false, 0);
-            }
-            return (true, result);
-        }
-
+        
         private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
         {
             bool isSetCaretIndex = false;

@@ -20,28 +20,6 @@ namespace PearlCalculatorCP.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
-        /// <summary>
-        /// On pearl offset x value changed
-        /// <param name="parameter1">last value</param>
-        /// <param name="parameter2">next value</param>
-        /// <param name="parameter3">supress callback</param>
-        /// </summary>
-        /// <returns>bool: can change this value; double: target value</returns>
-        public event Func<string, string, Action, (bool, double)>? OnPearlOffsetXTextChanged;
-        
-        /// <summary>
-        /// On pearl offset z value changed
-        /// <param name="parameter1">last value</param>
-        /// <param name="parameter2">next value</param>
-        /// <param name="parameter3">supress callback</param>
-        /// </summary>
-        /// <returns>bool: can change this value; double: target value</returns>
-        public event Func<string, string, Action, (bool, double)>? OnPearlOffsetZTextChanged;
-
-        private bool _isSupressX;
-        private bool _isSupressZ;
-
         //this field for RaiseAndSetIfChanged()
         private bool _isEnableIfChanged = true;
 
@@ -121,38 +99,16 @@ namespace PearlCalculatorCP.ViewModels
 
         #region GeneralFTL Advanced Input Data
 
-        private string _pearlOffsetX = "0.";
-        public string PearlOffsetX
+        public double PearlOffsetX
         {
-            get => _pearlOffsetX;
-            set
-            {
-                (bool, double) callbackResult;
-                if (!_isSupressX && OnPearlOffsetXTextChanged != null &&
-                    (callbackResult = OnPearlOffsetXTextChanged.Invoke(_pearlOffsetX, value, () => _isSupressX = true)).Item1)
-                {
-                    this.RaiseAndSetIfChanged(ref _pearlOffsetX, value);
-                    Data.PearlOffset.X = callbackResult.Item2;
-                }
-                else _isSupressX = false;
-            }
+            get => Data.PearlOffset.X;
+            set => RaiseAndSetProperty(ref Data.PearlOffset.X, value);
         }
-
-        private string _pearlOffsetZ = "0.";
-        public string PearlOffsetZ
+        
+        public double PearlOffsetZ
         {
-            get => _pearlOffsetZ;
-            set
-            {
-                (bool, double) callbackResult;
-                if (!_isSupressZ && OnPearlOffsetZTextChanged != null &&
-                    (callbackResult = OnPearlOffsetZTextChanged.Invoke(_pearlOffsetZ, value, () => _isSupressZ = true)).Item1)
-                {
-                    this.RaiseAndSetIfChanged(ref _pearlOffsetZ, value);
-                    Data.PearlOffset.Z = callbackResult.Item2;
-                }
-                else _isSupressZ = false;
-            }
+            get => Data.PearlOffset.Z;
+            set => RaiseAndSetProperty(ref Data.PearlOffset.Z, value);
         }
         
         public int TNTWeight
@@ -527,8 +483,8 @@ namespace PearlCalculatorCP.ViewModels
             PearlYMomentum = Data.Pearl.Motion.Y;
             DestinationX   = Data.Destination.X;
             DestinationZ   = Data.Destination.Z;
-            PearlOffsetX   = Data.PearlOffset.X.ToString();
-            PearlOffsetZ   = Data.PearlOffset.Z.ToString();
+            PearlOffsetX   = Data.PearlOffset.X;
+            PearlOffsetZ   = Data.PearlOffset.Z;
 
             DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
             DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
@@ -584,8 +540,8 @@ namespace PearlCalculatorCP.ViewModels
             PearlYMomentum = settings.Pearl.Motion.Y;
             DestinationX   = settings.Destination.X;
             DestinationZ   = settings.Destination.Z;
-            PearlOffsetX   = settings.Offset.X.ToString();
-            PearlOffsetZ   = settings.Offset.Z.ToString();
+            PearlOffsetX   = settings.Offset.X;
+            PearlOffsetZ   = settings.Offset.Z;
             BlueTNT        = (uint) settings.BlueTNT;
             RedTNT         = (uint) settings.RedTNT;
             MaxTNT         = (uint) settings.MaxTNT;
