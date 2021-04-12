@@ -594,7 +594,7 @@
 
                                     <Grid RowDefinitions="Auto, *">
                                         <!--Header-->
-                                        <Grid Grid.Row="0" ColumnDefinitions="0.3*, 3, *, 3, *, 3, *">
+                                        <Grid Grid.Row="0" ColumnDefinitions="0.5*, 3, *, 3, *, 3, *">
 
                                             <!--pearl trace-->
                                             <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="PearlTraceTicks" IsVisible="{Binding !IsDisplayMotion}" />
@@ -619,7 +619,7 @@
                                         <ListBox Grid.Row="1" Items="{Binding PearlTraceList}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="PearlTraceResult">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Grid ColumnDefinitions="0.3*, 3, *, 3, *, 3, *" Width="{Binding #PearlTraceResult.Bounds.Width}">
+                                                    <Grid ColumnDefinitions="0.5*, 3, *, 3, *, 3, *" Width="{Binding #PearlTraceResult.Bounds.Width}">
 
                                                         <!--pearl trace-->
                                                         <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlTraceTicks.Bounds.Width}" IsVisible="{Binding #PearlTraceTicks.IsVisible}" />

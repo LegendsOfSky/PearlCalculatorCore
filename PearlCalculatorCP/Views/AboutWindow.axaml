@@ -3,10 +3,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="300"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
         x:Class="PearlCalculatorCP.AboutWindow"
         CanResize="False" SystemDecorations="None"
-        Width="600" Height="300"
+        Width="600" Height="350"
         Closed="TopLevel_OnClosed"
         Icon="/Assets/Enderperl-icon32.ico"
         Title="About" Background="Transparent" TransparencyLevelHint="Transparent"
@@ -37,11 +37,11 @@
               
                 <StackPanel>
                     <TextBlock Text="{i18n:Translate Authors, Fallback='Authors : '}" />
-                    <StackPanel Margin="15, 0">
-                        <TextBlock Text ="memorydream , "/>
-                        <TextBlock Text ="LegendsOfSky , "/>
-                        <TextBlock Text ="{i18n:Translate whats2000_, Fallback='whats2000_ (Auto Memory Dolls, see more in Violet Evergarden)'}"/>
-                    </StackPanel>
+                    <TextBlock Text="    memorydream&#13;    LegendsOfSky"/>
+                  
+                    <TextBlock Text="{i18n:Translate Translators, Fallback='Translators : '}" Margin="0,10,0,0" />
+                    <TextBlock Text="    njes9701&#13;    whats2000_" />
+
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">

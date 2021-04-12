@@ -1,9 +1,9 @@
 {
-    "GeneralFTLHeader": "普通FTL",
-    "ManuallyHeader": "手動計算機",
+    "GeneralFTLHeader": "通用FTL",
+    "ManuallyHeader": "自訂義FTL",
 
-    "GeneralFTLGeneralHeader": "一般選項",
-    "GeneralFTLAdvancedHeader": "進階選項",
+    "GeneralFTLGeneralHeader": "一般設定",
+    "GeneralFTLAdvancedHeader": "進階設定",
     "GeneralFTLSettingsHeader": "更多基礎設定",
 
     "PearlPosX": "珍珠X座標 :",
@@ -13,20 +13,20 @@
     "DestinationX": "目標點X座標 :",
     "DestinationZ": "目標點Z座標 :",
 
-    "MaxTNT": "最大TNT當量",
-    "RedTNT": "紅色陣列",
-    "BlueTNT": "藍色陣列",
-    "Offset": "偏差",
-    "TNTWeight": "TNT權重",
+    "MaxTNT": "最大TNT數量",
+    "RedTNT": "紅色TNT陣列",
+    "BlueTNT": "藍色TNT陣列",
+    "Offset": "珍珠矯正偏移",
+    "TNTWeight": "TNT最大數量",
 
-    "PearlSimulate": "珍珠模擬",
-    "ImportSettings": "導入軟件設定檔",
-    "SaveSettings": "保存當前設置",
+    "PearlSimulate": "珍珠模擬軌跡",
+    "ImportSettings": "開啟設定檔",
+    "SaveSettings": "儲存設定檔",
 
     "DisplayHeader": "結果輸出",
     "ConsoleHeader": "控制台",
 
-    "ResetToDefault": "重置回默認值",
+    "ResetToDefault": "回復至預設值",
 
     "MomentumX": "X動量 :",
     "MomentumY": "Y動量 :",
@@ -44,27 +44,27 @@
     "TNTY": "TNT的Y座標 :",
     "TNTZ": "TNT的Z座標 :",
 
-    "Amount": "TNT當量 :",
+    "Amount": "TNT數量 :",
 
-    "CalculateTNTAmount": "計算TNT當量",
+    "CalculateTNTAmount": "計算TNT數量",
     "CalculatePearlTrace": "計算珍珠軌跡",
     "CalculatePearlMomentum": "計算珍珠動量",
 
     "PearlYCoordinate": "珍珠Y座標",
     "PearlYMomentum": "珍珠Y動量",
     "DefaultRedTNTPos": "預設紅色TNT方位",
-    "DefaultRedTNTPosDesc": "預設從紅色陣列複製的TNT\n在不被史萊姆改位置下相對於珍珠的方位",
+    "DefaultRedTNTPosDesc": "預設從紅色陣列複製的TNT\n在不被史萊姆方塊改位置下相對於珍珠的方位",
     "DefaultBlueTNTPos": "預設藍色TNT方位",
-    "DefaultBlueTNTPosDesc": "預設從藍色陣列複製的TNT\n在不被史萊姆改位置下相對於珍珠的方位",
+    "DefaultBlueTNTPosDesc": "預設從藍色陣列複製的TNT\n在不被史萊姆方塊改位置下相對於珍珠的方位",
 
-    "DisplayDistance": "距離偏差",
+    "DisplayDistance": "距離偏移",
     "DisplayTicks": "遊戲刻",
     "DisplayBlue": "藍色",
     "DisplayRed": "紅色",
     "DisplayTotal": "總量",
 
     "DisplayDirection": "方位",
-    "DisplayAngle": "方向角",
+    "DisplayAngle": "發射角度",
 
     "SettingsName": "名稱",
     "SettingsValue": "數值",
@@ -82,18 +82,18 @@
     "SettingsSouthEastTNTY": "South East TNT(Y座標)",
     "SettingsSouthEastTNTZ": "South East TNT(Z座標)",
 
-    "DistanceVSTNT": "距離偏差 VS TNT",
+    "DistanceVSTNT": "距離偏移 VS TNT",
     "OnlyTNT": "僅TNT",
-    "OnlyDistance": "僅距離偏差",
+    "OnlyDistance": "僅距離偏移",
 
     "Authors": "作者 : ",
-    "whats2000_": "whats2000_ (自動手記人偶，詳細看\"紫羅蘭永恆花園\")",
+    "Translators": "翻譯 : ",
     "Version": "版本 : ",
     "Youtube": "Youtube : 即將到來",
     "Credit": "銘謝 : 來自 Mojang 的\"優質\"程式",
 
-    "SetDefaultSettings": "預設加載配置",
-    "VideoLink": "影片",
+    "SetDefaultSettings": "預設載入設定",
+    "VideoLink": "教學影片",
     "GithubLink": "Github",
     "About": "關於",
     "Languages": "語言"

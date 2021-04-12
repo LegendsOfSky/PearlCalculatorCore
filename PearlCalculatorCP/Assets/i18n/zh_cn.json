@@ -1,10 +1,10 @@
 {
-    "GeneralFTLHeader": "普通FTL",
-    "ManuallyHeader": "手动计算器",
+    "GeneralFTLHeader": "通用FTL",
+    "ManuallyHeader": "自定义FTL",
 
     "GeneralFTLGeneralHeader": "一般选项",
     "GeneralFTLAdvancedHeader": "进阶选项",
-    "GeneralFTLSettingsHeader": "更多基础设定",
+    "GeneralFTLSettingsHeader": "更多基础选项",
 
     "PearlPosX": "珍珠X坐标 :",
     "PearlPosY": "珍珠Y坐标 :",
@@ -16,7 +16,7 @@
     "MaxTNT": "最大TNT当量",
     "RedTNT": "红色阵列",
     "BlueTNT": "蓝色阵列",
-    "Offset": "偏差",
+    "Offset": "珍珠矫正偏移",
     "TNTWeight": "TNT权重",
 
     "PearlSimulate": "珍珠模拟",
@@ -48,7 +48,7 @@
 
     "CalculateTNTAmount": "计算TNT当量",
     "CalculatePearlTrace": "计算珍珠轨迹",
-    "CalculatePearlMomentum": "计算珍珠矢量",
+    "CalculatePearlMomentum": "计算珍珠动能",
 
     "PearlYCoordinate": "珍珠Y坐标",
     "PearlYMomentum": "珍珠Y矢量",
@@ -57,14 +57,14 @@
     "DefaultBlueTNTPos": "预设蓝色TNT方位",
     "DefaultBlueTNTPosDesc": "预设从蓝色阵列复制的TNT\n在不被粘液块改位置下相对于珍珠的方位",
 
-    "DisplayDistance": "距离偏差",
+    "DisplayDistance": "距离偏移",
     "DisplayTicks": "游戏刻",
     "DisplayBlue": "蓝色",
     "DisplayRed": "红色",
     "DisplayTotal": "总量",
 
     "DisplayDirection": "方位",
-    "DisplayAngle": "方向角",
+    "DisplayAngle": "发射角度",
 
     "SettingsName": "名称",
     "SettingsValue": "数值",
@@ -87,13 +87,13 @@
     "OnlyDistance": "仅距离偏差",
 
     "Authors": "作者 : ",
-    "whats2000_": "whats2000_ (自动手记人偶，详细看\"紫罗兰永恒花园\")",
+    "Translators": "翻译 : ",
     "Version": "版本 : ",
     "Youtube": "Youtube : 即将到来",
     "Credit": "特别感谢 : 来自 Mojang 的\"优质\"代码",
 
     "SetDefaultSettings": "默认加载配置",
-    "VideoLink": "视频",
+    "VideoLink": "教学视频",
     "GithubLink": "Github",
     "About": "关于",
     "Languages": "语言"
