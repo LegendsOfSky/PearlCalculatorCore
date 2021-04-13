@@ -82,9 +82,9 @@
     "SettingsSouthEastTNTY": "South East TNT(Y坐标)",
     "SettingsSouthEastTNTZ": "South East TNT(Z坐标)",
 
-    "DistanceVSTNT": "距离偏差 VS TNT",
+    "DistanceVSTNT": "混合权重",
     "OnlyTNT": "仅TNT",
-    "OnlyDistance": "仅距离偏差",
+    "OnlyDistance": "仅距离偏移",
 
     "Authors": "作者 : ",
     "Translators": "翻译 : ",
