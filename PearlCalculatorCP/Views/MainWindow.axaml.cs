@@ -121,7 +121,7 @@ namespace PearlCalculatorCP.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.FindControl<RadioButton>("DistanceVSTNTRB").IsChecked = true;
+            this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
 
             _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
             _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");

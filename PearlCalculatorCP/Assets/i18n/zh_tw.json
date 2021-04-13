@@ -82,7 +82,7 @@
     "SettingsSouthEastTNTY": "South East TNT(Y座標)",
     "SettingsSouthEastTNTZ": "South East TNT(Z座標)",
 
-    "DistanceVSTNT": "距離偏移 VS TNT",
+    "MixedWeight": "混合權重",
     "OnlyTNT": "僅TNT",
     "OnlyDistance": "僅距離偏移",
 

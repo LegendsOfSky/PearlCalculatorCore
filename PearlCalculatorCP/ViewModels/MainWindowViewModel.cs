@@ -576,7 +576,7 @@ namespace PearlCalculatorCP.ViewModels
         {
             switch (TNTWeightMode)
             {
-                case TNTWeightModeEnum.DistanceVSTNT:
+                case TNTWeightModeEnum.MixedWeight:
                     Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
                     break;
                 case TNTWeightModeEnum.OnlyTNT:
@@ -696,7 +696,7 @@ namespace PearlCalculatorCP.ViewModels
     
     public enum TNTWeightModeEnum
     {
-        DistanceVSTNT, OnlyTNT, OnlyDistance
+        MixedWeight, OnlyTNT, OnlyDistance
     }
     
     //I don't know why ComboBox.SelectedItem cause a issue

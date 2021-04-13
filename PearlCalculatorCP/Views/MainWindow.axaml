@@ -272,7 +272,7 @@
 
                                         <StackPanel Orientation="Horizontal" Spacing="30">
 
-                                            <RadioButton Name="DistanceVSTNTRB" Content="{i18n:Translate DistanceVSTNT, Fallback='Distance VS TNT'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.DistanceVSTNT}}" />
+                                            <RadioButton Name="MixedWeightRB" Content="{i18n:Translate MixedWeight, Fallback='Mixed Weight'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.MixedWeight}}" />
                                             <RadioButton Name="OnlyTNTRB" Content="{i18n:Translate OnlyTNT, Fallback='Only TNT'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}" />
                                             <RadioButton Name="OnlyDistanceRB" Content="{i18n:Translate OnlyDistance, Fallback='Only Distance'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}" />
 
