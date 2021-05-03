@@ -1,6 +1,32 @@
 # PearlCalculatorCore
 Just A Pearl Calculator Core Project Attempt
 
+This calculator support Windows / Linux /OS X , only need see [PearlCalculatorLib](PearlCalculatorLib) [PearlCalculatorCP ](PearlCalculatorCP) and [PearlCalculatorWFA](PearlCalculatorWFA)(EOL)
+
+*only PearlCalculatorCP support mutil platform*
+
+## How to install
+
+first, you need install .net core 3.1
+
+
+
+Windows :
+
+```
+cpbuild.ps1
+```
+
+
+
+Linux / OS X : 
+
+```
+cpbuild.sh
+```
+
+
+
 ---
 
 ## PearlCalculationLib
@@ -26,7 +52,7 @@ look downward for more information
 
 >PearlCalculatorCore is for debug and calculate with cmd. you can just ignore that.  
 >PearlCalculatorWFA is a GUI for user to enter all the information and view on the result.  
->PearlCalculatorCP is a corss platform GUI for user to enter all the information and view on the result, base on [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)  
+>PearlCalculatorCP is a cross platform GUI for user to enter all the information and view on the result, base on [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)  
 >RelayCalculatorWFA is a Gui for user to enter all the information and runs "Relay" part of the "PearlCalculationLib".
 
 # How to use:
