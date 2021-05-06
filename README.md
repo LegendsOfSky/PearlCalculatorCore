@@ -1,97 +1,126 @@
 # PearlCalculatorCore
+
 Just A Pearl Calculator Core Project Attempt
 
-This calculator support Windows / Linux /OS X , only need see [PearlCalculatorLib](PearlCalculatorLib) [PearlCalculatorCP ](PearlCalculatorCP) and [PearlCalculatorWFA](PearlCalculatorWFA)(EOL)
+## Usages
 
-*only PearlCalculatorCP support mutil platform*
+This application supports multiple platforms (Windows, macOS, Linux). Please view the appropriate instructions for your platform.
 
-## How to install
+### Prerequisites
 
-first, you need install .net core 3.1
+Please install the dotnet Core runtime before proceeding.
 
+- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download)
 
+### Install Instructions
 
-Windows :
+#### Windows
 
-```
-cpbuild.ps1
-```
+Run `cpbuild.ps1` using command prompt.
 
-
-
-Linux / OS X : 
-
-```
-cpbuild.sh
+```powershell
+> cpbuild.ps1
 ```
 
+#### macOS, Linux
 
+Run `cpbuild.sh` using terminal. You might need to change its file permissions before running this script, i.e. `chmod +x cpbuild.sh`
 
----
+```powershell
+sh cpbuild.sh
+```
 
-## PearlCalculationLib
-this lib is for calculation. you can include this lib to your project. and use all the method with in.
+## Walkthrough on the core module
 
-the lib has been seperated in three parts.
+The core module of this application is the `PearlCalculationLib` module. The following gives a brief introduction for it.
 
-## General
-it is for calculating most of the case and traditional FTL.
+### PearlCalculationLib
 
-## Manually
-it is for manually input two TNT position and pearl position with pearl velocity to calculate how many TNT is need to go to a speicific location.
+#### Overview
 
-with TNT amount entered. you can calculate where it go and the velocity of it.
+- Core module for the calcualtion.
+- Can be included for your project
+  - All methods are accessible and callable
 
----
+#### Composition
 
-## Relay
-it is **WIP** project.
+The `PearlCalculationLib` is composed of three parts.
 
-look downward for more information
+##### General
 
+- Carrying out calculations for most cases and traditional FTL set-ups
 
->PearlCalculatorCore is for debug and calculate with cmd. you can just ignore that.  
->PearlCalculatorWFA is a GUI for user to enter all the information and view on the result.  
->PearlCalculatorCP is a cross platform GUI for user to enter all the information and view on the result, base on [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)  
->RelayCalculatorWFA is a Gui for user to enter all the information and runs "Relay" part of the "PearlCalculationLib".
+##### Manually
 
-# How to use:
+- Receieves manual input of two TNT positions with peral velocity
+  - To calculate how many TNTs are required for teleportation
 
-## PearlCalculationLib
+##### Relay
 
-* General
+- **Work in progress.**
+- Purposes of modules included
 
-    in the class ***[Data](PearlCalculatorLib/General/Data.cs)***, you will need to enter all the value in order to get a correct result.
+## Composition
 
-    1. for the four **TNT** data, you need to enter a coordinate which is the exploding location of the TNT.
+| Name                  | Purpose                                                      |
+| --------------------- | ------------------------------------------------------------ |
+| `PearlCalculatorCore` | Testing purposes                                             |
+| `PearlCalculatorWFA`  | Windows-specific graphical frontend for receiving parameters and presenting the results |
+| `PearlCalculatorCP`   | Cross-platform graphical frontend for receiving parameters and presenting the results, based on [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia) |
+| `RelayCalculatorWFA`  | A graphical frontend for receiving parameters and pass them to the "Relay" part of the `PearlCalculationLib` |
 
-    2. for the **destination** data, just enter a coordinate that you want your pearl to fly to.
+## API Manual
 
-    3. for the **pearl**. you need to fill in it's velocity(use *.WithVector()*) and position(use *.WithPosition()*).
+### PearlCalculationLib
 
-    4. for the **BlueTNT** and **RedTNT**, fill in the amount of TNT that will explode.
+#### General Part
 
-    5. for the **TNTWeight**, fill in a number between **0 ~ 100**. this is for sorting result. high number mean result with higher TNT amount will be on the front of the result list.
+You need to supply all values to get a valid result whenever you called the ***[Data](PearlCalculatorLib/General/Data.cs)*** class.
 
-    6. for the **MaxTick**, this indicates the maximium ticks you want your pearl to be flying.
+##### List of data to be filled
 
-    7. **MaxCalculateTNTMaxCalculateTNT** and **MaxCalculateDistance**, just leave it empty.
+1. `TNT` data
+   - You need to enter a coordinate as the origin of TNT explosion for all four **TNT** data.
+2. `destination` Data
+   - To coordinate that you would like to teleport to
+3. `pearl`
+   - Fill in its inital velocity (use `.WithVector()` method) and position (use `.WithPosition()` method)
+4. `BlueTNT` and `RedTNT`
+   - Amount of TNT to be exploded
+5. `TNTWeight`
+   - Number between 0 ~ 100.
+   - Higher number means solutions with more TNTs will be shown on top.
+   - For sorting the results
+6. `MaxTick`
+   - Maximum pearl flying duration in ticks
+7. `MaxCalculateTNTMaxCalculateTNT`, `MaxCalculateDistance`
+   - Leave it empty
+8. `Direction`
+   - Specifying the flying direction of the pearl
+9. `DefaultRedDuper` and `DefaultBlueDuper`
+   - Supply `Direction` as its value
+   - Indicate where the TNT will land on the lava with out moving it
+10. `TNTResult`
+    - Stores the calculated result
+    - Contains
+      - Flight duration in ticks
+      - redTNT
+      - blueTNT
+      - distance (displacement betwen origin and destination)
+      - totalTNT (blueTNT+redTNT)
 
-    8. **Direction**, this is for telling **Calculation** Where should the pearl fly.
+##### Remarks
 
-    9. **DefaultRedDuper** and **DefaultBlueDuper**, they indicate where the TNT will land on the lava with out moving it. just enter direction for it.
+In the  ***[Calculation](PearlCalculatorLib/General/Calculation.cs)*** class, there are two public methods called *CalculateTNTAmount()* and *CalculatePearlTrace()* respetively.
+They calculate how much TNT is required and the trace of the pearl.
 
-    10. **TNTResult**, it is for keeping all the result that is calculated. it contains ticks(how many ticks the pearl need to fly), redTNT, blueTNT, distance(the distance between pearl and the destination), totalTNT(blueTNT + redTNT).
+#### Manual Part
 
-    > in the class ***[Calculation](PearlCalculatorLib/General/Calculation.cs)***, you will see two public method called *CalculateTNTAmount()* and *CalculatePearlTrace()*.  
-    > they calculates how much TNT you need and the trace of the pearl.
+Similar to  "General", but your had to manually enter TNT location and information about pearl.
 
-* Manually  
-    like "General", but your had to manually enter TNT location and information about pearl.
+## Tips
 
----
-
-BTW, the calculator take TNT position and pearl Position. and calculates how TNT accelerates the pearl.
-
-(how to get exploding location? just get download fabric carpet and use "/log tnt". beware of the spam)
-
+- The calculator take TNT position and pearl Position. and calculates how TNT accelerates the pearl.
+- Use `/log tnt` to obtain the orign of explosion.
+  - Provided you have fabric carpet mod installed
+  - Beware of the spam
