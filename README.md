@@ -111,7 +111,7 @@ You need to supply all values to get a valid result whenever you called the ***[
 
 ##### Remarks
 
-In the  ***[Calculation](PearlCalculatorLib/General/Calculation.cs)*** class, there are two public methods called *CalculateTNTAmount()* and *CalculatePearlTrace()* respetively.
+In the  ***[Calculation](PearlCalculatorLib/General/Calculation.cs)*** class, there are two public methods called `CalculateTNTAmount()` and `CalculatePearlTrace()` respetively.
 They calculate how much TNT is required and the trace of the pearl.
 
 #### Manual Part
@@ -121,6 +121,6 @@ Similar to  "General", but your had to manually enter TNT location and informati
 ## Tips
 
 - The calculator take TNT position and pearl Position. and calculates how TNT accelerates the pearl.
-- Use `/log tnt` to obtain the orign of explosion.
+- Use `/log tnt` to obtain the realtime location of TNT entities.
   - Provided you have fabric carpet mod installed
   - Beware of the spam
