@@ -91,9 +91,9 @@ You need to supply all values to get a valid result whenever you called the ***[
    - Number between 0 ~ 100.
    - Higher number means solutions with more TNTs will be shown on top.
    - For sorting the results
-6. `MaxTick`
-   - Maximum pearl flying duration in ticks
-7. `MaxCalculateTNTMaxCalculateTNT`, `MaxCalculateDistance`
+6. `MaxTNT`
+   - The Max number of TNT in each side
+7. `MaxCalculateTNT`, `MaxCalculateDistance`
    - Leave it empty
 8. `Direction`
    - Specifying the flying direction of the pearl
