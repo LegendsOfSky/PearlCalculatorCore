@@ -99,16 +99,26 @@ namespace PearlCalculatorCP.ViewModels
 
         #region GeneralFTL Advanced Input Data
 
+        private double _pearlOffsetX;
         public double PearlOffsetX
         {
-            get => Data.PearlOffset.X;
-            set => RaiseAndSetProperty(ref Data.PearlOffset.X, value);
+            get => _pearlOffsetX;
+            set
+            {
+                Data.PearlOffset = new Surface2D(value, _pearlOffsetZ);
+                RaiseAndSetProperty(ref _pearlOffsetX, Data.PearlOffset.X);
+            }
         }
-        
+
+        private double _pearlOffsetZ;
         public double PearlOffsetZ
         {
-            get => Data.PearlOffset.Z;
-            set => RaiseAndSetProperty(ref Data.PearlOffset.Z, value);
+            get => _pearlOffsetZ;
+            set
+            {
+                Data.PearlOffset = new Surface2D(_pearlOffsetX, value);
+                RaiseAndSetProperty(ref _pearlOffsetZ, Data.PearlOffset.Z);
+            }
         }
         
         public int TNTWeight

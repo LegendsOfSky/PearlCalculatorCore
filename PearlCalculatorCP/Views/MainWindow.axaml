@@ -253,12 +253,12 @@
 
                                                 <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
                                                     <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
-                                                    <NumericUpDown Grid.Column="1" Maximum="{x:Static views:MainWindow.MaxOffsetValue}" Minimum="{x:Static views:MainWindow.MinOffsetValue}" Value="{Binding PearlOffsetX}" />
+                                                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetX}" />
                                                 </Grid>
 
                                                 <Grid ColumnDefinitions="1*, 9*">
                                                     <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
-                                                    <NumericUpDown Grid.Column="1" Maximum="{x:Static views:MainWindow.MaxOffsetValue}" Minimum="{x:Static views:MainWindow.MinOffsetValue}" Value="{Binding PearlOffsetZ}" />
+                                                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetZ}" />
                                                 </Grid>
 
                                             </StackPanel>
