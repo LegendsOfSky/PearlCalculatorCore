@@ -56,12 +56,12 @@ namespace PearlCalculatorLib.General
         /// </summary>
         public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929408 , 0).WithVector(0 , 0.2716278719434352 , 0);
 
+        
+
         /// <summary>
         /// The Offset between Ender Pearl X and Z coordinate and lava pool ceter coordinate
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        private static Surface2D _PearlOffset = new Surface2D(0 , 0);
-        
         public static Surface2D PearlOffset
         {
             get => _PearlOffset;
@@ -71,6 +71,7 @@ namespace PearlCalculatorLib.General
                     _PearlOffset = value;
             }
         }
+        private static Surface2D _PearlOffset = new Surface2D(0 , 0);
 
 
 
