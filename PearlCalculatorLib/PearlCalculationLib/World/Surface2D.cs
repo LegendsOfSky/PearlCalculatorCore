@@ -43,6 +43,11 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public bool IsOrigin() => X == 0 && Z == 0;
 
+        public bool IsInside(Surface2D SouthEastConer, Surface2D NorthWestConer)
+        {
+            return X < SouthEastConer.X && Z < SouthEastConer.Z && X > NorthWestConer.X && Z > NorthWestConer.Z;
+        }
+
         public double AngleInRad(Surface2D position2) => Math.Atan(position2.Z - Z / position2.X - X);
 
         public static Space3D FromPolarCoordinate(double lenght , double Radinat)

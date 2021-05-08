@@ -60,7 +60,17 @@ namespace PearlCalculatorLib.General
         /// The Offset between Ender Pearl X and Z coordinate and lava pool ceter coordinate
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Surface2D PearlOffset = new Surface2D(0 , 0);
+        private static Surface2D _PearlOffset = new Surface2D(0 , 0);
+        
+        public static Surface2D PearlOffset
+        {
+            get => _PearlOffset;
+            set
+            {
+                if(value.IsInside(SouthEastTNT.ToSurface2D() , NorthWestTNT.ToSurface2D()))
+                    _PearlOffset = value;
+            }
+        }
 
 
 
