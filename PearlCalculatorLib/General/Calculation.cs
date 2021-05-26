@@ -5,6 +5,7 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -34,7 +35,7 @@ namespace PearlCalculatorLib.General
         /// </summary>
         /// <param name="maxTicks">The maximum time the Ender Pearl allowed to travel</param>
         /// <param name="maxDistance">The maximum difference between Ender Pearl drop off and Destination in each axis</param>
-        /// <returns>Returns a true or false value indicate whether the calculation is correctly executed
+        /// <returns>Returns a true or false value indicates whether the calculation is correctly executed or not
         /// <para>TNT combination result will be stored into <see cref="Data.TNTResult"/></para>
         /// </returns>
         public static bool CalculateTNTAmount(int maxTicks , double maxDistance)
@@ -119,6 +120,59 @@ namespace PearlCalculatorLib.General
                 result.Add(new PearlEntity(pearl));
             }
             return result;
+        }
+
+        /// <summary>
+        /// Calculate the combination of TNT
+        /// </summary>
+        /// <param name="redTNT">The amount of red TNT</param>
+        /// <param name="blueTNT">The amount of blue TNT</param>
+        /// <param name="tntCombination">Output the TNT combination</param>
+        /// <returns>Returns a true or false value indicates whether the calculation is correctly executed or not</returns>
+        public static bool CalculateTNTConfiguration(int redTNT , int blueTNT , out BitArray tntCombination)
+        {
+            int indexCount = Data.RedTNTConfiguration.Count + Data.BlueTNTConfiguration.Count;
+            tntCombination = new BitArray(indexCount);
+            if(Data.RedTNTConfiguration.Count == 0 && Data.BlueTNTConfiguration.Count == 0)
+                return false;
+            int red = redTNT;
+            int blue = blueTNT;
+            BitArray redBitArray = new BitArray(indexCount);
+            BitArray blueBitArray = new BitArray(indexCount);
+            List<int> sortedRedConfig = Data.RedTNTConfiguration;
+            List<int> sortedBlueConfig = Data.BlueTNTConfiguration;
+            sortedRedConfig.Sort();
+            sortedRedConfig.Reverse();
+            sortedBlueConfig.Sort();
+            sortedBlueConfig.Reverse();
+            for(int i = 0; i < sortedRedConfig.Count; i++)
+            {
+                if(red >= sortedRedConfig[i])
+                {
+                    red -= sortedRedConfig[i];
+                    redBitArray.Set(Data.RedTNTConfiguration.FindIndex(x => x == sortedRedConfig[i]) , true);
+                }
+                else
+                {
+                    redBitArray.Set(Data.RedTNTConfiguration.FindIndex(x => x == sortedRedConfig[i]) , false);
+                }
+            }
+            for(int i = 0; i < sortedBlueConfig.Count; i++)
+            {
+                if(blue >= sortedBlueConfig[i])
+                {
+                    blue -= sortedBlueConfig[i];
+                    blueBitArray.Set(Data.BlueTNTConfiguration.FindIndex(x => x == sortedBlueConfig[i]) , true);
+                }
+                else
+                {
+                    blueBitArray.Set(Data.BlueTNTConfiguration.FindIndex(x => x == sortedBlueConfig[i]) , false);
+                }
+            }
+            tntCombination.Or(redBitArray);
+            blueBitArray.LeftShift(Data.RedTNTConfiguration.Count);
+            tntCombination.Or(blueBitArray);
+            return true;
         }
 
         /// <summary>

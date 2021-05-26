@@ -150,6 +150,17 @@ namespace PearlCalculatorLib.General
         public static List<TNTCalculationResult> TNTResult = new List<TNTCalculationResult>();
 
 
+        /// <summary>
+        /// A list of TNT configuration. 
+        /// </summary>
+        public static List<int> RedTNTConfiguration = new List<int>();
+
+        /// <summary>
+        /// A list if TNT configuration
+        /// </summary>
+        public static List<int> BlueTNTConfiguration = new List<int>();
+
+
 
         /// <summary>
         /// Reset the whole <see cref="Data"/> into default value
