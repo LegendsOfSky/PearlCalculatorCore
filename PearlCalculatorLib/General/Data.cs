@@ -56,7 +56,7 @@ namespace PearlCalculatorLib.General
         /// </summary>
         public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929408 , 0).WithVector(0 , 0.2716278719434352 , 0);
 
-        
+
 
         /// <summary>
         /// The Offset between Ender Pearl X and Z coordinate and lava pool center coordinate

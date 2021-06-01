@@ -11,6 +11,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
         public Space3D Max;
 
 
+
         public Space3D Extents => Max - Min;
 
         public Space3D Center => (Min + Max) * 0.5;
@@ -26,21 +27,21 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
             Max = new Space3D(x2 , y2 , z2);
         }
 
-        public AABBBox(double x1 , double y1 , double z1 , double x2 , double y2, double z2)
+        public AABBBox(double x1 , double y1 , double z1 , double x2 , double y2 , double z2)
         {
             Min = new Space3D(x1 , y1 , z1);
             Max = new Space3D(x2 , y2 , z2);
         }
 
-        public AABBBox(Space3D min, Space3D max)
+        public AABBBox(Space3D min , Space3D max)
         {
             Min = min;
             Max = max;
         }
 
-        public AABBBox(Space3D max) : this(Space3D.zero, max) { }
+        public AABBBox(Space3D max) : this(Space3D.zero , max) { }
 
-        public AABBBox ReSize(Space3D min, Space3D max)
+        public AABBBox ReSize(Space3D min , Space3D max)
         {
             Min = min;
             Max = max;
@@ -65,35 +66,21 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
                 Min.Z <= bounds.Max.Z);
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is AABBBox s && Equals(s);
-        }
+        public override bool Equals(object obj) => obj is AABBBox s && Equals(s);
 
         public bool Equals(AABBBox other)
         {
-            if (other is null)
+            if(other is null)
                 return false;
-
-            if (ReferenceEquals(this, other))
+            if(ReferenceEquals(this , other))
                 return true;
-
-            return this.Min == other.Min && this.Max == other.Max;
+            return Min == other.Min && Max == other.Max;
         }
 
-        public static bool operator==(AABBBox left, AABBBox right)
-        {
-            return left is { } && left.Equals(right);
-        }
+        public static bool operator ==(AABBBox left , AABBBox right) => left is { } && left.Equals(right);
 
-        public static bool operator!=(AABBBox left, AABBBox right)
-        {
-            return left is { } && !left.Equals(right);
-        }
+        public static bool operator !=(AABBBox left , AABBBox right) => left is { } && !left.Equals(right);
 
-        public override int GetHashCode()
-        {
-            return Min.GetHashCode() ^ Max.GetHashCode();
-        }
+        public override int GetHashCode() => Min.GetHashCode() ^ Max.GetHashCode();
     }
 }

@@ -28,19 +28,19 @@ namespace PearlCalculatorLib.General
 
         public static Settings CreateSettingsFormData() => new Settings()
         {
-            NorthWestTNT = Data.NorthWestTNT,
-            NorthEastTNT = Data.NorthEastTNT,
-            SouthWestTNT = Data.SouthWestTNT,
-            SouthEastTNT = Data.SouthEastTNT,
+            NorthWestTNT = Data.NorthWestTNT ,
+            NorthEastTNT = Data.NorthEastTNT ,
+            SouthWestTNT = Data.SouthWestTNT ,
+            SouthEastTNT = Data.SouthEastTNT ,
 
-            Pearl = Data.Pearl,
+            Pearl = Data.Pearl ,
 
-            RedTNT = Data.RedTNT,
-            BlueTNT = Data.BlueTNT,
-            MaxTNT = Data.MaxTNT,
+            RedTNT = Data.RedTNT ,
+            BlueTNT = Data.BlueTNT ,
+            MaxTNT = Data.MaxTNT ,
 
-            Destination = Data.Destination,
-            Offset = Data.PearlOffset,
+            Destination = Data.Destination ,
+            Offset = Data.PearlOffset ,
 
             Direction = Data.Direction
         };

@@ -10,6 +10,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         public int X;
         public int Z;
 
+
+
         public Chunk()
         {
 

@@ -16,11 +16,13 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
     public struct Space3D : IEquatable<Space3D>
     {
         public static readonly Space3D zero = new Space3D();
-        public static readonly Space3D one = new Space3D(1, 1, 1);
+        public static readonly Space3D one = new Space3D(1 , 1 , 1);
 
         public double X;
         public double Y;
         public double Z;
+
+
 
         public Space3D(double x , double y , double z)
         {
@@ -35,13 +37,13 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public double WorldAngle(Space3D position2)
         {
-            Space3D distance = new Space3D();
-            distance.X = position2.X - X;
-            distance.Z = position2.Z - Z;
-            double phi;
+            Space3D distance = new Space3D
+            {
+                X = position2.X - X ,
+                Z = position2.Z - Z
+            };
             if(distance.X == 0 && distance.Z == 0)
                 return 370;
-            phi = Math.Atan(Math.Abs(distance.X / distance.Z));
             if(distance.X > 0)
             {
                 if(distance.Z > 0)
@@ -74,13 +76,13 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         {
             Direction direction = World.Direction.None;
 
-            if (angle > -135 && angle <= -45)
+            if(angle > -135 && angle <= -45)
                 direction = World.Direction.East;
-            else if (angle > -45 && angle <= 45)
+            else if(angle > -45 && angle <= 45)
                 direction = World.Direction.South;
-            else if (angle > 45 && angle <= 135)
+            else if(angle > 45 && angle <= 135)
                 direction = World.Direction.West;
-            else if ((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
+            else if((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
                 direction = World.Direction.North;
             return direction;
         }
@@ -95,7 +97,6 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             dis3.X = Math.Abs(dis3.X);
             dis3.Y = Math.Abs(dis3.Y);
             dis3.Z = Math.Abs(dis3.Z);
-
             return Math.Sqrt(dis3.DistanceSq());
         }
 
@@ -127,7 +128,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             return result;
         }
 
-        public Space3D Mirror(bool onXAxis, bool onZAxis)
+        public Space3D Mirror(bool onXAxis , bool onZAxis)
         {
             Space3D result = new Space3D(0 , Y , 0);
             if(onXAxis)
@@ -137,11 +138,13 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             return result;
         }
 
-        public static Space3D FromPolarCoordinate(double lenght, double Radinat)
+        public static Space3D FromPolarCoordinate(double lenght , double Radinat)
         {
-            Space3D result = new Space3D(0 , 0 , 0);
-            result.X = lenght * Math.Sin(Radinat);
-            result.Z = lenght * Math.Cos(Radinat);
+            Space3D result = new Space3D(0 , 0 , 0)
+            {
+                X = lenght * Math.Sin(Radinat) ,
+                Z = lenght * Math.Cos(Radinat)
+            };
             return result;
         }
 

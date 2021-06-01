@@ -12,11 +12,13 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
     {
         public Space3D Motion;
         public Space3D Position;
+        private AABBBox _aabb = new AABBBox();
+
+
 
         public abstract Space3D Size { get; }
 
-        private AABBBox _aabb = new AABBBox();
-        public virtual AABBBox AABB => _aabb.ReSize(Position, Position + Size);
+        public virtual AABBBox AABB => _aabb.ReSize(Position , Position + Size);
 
         public abstract void Tick();
     }

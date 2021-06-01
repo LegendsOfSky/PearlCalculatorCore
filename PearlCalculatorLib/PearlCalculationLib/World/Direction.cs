@@ -12,11 +12,11 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
     [Serializable]
     public enum Direction
     {
-        None  = 0,
+        None = 0,
         North = 1,
         South = 2,
-        East  = 4,
-        West  = 8,
+        East = 4,
+        West = 8,
         NorthWest = North | West,
         NorthEast = North | East,
         SouthWest = South | West,
@@ -37,7 +37,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
     public static class DirectionUtils
     {
-        public static Direction FormName(string name) => Enum.TryParse<Direction>(name, out var value) ? value : Direction.None;
+        public static Direction FormName(string name) => Enum.TryParse<Direction>(name , out var value) ? value : Direction.None;
 
         public static bool TryParse(string s , out Direction result)
         {

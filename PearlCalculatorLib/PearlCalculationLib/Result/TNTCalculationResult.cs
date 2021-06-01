@@ -16,15 +16,12 @@ namespace PearlCalculatorLib.Result
         public int TotalTNT { get; set; }
         public PearlEntity Pearl { get; set; }
 
-        public override string ToString()
-        {
-            return $"Ticks:{Tick}, B:{Blue}, R:{Red}, Total:{TotalTNT}";
-        }
+        public override string ToString() => $"Ticks:{Tick}, B:{Blue}, R:{Red}, Total:{TotalTNT}";
     }
 
     public static class TNTCalculationResultExtension
     {
-        public static void SortByWeightedDistance(this List<TNTCalculationResult> results, TNTResultSortByWeightedArgs args)
+        public static void SortByWeightedDistance(this List<TNTCalculationResult> results , TNTResultSortByWeightedArgs args)
         {
             results.Sort(new TNTCalculationResultSortComparerByWeighted(args).ByDistance);
         }
@@ -44,7 +41,7 @@ namespace PearlCalculatorLib.Result
             results.Sort(TNTCalculationResultSortComparer.ByTotal);
         }
 
-        public static void SortByWeightedTotal(this List<TNTCalculationResult> results, TNTResultSortByWeightedArgs args)
+        public static void SortByWeightedTotal(this List<TNTCalculationResult> results , TNTResultSortByWeightedArgs args)
         {
             results.Sort(new TNTCalculationResultSortComparerByWeighted(args).ByTotal);
         }

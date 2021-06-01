@@ -6,7 +6,7 @@
         public readonly int MaxCalculateTNT;
         public readonly double MaxCalculateDistance;
 
-        public TNTResultSortByWeightedArgs(int tntWeight, int maxCalculateTNT, double maxCalculateDistance)
+        public TNTResultSortByWeightedArgs(int tntWeight , int maxCalculateTNT , double maxCalculateDistance)
         {
             (this.TNTWeight, this.MaxCalculateTNT, this.MaxCalculateDistance) = (tntWeight, maxCalculateTNT, maxCalculateDistance);
         }
