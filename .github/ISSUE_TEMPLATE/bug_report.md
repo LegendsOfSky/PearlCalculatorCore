@@ -23,7 +23,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information if available):**
+**Information (please complete the following information if available)**
  - Platform : [e.g. Windows 10]
  - Version : [e.g. 1.41]
  - Minecraft version : [e.g. 1.15.2]
