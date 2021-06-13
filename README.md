@@ -3,7 +3,7 @@
 Just A Pearl Calculator Core Project Attempt
 
 Bug Report Note :
-1. Any Bug report should be report at GitHub Issue Page. Any report on other platform won't be considered;
+1. Any Bug report should be reported at GitHub Issue Page. Any report on other platform won't be considered;
 2. Reporters should have faced the problem himself otherwise won't be considered.
 
 ## Usages
