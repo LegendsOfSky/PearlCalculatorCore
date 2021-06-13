@@ -23,13 +23,13 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Information (please complete the following information if available)**
+**Desktop (please complete the following information if available):**
  - Platform : [e.g. Windows 10]
  - Version : [e.g. 1.41]
  - Minecraft version : [e.g. 1.15.2]
  - Carpet mod version : [e.g. 1.16.3-1.4.12+v201001]
  - Carpet rule optimizedTNT : [e.g. False]
- - Lithium mod version : [e.g. 1.16.5-0.6.4]
+ - Lithium mod version : [e.g. Not used]
 
 **Additional context**
 Add any other context about the problem here. Attach a .pcld or .json setting file if possible.
