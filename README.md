@@ -110,7 +110,7 @@ You need to supply all values to get a valid result whenever you called the ***[
       - Flight duration in ticks
       - redTNT
       - blueTNT
-      - distance (displacement betwen origin and destination)
+      - distance (displacement between the pearl and destination)
       - totalTNT (blueTNT+redTNT)
 
 ##### Remarks
@@ -125,6 +125,6 @@ Similar to  "General", but your had to manually enter TNT location and informati
 ## Tips
 
 - The calculator take TNT position and pearl Position. and calculates how TNT accelerates the pearl.
-- Use `/log tnt` to obtain the realtime location of TNT entities.
+- Use `/log tnt` to obtain the location of TNT entities.
   - Provided you have fabric carpet mod installed
   - Beware of the spam
