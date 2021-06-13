@@ -20,8 +20,8 @@
     "TNTWeight": "TNT权重",
 
     "PearlSimulate": "珍珠模拟",
-    "ImportSettings": "导入软件设置",
-    "SaveSettings": "保存当前设置",
+    "ImportSettings": "导入设置",
+    "SaveSettings": "保存设置",
 
     "DisplayHeader": "结果输出",
     "ConsoleHeader": "控制台",
