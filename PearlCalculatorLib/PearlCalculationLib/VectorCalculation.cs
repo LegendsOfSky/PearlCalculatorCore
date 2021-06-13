@@ -22,7 +22,7 @@ namespace PearlCalculatorLib.PearlCalculationLib
             Space3D distance = pearlPosition - tntPosition;
             double distanceSqrt = MathHelper.Sqrt(distance.DistanceSq());
             double d12 = distanceSqrt / 8;
-            Space3D vector = new Space3D(distance.X , (pearlPosition.Y + 0.25 * 0.85) - tntPosition.Y , distance.Z);
+            Space3D vector = new Space3D(distance.X , pearlPosition.Y + 0.2125000059604645 - tntPosition.Y , distance.Z);
             double d13 = MathHelper.Sqrt(vector.DistanceSq());
             vector /= d13;
             double d11 = (1 - d12);
