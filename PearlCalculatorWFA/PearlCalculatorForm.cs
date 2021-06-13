@@ -975,6 +975,18 @@ namespace PearlCalculatorWFA
                     Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
                     Log("CMD" , "Msg" , "cmd.manually.calculate.pearl.momemtum");
                     Log("CMD" , "Msg" , "Calculate the momemtum of pearl");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
+                    Log("CMD" , "Msg" , "cmd.math+");
+                    Log("CMD" , "Msg" , "Calculate the sum of two parameters");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
+                    Log("CMD" , "Msg" , "cmd.math-");
+                    Log("CMD" , "Msg" , "Calculate the difference between two parameters");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
+                    Log("CMD" , "Msg" , "cmd.math*");
+                    Log("CMD" , "Msg" , "Multiply the two parameters");
+                    Log("CMD" , "Msg" , "----------------------------" , Color.Gray);
+                    Log("CMD" , "Msg" , "cmd.math/");
+                    Log("CMD" , "Msg" , "Deviding the two parameters");
                     Log("CMD" , "Msg" , "==========================" , Color.Red);
                     break;
                 case "cmd.all.change.maxticks":
@@ -1156,6 +1168,50 @@ namespace PearlCalculatorWFA
                 case "cmd.manually.calculate.pearl.momemtum":
                     Log("CMD" , "Msg" , "Calculating pearl momemtum");
                     ManuallyCalculatePearlMomemtum();
+                    break;
+                case "cmd.math+":
+                    isParameter1Correct = double.TryParse(parameter1 , out double d1);
+                    isParameter2Correct = double.TryParse(parameter2 , out double d2);
+                    if(isParameter1Correct && isParameter2Correct)
+                    {
+                        string result = (d1 + d2).ToString();
+                        Log("Main" , "Msg" , $"Result : " + result);
+                    }
+                    else
+                        DoubleParameterUncorrectLog(isParameter1Correct , isParameter2Correct);
+                    break;
+                case "cmd.math-":
+                    isParameter1Correct = double.TryParse(parameter1 , out double d3);
+                    isParameter2Correct = double.TryParse(parameter2 , out double d4);
+                    if(isParameter1Correct && isParameter2Correct)
+                    {
+                        string result = (d3 - d4).ToString();
+                        Log("Main" , "Msg" , $"Result : " + result);
+                    }
+                    else
+                        DoubleParameterUncorrectLog(isParameter1Correct , isParameter2Correct);
+                    break;
+                case "cmd.math*":
+                    isParameter1Correct = double.TryParse(parameter1 , out double d5);
+                    isParameter2Correct = double.TryParse(parameter2 , out double d6);
+                    if(isParameter1Correct && isParameter2Correct)
+                    {
+                        string result = (d5 * d6).ToString();
+                        Log("Main" , "Msg" , $"Result : " + result);
+                    }
+                    else
+                        DoubleParameterUncorrectLog(isParameter1Correct , isParameter2Correct);
+                    break;
+                case "cmd.math/":
+                    isParameter1Correct = double.TryParse(parameter1 , out double d7);
+                    isParameter2Correct = double.TryParse(parameter2 , out double d8);
+                    if(isParameter1Correct && isParameter2Correct)
+                    {
+                        string result = (d7 / d8).ToString();
+                        Log("Main" , "Msg" , $"Result : " + result);
+                    }
+                    else
+                        DoubleParameterUncorrectLog(isParameter1Correct , isParameter2Correct);
                     break;
                 default:
                     Log("CMD" , "Warn" , "==========================" , Color.Red);
