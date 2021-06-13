@@ -2,6 +2,8 @@
 
 Just A Pearl Calculator Core Project Attempt
 
+Note : Any BUG report should be report at GitHub Issue Page. Any report on other platform won't be considered.
+
 ## Usages
 
 This application supports multiple platforms (Windows, macOS, Linux). Please view the appropriate instructions for your platform.
