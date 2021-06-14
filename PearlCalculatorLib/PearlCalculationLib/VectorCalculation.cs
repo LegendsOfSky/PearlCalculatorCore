@@ -18,14 +18,14 @@ namespace PearlCalculatorLib.PearlCalculationLib
         /// <returns>Return the accelerating vector of the TNT</returns>
         public static Space3D CalculateMotion(Space3D pearlPosition , Space3D tntPosition)
         {
-            tntPosition.Y += 0.0612500011921;
+            tntPosition.Y += 0.98F * 0.0625D;
             Space3D distance = pearlPosition - tntPosition;
             double distanceSqrt = MathHelper.Sqrt(distance.DistanceSq());
             double d12 = distanceSqrt / 8;
-            Space3D vector = new Space3D(distance.X , pearlPosition.Y + 0.2125000059604645 - tntPosition.Y , distance.Z);
+            Space3D vector = new Space3D(distance.X , pearlPosition.Y + (0.85F * 0.25F) - tntPosition.Y , distance.Z);
             double d13 = MathHelper.Sqrt(vector.DistanceSq());
             vector /= d13;
-            double d11 = (1 - d12);
+            double d11 = (1.0D - d12);
             return new Space3D(vector * d11);
         }
     }

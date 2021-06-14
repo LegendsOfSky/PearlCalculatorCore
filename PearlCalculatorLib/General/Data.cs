@@ -54,7 +54,7 @@ namespace PearlCalculatorLib.General
         /// <para>Note : X and Z should be the gobal coordinate of the lava pool center</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929408 , 0).WithVector(0 , 0.2716278719434352 , 0);
+        public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929412 , 0).WithVector(0 , 0.2716278719434352 , 0);
 
 
 
