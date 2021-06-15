@@ -7,7 +7,7 @@ namespace PearlCalculatorCP.Commands
     {
         public static event Action? OnExcute;
 
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             OnExcute?.Invoke();
         }

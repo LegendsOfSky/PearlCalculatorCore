@@ -85,13 +85,6 @@ namespace PearlCalculatorCP.Views
 
         private Button _moreInfoBtn;
 
-        //In TextBox, when set Text property, it set a field "_ignoreTextChanged"'s value to true
-        //can't change the property when the field's value is true
-        //so, I use reflection set the field to false
-        //and then i can reset the property value
-        private static readonly FieldInfo IgnoreTextChangesFieldInfo = typeof(TextBox).GetField("_ignoreTextChanges",
-            BindingFlags.GetField | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
-
         private List<string> _commandHistory = new List<string>(100);
         private int _historyIndex = -1;
         
@@ -171,7 +164,7 @@ namespace PearlCalculatorCP.Views
             }
             catch (Exception)
             {
-                _vm.ConsoleOutputs.Add(DefineCmdOutput.ErrorTemplate("settings json file format error"));
+                LogUtils.Error("settings json file format error");
             }
         }
 #endif
@@ -230,50 +223,6 @@ namespace PearlCalculatorCP.Views
 
         #endregion
         
-        private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
-        {
-            bool isSetCaretIndex = false;
-            
-            if (e.Key == Key.Enter)
-            {
-                _commandHistory.Add(_vm.CommandText);
-                _historyIndex = -1;
-                _vm.SendCmd();
-                
-                (_consoleOutputListBox.Scroll as ScrollViewer).ScrollToEnd();
-            }
-            else if (e.Key == Key.Up)
-            {
-                if (_historyIndex == -1)
-                    _historyIndex = _commandHistory.Count - 1;
-                else if (_historyIndex >= 0)
-                {
-                    if (--_historyIndex == -1)
-                        _historyIndex = -2;
-                }
-                
-                isSetCaretIndex = true;
-            }
-            else if (e.Key == Key.Down)
-            {
-                if (_historyIndex == -2)
-                    _historyIndex = 0;
-                else if (_historyIndex < _commandHistory.Count)
-                    _historyIndex++;
-                
-                isSetCaretIndex = true;
-            }
-
-            if (isSetCaretIndex)
-            {
-                _vm.CommandText = _historyIndex >= 0 && _historyIndex < _commandHistory.Count
-                    ? _commandHistory[_historyIndex]
-                    : string.Empty;
-
-                _consoleInputBox.CaretIndex = _vm.CommandText.Length;
-            }
-        }
-
         private void ManuallyCalculateTNTAmount(object sender, RoutedEventArgs e) => _vm.ManuallyCalculateTNTAmount();
 
         private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlTrace();

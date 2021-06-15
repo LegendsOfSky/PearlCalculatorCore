@@ -399,24 +399,6 @@ namespace PearlCalculatorCP.ViewModels
         }
 
         #endregion
-        
-        #region Console
-        
-        private string _commandText = string.Empty;
-        public string CommandText
-        {
-            get => _commandText;
-            set => this.RaiseAndSetIfChanged(ref _commandText, value);
-        }
-
-        private ObservableCollection<ConsoleOutputItemModel>? _consoleOutputs;
-        public ObservableCollection<ConsoleOutputItemModel>? ConsoleOutputs
-        {
-            get => _consoleOutputs;
-            set => this.RaiseAndSetIfChanged(ref _consoleOutputs, value);
-        }
-
-        #endregion
 
         private IBrush _moreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
         public IBrush MoreInfoBrush
@@ -432,11 +414,6 @@ namespace PearlCalculatorCP.ViewModels
 
         public MainWindowViewModel()
         {
-            ConsoleOutputs ??= new ObservableCollection<ConsoleOutputItemModel>();
-            
-            CommandManager.Instance.OnMessageSend += AddConsoleMessage;
-            Clear.OnExcute += ClearConsole;
-            
             InitData();
         }
 
@@ -501,25 +478,6 @@ namespace PearlCalculatorCP.ViewModels
 
             _isEnableIfChanged = true;
         }
-        
-        ~MainWindowViewModel()
-        {
-            CommandManager.Instance.OnMessageSend -= AddConsoleMessage;
-            Clear.OnExcute -= ClearConsole;
-        }
-
-#nullable disable
-        private void AddConsoleMessage(ConsoleOutputItemModel message)
-        {
-            if(ConsoleOutputs.Count >= 500)
-                for (int i = 0; i < 50; i++)
-                    ConsoleOutputs.RemoveAt(0);
-            
-            ConsoleOutputs.Add(message);
-        }
-
-        private void ClearConsole() => ConsoleOutputs?.Clear();
-#nullable enable
 
         public void LoadDataFormSettings(Settings settings)
         {
@@ -677,17 +635,6 @@ namespace PearlCalculatorCP.ViewModels
         }
         
         #endregion
-        
-        public void SendCmd()
-        {
-            if(string.IsNullOrEmpty(CommandText) || string.IsNullOrWhiteSpace(CommandText) || CommandText[0] != '/')
-                return;
-
-            var cmd = CommandText[1..];
-            CommandText = string.Empty;
-            
-            CommandManager.Instance.ExcuteCommand(cmd);
-        }
 
         public void ChangeLanguageOptional(string lang)
         {

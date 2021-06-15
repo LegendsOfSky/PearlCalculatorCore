@@ -7,6 +7,6 @@ namespace PearlCalculatorCP.Commands
     {
         public virtual void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender){}
         
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender);
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender);
     }
 }

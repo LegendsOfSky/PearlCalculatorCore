@@ -138,7 +138,7 @@ namespace PearlCalculatorCP
             bool isFindCmd = CommandList.TryGetValue(cmdName, out var registration);
 
             if (isFindCmd)
-                registration.Handler.Excute(paras, cmdName, _messageSender);
+                registration.Handler.Execute(paras, cmdName, _messageSender);
             else
                 LogSyntaxError(cmdName);
         }

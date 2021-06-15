@@ -16,7 +16,7 @@ namespace PearlCalculatorCP
 
         public override void Initialize()
         {
-            LoadLanuageSetting();
+            LoadLanguageSetting();
             CommandReg.Register();
 
             AvaloniaXamlLoader.Load(this);
@@ -44,7 +44,7 @@ namespace PearlCalculatorCP
             base.RegisterServices();
         }
 
-        private void LoadLanuageSetting()
+        private void LoadLanguageSetting()
         {
             var lang = AppSettings.Instance.Lanuage;
             if (lang != string.Empty &&
@@ -98,6 +98,6 @@ namespace PearlCalculatorCP
             fs.Write(json);
         }
 
-        public void MarkProeprtyChanged() => _hasChanged = true;
+        public void MarkPropertyChanged() => _hasChanged = true;
     }
 }

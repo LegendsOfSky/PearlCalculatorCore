@@ -8,6 +8,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+        xmlns:vc="clr-namespace:PearlCalculatorCP.Views.Components"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
         CanResize="False"
         x:Class="PearlCalculatorCP.Views.MainWindow"
@@ -22,6 +23,8 @@
 
     <!--Styles define-->
     <Window.Styles>
+        
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
 
         <!--i can't set NumericUpDown > Border for disabled-->
         <!--so i set Border for global-->
@@ -58,12 +61,6 @@
             <Setter Property="Background" Value="#F0F0F0" />
             <Setter Property="Width" Value="2" />
             <Setter Property="MinWidth" Value="1" />
-        </Style>
-
-        <Style Selector="Border.GlobalGeneralBorder">
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="CornerRadius" Value="5" />
-            <Setter Property="BorderBrush" Value="#F0F0F0" />
         </Style>
 
         <Style Selector="ListBox">
@@ -212,7 +209,7 @@
                                         </StackPanel>
 
                                         <Border Margin="10,5,0,0">
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal" Spacing="58">
                                                 <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
                                                 <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
                                                 <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
@@ -675,41 +672,7 @@
 
                 <!--Console-->
                 <TabItem Header="{i18n:Translate ConsoleHeader, Fallback='Console'}">
-
-                    <Grid RowDefinitions="5, *, 0.05*, 5">
-
-                        <Border Grid.Row="1" Classes="GlobalGeneralBorder" Margin="0,0,0,5">
-
-                            <Grid RowDefinitions="Auto, *">
-                                <!--Header-->
-                                <Grid Grid.Row="0" ColumnDefinitions="0.2*, 2, *">
-                                    <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="Type" Name="ConsoleType" />
-                                    <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="Message" Name="ConsoleMessage" />
-
-                                    <Grid Grid.Column="1" Background="#F0F0F0" />
-                                </Grid>
-
-                                <!--Content-->
-                                <ListBox Grid.Row="1" Items="{Binding ConsoleOutputs}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Name="ConsoleOutputListBox">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid ColumnDefinitions="0.2*, 2, *">
-                                                <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Foreground="Gray" Text="{Binding Type}" Width="{Binding #ConsoleType.Bounds.Width}" />
-                                                <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Foreground="{Binding TextColor}" Text="{Binding Message}" Width="{Binding #ConsoleMessage.Bounds.Width}" />
-                                                <Grid Grid.Column="1" Background="#F0F0F0" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-
-                            </Grid>
-                        </Border>
-
-                        <TextBox Grid.Row="2" Text="{Binding CommandText}" KeyUp="OnCmdInput_KeyUp" Name="ConsoleInputBox" />
-
-                    </Grid>
-
-
+                    <vc:ConsolePanel />
                 </TabItem>
 
             </TabControl>

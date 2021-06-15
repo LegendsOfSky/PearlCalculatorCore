@@ -18,7 +18,7 @@ namespace PearlCalculatorCP.Commands
                 messageSender(new ConsoleOutputItemModel("Msg/i18n", $"i18n file \"{Translator.Instance.CurrentActivedI18nFile}\" loaded"));
         }
         
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             var len = parameters?.Length ?? 0;
 #nullable disable

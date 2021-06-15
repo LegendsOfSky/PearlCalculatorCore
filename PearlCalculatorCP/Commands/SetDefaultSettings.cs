@@ -5,7 +5,7 @@ namespace PearlCalculatorCP.Commands
 {
     public class SetDefaultSettings : ICommand
     {
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             if (parameters is null || parameters.Length != 1)
             {
@@ -14,7 +14,7 @@ namespace PearlCalculatorCP.Commands
             }
 
             AppSettings.Instance.DefaultLoadSettingsFile = parameters[0];
-            AppSettings.Instance.MarkProeprtyChanged();
+            AppSettings.Instance.MarkPropertyChanged();
             messageSender(DefineCmdOutput.MsgTemplate("will auto import settings file at app launch"));
         }
     }

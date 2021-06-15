@@ -7,7 +7,7 @@ namespace PearlCalculatorCP.Commands
 {
     public class SetDefaultLanguage : ICommand
     {
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             string lang = string.Empty;
             if (!(parameters is null))
@@ -41,7 +41,7 @@ namespace PearlCalculatorCP.Commands
             else
             {
                 AppSettings.Instance.Lanuage = lang;
-                AppSettings.Instance.MarkProeprtyChanged();
+                AppSettings.Instance.MarkPropertyChanged();
                 messageSender(DefineCmdOutput.MsgTemplate("default language option changed"));
                 if (lang != Translator.Instance.CurrentLanguage)
                 {

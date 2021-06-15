@@ -6,7 +6,7 @@ namespace PearlCalculatorCP.Commands
 {
     public class ShowGeneralData : ICommand
     {
-        public void Excute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
+        public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             messageSender(DefineCmdOutput.MsgTemplate("Show General Data:"));
             
