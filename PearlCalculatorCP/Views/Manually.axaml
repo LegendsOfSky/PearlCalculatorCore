@@ -9,6 +9,9 @@
              x:Class="PearlCalculatorCP.Views.Manually">
         
     <UserControl.Styles>
+        
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+        
         <Style Selector="Button">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -33,7 +36,7 @@
     </UserControl.DataContext>
     
     <Grid RowDefinitions="5, *, 5">
-        <Border Grid.Row="1" BorderThickness="2" BorderBrush="#F0F0F0" CornerRadius="5" Padding="12,6,12,0">
+        <Border Grid.Row="1" Classes="GlobalGeneralBorder" Padding="12,6,12,0">
             <DockPanel>
                                      
                 <StackPanel DockPanel.Dock="Top">

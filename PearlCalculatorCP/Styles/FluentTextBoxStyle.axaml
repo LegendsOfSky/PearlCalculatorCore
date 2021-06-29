@@ -1,0 +1,24 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+            <TextBox />
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="TextBox">
+        <Setter Property="BorderBrush" Value="#E5E5E5" />
+        <Setter Property="Background" Value="#FBFBFB"/>
+    </Style>
+    
+    <Style Selector="TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="CornerRadius" Value="{DynamicResource FluentElementCornerRadius}" />
+    </Style>
+    
+    <Style Selector="TextBox[IsFocused=False]:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="#F6F6F6" />
+        <Setter Property="BorderBrush" Value="#0373EC" />
+    </Style>
+</Styles>

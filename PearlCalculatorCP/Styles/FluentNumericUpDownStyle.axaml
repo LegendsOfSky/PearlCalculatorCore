@@ -1,0 +1,37 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+            <StackPanel>
+                <NumericUpDown />
+                <NumericUpDown IsEnabled="False" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="NumericUpDown">
+        <Setter Property="ShowButtonSpinner" Value="False" />
+        <Setter Property="Increment" Value="0" />
+        <Setter Property="BorderBrush" Value="#E5E5E5" />
+        <Setter Property="Background" Value="#FBFBFB" />
+    </Style>
+
+    <Style Selector="NumericUpDown:focus /template/ TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="White" />
+    </Style>
+
+    <Style Selector="NumericUpDown[IsFocused=False]:pointerover">
+        <Setter Property="Background" Value="#F6F6F6" />
+    </Style>
+
+    <Style Selector="NumericUpDown[IsFocused=False]:pointerover /template/ TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="#0373EC" />
+    </Style>
+
+    <Style Selector="NumericUpDown:disable /template/ TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+</Styles>

@@ -1,6 +1,5 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:PearlCalculatorCP"
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
         xmlns:views="using:PearlCalculatorCP.Views"
         xmlns:converters="using:PearlCalculatorCP.Converters"
@@ -24,36 +23,31 @@
     <!--Styles define-->
     <Window.Styles>
         
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
-
-        <!--i can't set NumericUpDown > Border for disabled-->
-        <!--so i set Border for global-->
-        <Style Selector="Border#PART_BorderElement:disabled">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-        </Style>
 
         <Style Selector="TabItem">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Height" Value="20" />
             <Setter Property="Margin" Value="0" />
         </Style>
-
+        
+        
         <Style Selector="Button.GeneralButtonStyle">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Margin" Value="5, 2" />
         </Style>
+        
+        <Style Selector="Button.GeneralButtonStyle /template/ContentPresenter">
+            <Setter Property="CornerRadius" Value="4" />
+        </Style>
 
         <Style Selector="TextBlock.InputBoxTB">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="2,2,2,4" />
-        </Style>
-
-        <Style Selector="NumericUpDown">
-            <Setter Property="ShowButtonSpinner" Value="False" />
-            <Setter Property="Increment" Value="0" />
         </Style>
 
         <Style Selector="GridSplitter">
@@ -91,6 +85,7 @@
 
         <Style Selector="Button.TNTAmountResultHeader:pointerover /template/ ContentPresenter">
             <Setter Property="Background" Value="#9999CCFF" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
 
         <Style Selector="Button.TNTAmountResultHeader:pressed">
@@ -124,6 +119,10 @@
 
         <Style Selector="NumericUpDown.SettingInput:disabled /template/TextBox#PART_TextBox">
             <Setter Property="Foreground" Value="#727272" />
+        </Style>
+        
+        <Style Selector="NumericUpDown.SettingInput:disabled /template/TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#99CCCCCC" />
         </Style>
 
         <Style Selector="CheckBox">
@@ -164,7 +163,7 @@
     </Design.DataContext>
 
 
-    <Grid ColumnDefinitions="2*, 4, 2*">
+    <Grid ColumnDefinitions="2*, 2, 2*">
 
         <Grid Column="0" ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
             <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -490,7 +489,7 @@
             </TabControl>
             
             <!--More info btn-->
-            <Button Grid.Row="0" Grid.Column="1" Name="MoreInfoBtn" Margin="12, 12"
+            <Button Grid.Row="0" Grid.Column="1" Name="MoreInfoBtn" Margin="12, 12" BorderThickness="0"
                     PointerEnter="MoreInfoBtn_OnPointerEnter" PointerLeave="MoreInfoBtn_OnPointerLeave"
                     Click="MoreInfoBtn_OnClick">
 
@@ -498,11 +497,14 @@
                     <Style Selector="Button">
                         <Setter Property="Background" Value="Transparent" />
                     </Style>
+                    
                     <Style Selector="Button:pointerover /template/ContentPresenter">
                         <Setter Property="Background" Value="#66E0E0E0" />
+                        <Setter Property="BorderThickness" Value="0" />
                     </Style>
                     <Style Selector="Button:pressed /template/ContentPresenter">
                         <Setter Property="Background" Value="#BBE0E0E0" />
+                        <Setter Property="BorderThickness" Value="0" />
                     </Style>
                 </Button.Styles>
 
