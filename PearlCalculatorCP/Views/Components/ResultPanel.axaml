@@ -2,7 +2,339 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+             xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+             xmlns:converters="clr-namespace:PearlCalculatorCP.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
              x:Class="PearlCalculatorCP.Views.Components.ResultPanel">
-    Welcome to Avalonia!
+
+    <UserControl.DataContext>
+        <vm:ResultPanelViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <converters:IsEquals x:Key="EqualsConverter" />
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+
+        <Style Selector="Button.ResultHeader">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.ResultHeader /template/ ContentPresenter">
+            <Setter Property="CornerRadius" Value="0" />
+        </Style>
+
+        <Style Selector="Button.ResultHeader:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#9999CCFF" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style Selector="Button.ResultHeader:pressed">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
+        </Style>
+
+        <Style Selector="Button.ResultHeader:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#EE99CCFF" />
+        </Style>
+
+        <Style Selector="Button.ResultHeader:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="TextBlock.Foreground" Value="Black" />
+        </Style>
+        
+        <Style Selector="TextBlock.ResultHeader">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        
+        <Style Selector="TextBlock.ResultListTBPadding">
+            <Setter Property="Padding" Value="5, 2" />
+        </Style>
+    </UserControl.Styles>
+
+
+    <!--Result List-->
+    <Border Classes="GlobalGeneralBorder">
+        <Grid RowDefinitions="*, 60">
+            <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#ECECEC">
+                <Panel>
+                    <Panel.Styles>
+                        <Style Selector="GridSplitter">
+                            <Setter Property="Background" Value="#F0F0F0" />
+                        </Style>
+                    </Panel.Styles>
+                    
+                    <!--Calculate TNT Amount Mode-->
+                    <Grid RowDefinitions="Auto, *" 
+                          IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.Amount}}">
+
+                        <Grid.Resources>
+                            <sys:Double x:Key="GridHeaderItemMinWidth">30</sys:Double>
+                        </Grid.Resources>
+                        <!--Header-->
+                        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Content="{i18n:Translate DisplayDistance, Fallback='Distance'}" Name="AmountModeDistance" Classes="ResultHeader" Command="{Binding SortAmountResultByDistance}">
+                                    <Button.Styles>
+                                        <Style Selector="Button.ResultHeader /template/ ContentPresenter">
+                                            <Setter Property="CornerRadius" Value="4,0,0,0" />
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                                <Button Grid.Column="2" Content="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="AmountModeTicks" Classes="ResultHeader" Command="{Binding SortAmountResultByTick}" />
+                                <Button Grid.Column="4" Content="{i18n:Translate DisplayBlue, Fallback='Blue'}" Name="AmountModeBlue" Classes="ResultHeader" IsEnabled="False" />
+                                <Button Grid.Column="6" Content="{i18n:Translate DisplayRed, Fallback='Red'}" Name="AmountModeRed" Classes="ResultHeader" IsEnabled="False" />
+                                <Button Grid.Column="8" Content="{i18n:Translate DisplayTotal, Fallback='Total'}" Name="AmountModeTotal" Classes="ResultHeader" Command="{Binding SortAmountResultByTotal}">
+                                    <Button.Styles>
+                                        <Style Selector="Button.ResultHeader /template/ ContentPresenter">
+                                            <Setter Property="CornerRadius" Value="0,4,0,0" />
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+
+                                <GridSplitter Grid.Column="1" />
+                                <GridSplitter Grid.Column="3" />
+                                <GridSplitter Grid.Column="5" />
+                                <GridSplitter Grid.Column="7" />
+                            </Grid>
+                        </Border>
+
+                        <!--Content-->
+                        <ListBox Grid.Row="1" 
+                                 Items="{Binding AmountResult}" 
+                                 SelectedIndex="{Binding AmountResultSelectedIndex}" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="2*, 1, *, 1, *, 1, *, 1, *">
+
+                                        <Grid.Styles>
+                                            <Style Selector="GridSplitter">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </Style>
+                                        </Grid.Styles>
+
+                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Width="{Binding #AmountModeDistance.Bounds.Width}" Text="{Binding Distance}" />
+                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Width="{Binding #AmountModeTicks.Bounds.Width}" Text="{Binding Tick }" />
+                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Width="{Binding #AmountModeBlue.Bounds.Width}" Text="{Binding Blue}" />
+                                        <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Width="{Binding #AmountModeRed.Bounds.Width}" Text="{Binding Red}" />
+                                        <TextBlock Grid.Column="8" Classes="ResultListTBPadding" Width="{Binding #AmountModeTotal.Bounds.Width}" Text="{Binding TotalTNT}" />
+
+                                        <GridSplitter Grid.Column="1" />
+                                        <GridSplitter Grid.Column="3" />
+                                        <GridSplitter Grid.Column="5" />
+                                        <GridSplitter Grid.Column="7" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </Grid>
+                    
+                    <!--Pearl Trace Mode-->
+                    <Grid RowDefinitions="Auto, *" 
+                          IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.Trace}}">
+                        
+                        <Grid.Resources>
+                            <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
+                        </Grid.Resources>
+
+                        <!--Header-->
+                        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Border Grid.Column="0" Name="PearlTraceTicks">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate DisplayTicks, Fallback='Ticks'}" />
+                                </Border>
+                                <Border Grid.Column="2" Name="PearlTraceXCoor">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate XCoor, Fallback='X Coordinate'}" />
+                                </Border>
+                                <Border Grid.Column="4" Name="PearlTraceYCoor">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate YCoor, Fallback='Y Coordinate'}" />
+                                </Border>
+                                <Border Grid.Column="6" Name="PearlTraceZCoor">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate ZCoor, Fallback='Z Coordinate'}" />
+                                </Border>
+
+                                <GridSplitter Grid.Column="1" />
+                                <GridSplitter Grid.Column="3" />
+                                <GridSplitter Grid.Column="5" />
+                            </Grid>
+                        </Border>
+                        
+                        <!--Content-->
+                        <ListBox Grid.Row="1" 
+                                 Items="{Binding PearlTraceList}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,1,*,1,*,1,*">
+                                        
+                                        <Grid.Styles>
+                                            <Style Selector="GridSplitter">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </Style>
+                                        </Grid.Styles>
+                                        
+                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Width="{Binding #PearlTraceTicks.Bounds.Width}" Text="{Binding Tick}" />
+                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Width="{Binding #PearlTraceXCoor.Bounds.Width}" Text="{Binding XCoor}" />
+                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Width="{Binding #PearlTraceYCoor.Bounds.Width}" Text="{Binding YCoor}" />
+                                        <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Width="{Binding #PearlTraceZCoor.Bounds.Width}" Text="{Binding ZCoor}" />
+
+                                        <GridSplitter Grid.Column="1" />
+                                        <GridSplitter Grid.Column="3" />
+                                        <GridSplitter Grid.Column="5" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                    </Grid>
+                    
+                    <!--Pearl Motion Mode-->
+                    <Grid RowDefinitions="Auto, *" 
+                          IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.Motion}}">
+                        
+                        <Grid.Resources>
+                            <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
+                        </Grid.Resources>
+
+                        <!--Header-->
+                        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Border Grid.Column="0" Name="PearlMotionTicks">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate DisplayTicks, Fallback='Ticks'}" />
+                                </Border>
+                                <Border Grid.Column="2" Name="PearlMotionX">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate DisplayXMotion, Fallback='X Motion'}" />
+                                </Border>
+                                <Border Grid.Column="4" Name="PearlMotionY">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate DisplayYMotion, Fallback='Y Motion'}" />
+                                </Border>
+                                <Border Grid.Column="6" Name="PearlMotionZ">
+                                    <TextBlock Classes="ResultHeader" Text="{i18n:Translate DisplayZMotion, Fallback='Z Motion'}" />
+                                </Border>
+
+                                <GridSplitter Grid.Column="1" />
+                                <GridSplitter Grid.Column="3" />
+                                <GridSplitter Grid.Column="5" />
+                            </Grid>
+                        </Border>
+                        
+                        <!--Content-->
+                        <ListBox Grid.Row="1" 
+                                 Items="{Binding PearlMotionList}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,1,*,1,*,1,*">
+                                        
+                                        <Grid.Styles>
+                                            <Style Selector="GridSplitter">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </Style>
+                                        </Grid.Styles>
+                                        
+                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Width="{Binding #PearlMotionTicks.Bounds.Width}" Text="{Binding Tick}" />
+                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Width="{Binding #PearlMotionX.Bounds.Width}" Text="{Binding XCoor}" />
+                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Width="{Binding #PearlMotionY.Bounds.Width}" Text="{Binding YCoor}" />
+                                        <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Width="{Binding #PearlMotionZ.Bounds.Width}" Text="{Binding ZCoor}" />
+
+                                        <GridSplitter Grid.Column="1" />
+                                        <GridSplitter Grid.Column="3" />
+                                        <GridSplitter Grid.Column="5" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                    </Grid>
+                </Panel>
+
+            </Border>
+
+            <Border Grid.Row="1" CornerRadius="0,0,4,4" Background="#F3F3F3">
+                <Panel>
+                    <Grid RowDefinitions="*, *">
+                        <DockPanel Grid.Row="0" Margin="30, 0" Dock="Top">
+                            <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayDirection, Fallback='Direction'}" VerticalAlignment="Center" />
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding ResultDirection}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </DockPanel>
+                        <DockPanel Grid.Row="1" Margin="30, 0" Dock="Bottom">
+                            <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayAngle, Fallback='Angle'}" VerticalAlignment="Center" />
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding ResultAngle}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </DockPanel>
+                    </Grid>
+                </Panel>
+            </Border>
+        </Grid>
+
+    </Border>
+
+    <!--Result direction-->
+    <!-- <Border Grid.Row="2" Classes="GlobalGeneralBorder" Margin="0, 5, 0, 0"> -->
+    <!--     <Grid ColumnDefinitions="*, 4*"> -->
+    <!-- -->
+    <!--         <Border Grid.Column="0" BorderBrush="#F0F0F0" BorderThickness="0,0,2,0"> -->
+    <!--             <Grid RowDefinitions="*, *" Margin="5, 0"> -->
+    <!--                 <TextBlock Grid.Row="0" Text="{i18n:Translate DisplayDirection, Fallback='Direction'}" VerticalAlignment="Center" /> -->
+    <!--                 <TextBlock Grid.Row="1" Text="{Binding ResultDirection}" VerticalAlignment="Center" /> -->
+    <!--             </Grid> -->
+    <!--         </Border> -->
+    <!-- -->
+    <!--         <Grid Grid.Column="1" RowDefinitions="*, *" Margin="5, 0"> -->
+    <!--             <TextBlock Grid.Row="0" Text="{i18n:Translate DisplayAngle, Fallback='Angle'}" VerticalAlignment="Center" /> -->
+    <!--             <TextBlock Grid.Row="1" Text="{Binding ResultAngle}" VerticalAlignment="Center" /> -->
+    <!--         </Grid> -->
+    <!-- -->
+    <!--     </Grid> -->
+    <!-- </Border> -->
+
 </UserControl>

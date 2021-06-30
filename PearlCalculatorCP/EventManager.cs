@@ -32,7 +32,7 @@ namespace PearlCalculatorCP
             _eventCon = new Dictionary<string, Dictionary<Type, IEventHandlerWrapper>>();
         }
 
-        public void AddListener<T>(string eventKey, PCEventHandler<T> eventHandler) where T : PCEventArgs
+        public static void AddListener<T>(string eventKey, PCEventHandler<T> eventHandler) where T : PCEventArgs
         {
             if (string.IsNullOrEmpty(eventKey) || string.IsNullOrWhiteSpace(eventKey))
                 throw new ArgumentNullException(nameof(eventKey));
@@ -40,10 +40,10 @@ namespace PearlCalculatorCP
             if (eventHandler is null)
                 throw new ArgumentNullException(nameof(eventHandler));
 
-            if (!_eventCon.TryGetValue(eventKey, out var handlerDict))
+            if (!Instance._eventCon.TryGetValue(eventKey, out var handlerDict))
             {
                 handlerDict = new Dictionary<Type, IEventHandlerWrapper>();
-                _eventCon.Add(eventKey, handlerDict);
+                Instance._eventCon.Add(eventKey, handlerDict);
             }
 
             EventHandlerWrapper<T> wrapper;
@@ -55,7 +55,7 @@ namespace PearlCalculatorCP
             wrapper.Handler += eventHandler;
         }
 
-        public void RemoveListener<T>(string eventKey, PCEventHandler<T> eventHandler) where T : PCEventArgs
+        public static void RemoveListener<T>(string eventKey, PCEventHandler<T> eventHandler) where T : PCEventArgs
         {
             if (string.IsNullOrEmpty(eventKey) || string.IsNullOrWhiteSpace(eventKey))
                 throw new ArgumentNullException(nameof(eventKey));
@@ -63,7 +63,7 @@ namespace PearlCalculatorCP
             if (eventHandler is null)
                 throw new ArgumentNullException(nameof(eventHandler));
 
-            if (!_eventCon.TryGetValue(eventKey, out var handlerDict)) return;
+            if (!Instance._eventCon.TryGetValue(eventKey, out var handlerDict)) return;
 
             if (handlerDict.TryGetValue(typeof(T), out var w))
             {
@@ -72,7 +72,7 @@ namespace PearlCalculatorCP
             }
         }
 
-        public void PublishEvent<T>(object sender, string eventKey, T args) where T : PCEventArgs
+        public static void PublishEvent<T>(object sender, string eventKey, T args) where T : PCEventArgs
         {
             if (string.IsNullOrEmpty(eventKey) || string.IsNullOrWhiteSpace(eventKey))
                 throw new ArgumentNullException(nameof(eventKey));
@@ -80,7 +80,7 @@ namespace PearlCalculatorCP
             if (args is null)
                 throw new ArgumentNullException(nameof(args));
 
-            if (_eventCon.TryGetValue(eventKey, out var dict) &&
+            if (Instance._eventCon.TryGetValue(eventKey, out var dict) &&
                 dict.TryGetValue(typeof(T), out var wrapper))
             {
                 wrapper?.Invoke(sender, args);

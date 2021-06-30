@@ -11,8 +11,8 @@
     
     <Style Selector="Border.GlobalGeneralBorder">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="3" />
-        <Setter Property="BorderBrush" Value="#F0F0F0" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CPBorderBrush}" />
     </Style>
     
 </Styles>

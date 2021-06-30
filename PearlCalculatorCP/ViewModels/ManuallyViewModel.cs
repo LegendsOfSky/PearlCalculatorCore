@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using PearlCalculatorCP.Models;
 using ReactiveUI;
 using PearlCalculatorLib.Manually;
+using PearlCalculatorLib.Result;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -196,6 +200,47 @@ namespace PearlCalculatorCP.ViewModels
                 if (Data.Destination.Z != _destinationZ)
                     Data.Destination.Z = _destinationZ;
             }
+        }
+
+        public void CalculateAmount()
+        {
+            if (Calculation.CalculateTNTAmount(Data.Destination, MainWindowViewModel.MaxTicks, out var result))
+            {
+                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", result));
+                var angle = Data.Pearl.Position.WorldAngle(Data.Destination.ToSpace3D());
+                var direction = Data.Pearl.Position.Direction(angle).ToString();
+                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", direction, angle.ToString()));
+            }
+        }
+
+        public void CalculateTrace()
+        {
+            var entities = Calculation.CalculatePearl(ATNTAmount, BTNTAmount, MainWindowViewModel.MaxTicks);
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel 
+            {
+                Tick = i, 
+                XCoor = t.Position.X, 
+                YCoor = t.Position.Y, 
+                ZCoor = t.Position.Z
+            }));
+            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("Manually", traces));
+            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
+        }
+
+        public void CalculateMomentum()
+        {
+            var entities = Calculation.CalculatePearl(ATNTAmount, BTNTAmount, MainWindowViewModel.MaxTicks);
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel
+            {
+                Tick = i, 
+                XCoor = t.Motion.X, 
+                YCoor = t.Motion.Y, 
+                ZCoor = t.Motion.Z
+            }));
+            EventManager.PublishEvent(this, "pearlMotion", new PearlSimulateArgs("Manually", traces));
+            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
         }
     }
 }

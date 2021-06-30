@@ -127,11 +127,11 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
-                if (IsDisplayTNTAmount)
-                {
-                    SortTNTResult();
-                    ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
-                }
+                // if (IsDisplayTNTAmount)
+                // {
+                //     SortTNTResult();
+                //     ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
+                // }
             }
         }
 
@@ -145,78 +145,6 @@ namespace PearlCalculatorCP.ViewModels
         #endregion
 
         #region GeneralFTL Result Data
-
-        #region Calculation TNT Amount
-
-        private ObservableCollection<TNTCalculationResult>? _tntResult;
-        public ObservableCollection<TNTCalculationResult>? TNTResult
-        {
-            get => _tntResult;
-            set
-            {
-                _tntResult = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private int _tntResultSelectedIndex = -1;
-        public int TNTResultSelectedIndex
-        {
-            get => _tntResultSelectedIndex;
-#nullable disable
-            set
-            {
-                if (value >= 0 && value < TNTResult.Count)
-                {
-                    this.RaiseAndSetIfChanged(ref _tntResultSelectedIndex, value);
-                    Direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
-                    BlueTNT = (uint)_tntResult[value].Blue;
-                    RedTNT = (uint) _tntResult[value].Red;
-                }
-            }
-#nullable enable
-        }
-        
-        #endregion
-
-        #region Pearl trace
-
-        private List<PearlTraceModel>? _pearlTraceList;
-        public List<PearlTraceModel>? PearlTraceList
-        {
-            get => _pearlTraceList;
-            set => this.RaiseAndSetIfChanged(ref _pearlTraceList, value);
-        }
-        
-        #endregion
-
-        private string _resultDirection = string.Empty;
-        public string ResultDirection
-        {
-            get => _resultDirection;
-            set => this.RaiseAndSetIfChanged(ref _resultDirection, value);
-        }
-
-        private string _resultAngle = string.Empty;
-        public string ResultAngle
-        {
-            get => _resultAngle;
-            set => this.RaiseAndSetIfChanged(ref _resultAngle, value);
-        }
-
-        private bool _isDisplayTNTAmount = true;
-        public bool IsDisplayTNTAmount
-        {
-            get => _isDisplayTNTAmount;
-            set => this.RaiseAndSetIfChanged(ref _isDisplayTNTAmount, value);
-        }
-
-        private bool _isDisplayMotion = false;
-        public bool IsDisplayMotion
-        {
-            get => _isDisplayMotion;
-            set => this.RaiseAndSetIfChanged(ref _isDisplayMotion, value);
-        }
 
         #endregion
 
@@ -415,6 +343,13 @@ namespace PearlCalculatorCP.ViewModels
         public MainWindowViewModel()
         {
             InitData();
+            
+            EventManager.AddListener<SetRTCountArgs>("setRTCount", (sender, args) =>
+            {
+                RedTNT = (uint) args.Red;
+                BlueTNT = (uint) args.Blue;
+                Direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
+            });
         }
 
         void InitData()
@@ -525,15 +460,18 @@ namespace PearlCalculatorCP.ViewModels
         {
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
-                SortTNTResult();
-                ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
+                Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
+                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", Data.TNTResult));
+                ShowDirectionResult(Data.Pearl.Position, Data.Destination);
             }
-            IsDisplayTNTAmount = true;
         }
 
         public void PearlSimulate()
         {
-            ShowPearlTrace(Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction));
+            var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+            var traces = new List<PearlTraceModel>(entities.Count);
+            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
+            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces));
         }
         
         #endregion
@@ -556,82 +494,15 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        public void SortTNTResultByDistance()
-        {
-            Data.TNTResult.SortByDistance();
-            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
-        }
-
-        public void SortTNTResultByTicks()
-        {
-            Data.TNTResult.SortByTick();
-            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
-        }
-
-        public void SortTNTResultByTotal()
-        {
-            Data.TNTResult.SortByTotal();
-            TNTResult = new ObservableCollection<TNTCalculationResult>(Data.TNTResult);
-        }
-        
-        #endregion
-
-        #region Maunally Calcualte
-
-        public void ManuallyCalculateTNTAmount()
-        {
-            if (ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination, MaxTicks, out var result))
-                ShowTNTAmount(result, ManuallyData.Pearl.Position, ManuallyData.Destination.ToSpace3D());
-            IsDisplayTNTAmount = true;
-        }
-
-        public void ManuallyCalculatePearlTrace()
-        {
-            ShowPearlTrace(ManuallyCalculation.CalculatePearl(ManuallyData.ATNTAmount, ManuallyData.BTNTAmount, MaxTicks));
-            
-            ResultDirection = string.Empty;
-            ResultAngle = string.Empty;
-        }
-
-        public void ManuallyCalculatePearlMomentum()
-        {
-            var entities = ManuallyCalculation.CalculatePearl(ManuallyData.ATNTAmount, ManuallyData.BTNTAmount, MaxTicks);
-            var traces = new List<PearlTraceModel>(entities.Count);
-            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Motion.X, YCoor = t.Motion.Y, ZCoor = t.Motion.Z}));
-            PearlTraceList = traces;
-
-            IsDisplayTNTAmount = false;
-            IsDisplayMotion = true;
-            ResultDirection = string.Empty;
-            ResultAngle = string.Empty;
-
-        }
-
         #endregion
 
         #region Result Show
-        
-        private void ShowPearlTrace(List<Entity> entities)
-        {
-            var traces = new List<PearlTraceModel>(entities.Count);
-            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
-            PearlTraceList = traces;
-
-            IsDisplayTNTAmount = false;
-            IsDisplayMotion = false;
-        }
-
-        private void ShowTNTAmount(List<TNTCalculationResult> result, Space3D pearlPos, Space3D destination)
-        {
-            TNTResult = new ObservableCollection<TNTCalculationResult>(result);
-            ShowDirectionResult(pearlPos, destination);
-        }
 
         private void ShowDirectionResult(Space3D pearlPos, Space3D destination)
         {
             var angle = pearlPos.WorldAngle(destination);
-            ResultDirection = pearlPos.Direction(angle).ToString();
-            ResultAngle = angle.ToString();
+            var direction = pearlPos.Direction(angle).ToString();
+            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("GeneralFTL", direction, angle.ToString()));
         }
         
         #endregion

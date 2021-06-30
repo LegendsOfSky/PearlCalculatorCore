@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="PearlCalculatorCP.Views.Components.ConsolePanel">
 
     <UserControl.DataContext>
@@ -29,13 +29,13 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="5, *, 0.05*, 5">
+    <Grid RowDefinitions="*, 0.05*">
 
-        <Border Grid.Row="1" Classes="GlobalGeneralBorder" Margin="0,0,0,5">
+        <Border Grid.Row="0" Classes="GlobalGeneralBorder" Margin="0,0,0,5">
 
             <Grid RowDefinitions="Auto, *">
                 <!--Header-->
-                <Border Grid.Row="0" Background="#E0E0E0" CornerRadius="2,2,0,0">
+                <Border Grid.Row="0" Background="#E0E0E0" CornerRadius="4,4,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*" MinWidth="50" />
@@ -57,7 +57,6 @@
                             <Grid ColumnDefinitions="0.2*, 1, *">
                                 <TextBlock Grid.Column="0" Foreground="Gray" Text="{Binding Type}" Width="{Binding #ConsoleType.Bounds.Width}" />
                                 <TextBlock Grid.Column="2" Foreground="{Binding TextColor}" Text="{Binding Message}" Width="{Binding #ConsoleMessage.Bounds.Width}" />
-                                <Grid Grid.Column="1" Background="#868999" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -67,7 +66,7 @@
 
         </Border>
 
-        <TextBox Grid.Row="2" Text="{Binding CommandText}" KeyUp="OnCmdInput_KeyUp" Name="ConsoleInputBox" />
+        <TextBox Grid.Row="1" Text="{Binding CommandText}" KeyUp="OnCmdInput_KeyUp" Name="ConsoleInputBox" />
 
     </Grid>
 </UserControl>

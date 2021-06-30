@@ -65,13 +65,13 @@ namespace PearlCalculatorCP.Views
 #if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
         private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
         
-        private static JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
         {
             Converters = { JsonConverter },
             WriteIndented = true
         };
 
-        private static JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
         {
             Converters = { JsonConverter }
         };
@@ -80,13 +80,8 @@ namespace PearlCalculatorCP.Views
         
         private MainWindowViewModel _vm;
 
-        private TextBox _consoleInputBox;
-        private ListBox _consoleOutputListBox;
-
         private Button _moreInfoBtn;
-
-        private List<string> _commandHistory = new List<string>(100);
-        private int _historyIndex = -1;
+        
         
         public MainWindow()
         {
@@ -115,9 +110,6 @@ namespace PearlCalculatorCP.Views
         {
             AvaloniaXamlLoader.Load(this);
             this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
-
-            _consoleInputBox = this.FindControl<TextBox>("ConsoleInputBox");
-            _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");
 
             _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
         }
@@ -222,12 +214,6 @@ namespace PearlCalculatorCP.Views
 #endif
 
         #endregion
-        
-        private void ManuallyCalculateTNTAmount(object sender, RoutedEventArgs e) => _vm.ManuallyCalculateTNTAmount();
-
-        private void ManuallyCalculatePearlTrace(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlTrace();
-
-        private void ManuallyCalculatePearlMomentum(object sender, RoutedEventArgs e) => _vm.ManuallyCalculatePearlMomentum();
 
         private void NumericUpDownToUInt_OnValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {

@@ -70,41 +70,6 @@
             <Setter Property="Padding" Value="5, 2" />
         </Style>
 
-        <!--Button.TNTAmountResultHeader Styles-->
-        <Style Selector="Button.TNTAmountResultHeader">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-        </Style>
-
-        <Style Selector="Button.TNTAmountResultHeader /template/ ContentPresenter">
-            <Setter Property="CornerRadius" Value="0" />
-        </Style>
-
-        <Style Selector="Button.TNTAmountResultHeader:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="#9999CCFF" />
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
-
-        <Style Selector="Button.TNTAmountResultHeader:pressed">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="RenderTransform" Value="scale(1)" />
-        </Style>
-
-        <Style Selector="Button.TNTAmountResultHeader:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="#EE99CCFF" />
-        </Style>
-
-        <Style Selector="Button.TNTAmountResultHeader:disabled /template/ ContentPresenter">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="TextBlock.Foreground" Value="Black" />
-        </Style>
-
-        <!--Button.TNTAmountResultHeader Styles End-->
-
         <!--Settings Styles-->
 
         <Style Selector="NumericUpDown.SettingInput">
@@ -171,319 +136,315 @@
                 <!--General FTL Group-->
                 <TabItem Header="{i18n:Translate GeneralFTLHeader, Fallback='General FTL'}">
 
-                    <Grid RowDefinitions="5, *, 5">
-                        <Border Grid.Row="1" Classes="GlobalGeneralBorder">
+                    <Border Classes="GlobalGeneralBorder" Margin="0, 5">
 
-                            <TabControl>
+                        <TabControl>
 
-                                <!--General-->
-                                <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
+                            <!--General-->
+                            <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
 
-                                    <StackPanel x:Name="GeneralRootSP">
+                                <StackPanel x:Name="GeneralRootSP">
 
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding PearlPosX}" />
-
-                                        </StackPanel>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding PearlPosZ}" />
-                                        </StackPanel>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding DestinationX}" />
-                                        </StackPanel>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding DestinationZ}" />
-                                        </StackPanel>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
-
-                                        <Border Margin="10,5,0,0">
-                                            <StackPanel Orientation="Horizontal" Spacing="58">
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
-                                            </StackPanel>
-                                        </Border>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
-
-                                        <StackPanel Margin="4">
-                                            <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
-
-                                        <StackPanel Spacing="2" Margin="0,5,0,0">
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
-                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
-                                        </StackPanel>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding PearlPosX}" />
 
                                     </StackPanel>
 
-                                </TabItem>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding PearlPosZ}" />
+                                    </StackPanel>
 
-                                <!--Advanced-->
-                                <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
-                                    <StackPanel>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding DestinationX}" />
+                                    </StackPanel>
 
-                                        <Border BorderThickness="1" BorderBrush="#F0F0F0" CornerRadius="5" Padding="20, 5">
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding DestinationZ}" />
+                                    </StackPanel>
 
-                                            <StackPanel>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                    </StackPanel>
 
-                                                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="5, 2, 0, 10" />
+                                    <Border Margin="10,5,0,0">
+                                        <StackPanel Orientation="Horizontal" Spacing="58">
+                                            <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                            <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                            <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                            <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                        </StackPanel>
+                                    </Border>
 
-                                                <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
-                                                    <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
-                                                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetX}" />
-                                                </Grid>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                    </StackPanel>
 
-                                                <Grid ColumnDefinitions="1*, 9*">
-                                                    <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
-                                                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetZ}" />
-                                                </Grid>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
+                                        <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                    </StackPanel>
 
-                                            </StackPanel>
+                                    <StackPanel Spacing="2" Margin="0,5,0,0">
+                                        <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
+                                        <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
+                                        <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
+                                        <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
+                                    </StackPanel>
 
-                                        </Border>
+                                </StackPanel>
 
-                                        <Grid ColumnDefinitions="3*, 9*">
-                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
-                                            <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
-                                        </Grid>
+                            </TabItem>
 
-                                        <StackPanel Orientation="Horizontal" Spacing="30">
+                            <!--Advanced-->
+                            <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
+                                <StackPanel>
 
-                                            <RadioButton Name="MixedWeightRB" Content="{i18n:Translate MixedWeight, Fallback='Mixed Weight'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.MixedWeight}}" />
-                                            <RadioButton Name="OnlyTNTRB" Content="{i18n:Translate OnlyTNT, Fallback='Only TNT'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}" />
-                                            <RadioButton Name="OnlyDistanceRB" Content="{i18n:Translate OnlyDistance, Fallback='Only Distance'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}" />
+                                    <Border BorderThickness="1" BorderBrush="#F0F0F0" CornerRadius="5" Padding="20, 5">
+
+                                        <StackPanel>
+
+                                            <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="5, 2, 0, 10" />
+
+                                            <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
+                                                <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
+                                                <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetX}" />
+                                            </Grid>
+
+                                            <Grid ColumnDefinitions="1*, 9*">
+                                                <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
+                                                <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetZ}" />
+                                            </Grid>
 
                                         </StackPanel>
 
+                                    </Border>
+
+                                    <Grid ColumnDefinitions="3*, 9*">
+                                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
+                                        <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
+                                    </Grid>
+
+                                    <StackPanel Orientation="Horizontal" Spacing="30">
+
+                                        <RadioButton Name="MixedWeightRB" Content="{i18n:Translate MixedWeight, Fallback='Mixed Weight'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.MixedWeight}}" />
+                                        <RadioButton Name="OnlyTNTRB" Content="{i18n:Translate OnlyTNT, Fallback='Only TNT'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}" />
+                                        <RadioButton Name="OnlyDistanceRB" Content="{i18n:Translate OnlyDistance, Fallback='Only Distance'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}" />
+
                                     </StackPanel>
-                                </TabItem>
 
-                                <!--Settings-->
-                                <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
+                                </StackPanel>
+                            </TabItem>
 
-                                    <Grid RowDefinitions="*, Auto">
+                            <!--Settings-->
+                            <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
 
-                                        <Border Grid.Row="0" BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2" CornerRadius="3">
-                                            <Grid RowDefinitions="Auto, *" Margin="2, 0">
+                                <Grid RowDefinitions="*, Auto">
 
-                                                <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
-                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsName, Fallback='Name'}" Padding="8, 2" />
-                                                    <TextBlock Grid.Column="2" Text="{i18n:Translate SettingsValue, Fallback='Value'}" Padding="8, 2" />
+                                    <Border Grid.Row="0" BorderThickness="1" BorderBrush="#F0F0F0" Margin="0,0,0,2" CornerRadius="3">
+                                        <Grid RowDefinitions="Auto, *" Margin="2, 0">
 
+                                            <Grid Grid.Row="0" ColumnDefinitions="*, 2, *">
+                                                <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsName, Fallback='Name'}" Padding="8, 2" />
+                                                <TextBlock Grid.Column="2" Text="{i18n:Translate SettingsValue, Fallback='Value'}" Padding="8, 2" />
+
+                                                <Grid Grid.Column="1" Background="#F0F0F0" />
+                                            </Grid>
+
+                                            <StackPanel Grid.Row="1">
+
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTX, Fallback='North West TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
+                                                    </Grid>
                                                     <Grid Grid.Column="1" Background="#F0F0F0" />
                                                 </Grid>
 
-                                                <StackPanel Grid.Row="1">
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTX, Fallback='North West TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTY, Fallback='North West TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTY, Fallback='North West TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTZ, Fallback='North West TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthWestTNTZ, Fallback='North West TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTX, Fallback='North East TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTX, Fallback='North East TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTY, Fallback='North East TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTY, Fallback='North East TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTZ, Fallback='North East TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsNorthEastTNTZ, Fallback='North East TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding NorthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTX, Fallback='South West TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTX, Fallback='South West TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTY, Fallback='South West TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTY, Fallback='South West TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTZ, Fallback='South West TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthWestTNTZ, Fallback='South West TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthWestTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTX, Fallback='South East TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTX, Fallback='South East TNT(X Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTX}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTY, Fallback='South East TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTY, Fallback='South East TNT(Y Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTY}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTZ, Fallback='South East TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate SettingsSouthEastTNTZ, Fallback='South East TNT(Z Axis)'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding SouthEastTNTZ}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYCoordinate, Fallback='Pearl Y Coordinate'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding PearlYCoor}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYCoordinate, Fallback='Pearl Y Coordinate'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding PearlYCoor}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYMomentum, Fallback='Pearl Y Momentum'}" Padding="8, 2" VerticalAlignment="Center" />
+                                                    <Grid Grid.Column="2" ColumnDefinitions="*, 30">
+                                                        <NumericUpDown Grid.Column="0" Value="{Binding PearlYMomentum}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
+                                                        <CheckBox Grid.Column="1" />
                                                     </Grid>
-
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYMomentum, Fallback='Pearl Y Momentum'}" Padding="8, 2" VerticalAlignment="Center" />
-                                                        <Grid Grid.Column="2" ColumnDefinitions="*, 30">
-                                                            <NumericUpDown Grid.Column="0" Value="{Binding PearlYMomentum}" Padding="8, 2" IsEnabled="{Binding $parent.Children[1].IsChecked}" Classes="SettingInput" />
-                                                            <CheckBox Grid.Column="1" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
-                                                            <ToolTip.Tip>
-                                                                <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultRedTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                                                    <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" TextWrapping="WrapWithOverflow"/>
-                                                                </Border>
-                                                            </ToolTip.Tip>
-                                                        </TextBlock>
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
+                                                        <ToolTip.Tip>
+                                                            <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultRedTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                                                <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" TextWrapping="WrapWithOverflow" />
+                                                            </Border>
+                                                        </ToolTip.Tip>
+                                                    </TextBlock>
 
-                                                        <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
-                                                            <ComboBoxItem Content="NorthWest" />
-                                                            <ComboBoxItem Content="NorthEast" />
-                                                            <ComboBoxItem Content="SouthWest" />
-                                                            <ComboBoxItem Content="SouthEast" />
-                                                        </ComboBox>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
+                                                    <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
+                                                        <ComboBoxItem Content="NorthWest" />
+                                                        <ComboBoxItem Content="NorthEast" />
+                                                        <ComboBoxItem Content="SouthWest" />
+                                                        <ComboBoxItem Content="SouthEast" />
+                                                    </ComboBox>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                    <Grid ColumnDefinitions="*, 2, *">
-                                                        <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
-                                                            <ToolTip.Tip>
-                                                                <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultBlueTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                                                    <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" TextWrapping="WrapWithOverflow"/>
-                                                                </Border>
-                                                            </ToolTip.Tip>
-                                                        </TextBlock>
+                                                <Grid ColumnDefinitions="*, 2, *">
+                                                    <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" Padding="8, 2" VerticalAlignment="Center">
+                                                        <ToolTip.Tip>
+                                                            <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultBlueTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                                                <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" TextWrapping="WrapWithOverflow" />
+                                                            </Border>
+                                                        </ToolTip.Tip>
+                                                    </TextBlock>
 
-                                                        <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
-                                                            <ComboBoxItem Content="NorthWest" />
-                                                            <ComboBoxItem Content="NorthEast" />
-                                                            <ComboBoxItem Content="SouthWest" />
-                                                            <ComboBoxItem Content="SouthEast" />
-                                                        </ComboBox>
-                                                        <Grid Grid.Column="1" Background="#F0F0F0" />
-                                                    </Grid>
+                                                    <ComboBox Grid.Column="2" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
+                                                        <ComboBoxItem Content="NorthWest" />
+                                                        <ComboBoxItem Content="NorthEast" />
+                                                        <ComboBoxItem Content="SouthWest" />
+                                                        <ComboBoxItem Content="SouthEast" />
+                                                    </ComboBox>
+                                                    <Grid Grid.Column="1" Background="#F0F0F0" />
+                                                </Grid>
 
-                                                </StackPanel>
+                                            </StackPanel>
 
-                                            </Grid>
-                                        </Border>
+                                        </Grid>
+                                    </Border>
 
-                                        <Button Grid.Row="1" Classes="GeneralButtonStyle" Content="{i18n:Translate ResetToDefault, Fallback='Reset To Default'}" Margin="0, 5" Command="{Binding ResetSettings}" />
+                                    <Button Grid.Row="1" Classes="GeneralButtonStyle" Content="{i18n:Translate ResetToDefault, Fallback='Reset To Default'}" Margin="0, 5" Command="{Binding ResetSettings}" />
 
-                                    </Grid>
+                                </Grid>
 
-                                </TabItem>
+                            </TabItem>
 
-                            </TabControl>
+                        </TabControl>
 
-                        </Border>
-                    </Grid>
+                    </Border>
 
                 </TabItem>
 
                 <!--Manually-->
                 <TabItem Header="{i18n:Translate ManuallyHeader, Fallback='Manually'}">
-                    <views:Manually CalculateTNTAmount="ManuallyCalculateTNTAmount"
-                                    CalculatePearlTrace="ManuallyCalculatePearlTrace"
-                                    CalculatePearlMomentum="ManuallyCalculatePearlMomentum" />
+                    <views:Manually />
                 </TabItem>
                 
             </TabControl>
@@ -517,7 +478,7 @@
                 </Button.Content>
 
                 <Button.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Background="White">
                         <MenuItem Header="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}" Click="SetDefaultSettings" />
                         <MenuItem Header="{i18n:Translate VideoLink, Fallback='Video'}" Click="OpenVideoLink" IsEnabled="False" />
                         <MenuItem Header="{i18n:Translate GithubLink, Fallback='Github'}" Click="OpenGithubLink" />
@@ -526,6 +487,11 @@
                             <MenuItem Header="en" Command="{Binding ChangeLanguageOptional}" CommandParameter="en" />
                             <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn" />
                             <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw" />
+                            
+                            <MenuItem.Resources>
+                                <Color x:Key="MenuFlyoutPresenterBackground">White</Color>
+                            </MenuItem.Resources>
+                            
                         </MenuItem>
                     </ContextMenu>
                 </Button.ContextMenu>
@@ -534,147 +500,19 @@
             
         </Grid>
 
-        <Grid Column="1" Background="#F0F0F0" />
+        <Grid Column="1" Background="{DynamicResource CPBorderBrush}" />
 
         <Grid Column="2">
             <TabControl>
 
                 <!--Result Display-->
                 <TabItem Header="{i18n:Translate DisplayHeader, Fallback='Display'}">
-                    <Grid RowDefinitions="5, 10*, 1*, 5">
-
-                        <!--Result List-->
-                        <Border Grid.Row="1" Classes="GlobalGeneralBorder" Padding="5, 0">
-                            <Panel>
-                                <!--Calculate TNT Amount Mode-->
-                                <Panel IsVisible="{Binding IsDisplayTNTAmount}">
-
-                                    <Grid RowDefinitions="Auto, *">
-                                        <!--Header-->
-                                        <Grid Grid.Row="0" ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *">
-                                            <Button Grid.Column="0" Content="{i18n:Translate DisplayDistance, Fallback='Distance'}" Name="AmountModeDistance" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByDistance}" />
-                                            <Button Grid.Column="2" Content="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="AmountModeTicks" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTicks}" />
-                                            <Button Grid.Column="4" Content="{i18n:Translate DisplayBlue, Fallback='Blue'}" Name="AmountModeBlue" Classes="TNTAmountResultHeader" IsEnabled="False" />
-                                            <Button Grid.Column="6" Content="{i18n:Translate DisplayRed, Fallback='Red'}" Name="AmountModeRed" Classes="TNTAmountResultHeader" IsEnabled="False" />
-                                            <Button Grid.Column="8" Content="{i18n:Translate DisplayTotal, Fallback='Total'}" Name="AmountModeTotal" Classes="TNTAmountResultHeader" Command="{Binding SortTNTResultByTotal}" />
-
-                                            <Grid Background="#F0F0F0" Column="1" />
-                                            <Grid Background="#F0F0F0" Column="3" />
-                                            <Grid Background="#F0F0F0" Column="5" />
-                                            <Grid Background="#F0F0F0" Column="7" />
-                                        </Grid>
-
-                                        <!--Content-->
-                                        <ListBox Grid.Row="1" Items="{Binding TNTResult}" SelectedIndex="{Binding TNTResultSelectedIndex}" Name="AmountTNTResult" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid ColumnDefinitions="2*, 2, *, 2, *, 2, *, 2, *" Width="{Binding #AmountTNTResult.Bounds.Width}">
-                                                        <TextBlock Grid.Column="0" Text="{Binding Distance}" Width="{Binding #AmountModeDistance.Width}" Classes="ResultListTBPadding" />
-                                                        <TextBlock Grid.Column="2" Text="{Binding Tick }" Width="{Binding #AmountModeTicks.Width}" Classes="ResultListTBPadding" />
-                                                        <TextBlock Grid.Column="4" Text="{Binding Blue}" Width="{Binding #AmountModeBlue.Width}" Classes="ResultListTBPadding" />
-                                                        <TextBlock Grid.Column="6" Text="{Binding Red}" Width="{Binding #AmountModeRed.Width}" Classes="ResultListTBPadding" />
-                                                        <TextBlock Grid.Column="8" Text="{Binding TotalTNT}" Width="{Binding #AmountModeTotal.Width}" Classes="ResultListTBPadding" />
-
-                                                        <Grid Background="#F0F0F0" Column="1" />
-                                                        <Grid Background="#F0F0F0" Column="3" />
-                                                        <Grid Background="#F0F0F0" Column="5" />
-                                                        <Grid Background="#F0F0F0" Column="7" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-
-                                    </Grid>
-                                </Panel>
-
-                                <!--Pearl Trace Mode-->
-                                <!--this panel show General pearl trace, Manually pearl trace and Manually Motion-->
-                                <Panel IsVisible="{Binding !IsDisplayTNTAmount}">
-
-                                    <Grid RowDefinitions="Auto, *">
-                                        <!--Header-->
-                                        <Grid Grid.Row="0" ColumnDefinitions="0.5*, 3, *, 3, *, 3, *">
-
-                                            <!--pearl trace-->
-                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="PearlTraceTicks" IsVisible="{Binding !IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{i18n:Translate XCoor, Fallback='X Coordinate'}" Name="PearlTraceXCoor" IsVisible="{Binding !IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{i18n:Translate YCoor, Fallback='Y Coordinate'}" Name="PearlTraceYCoor" IsVisible="{Binding !IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{i18n:Translate ZCoor, Fallback='Z Coordinate'}" Name="PearlTraceZCoor" IsVisible="{Binding !IsDisplayMotion}" />
-
-                                            <!--motion-->
-                                            <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="PearlMotionTicks" IsVisible="{Binding IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayXMotion, Fallback='X Motion'}" Name="PearlMotionX" IsVisible="{Binding IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayYMotion, Fallback='Y Motion'}" Name="PearlMotionY" IsVisible="{Binding IsDisplayMotion}" />
-                                            <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{i18n:Translate DisplayZMotion, Fallback='Z Motion'}" Name="PearlMotionZ" IsVisible="{Binding IsDisplayMotion}" />
-
-
-                                            <Grid Background="#F0F0F0" Column="1" />
-                                            <Grid Background="#F0F0F0" Column="3" />
-                                            <Grid Background="#F0F0F0" Column="5" />
-
-                                        </Grid>
-
-                                        <!--Content-->
-                                        <ListBox Grid.Row="1" Items="{Binding PearlTraceList}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="PearlTraceResult">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid ColumnDefinitions="0.5*, 3, *, 3, *, 3, *" Width="{Binding #PearlTraceResult.Bounds.Width}">
-
-                                                        <!--pearl trace-->
-                                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlTraceTicks.Bounds.Width}" IsVisible="{Binding #PearlTraceTicks.IsVisible}" />
-                                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlTraceXCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceXCoor.IsVisible}" />
-                                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlTraceYCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceYCoor.IsVisible}" />
-                                                        <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlTraceZCoor.Bounds.Width}" IsVisible="{Binding #PearlTraceZCoor.IsVisible}" />
-
-                                                        <!--motion-->
-                                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Text="{Binding Tick}" Width="{Binding #PearlMotionTicks.Bounds.Width}" IsVisible="{Binding #PearlMotionTicks.IsVisible}" />
-                                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Text="{Binding XCoor}" Width="{Binding #PearlMotionX.Bounds.Width}" IsVisible="{Binding #PearlMotionX.IsVisible}" />
-                                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Text="{Binding YCoor}" Width="{Binding #PearlMotionY.Bounds.Width}" IsVisible="{Binding #PearlMotionY.IsVisible}" />
-                                                        <TextBlock Grid.Column="6" Classes="ResultListTBPadding" Text="{Binding ZCoor}" Width="{Binding #PearlMotionZ.Bounds.Width}" IsVisible="{Binding #PearlMotionZ.IsVisible}" />
-
-
-                                                        <Grid Background="#F0F0F0" Column="1" />
-                                                        <Grid Background="#F0F0F0" Column="3" />
-                                                        <Grid Background="#F0F0F0" Column="5" />
-
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-
-                                    </Grid>
-
-                                </Panel>
-                            </Panel>
-                        </Border>
-
-                        <!--Result direction-->
-                        <Border Grid.Row="2" Classes="GlobalGeneralBorder" Margin="0, 5, 0, 0">
-                            <Grid ColumnDefinitions="*, 4*">
-
-                                <Border Grid.Column="0" BorderBrush="#F0F0F0" BorderThickness="0,0,2,0">
-                                    <Grid RowDefinitions="*, *" Margin="5, 0">
-                                        <TextBlock Grid.Row="0" Text="{i18n:Translate DisplayDirection, Fallback='Direction'}" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Row="1" Text="{Binding ResultDirection}" VerticalAlignment="Center" />
-                                    </Grid>
-                                </Border>
-
-                                <Grid Grid.Column="1" RowDefinitions="*, *" Margin="5, 0">
-                                    <TextBlock Grid.Row="0" Text="{i18n:Translate DisplayAngle, Fallback='Angle'}" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Text="{Binding ResultAngle}" VerticalAlignment="Center" />
-                                </Grid>
-
-                            </Grid>
-                        </Border>
-
-                    </Grid>
-
-
+                    <vc:ResultPanel Margin="0,5" />
                 </TabItem>
 
                 <!--Console-->
                 <TabItem Header="{i18n:Translate ConsoleHeader, Fallback='Console'}">
-                    <vc:ConsolePanel />
+                    <vc:ConsolePanel Margin="0, 5" />
                 </TabItem>
 
             </TabControl>

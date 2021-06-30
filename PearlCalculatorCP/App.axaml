@@ -9,6 +9,9 @@
     <Application.Resources>
         <CornerRadius x:Key="FluentElementCornerRadius">4</CornerRadius>
         <CornerRadius x:Key="ControlCornerRadius">4</CornerRadius>
+        <Color x:Key="ComboBoxDropDownBackground">White</Color>
+        
+        <Color x:Key="CPBorderBrush">#EAEAEA</Color>
     </Application.Resources>
 
     <Application.Styles>

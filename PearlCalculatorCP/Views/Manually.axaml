@@ -10,6 +10,8 @@
         
     <UserControl.Styles>
         
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
         
         <Style Selector="Button">
@@ -17,11 +19,6 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Margin" Value="5, 6" />
-        </Style>
-        
-        <Style Selector="NumericUpDown">
-            <Setter Property="ShowButtonSpinner" Value="False" />
-            <Setter Property="Increment" Value="0" />
         </Style>
         
         <Style Selector="TextBlock.InputBoxTB">
@@ -132,9 +129,14 @@
                 
                 <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="0, 4">
                     
-                    <Button Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Name="TNTAmountBtn" Click="TNTAmountBtn_OnClick" />
-                    <Button Content="{i18n:Translate CalculatePearlTrace, Fallback='Calculate Pearl Trace'}" Name="PearlTraceBtn" Click="PearlTraceBtn_OnClick" />
-                    <Button Content="{i18n:Translate CalculatePearlMomentum, Fallback='Calculate Pearl Momentum'}" Name="PearlMomentumBtn" Click="PearlMomentumBtn_OnClick" />
+                    <Button Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" 
+                            Command="{Binding CalculateAmount}" />
+                    
+                    <Button Content="{i18n:Translate CalculatePearlTrace, Fallback='Calculate Pearl Trace'}"
+                            Command="{Binding CalculateTrace}" />
+                    
+                    <Button Content="{i18n:Translate CalculatePearlMomentum, Fallback='Calculate Pearl Momentum'}"
+                            Command="{Binding CalculateMomentum}" />
                     
                 </StackPanel>
                                         
