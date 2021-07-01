@@ -83,37 +83,37 @@
                 <!--General FTL Group-->
                 <TabItem Header="{i18n:Translate GeneralFTLHeader, Fallback='General FTL'}">
 
-                    <Border Classes="GlobalGeneralBorder" Margin="0, 5">
+                    <Border Classes="GlobalGeneralBorder" Margin="0, 5" Padding="4,0">
 
                         <TabControl>
 
                             <!--General-->
                             <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
 
-                                <StackPanel>
+                                <StackPanel Spacing="8">
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding PearlPosX}" />
 
                                     </StackPanel>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding PearlPosZ}" />
                                     </StackPanel>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding DestinationX}" />
                                     </StackPanel>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding DestinationZ}" />
                                     </StackPanel>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                     </StackPanel>
@@ -127,12 +127,12 @@
                                         </StackPanel>
                                     </Border>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                     </StackPanel>
 
-                                    <StackPanel Margin="4">
+                                    <StackPanel>
                                         <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                     </StackPanel>

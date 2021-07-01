@@ -21,41 +21,39 @@
         <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
     </UserControl.Resources>
     
-    <StackPanel>
+    <StackPanel Spacing="12">
 
-        <Border Classes="GlobalGeneralBorder" Padding="20, 5">
+        <Border Classes="GlobalGeneralBorder" Padding="12, 5">
 
             <StackPanel>
 
-                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="-15, 2, 0, 10" />
-
-                <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
+                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="0, 3, 0, 8" />
+                
+                <Grid ColumnDefinitions="1*, 9*" Margin="12, 0, 12, 12">
                     <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
                     <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetX}" />
                 </Grid>
 
-                <Grid ColumnDefinitions="1*, 9*">
+                <Grid ColumnDefinitions="1*, 9*" Margin="12, 0">
                     <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
                     <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetZ}" />
                 </Grid>
 
-            </StackPanel>
+                </StackPanel>
 
         </Border>
-        
-        <Panel Height="10" />
 
-        <Border Classes="GlobalGeneralBorder" Padding="0, 5">
+        <Border Classes="GlobalGeneralBorder" Padding="12, 5">
             <StackPanel>
                 
-                <TextBlock Text="{i18n:Translate ResultSortControl, Fallback='Result Sort Control :'}" Margin="5, 2" />
+                <TextBlock Text="{i18n:Translate ResultSortControl, Fallback='Result Sort Control :'}" Margin="0, 3,0,8" />
                 
-                <Grid ColumnDefinitions="3*, 9*" Margin="0,-10,25,0">
+                <Grid ColumnDefinitions="3*, 9*" Margin="-1,-10,12,0">
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
                     <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
                 </Grid>
 
-                <DockPanel Margin="25, 0">
+                <DockPanel Margin="12, 0">
                     <RadioButton Name="MixedWeightDistance" GroupName="ResultSortMode" DockPanel.Dock="Left"
                                  Content="{i18n:Translate MixedWeightDistance, Fallback='Mixed Weight Distance'}"
                                  IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Distance}}" />
@@ -66,11 +64,9 @@
                 </DockPanel>
             </StackPanel>
         </Border>
-        
-        <Panel Height="10" />
 
-        <Border Classes="GlobalGeneralBorder">
-            <DockPanel Margin="15, 0">
+        <Border Classes="GlobalGeneralBorder" Padding="12, 0">
+            <DockPanel>
                 <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" VerticalAlignment="Center" />
 
                 <ToggleSwitch OnContent=""
