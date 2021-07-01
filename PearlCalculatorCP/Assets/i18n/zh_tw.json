@@ -69,23 +69,6 @@
     "SettingsName": "名稱",
     "SettingsValue": "數值",
 
-    "SettingsNorthWestTNTX": "North West TNT(X座標)",
-    "SettingsNorthWestTNTY": "North West TNT(Y座標)",
-    "SettingsNorthWestTNTZ": "North West TNT(Z座標)",
-    "SettingsNorthEastTNTX": "North East TNT(X座標)",
-    "SettingsNorthEastTNTY": "North East TNT(Y座標)",
-    "SettingsNorthEastTNTZ": "North East TNT(Z座標)",
-    "SettingsSouthWestTNTX": "South West TNT(X座標)",
-    "SettingsSouthWestTNTY": "South West TNT(Y座標)",
-    "SettingsSouthWestTNTZ": "South West TNT(Z座標)",
-    "SettingsSouthEastTNTX": "South East TNT(X座標)",
-    "SettingsSouthEastTNTY": "South East TNT(Y座標)",
-    "SettingsSouthEastTNTZ": "South East TNT(Z座標)",
-
-    "MixedWeight": "混合權重",
-    "OnlyTNT": "僅TNT",
-    "OnlyDistance": "僅距離偏移",
-
     "Authors": "作者 : ",
     "Translators": "翻譯 : ",
     "Version": "版本 : ",
