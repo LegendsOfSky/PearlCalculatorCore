@@ -27,7 +27,7 @@
 
             <StackPanel>
 
-                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="5, 2, 0, 10" />
+                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="-15, 2, 0, 10" />
 
                 <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
                     <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
@@ -42,23 +42,32 @@
             </StackPanel>
 
         </Border>
+        
+        <Panel Height="10" />
 
-        <Grid ColumnDefinitions="3*, 9*" Margin="0,0,25,0">
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
-            <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
-        </Grid>
+        <Border Classes="GlobalGeneralBorder" Padding="0, 5">
+            <StackPanel>
+                
+                <TextBlock Text="{i18n:Translate ResultSortControl, Fallback='Result Sort Control :'}" Margin="5, 2" />
+                
+                <Grid ColumnDefinitions="3*, 9*" Margin="0,-10,25,0">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
+                    <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
+                </Grid>
+
+                <DockPanel Margin="25, 0">
+                    <RadioButton Name="MixedWeightDistance" GroupName="ResultSortMode" DockPanel.Dock="Left"
+                                 Content="{i18n:Translate MixedWeightDistance, Fallback='Mixed Weight Distance'}"
+                                 IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Distance}}" />
+                    <RadioButton Name="MixedWeightTotal" GroupName="ResultSortMode" DockPanel.Dock="Right"
+                                 Content="{i18n:Translate MixedWeightTotal, Fallback='Mixed Weight Total'}"
+                                 HorizontalAlignment="Right"
+                                 IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Total}}" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
         
-        <DockPanel Margin="25, 0">
-            <RadioButton Name="MixedWeightDistance" GroupName="ResultSortMode" DockPanel.Dock="Left" 
-                         Content="{i18n:Translate MixedWeightDistance, Fallback='Mixed Weight Distance'}" 
-                         IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Distance}}" />
-            <RadioButton Name="MixedWeightTotal" GroupName="ResultSortMode" DockPanel.Dock="Right"
-                         Content="{i18n:Translate MixedWeightTotal, Fallback='Mixed Weight Total'}"
-                         HorizontalAlignment="Right"
-                         IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Total}}"/>
-        </DockPanel>
-        
-        <Panel Height="20" />
+        <Panel Height="10" />
 
         <Border Classes="GlobalGeneralBorder">
             <DockPanel Margin="15, 0">
