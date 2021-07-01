@@ -48,8 +48,8 @@
                 
                 <TextBlock Text="{i18n:Translate ResultSortControl, Fallback='Result Sort Control :'}" Margin="0, 3,0,8" />
                 
-                <Grid ColumnDefinitions="3*, 9*" Margin="-1,-10,12,0">
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
+                <Grid ColumnDefinitions="3*, 10*" Margin="12,-10,12,0">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
                     <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
                 </Grid>
 

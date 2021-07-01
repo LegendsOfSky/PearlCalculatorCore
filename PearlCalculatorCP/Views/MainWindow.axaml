@@ -95,7 +95,6 @@
                                     <StackPanel>
                                         <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
                                         <NumericUpDown Value="{Binding PearlPosX}" />
-
                                     </StackPanel>
 
                                     <StackPanel>
@@ -118,8 +117,8 @@
                                         <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                     </StackPanel>
 
-                                    <Border Margin="10,5,0,0">
-                                        <StackPanel Orientation="Horizontal" Spacing="58">
+                                    <Border Margin="12,4,12,0">
+                                        <StackPanel Orientation="Horizontal" Spacing="60">
                                             <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
                                             <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
                                             <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
@@ -137,7 +136,7 @@
                                         <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
                                     </StackPanel>
 
-                                    <StackPanel Spacing="2" Margin="0,5,0,0">
+                                    <StackPanel Spacing="2" Margin="0,4,0,0">
                                         <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
                                         <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
                                         <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
