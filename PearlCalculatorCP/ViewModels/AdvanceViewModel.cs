@@ -56,6 +56,18 @@ namespace PearlCalculatorCP.ViewModels
 
         private static TNTWeightChangedArgs _distanceModeArgs = new TNTWeightChangedArgs("GeneralFTL_Advance", TNTWeightModeEnum.Distance);
         private static TNTWeightChangedArgs _totalModeArgs = new TNTWeightChangedArgs("GeneralFTL_Advance", TNTWeightModeEnum.Total);
+
+
+        private bool _enableChunkMode;
+        public bool EnableChunkMode
+        {
+            get => _enableChunkMode;
+            set
+            {
+                _enableChunkMode = value;
+                EventManager.PublishEvent(this, "switchChunkMode", new SwitchChunkModeArgs("OtherSettings", value));
+            }
+        }
     }
     
     public enum TNTWeightModeEnum

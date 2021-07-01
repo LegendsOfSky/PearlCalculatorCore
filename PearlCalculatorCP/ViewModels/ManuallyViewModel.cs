@@ -3,6 +3,7 @@ using System.Linq;
 using PearlCalculatorCP.Models;
 using ReactiveUI;
 using PearlCalculatorLib.Manually;
+using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.Result;
 
 namespace PearlCalculatorCP.ViewModels
@@ -216,7 +217,11 @@ namespace PearlCalculatorCP.ViewModels
         public void CalculateTrace()
         {
             var entities = Calculation.CalculatePearl(ATNTAmount, BTNTAmount, MainWindowViewModel.MaxTicks);
+            var chunks = ListCoverterUtility.ToChunk(entities);
+
             var traces = new List<PearlTraceModel>(entities.Count);
+            var chunkModels = new List<PearlTraceChunkModel>(chunks.Count);
+
             traces.AddRange(entities.Select((t, i) => new PearlTraceModel 
             {
                 Tick = i, 
@@ -224,7 +229,9 @@ namespace PearlCalculatorCP.ViewModels
                 YCoor = t.Position.Y, 
                 ZCoor = t.Position.Z
             }));
-            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("Manually", traces));
+            chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
+
+            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("Manually", traces, chunkModels));
             EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
         }
 
@@ -239,7 +246,7 @@ namespace PearlCalculatorCP.ViewModels
                 YCoor = t.Motion.Y, 
                 ZCoor = t.Motion.Z
             }));
-            EventManager.PublishEvent(this, "pearlMotion", new PearlSimulateArgs("Manually", traces));
+            EventManager.PublishEvent(this, "pearlMotion", new PearlSimulateArgs("Manually", traces, null));
             EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
         }
     }

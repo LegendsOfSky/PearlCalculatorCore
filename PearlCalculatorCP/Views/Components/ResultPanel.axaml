@@ -156,8 +156,16 @@
                     </Grid>
                     
                     <!--Pearl Trace Mode-->
-                    <Grid RowDefinitions="Auto, *" 
-                          IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.Trace}}">
+                    <Grid RowDefinitions="Auto, *" >
+                        
+                        <Grid.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="ShowMode" 
+                                         Converter="{StaticResource EqualsConverter}"
+                                         ConverterParameter="{x:Static vm:ResultShowMode.Trace}" />
+                                <Binding Path="!EnableChunkMode" />
+                            </MultiBinding>
+                        </Grid.IsVisible>
                         
                         <Grid.Resources>
                             <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
@@ -224,6 +232,77 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                         
+                    </Grid>
+                    
+                    <!--Chunk Mode-->
+                    <Grid RowDefinitions="Auto, *">
+                        
+                        <Grid.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="ShowMode" 
+                                         Converter="{StaticResource EqualsConverter}"
+                                         ConverterParameter="{x:Static vm:ResultShowMode.Trace}" />
+                                <Binding Path="EnableChunkMode" />
+                            </MultiBinding>
+                        </Grid.IsVisible>
+                        
+                        <Grid.Resources>
+                            <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
+                        </Grid.Resources>
+
+                        <!--Header-->
+                        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Border Grid.Column="0" Name="PearlTraceChunkTicks">
+                                    <TextBlock Classes="ResultHeader" Text="Ticks" />
+                                </Border>
+                                <Border Grid.Column="2" Name="PearlTraceChunkXCoor">
+                                    <TextBlock Classes="ResultHeader" Text="Chunk X" />
+                                </Border>
+                                <Border Grid.Column="4" Name="PearlTraceChunkZCoor">
+                                    <TextBlock Classes="ResultHeader" Text="Chunk Z" />
+                                </Border>
+
+                                <GridSplitter Grid.Column="1" />
+                                <GridSplitter Grid.Column="3" />
+                            </Grid>
+                        </Border>
+                        
+                        <!--Content-->
+                        <ListBox Grid.Row="1"                                 
+                                 Items="{Binding PearlTraceChunkList}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,1,*,1,*">
+                                        
+                                        <Grid.Styles>
+                                            <Style Selector="GridSplitter">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </Style>
+                                        </Grid.Styles>
+                                        
+                                        <TextBlock Grid.Column="0" Classes="ResultListTBPadding" Width="{Binding #PearlTraceChunkTicks.Bounds.Width}" Text="{Binding Tick}" />
+                                        <TextBlock Grid.Column="2" Classes="ResultListTBPadding" Width="{Binding #PearlTraceChunkXCoor.Bounds.Width}" Text="{Binding XCoor}" />
+                                        <TextBlock Grid.Column="4" Classes="ResultListTBPadding" Width="{Binding #PearlTraceChunkZCoor.Bounds.Width}" Text="{Binding ZCoor}" />
+
+                                        <GridSplitter Grid.Column="1" />
+                                        <GridSplitter Grid.Column="3" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                                                
                     </Grid>
                     
                     <!--Pearl Motion Mode-->

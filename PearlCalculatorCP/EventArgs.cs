@@ -35,10 +35,12 @@ namespace PearlCalculatorCP
     public class PearlSimulateArgs : PCEventArgs
     {
         public readonly List<PearlTraceModel> Trace;
+        public readonly List<PearlTraceChunkModel>? Chunks;
 
-        public PearlSimulateArgs(string publishKey, List<PearlTraceModel> trace) : base(publishKey)
+        public PearlSimulateArgs(string publishKey, List<PearlTraceModel> trace, List<PearlTraceChunkModel>? chunks) : base(publishKey)
         {
             this.Trace = trace;
+            this.Chunks = chunks;
         }
     }
 
@@ -92,6 +94,16 @@ namespace PearlCalculatorCP
         public LoadSettingsArgs(string publishKey, Settings settings) : base(publishKey)
         {
             this.Settings = settings;
+        }
+    }
+
+    public class SwitchChunkModeArgs : PCEventArgs
+    {
+        public readonly bool EnableChunkMode;
+
+        public SwitchChunkModeArgs(string publishKey, bool enable) : base(publishKey)
+        {
+            this.EnableChunkMode = enable;
         }
     }
 }

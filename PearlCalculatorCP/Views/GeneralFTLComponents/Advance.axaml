@@ -58,5 +58,18 @@
                          IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Total}}"/>
         </DockPanel>
         
+        <Panel Height="20" />
+
+        <Border Classes="GlobalGeneralBorder">
+            <DockPanel Margin="15, 0">
+                <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" VerticalAlignment="Center" />
+
+                <ToggleSwitch OnContent=""
+                              OffContent=""
+                              DockPanel.Dock="Right" HorizontalAlignment="Right"
+                              IsChecked="{Binding EnableChunkMode, Mode=OneWayToSource}"/>
+            </DockPanel>
+        </Border>
+        
     </StackPanel>
 </UserControl>

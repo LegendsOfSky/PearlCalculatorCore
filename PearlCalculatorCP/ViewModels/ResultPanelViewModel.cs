@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using PearlCalculatorCP.Models;
+using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
 
@@ -44,7 +46,14 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlTraceList;
             set => this.RaiseAndSetProperty(ref _pearlTraceList, value);
         }
-        
+
+        private ObservableCollection<PearlTraceChunkModel>? _pearlTraceChunkList;
+        public ObservableCollection<PearlTraceChunkModel>? PearlTraceChunkList
+        {
+            get => _pearlTraceChunkList;
+            set => this.RaiseAndSetProperty(ref _pearlTraceChunkList, value);
+        }
+
         //Pearl Motion
         private ObservableCollection<PearlTraceModel>? _pearlMotionList;
         public ObservableCollection<PearlTraceModel>? PearlMotionList
@@ -61,6 +70,13 @@ namespace PearlCalculatorCP.ViewModels
         }
 
         private ResultAmountDataSource _amountDataSource = ResultAmountDataSource.General;
+
+        private bool _enableChunkMode;
+        public bool EnableChunkMode
+        {
+            get => _enableChunkMode;
+            set => this.RaiseAndSetIfChanged(ref _enableChunkMode, value);
+        }
         
         
         private string _resultDirection = string.Empty;
@@ -103,6 +119,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 ShowMode = ResultShowMode.Trace;
                 PearlTraceList = new ObservableCollection<PearlTraceModel>(args.Trace);
+                PearlTraceChunkList = new ObservableCollection<PearlTraceChunkModel>(args.Chunks!);
             });
             
             EventManager.AddListener<PearlSimulateArgs>("pearlMotion", (sender, args) =>
@@ -121,6 +138,11 @@ namespace PearlCalculatorCP.ViewModels
 
                 AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
                 AmountResultSelectedIndex = -1;
+            });
+            
+            EventManager.AddListener<SwitchChunkModeArgs>("switchChunkMode", (sender, args) =>
+            {
+                EnableChunkMode = args.EnableChunkMode;
             });
         }
         

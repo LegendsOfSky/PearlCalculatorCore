@@ -65,13 +65,8 @@
 
     "DisplayDirection": "方位",
     "DisplayAngle": "发射角度",
-
-    "SettingsName": "名称",
-    "SettingsValue": "数值",
-
-    "MixedWeight": "混合权重",
-    "OnlyTNT": "仅TNT",
-    "OnlyDistance": "仅距离偏移",
+    
+    "EnableChunkCoordinate": "启用区块坐标",
 
     "Authors": "作者 : ",
     "Translators": "翻译 : ",

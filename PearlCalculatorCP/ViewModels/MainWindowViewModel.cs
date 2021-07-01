@@ -8,6 +8,7 @@ using PearlCalculatorCP.Commands;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
+using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using ReactiveUI;
 
@@ -165,9 +166,14 @@ namespace PearlCalculatorCP.ViewModels
         public void PearlSimulate()
         {
             var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+            var chunks = ListCoverterUtility.ToChunk(entities);
+            
             var traces = new List<PearlTraceModel>(entities.Count);
+            var chunkModels = new List<PearlTraceChunkModel>(chunks.Count);
+            
             traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
-            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces));
+            chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
+            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces, chunkModels));
         }
         
         #endregion
