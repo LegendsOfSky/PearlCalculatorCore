@@ -15,4 +15,37 @@
         <Setter Property="BorderBrush" Value="{DynamicResource CPBorderBrush}" />
     </Style>
     
+    <Style Selector="Button.GeneralButtonStyle">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="5, 2" />
+    </Style>
+        
+    <Style Selector="Button.GeneralButtonStyle /template/ContentPresenter">
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+    
+    <Style Selector="TabControl">
+        <Setter Property="Padding" Value="8, 0" />
+    </Style>
+    
+    <Style Selector="ComboBox[IsFocused=False]:pointerover /template/Border#Background">
+        <Setter Property="BorderBrush" Value="#0373EC" />
+    </Style>
+        
+    <Style Selector="ComboBox:focus /template/Border#Background">
+        <Setter Property="BorderBrush" Value="#0472CB" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="White" />
+    </Style>
+
+    <Style Selector="ListBox ListBoxItem">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+    
 </Styles>

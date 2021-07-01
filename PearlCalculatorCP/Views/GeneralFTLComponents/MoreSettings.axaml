@@ -2,7 +2,247 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+             xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+             mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="680"
              x:Class="PearlCalculatorCP.Views.GeneralFTLComponents.MoreSettings">
-  Welcome to Avalonia!
+
+    <UserControl.DataContext>
+        <vm:MoreSettingsViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Styles>
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+
+        <Style Selector="NumericUpDown">
+            <Setter Property="Margin" Value="8,0,0,4" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="8,2" />
+        </Style>
+
+        <Style Selector="NumericUpDown:disabled">
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <Style Selector="NumericUpDown:disabled /template/TextBox#PART_TextBox">
+            <Setter Property="Foreground" Value="#727272" />
+        </Style>
+
+        <Style Selector="NumericUpDown:disabled /template/TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#99CCCCCC" />
+        </Style>
+
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value="" />
+            <Setter Property="OffContent" Value="" />
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="Margin" Value="33,0,0,4" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="12,4,0,4" />
+            <Setter Property="BorderBrush" Value="#E5E5E5" />
+        </Style>
+
+        <Style Selector="ToolTip">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+
+        <Style Selector="Border.ToolTipContentBorder">
+            <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
+            <Setter Property="Padding" Value="2" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="*, Auto">
+        <Border Grid.Row="0" Classes="GlobalGeneralBorder">
+            <ScrollViewer>
+                <StackPanel Margin="10,0,20, 0">
+
+                    <!--North West-->
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" Text="{i18n:Translate SettingsNorthWestTNT, Fallback='North West TNT'}" />
+                            <ToggleSwitch DockPanel.Dock="Right" HorizontalAlignment="Right" Name="NorthWestEditSwitch" />
+                        </DockPanel>
+
+                        <StackPanel Margin="50,0,0,0">
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="X" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthWestEditSwitch.IsChecked}"
+                                               Value="{Binding NorthWestTNTX}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Y" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthWestEditSwitch.IsChecked}"
+                                               Value="{Binding NorthWestTNTY}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Z" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthWestEditSwitch.IsChecked}"
+                                               Value="{Binding NorthWestTNTZ}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--North East-->
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" Text="{i18n:Translate SettingsNorthEastTNT, Fallback='North East TNT'}" />
+                            <ToggleSwitch DockPanel.Dock="Right" HorizontalAlignment="Right" Name="NorthEastEditSwitch" />
+                        </DockPanel>
+
+                        <StackPanel Margin="50,0,0,0">
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="X" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthEastEditSwitch.IsChecked}"
+                                               Value="{Binding NorthEastTNTX}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Y" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthEastEditSwitch.IsChecked}"
+                                               Value="{Binding NorthEastTNTY}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Z" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #NorthEastEditSwitch.IsChecked}"
+                                               Value="{Binding NorthEastTNTZ}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--South West-->
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" Text="{i18n:Translate SettingsSouthWestTNT, Fallback='South West TNT'}" />
+                            <ToggleSwitch DockPanel.Dock="Right" HorizontalAlignment="Right" Name="SouthWestEditSwitch" />
+                        </DockPanel>
+
+                        <StackPanel Margin="50,0,0,0">
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="X" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthWestEditSwitch.IsChecked}"
+                                               Value="{Binding SouthWestTNTX}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Y" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthWestEditSwitch.IsChecked}"
+                                               Value="{Binding SouthWestTNTY}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Z" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthWestEditSwitch.IsChecked}"
+                                               Value="{Binding SouthWestTNTZ}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--South East-->
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" Text="{i18n:Translate SettingsSouthEastTNT, Fallback='South East TNT'}" />
+                            <ToggleSwitch DockPanel.Dock="Right" HorizontalAlignment="Right" Name="SouthEastEditSwitch" />
+                        </DockPanel>
+
+                        <StackPanel Margin="50,0,0,0">
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="X" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthEastEditSwitch.IsChecked}"
+                                               Value="{Binding SouthEastTNTX}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Y" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthEastEditSwitch.IsChecked}"
+                                               Value="{Binding SouthEastTNTY}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBlock Grid.Column="0" Text="Z" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Column="1"
+                                               IsEnabled="{Binding #SouthEastEditSwitch.IsChecked}"
+                                               Value="{Binding SouthEastTNTZ}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Panel Height="20" /> <!--Space-->
+
+                    <Grid ColumnDefinitions="*, *">
+                        <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYCoordinate, Fallback='Pearl Y Coordinate'}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Margin="33,0,0,4" Value="{Binding PearlYCoor}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, *">
+                        <TextBlock Grid.Column="0" Text="{i18n:Translate PearlYMomentum, Fallback='Pearl Y Momentum'}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Margin="33,0,0,4" Value="{Binding PearlYMomentum}" />
+                    </Grid>
+
+                    <Panel Height="20" /> <!--Space-->
+
+                    <Grid ColumnDefinitions="*, *">
+                        <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultRedTNTPos, Fallback='Default Red TNT Position'}" VerticalAlignment="Center">
+                            <ToolTip.Tip>
+                                <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultRedTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                    <TextBlock Text="{i18n:Translate DefaultRedTNTPosDesc}" Name="DefaultRedTNTPosDescTooltip" TextWrapping="WrapWithOverflow" />
+                                </Border>
+                            </ToolTip.Tip>
+                        </TextBlock>
+
+                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="NorthWest" />
+                            <ComboBoxItem Content="NorthEast" />
+                            <ComboBoxItem Content="SouthWest" />
+                            <ComboBoxItem Content="SouthEast" />
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, *">
+                        <TextBlock Grid.Column="0" Text="{i18n:Translate DefaultBlueTNTPos, Fallback='Default Blue TNT Position'}" VerticalAlignment="Center">
+                            <ToolTip.Tip>
+                                <Border Classes="ToolTipContentBorder" IsVisible="{Binding #DefaultBlueTNTPosDescTooltip.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                    <TextBlock Text="{i18n:Translate DefaultBlueTNTPosDesc}" Name="DefaultBlueTNTPosDescTooltip" TextWrapping="WrapWithOverflow" />
+                                </Border>
+                            </ToolTip.Tip>
+                        </TextBlock>
+
+                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="NorthWest" />
+                            <ComboBoxItem Content="NorthEast" />
+                            <ComboBoxItem Content="SouthWest" />
+                            <ComboBoxItem Content="SouthEast" />
+                        </ComboBox>
+                    </Grid>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Button Grid.Row="1" Classes="GeneralButtonStyle" Content="{i18n:Translate ResetToDefault, Fallback='Reset To Default'}" Margin="0, 5" Command="{Binding ResetSettings}" />
+
+    </Grid>
+
 </UserControl>

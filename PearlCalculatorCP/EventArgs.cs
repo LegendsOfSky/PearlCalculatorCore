@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.ViewModels;
+using PearlCalculatorLib.General;
 
 namespace PearlCalculatorCP
 {
@@ -81,6 +82,16 @@ namespace PearlCalculatorCP
         public TNTWeightChangedArgs(string publishKey, TNTWeightModeEnum weightMode) : base(publishKey)
         {
             this.WeightMode = weightMode;
+        }
+    }
+
+    public class LoadSettingsArgs : PCEventArgs
+    {
+        public readonly Settings Settings;
+
+        public LoadSettingsArgs(string publishKey, Settings settings) : base(publishKey)
+        {
+            this.Settings = settings;
         }
     }
 }

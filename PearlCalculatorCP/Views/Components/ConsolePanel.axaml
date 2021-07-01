@@ -35,7 +35,7 @@
 
             <Grid RowDefinitions="Auto, *">
                 <!--Header-->
-                <Border Grid.Row="0" Background="#E0E0E0" CornerRadius="4,4,0,0">
+                <Border Grid.Row="0" CornerRadius="4,4,0,0" BorderThickness="0,0,0,1" BorderBrush="#ECECEC" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*" MinWidth="50" />
@@ -46,7 +46,7 @@
                         <TextBlock Grid.Column="0" Text="Type" Name="ConsoleType" Padding="5,0,0,0" />
                         <TextBlock Grid.Column="2" Text="Message" Name="ConsoleMessage" Padding="5,0,0,0" />
 
-                        <GridSplitter Grid.Column="1" Background="#868999" BorderThickness="0" Width="1" />
+                        <GridSplitter Grid.Column="1" Background="#F0F0F0" />
                     </Grid>
                 </Border>
                 
