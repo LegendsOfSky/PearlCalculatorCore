@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace PearlCalculatorCP.Views.GeneralFTLComponents
 {
-    public partial class Adavance : UserControl
+    public partial class Advance : UserControl
     {
-        public Adavance()
+        public Advance()
         {
             InitializeComponent();
         }

@@ -32,9 +32,6 @@ namespace PearlCalculatorCP.Views
     public class MainWindow : Window
     {
 
-        public const double MaxOffsetValue = 0.99999999d;
-        public const double MinOffsetValue = -0.99999999d;
-
         private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
         {
 #if ENABLE_ALL_SETTINGS
@@ -109,7 +106,7 @@ namespace PearlCalculatorCP.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
+            //this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
 
             _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
         }

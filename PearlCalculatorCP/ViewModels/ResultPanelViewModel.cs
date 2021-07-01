@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using PearlCalculatorCP.Models;
-using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
 
@@ -60,6 +59,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _showMode;
             set => this.RaiseAndSetIfChanged(ref _showMode, value);
         }
+
+        private ResultAmountDataSource _amountDataSource = ResultAmountDataSource.General;
         
         
         private string _resultDirection = string.Empty;
@@ -81,8 +82,13 @@ namespace PearlCalculatorCP.ViewModels
             EventManager.AddListener<CalculateTNTAmountArgs>("calculate", (sender, args) =>
             {
                 ShowMode = ResultShowMode.Amount;
+
+                _amountDataSource = args.PublishKey == "Manually"
+                    ? ResultAmountDataSource.Manually
+                    : ResultAmountDataSource.General;
                 
                 _amountList = args.Results;
+                SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
                 AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
                 AmountResultSelectedIndex = -1;
             });
@@ -103,6 +109,18 @@ namespace PearlCalculatorCP.ViewModels
             {
                 _showMode = ResultShowMode.Motion;
                 PearlMotionList = new ObservableCollection<PearlTraceModel>(args.Trace);
+            });
+            
+            EventManager.AddListener<TNTWeightChangedArgs>("tntWeightChanged", (sender, args) =>
+            {
+                if (ShowMode != ResultShowMode.Amount || _amountList is null || _amountList.Count == 0 ||
+                    _amountDataSource != ResultAmountDataSource.General)
+                    return;
+                
+                SortAmountResultByWeight(args.WeightMode);
+
+                AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
+                AmountResultSelectedIndex = -1;
             });
         }
         
@@ -126,6 +144,23 @@ namespace PearlCalculatorCP.ViewModels
             _amountList.SortByTotal();
             AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList!);
         }
+
+        private void SortAmountResultByWeight(TNTWeightModeEnum weightMode)
+        {
+            var args = new TNTResultSortByWeightedArgs(
+                PearlCalculatorLib.General.Data.TNTWeight,
+                PearlCalculatorLib.General.Data.MaxCalculateTNT, 
+                PearlCalculatorLib.General.Data.MaxCalculateDistance);
+            
+            if (weightMode == TNTWeightModeEnum.Distance)
+            {
+                _amountList.SortByWeightedDistance(args);
+            }
+            else
+            {
+                _amountList.SortByWeightedTotal(args);
+            }
+        }
     }
     
     public enum ResultShowMode
@@ -133,5 +168,10 @@ namespace PearlCalculatorCP.ViewModels
         Amount,
         Trace,
         Motion
+    }
+
+    public enum ResultAmountDataSource
+    {
+        General, Manually
     }
 }

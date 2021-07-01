@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+             xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+             xmlns:converters="clr-namespace:PearlCalculatorCP.Converters"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
+             x:Class="PearlCalculatorCP.Views.GeneralFTLComponents.Advance">
+
+    <UserControl.Styles>
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
+    </UserControl.Styles>
+    
+    <UserControl.DataContext>
+        <vm:AdvanceViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
+    </UserControl.Resources>
+    
+    <StackPanel>
+
+        <Border Classes="GlobalGeneralBorder" Padding="20, 5">
+
+            <StackPanel>
+
+                <TextBlock Text="{i18n:Translate Offset, Fallback='Offset :'}" Margin="5, 2, 0, 10" />
+
+                <Grid ColumnDefinitions="1*, 9*" Margin="0, 0, 0, 10">
+                    <TextBlock Grid.Column="0" Text="X :" VerticalAlignment="Center" FontSize="16" />
+                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetX}" />
+                </Grid>
+
+                <Grid ColumnDefinitions="1*, 9*">
+                    <TextBlock Grid.Column="0" Text="Z :" VerticalAlignment="Center" FontSize="16" />
+                    <NumericUpDown Grid.Column="1" Value="{Binding PearlOffsetZ}" />
+                </Grid>
+
+            </StackPanel>
+
+        </Border>
+
+        <Grid ColumnDefinitions="3*, 9*" Margin="0,0,25,0">
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{i18n:Translate TNTWeight, Fallback='TNT Weight'}" Padding="0,2,0,0" />
+            <Slider Grid.Column="1" Value="{Binding TNTWeight}" />
+        </Grid>
+        
+        <!-- <StackPanel Orientation="Horizontal" Spacing="30"> -->
+        <!-- -->
+        <!--     <RadioButton Name="MixedWeightRB" Content="{i18n:Translate MixedWeight, Fallback='Mixed Weight'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.MixedWeight}}" /> -->
+        <!--     <RadioButton Name="OnlyTNTRB" Content="{i18n:Translate OnlyTNT, Fallback='Only TNT'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyTNT}}" /> -->
+        <!--     <RadioButton Name="OnlyDistanceRB" Content="{i18n:Translate OnlyDistance, Fallback='Only Distance'}" GroupName="TNTAmountResultSortMode" IsChecked="{Binding TNTWeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.OnlyDistance}}" /> -->
+        <!-- -->
+        <!-- </StackPanel> -->
+        
+        <DockPanel Margin="25, 0">
+            <RadioButton Name="MixedWeightDistance" GroupName="ResultSortMode" DockPanel.Dock="Left" 
+                         Content="{i18n:Translate MixedWeightDistance, Fallback='Mixed Weight Distance'}" 
+                         IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Distance}}" />
+            <RadioButton Name="MixedWeightTotal" GroupName="ResultSortMode" DockPanel.Dock="Right"
+                         Content="{i18n:Translate MixedWeightTotal, Fallback='Mixed Weight Total'}"
+                         HorizontalAlignment="Right"
+                         IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Total}}"/>
+        </DockPanel>
+        
+    </StackPanel>
+</UserControl>

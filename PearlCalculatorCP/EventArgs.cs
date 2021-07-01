@@ -3,6 +3,7 @@ using PearlCalculatorLib.Result;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
+using PearlCalculatorCP.ViewModels;
 
 namespace PearlCalculatorCP
 {
@@ -13,6 +14,13 @@ namespace PearlCalculatorCP
         protected PCEventArgs(string publishKey)
         {
             this.PublishKey = publishKey;
+        }
+    }
+
+    public class NotificationArgs : PCEventArgs
+    {
+        public NotificationArgs(string publishKey) : base(publishKey)
+        {
         }
     }
 
@@ -64,6 +72,15 @@ namespace PearlCalculatorCP
         {
             this.Direction = direction;
             this.Angle = angle;
+        }
+    }
+
+    public class TNTWeightChangedArgs : PCEventArgs
+    {
+        public readonly TNTWeightModeEnum WeightMode;
+        public TNTWeightChangedArgs(string publishKey, TNTWeightModeEnum weightMode) : base(publishKey)
+        {
+            this.WeightMode = weightMode;
         }
     }
 }

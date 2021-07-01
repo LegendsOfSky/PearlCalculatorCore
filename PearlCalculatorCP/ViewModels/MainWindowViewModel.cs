@@ -8,9 +8,7 @@ using PearlCalculatorCP.Commands;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
-using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
-using PearlCalculatorLib.Result;
 using ReactiveUI;
 
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
@@ -94,57 +92,6 @@ namespace PearlCalculatorCP.ViewModels
             get => (uint)Data.BlueTNT;
             set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
         }
-
-        #endregion
-
-        #region GeneralFTL Advanced Input Data
-
-        private double _pearlOffsetX;
-        public double PearlOffsetX
-        {
-            get => _pearlOffsetX;
-            set
-            {
-                Data.PearlOffset = new Surface2D(value, _pearlOffsetZ);
-                RaiseAndSetProperty(ref _pearlOffsetX, Data.PearlOffset.X);
-            }
-        }
-
-        private double _pearlOffsetZ;
-        public double PearlOffsetZ
-        {
-            get => _pearlOffsetZ;
-            set
-            {
-                Data.PearlOffset = new Surface2D(_pearlOffsetX, value);
-                RaiseAndSetProperty(ref _pearlOffsetZ, Data.PearlOffset.Z);
-            }
-        }
-        
-        public int TNTWeight
-        {
-            get => Data.TNTWeight;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
-                // if (IsDisplayTNTAmount)
-                // {
-                //     SortTNTResult();
-                //     ShowTNTAmount(Data.TNTResult, Data.Pearl.Position, Data.Destination);
-                // }
-            }
-        }
-
-        private TNTWeightModeEnum _tntWeight;
-        public TNTWeightModeEnum TNTWeightMode
-        {
-            get => _tntWeight;
-            set => this.RaiseAndSetIfChanged(ref _tntWeight, value);
-        }
-        
-        #endregion
-
-        #region GeneralFTL Result Data
 
         #endregion
 
@@ -405,8 +352,6 @@ namespace PearlCalculatorCP.ViewModels
             PearlYMomentum = Data.Pearl.Motion.Y;
             DestinationX   = Data.Destination.X;
             DestinationZ   = Data.Destination.Z;
-            PearlOffsetX   = Data.PearlOffset.X;
-            PearlOffsetZ   = Data.PearlOffset.Z;
 
             DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
             DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
@@ -443,8 +388,6 @@ namespace PearlCalculatorCP.ViewModels
             PearlYMomentum = settings.Pearl.Motion.Y;
             DestinationX   = settings.Destination.X;
             DestinationZ   = settings.Destination.Z;
-            PearlOffsetX   = settings.Offset.X;
-            PearlOffsetZ   = settings.Offset.Z;
             BlueTNT        = (uint) settings.BlueTNT;
             RedTNT         = (uint) settings.RedTNT;
             MaxTNT         = (uint) settings.MaxTNT;
@@ -460,7 +403,6 @@ namespace PearlCalculatorCP.ViewModels
         {
             if (Calculation.CalculateTNTAmount(MaxTicks, 10))
             {
-                Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
                 EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", Data.TNTResult));
                 ShowDirectionResult(Data.Pearl.Position, Data.Destination);
             }
@@ -474,26 +416,6 @@ namespace PearlCalculatorCP.ViewModels
             EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces));
         }
         
-        #endregion
-        
-        #region TNT Result Sort
-
-        private void SortTNTResult()
-        {
-            switch (TNTWeightMode)
-            {
-                case TNTWeightModeEnum.MixedWeight:
-                    Data.TNTResult.SortByWeightedDistance(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
-                    break;
-                case TNTWeightModeEnum.OnlyTNT:
-                    Data.TNTResult.SortByWeightedTotal(new TNTResultSortByWeightedArgs(TNTWeight, Data.MaxCalculateTNT, Data.MaxCalculateDistance));
-                    break;
-                case TNTWeightModeEnum.OnlyDistance:
-                    Data.TNTResult.SortByDistance();
-                    break;
-            }
-        }
-
         #endregion
 
         #region Result Show
@@ -521,12 +443,7 @@ namespace PearlCalculatorCP.ViewModels
                 dataBacking = vmBacking;
         }
     }
-    
-    public enum TNTWeightModeEnum
-    {
-        MixedWeight, OnlyTNT, OnlyDistance
-    }
-    
+
     //I don't know why ComboBox.SelectedItem cause a issue
     //avalonia can't resolve item form string
     //may need to ComboBoxItem?
