@@ -21,10 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LLFTLAttachPositionCalculat
 		{B591A606-5A54-490A-BF7E-85AA0373B2B8} = {B591A606-5A54-490A-BF7E-85AA0373B2B8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTPearlCalculatorLib", "RTPearlCalculatorLib\RTPearlCalculatorLib.csproj", "{EAA63F5B-A3FF-478F-8365-F291B1379FB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTPearlCalculatorLib", "RTPearlCalculatorLib\RTPearlCalculatorLib.csproj", "{EAA63F5B-A3FF-478F-8365-F291B1379FB2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B591A606-5A54-490A-BF7E-85AA0373B2B8} = {B591A606-5A54-490A-BF7E-85AA0373B2B8}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCCSettingsGenerator", "PCCSettingsCalculator\PCCSettingsGenerator.csproj", "{E745CA41-ACEC-41A9-8AD2-E1F7DC3FF08F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,10 @@ Global
 		{EAA63F5B-A3FF-478F-8365-F291B1379FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAA63F5B-A3FF-478F-8365-F291B1379FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAA63F5B-A3FF-478F-8365-F291B1379FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E745CA41-ACEC-41A9-8AD2-E1F7DC3FF08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E745CA41-ACEC-41A9-8AD2-E1F7DC3FF08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E745CA41-ACEC-41A9-8AD2-E1F7DC3FF08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E745CA41-ACEC-41A9-8AD2-E1F7DC3FF08F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
