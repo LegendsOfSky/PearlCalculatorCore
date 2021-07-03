@@ -11,6 +11,8 @@ namespace PearlCalculatorCP.ViewModels
 {
     public class ResultPanelViewModel : ViewModelBase
     {
+        public event Action<ResultShowMode>? OnShowModeSet;
+        
         //Amount
         private List<TNTCalculationResult>? _amountList;
         
@@ -28,12 +30,13 @@ namespace PearlCalculatorCP.ViewModels
 #nullable disable
             set
             {
-                if (value >= -1 && value < AmountResult!.Count && value != _amountResultSelectedIndex)
-                {
-                    this.RaiseAndSetIfChanged(ref _amountResultSelectedIndex, value);
-                    var res = AmountResult[value];
-                    EventManager.PublishEvent(this, "setRTCount", new SetRTCountArgs("ResultPanel", res.Red, res.Blue));
-                }
+                if (value < -1 || value >= AmountResult!.Count || value == _amountResultSelectedIndex) 
+                    return;
+                this.RaiseAndSetIfChanged(ref _amountResultSelectedIndex, value);
+
+                if (value == -1) return;
+                var res = AmountResult[value];
+                EventManager.PublishEvent(this, "setRTCount", new SetRTCountArgs("ResultPanel", res.Red, res.Blue));
             }
 #nullable enable
         }
@@ -66,7 +69,14 @@ namespace PearlCalculatorCP.ViewModels
         public ResultShowMode ShowMode
         {
             get => _showMode;
-            set => this.RaiseAndSetIfChanged(ref _showMode, value);
+            set
+            {
+                if (value == ResultShowMode.Trace || value == ResultShowMode.ChunkTrace)
+                    value = EnableChunkMode ? ResultShowMode.ChunkTrace : ResultShowMode.Trace;
+
+                this.RaiseAndSetIfChanged(ref _showMode, value);
+                OnShowModeSet?.Invoke(value);
+            }
         }
 
         private ResultAmountDataSource _amountDataSource = ResultAmountDataSource.General;
@@ -75,7 +85,17 @@ namespace PearlCalculatorCP.ViewModels
         public bool EnableChunkMode
         {
             get => _enableChunkMode;
-            set => this.RaiseAndSetIfChanged(ref _enableChunkMode, value);
+            private set
+            {
+                _enableChunkMode = value;
+                
+                ShowMode = _enableChunkMode switch
+                {
+                    true when ShowMode == ResultShowMode.Trace => ResultShowMode.ChunkTrace,
+                    false when ShowMode == ResultShowMode.ChunkTrace => ResultShowMode.Trace,
+                    _ => ShowMode
+                };
+            }
         }
         
         
@@ -107,6 +127,10 @@ namespace PearlCalculatorCP.ViewModels
                 SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
                 AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
                 AmountResultSelectedIndex = -1;
+
+                PearlMotionList = null;
+                PearlTraceList = null;
+                PearlTraceChunkList = null;
             });
             
             EventManager.AddListener<ShowDirectionResultArgs>("showDirectionResult", (sender, args) =>
@@ -120,12 +144,23 @@ namespace PearlCalculatorCP.ViewModels
                 ShowMode = ResultShowMode.Trace;
                 PearlTraceList = new ObservableCollection<PearlTraceModel>(args.Trace);
                 PearlTraceChunkList = new ObservableCollection<PearlTraceChunkModel>(args.Chunks!);
+                
+                AmountResultSelectedIndex = -1;
+                AmountResult = null;
+                _amountList = null;
+                PearlMotionList = null;
             });
             
             EventManager.AddListener<PearlSimulateArgs>("pearlMotion", (sender, args) =>
             {
                 _showMode = ResultShowMode.Motion;
                 PearlMotionList = new ObservableCollection<PearlTraceModel>(args.Trace);
+
+                AmountResultSelectedIndex = -1;
+                AmountResult = null;
+                _amountList = null;
+                PearlTraceList = null;
+                PearlTraceChunkList = null;
             });
             
             EventManager.AddListener<TNTWeightChangedArgs>("tntWeightChanged", (sender, args) =>
@@ -189,7 +224,8 @@ namespace PearlCalculatorCP.ViewModels
     {
         Amount,
         Trace,
-        Motion
+        Motion,
+        ChunkTrace
     }
 
     public enum ResultAmountDataSource

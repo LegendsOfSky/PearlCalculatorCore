@@ -83,7 +83,7 @@
                         </Grid.Resources>
                         <!--Header-->
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
-                            <Grid>
+                            <Grid Name="TNTAmountGrid">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
@@ -156,16 +156,7 @@
                     </Grid>
                     
                     <!--Pearl Trace Mode-->
-                    <Grid RowDefinitions="Auto, *" >
-                        
-                        <Grid.IsVisible>
-                            <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <Binding Path="ShowMode" 
-                                         Converter="{StaticResource EqualsConverter}"
-                                         ConverterParameter="{x:Static vm:ResultShowMode.Trace}" />
-                                <Binding Path="!EnableChunkMode" />
-                            </MultiBinding>
-                        </Grid.IsVisible>
+                    <Grid RowDefinitions="Auto, *" IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.Trace}}" >
                         
                         <Grid.Resources>
                             <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
@@ -173,7 +164,7 @@
 
                         <!--Header-->
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
-                            <Grid>
+                            <Grid Name="PearlTraceGrid">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
@@ -235,16 +226,7 @@
                     </Grid>
                     
                     <!--Chunk Mode-->
-                    <Grid RowDefinitions="Auto, *">
-                        
-                        <Grid.IsVisible>
-                            <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <Binding Path="ShowMode" 
-                                         Converter="{StaticResource EqualsConverter}"
-                                         ConverterParameter="{x:Static vm:ResultShowMode.Trace}" />
-                                <Binding Path="EnableChunkMode" />
-                            </MultiBinding>
-                        </Grid.IsVisible>
+                    <Grid RowDefinitions="Auto, *" IsVisible="{Binding ShowMode, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static vm:ResultShowMode.ChunkTrace}}" >
                         
                         <Grid.Resources>
                             <sys:Double x:Key="GridHeaderItemMinWidth">50</sys:Double>
@@ -252,7 +234,7 @@
 
                         <!--Header-->
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
-                            <Grid>
+                            <Grid Name="ChunkTraceGrid">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
@@ -315,7 +297,7 @@
 
                         <!--Header-->
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#F3F3F3">
-                            <Grid>
+                            <Grid Name="PearlMotionGrid">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.3*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
