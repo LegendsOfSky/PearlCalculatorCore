@@ -19,7 +19,6 @@ namespace PearlCalculatorCP
         private static AboutWindow _window;
 
         private TextBlock _verTextTB;
-
         
         private bool _isPressed;
         private Point _pressedPoint;

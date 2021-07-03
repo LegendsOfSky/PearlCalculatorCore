@@ -52,6 +52,6 @@ namespace PearlCalculatorCP
     class APPRuntimeSettings
     {
         private static Dictionary<string, object> _settings = new Dictionary<string, object>();
-        public Dictionary<string, object> Settings => _settings;
+        public static Dictionary<string, object> Settings => _settings;
     }
 }

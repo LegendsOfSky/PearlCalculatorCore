@@ -134,7 +134,7 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        public MainWindowViewModel(ref Action<double> onStartupCompleted)
+        public MainWindowViewModel()
         {
             EventManager.AddListener<SetRTCountArgs>("setRTCount", (sender, args) =>
             {
@@ -154,10 +154,14 @@ namespace PearlCalculatorCP.ViewModels
                 
                 _isEnableIfChanged = true;
             });
+        }
 
-            onStartupCompleted = scale =>
+        public MainWindowViewModel(ref Action onStartupCompleted) : this()
+        {
+            onStartupCompleted = () =>
             {
-                WindowScale = scale;
+                if (APPRuntimeSettings.Settings.TryGetValue("scale", out var s))
+                    WindowScale = (double)s;
             };
         }
         

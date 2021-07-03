@@ -3,10 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
+        xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignWidth="{Binding WindowSize.Width}"
+        d:DesignHeight="{Binding WindowSize.Height}"
         x:Class="PearlCalculatorCP.AboutWindow"
         CanResize="False" SystemDecorations="None"
-        Width="600" Height="350"
+        Width="{Binding WindowSize.Width}"
+        Height="{Binding WindowSize.Height}"
         Closed="TopLevel_OnClosed"
         Icon="/Assets/Enderperl-icon32.ico"
         Title="About" Background="Transparent" TransparencyLevelHint="Transparent"
@@ -31,7 +35,17 @@
         
     </Window.Styles>
     
-    <Border CornerRadius="8" BorderThickness="1" Background="White" BorderBrush="{DynamicResource CPBorderBrush}">
+    <Window.DataContext>
+        <vm:AboutWindowViewModel />
+    </Window.DataContext>
+    
+    <LayoutTransformControl>
+        <LayoutTransformControl.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding WindowScale}"
+                            ScaleY="{Binding WindowScale}" />
+        </LayoutTransformControl.LayoutTransform>
+    
+        <Border CornerRadius="8" BorderThickness="1" Background="White" BorderBrush="{DynamicResource CPBorderBrush}">
         <Grid RowDefinitions="*, Auto" Margin="6, 10">
             <StackPanel Grid.Row="0" DockPanel.Dock="Top" Margin="12, 6" Spacing="12">
               
@@ -94,5 +108,6 @@
             </Button>
         </Grid>
     </Border>
+    </LayoutTransformControl>
         
 </Window>
