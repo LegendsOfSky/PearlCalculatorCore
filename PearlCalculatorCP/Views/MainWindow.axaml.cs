@@ -241,7 +241,7 @@ namespace PearlCalculatorCP.Views
 
             if (result == null || result.Length == 0 || !File.Exists(result[0])) return;
 
-            CommandManager.Instance.ExcuteCommand($"setDefaultSettings {result[0]}", false);
+            CommandManager.Instance.ExecuteCommand($"setDefaultSettings {result[0]}", false);
         }
     }
 

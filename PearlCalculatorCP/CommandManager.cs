@@ -99,12 +99,12 @@ namespace PearlCalculatorCP
 #nullable disable
         public bool TryGetCommandHandler<T>(string command, out T handler) where T : class, ICommand
         {
-            var isFinded = CommandList.TryGetValue(command, out var registration);
-            handler = isFinded ? (T)registration.Handler : null;
-            return isFinded;
+            var isFound = CommandList.TryGetValue(command, out var registration);
+            handler = isFound ? (T)registration.Handler : null;
+            return isFound;
         }
 
-        public void ExcuteCommand(string command, bool splitParameter = true)
+        public void ExecuteCommand(string command, bool splitParameter = true)
         {
             if (string.IsNullOrWhiteSpace(command) || string.IsNullOrEmpty(command))
             {
@@ -120,7 +120,7 @@ namespace PearlCalculatorCP
 
             command = command.TrimEnd().TrimStart();
             string[] paras;
-            var cmdName = string.Empty;
+            string cmdName;
             
             if (splitParameter)
             {

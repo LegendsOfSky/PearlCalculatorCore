@@ -42,7 +42,7 @@ namespace PearlCalculatorCP.ViewModels
             var cmd = CommandText[1..];
             CommandText = string.Empty;
             
-            CommandManager.Instance.ExcuteCommand(cmd);
+            CommandManager.Instance.ExecuteCommand(cmd);
         }
         
         private void AddConsoleMessage(ConsoleOutputItemModel message)

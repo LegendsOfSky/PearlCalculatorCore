@@ -226,7 +226,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public void ChangeLanguageOptional(string lang)
         {
-            CommandManager.Instance.ExcuteCommand(
+            CommandManager.Instance.ExecuteCommand(
                 Translator.Instance.CurrentLanguage == lang
                 ? $"setDefaultLang {lang}"
                 : $"changeLang {lang}");
