@@ -10,7 +10,7 @@ Bug Report Rules :
 
 This application supports multiple platforms (Windows, macOS, Linux). Please view the appropriate instructions for your platform.
 
-## PearlCalculatorCP Command-line Arguments
+### PearlCalculatorCP Command-line Arguments
 
 ```
 options:
