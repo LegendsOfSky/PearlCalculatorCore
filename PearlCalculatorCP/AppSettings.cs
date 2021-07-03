@@ -49,7 +49,7 @@ namespace PearlCalculatorCP
         public void MarkPropertyChanged() => _hasChanged = true;
     }
 
-    class APPRuntimeSettings
+    static class AppRuntimeSettings
     {
         private static Dictionary<string, object> _settings = new Dictionary<string, object>();
         public static Dictionary<string, object> Settings => _settings;

@@ -64,7 +64,7 @@ namespace PearlCalculatorCP
                     
                     if (_argsDict.TryGetValue("scale", out var s) &&
                         double.TryParse(s, out var r))
-                        APPRuntimeSettings.Settings.Add("scale", r);
+                        AppRuntimeSettings.Settings.Add("scale", r);
                     
                     _resetWindowScaleAction.Invoke();
                 };

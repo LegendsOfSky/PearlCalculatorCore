@@ -27,7 +27,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public AboutWindowViewModel()
         {
-            if (APPRuntimeSettings.Settings.TryGetValue("scale", out var s))
+            if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
                 WindowScale = (double)s;
         }
     }
