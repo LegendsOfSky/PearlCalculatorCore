@@ -9,12 +9,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
         xmlns:vc="clr-namespace:PearlCalculatorCP.Views.Components"
-        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
+        mc:Ignorable="d" 
+        d:DesignWidth="{Binding WindowSize.Width}" 
+        d:DesignHeight="{Binding WindowSize.Height}"
         CanResize="False"
         x:Class="PearlCalculatorCP.Views.MainWindow"
         Icon="/Assets/Enderperl-icon32.ico"
         Title="PearlCalculator"
-        Width="1000" Height="800"
+        Width="{Binding WindowSize.Width}"
+        Height="{Binding WindowSize.Height}"
         Tapped="Window_OnTapped">
 
     <Window.Resources>
@@ -74,8 +77,13 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-
-    <Grid ColumnDefinitions="2*, 2, 2*">
+    <LayoutTransformControl>
+        <LayoutTransformControl.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding WindowScale}" 
+                            ScaleY="{Binding WindowScale}" />
+        </LayoutTransformControl.LayoutTransform>
+    
+        <Grid ColumnDefinitions="2*, 2, 2*">
 
         <Grid Column="0" ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
             <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -239,5 +247,6 @@
             </TabControl>
         </Grid>
     </Grid>
+    </LayoutTransformControl>
 
 </Window>

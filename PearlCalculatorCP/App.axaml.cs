@@ -1,5 +1,5 @@
-using System.IO;
-using System.Text.Json;
+using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -12,7 +12,11 @@ namespace PearlCalculatorCP
 {
     public class App : Application
     {
-        CustomFontManagerImpl _fontManager = new CustomFontManagerImpl();
+        private CustomFontManagerImpl _fontManager = new CustomFontManagerImpl();
+
+        private Dictionary<string, string?> _argsDict = new Dictionary<string, string?>();
+
+        private Action<double> _resetWindowScaleAction;
 
         public override void Initialize()
         {
@@ -28,11 +32,40 @@ namespace PearlCalculatorCP
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainWindowViewModel(ref _resetWindowScaleAction),
                 };
-
+                
                 desktop.MainWindow.Closed += (sender, args) =>
                     AppSettings.Save();
+
+                desktop.Startup += (sender, e) =>
+                {
+                    if (e.Args is null || e.Args.Length == 0) return;
+                    
+                    var args = e.Args;
+
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        var k = args[i];
+
+                        
+                        if (_argsDict.ContainsKey(k)) continue;
+                        
+                        if (k.StartsWith('-'))
+                        {
+                            _argsDict.Add(k[1..], args[i + 1]);
+                            i++;
+                        }
+                        else
+                        {
+                            _argsDict.Add(k, null);
+                        }
+                    }
+                    
+                    if (_argsDict.TryGetValue("scale", out var s) &&
+                        double.TryParse(s, out var r))
+                        _resetWindowScaleAction.Invoke(r);
+                };
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -55,49 +88,5 @@ namespace PearlCalculatorCP
             else if (!Translator.Instance.LoadLanguage("en"))
                 Translator.Instance.LoadLanguage(Translator.FallbackLanguage);
         }
-    }
-
-#nullable disable
-    class AppSettings
-    {
-        private static readonly string FilePath = $"{ProgramInfo.BaseDirectory}AppSettings.json";
-
-        private static AppSettings _instance;
-
-        public static AppSettings Instance
-        {
-            get
-            {
-                if (_instance is { }) return _instance;
-                
-                if (File.Exists(FilePath))
-                {
-                    var json = File.ReadAllText(FilePath);
-                    _instance = JsonSerializer.Deserialize<AppSettings>(json);
-                    return _instance;
-                }
-
-                return _instance = new AppSettings();
-            }
-        }
-
-        private bool _hasChanged;
-        
-        public string Lanuage { get; set; } = string.Empty;
-        public string DefaultLoadSettingsFile { get; set; } = string.Empty;
-
-        private AppSettings() { }
-
-        public static void Save()
-        {
-            if (!Instance._hasChanged && File.Exists(FilePath)) return;
-
-            var json = JsonSerializer.SerializeToUtf8Bytes(Instance);
-            using var fs = File.OpenWrite(FilePath);
-            fs.SetLength(0);
-            fs.Write(json);
-        }
-
-        public void MarkPropertyChanged() => _hasChanged = true;
     }
 }

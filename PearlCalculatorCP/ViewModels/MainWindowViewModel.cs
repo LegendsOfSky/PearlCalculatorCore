@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia;
 using Avalonia.Media;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.Commands;
@@ -19,6 +20,31 @@ namespace PearlCalculatorCP.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region Window Scale
+
+        private static readonly Size DefaultWindowSize = new Size(1000, 800);
+        
+        private Size _windowSize = DefaultWindowSize;
+        public Size WindowSize
+        {
+            get => _windowSize;
+            private set => this.RaiseAndSetIfChanged(ref _windowSize, value);
+        }
+
+        private double _windowScale = 1.0d;
+        public double WindowScale
+        {
+            get => _windowScale;
+            private set
+            {
+                this.RaiseAndSetIfChanged(ref _windowScale, value);
+                WindowSize = DefaultWindowSize * value;
+            }
+        }
+
+        #endregion
+        
+        
         //this field for RaiseAndSetIfChanged()
         private bool _isEnableIfChanged = true;
 
@@ -108,7 +134,7 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ref Action<double> onStartupCompleted)
         {
             EventManager.AddListener<SetRTCountArgs>("setRTCount", (sender, args) =>
             {
@@ -128,6 +154,11 @@ namespace PearlCalculatorCP.ViewModels
                 
                 _isEnableIfChanged = true;
             });
+
+            onStartupCompleted = scale =>
+            {
+                WindowScale = scale;
+            };
         }
         
 
