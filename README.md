@@ -10,6 +10,13 @@ Bug Report Rules :
 
 This application supports multiple platforms (Windows, macOS, Linux). Please view the appropriate instructions for your platform.
 
+## PearlCalculatorCP Command-line Arguments
+
+```
+options:
+    -scale [ratio]      scale app based on the current screen dpi (e.g: PearlCalculatorCP -scale 1.25)
+```
+
 ### Prerequisites
 
 Please install the dotnet Core runtime before proceeding.
