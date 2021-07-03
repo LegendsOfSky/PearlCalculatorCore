@@ -46,8 +46,13 @@ namespace PearlCalculatorCP.ViewModels
             get => _weightMode;
             set
             {
-                this.RaiseAndSetIfChanged(ref _weightMode, value);
+                if (value == _weightMode) return;
+                
+                this.RaiseAndSetProperty(ref _weightMode, value);
                 StaticWeightMode = value;
+                EventManager.PublishEvent(this, "tntWeightChanged", 
+                    value == TNTWeightModeEnum.Distance ? _distanceModeArgs : _totalModeArgs);
+
             }
         }
 
