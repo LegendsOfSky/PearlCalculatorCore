@@ -30,11 +30,13 @@ namespace PearlCalculatorCP.ViewModels
 #nullable disable
             set
             {
-                if (value < -1 || value >= AmountResult!.Count || value == _amountResultSelectedIndex) 
+                if (value < -1 || value == _amountResultSelectedIndex || (AmountResult != null && value >= AmountResult.Count)) 
                     return;
+
                 this.RaiseAndSetIfChanged(ref _amountResultSelectedIndex, value);
 
                 if (value == -1) return;
+
                 var res = AmountResult[value];
                 EventManager.PublishEvent(this, "setRTCount", new SetRTCountArgs("ResultPanel", res.Red, res.Blue));
             }
