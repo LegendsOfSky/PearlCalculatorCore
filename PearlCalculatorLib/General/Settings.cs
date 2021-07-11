@@ -25,6 +25,8 @@ namespace PearlCalculatorLib.General
         public int BlueTNT;
         public int MaxTNT;
         public Direction Direction;
+        public Direction DefaultRedTNTDirection;
+        public Direction DefaultBlueTNTDirection;
 
         public static Settings CreateSettingsFormData() => new Settings()
         {
@@ -42,7 +44,10 @@ namespace PearlCalculatorLib.General
             Destination = Data.Destination ,
             Offset = Data.PearlOffset ,
 
-            Direction = Data.Direction
+            Direction = Data.Direction ,
+
+            DefaultRedTNTDirection = Data.DefaultRedDuper ,
+            DefaultBlueTNTDirection = Data.DefaultBlueDuper
         };
     }
 }
