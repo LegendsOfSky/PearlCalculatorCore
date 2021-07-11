@@ -12,7 +12,7 @@ namespace PearlCalculatorLib.General
     [Serializable]
     public class Settings
     {
-        public const string FileSuffix = "pcld file|*.pcld";
+        public const string Version = "2.7";
 
         public Space3D NorthWestTNT;
         public Space3D NorthEastTNT;

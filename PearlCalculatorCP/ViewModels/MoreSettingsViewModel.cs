@@ -231,6 +231,9 @@ namespace PearlCalculatorCP.ViewModels
                 
                 PearlYCoor     = settings.Pearl.Position.Y;
                 PearlYMomentum = settings.Pearl.Motion.Y;
+                
+                DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedTNTDirection.ToString());
+                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueTNTDirection.ToString());
             });
         }
 

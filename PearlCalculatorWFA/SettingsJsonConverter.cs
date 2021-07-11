@@ -7,7 +7,7 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 
 #nullable disable
 
-namespace PearlCalculatorCP
+namespace PearlCalculatorWFA
 {
     public class SettingsJsonConverter : JsonConverter<Settings>
     {

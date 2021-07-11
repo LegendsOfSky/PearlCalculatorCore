@@ -1,5 +1,3 @@
-#define ENABLE_ALL_SETTINGS
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,15 +12,8 @@ using Avalonia.Media.Immutable;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
-
-#if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
 using System.Text;
 using System.Text.Json;
-#endif
-
-#if !ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
-using System.Runtime.Serialization.Formatters.Binary;
-#endif
 
 #nullable disable
 
@@ -33,32 +24,13 @@ namespace PearlCalculatorCP.Views
 
         private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
         {
-#if ENABLE_ALL_SETTINGS
-            new FileDialogFilter
-            {
-                Name = "pcld;json",
-                Extensions = {"pcld", "json"}
-            },
-#endif
-            
-#if ENABLE_ALL_SETTINGS || !ENABLE_JSON_SETTINGS
-            new FileDialogFilter
-            {
-                Name = "pcld",
-                Extensions = {"pcld"}
-            },
-#endif
-            
-#if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
             new FileDialogFilter
             {
                 Name = "json",
                 Extensions = {"json"}
             },
-#endif
         };
-
-#if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
+        
         private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
         
         private static readonly JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
@@ -71,7 +43,7 @@ namespace PearlCalculatorCP.Views
         {
             Converters = { JsonConverter }
         };
-#endif
+        
         private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
@@ -127,23 +99,7 @@ namespace PearlCalculatorCP.Views
             ImportSettings(result[0]);
         }
 
-        public void ImportSettings(string path)
-        {
-#if ENABLE_ALL_SETTINGS
-            if (Path.GetExtension(path) == ".json")
-                ImportSettingsFormJson(path);
-            else
-                ImportSettingsFormPcld(path);
-#elif ENABLE_JSON_SETTINGS
-            ImportSettingsFormJson(path);
-#else
-            ImportSettingsFormPcld(path);
-#endif
-        }
-
-#if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
-        
-        private async void ImportSettingsFormJson(string path)
+        public async void ImportSettings(string path)
         {
             var json = await File.ReadAllTextAsync(path, Encoding.UTF8);
             try
@@ -155,20 +111,6 @@ namespace PearlCalculatorCP.Views
                 LogUtils.Error("settings json file format error");
             }
         }
-#endif
-        
-#if !ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
-        private async void ImportSettingsFormPcld(string path)
-        {
-            await using var fs = File.OpenRead(path);
-            if (new BinaryFormatter().Deserialize(fs) is Settings settings)
-            {
-                _vm.LoadDataFormSettings(settings);
-            }
-        }
-#endif
-
-        
         
         private async void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
@@ -176,21 +118,10 @@ namespace PearlCalculatorCP.Views
             var path = await dialog.ShowAsync(this);
 
             if (string.IsNullOrWhiteSpace(path) || string.IsNullOrEmpty(path)) return;
-            
-#if ENABLE_ALL_SETTINGS
-            if (Path.GetExtension(path) == ".json")
-                SaveSettingsToJson(path);
-            else
-                SaveSettingsToPcld(path);
-#elif ENABLE_JSON_SETTINGS
-            SaveSettingsToJson(path);
-#else
-            SaveSettingsToPcld(path);
-#endif
+            SaveSettings(path);
         }
-
-#if ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
-        private async void SaveSettingsToJson(string path)
+        
+        private async void SaveSettings(string path)
         {
             var json = JsonSerializer.SerializeToUtf8Bytes(Settings.CreateSettingsFormData(), WriteSerializerOptions);
 
@@ -198,16 +129,6 @@ namespace PearlCalculatorCP.Views
             sr.SetLength(0);
             await sr.WriteAsync(json.AsMemory());
         }
-#endif
-
-#if !ENABLE_JSON_SETTINGS || ENABLE_ALL_SETTINGS
-        private async void SaveSettingsToPcld(string path)
-        {
-            var bf = new BinaryFormatter();
-            await using var fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            bf.Serialize(fs, Settings.CreateSettingsFormData());
-        }
-#endif
 
         #endregion
 

@@ -17,13 +17,28 @@ using System.Runtime;
 using System.Drawing.Printing;
 using System.Runtime.Serialization;
 using System.Drawing;
+using System.Text;
+using System.Text.Json;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorWFA
 {
     public partial class PearlCalculatorWFA : Form
     {
-        const string DefaultImportSettingsPath = @"./settings.pcld";
+        const string DefaultImportSettingsPath = @"./settings.json";
+
+        private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
+        
+        private static readonly JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
+        {
+            Converters = { JsonConverter },
+            WriteIndented = true
+        };
+
+        private static readonly JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
+        {
+            Converters = { JsonConverter }
+        };
 
         private bool IsDisplayOnTNT = false;
         private string OffsetXTextBoxString = "0.";
@@ -357,52 +372,52 @@ namespace PearlCalculatorWFA
 
         #region General : Import/Export Settings
 
-        private void ImportSettingButton_Click(object sender , EventArgs e)
+        private async void ImportSettingButton_Click(object sender , EventArgs e)
         {
-            using var fileDialog = new OpenFileDialog { Filter = Settings.FileSuffix };
+            using var fileDialog = new OpenFileDialog { Filter = "json|*.json" };
 
             if(fileDialog.ShowDialog() == DialogResult.OK)
             {
-                using var fs = File.OpenRead(fileDialog.FileName);
-                if(new BinaryFormatter().Deserialize(fs) is Settings settings)
+                var json = await File.ReadAllTextAsync(fileDialog.FileName, Encoding.UTF8);
+                try
                 {
-                    ImportSettings(settings);
+                    ImportSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
                     RefleshInput();
+                }
+                catch (Exception)
+                {
+                    Log("Main", "Error", "settings json file format error");
                 }
             }
         }
 
-        private void SaveSettingButton_Click(object sender , EventArgs e)
+        private async void SaveSettingButton_Click(object sender , EventArgs e)
         {
-            var bf = new BinaryFormatter();
-            using var fileDialog = new SaveFileDialog();
-            fileDialog.Filter = Settings.FileSuffix;
-            fileDialog.AddExtension = true;
+            using var fileDialog = new SaveFileDialog {Filter = "json|*.json", AddExtension = true};
 
             if(fileDialog.ShowDialog() == DialogResult.OK)
             {
-                var fs = File.Open(fileDialog.FileName , FileMode.OpenOrCreate);
-                bf.Serialize(fs , Settings.CreateSettingsFormData());
-                fs.Close();
+                var json = JsonSerializer.SerializeToUtf8Bytes(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+
+                using var sr = File.OpenWrite(fileDialog.FileName);
+                sr.SetLength(0);
+                await sr.WriteAsync(json.AsMemory());
             }
         }
 
-        void ImportSettingFormDefaultFile()
+        async void ImportSettingFormDefaultFile()
         {
             if (File.Exists(DefaultImportSettingsPath))
             {
-                using var fs = File.OpenRead(DefaultImportSettingsPath);
+                var json = await File.ReadAllTextAsync(DefaultImportSettingsPath, Encoding.UTF8);
                 try
                 {
-                    if (new BinaryFormatter().Deserialize(fs) is Settings settings)
-                    {
-                        ImportSettings(settings);
-                        RefleshInput();
-                    }
+                    ImportSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
+                    RefleshInput();
                 }
-                catch (SerializationException)
+                catch (Exception)
                 {
-                    Log("Main", "Error", "At start, found settings.pcld file, but it not is calculator's settings file");
+                    Log("Main", "Error", "At start, found settings.json file, but it not is calculator's settings file");
                 }
             }
         }
@@ -427,6 +442,9 @@ namespace PearlCalculatorWFA
             GeneralData.PearlOffset = settings.Offset;
 
             GeneralData.Direction = settings.Direction;
+
+            GeneralData.DefaultRedDuper = settings.DefaultRedTNTDirection;
+            GeneralData.DefaultBlueDuper = settings.DefaultBlueTNTDirection;
         }
 
         void RefleshInput()
