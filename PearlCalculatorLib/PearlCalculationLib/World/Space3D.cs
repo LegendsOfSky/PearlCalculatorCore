@@ -33,7 +33,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public Space3D(Space3D space3D) : this(space3D.X , space3D.Y , space3D.Z) { }
 
-        public override string ToString() => $"Coordinate : {X} , {Y} , {Z}";
+        public override string ToString() => $"{X} , {Y} , {Z}";
 
         public double WorldAngle(Space3D position2)
         {
