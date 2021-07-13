@@ -9,4 +9,10 @@
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Language.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

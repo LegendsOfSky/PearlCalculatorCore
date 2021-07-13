@@ -3,6 +3,7 @@ using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
@@ -10,6 +11,10 @@ using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Resources;
+using System.Reflection;
+using System.Threading;
+using System.Globalization;
 
 namespace PCCSettingsGenerator
 {
@@ -23,13 +28,38 @@ namespace PCCSettingsGenerator
             WriteIndented = true
         };
 
+        private static ResourceManager manager = new ResourceManager("PCCSettingsGenerator.Resources.Language" , Assembly.GetExecutingAssembly());
 
         static void Main(string[] args)
         {
             #region Initialize
 
-            Clear();
             string temp = "Start";
+            try
+            {
+                Console.WriteLine(manager.GetObject("Language"));
+            }
+            catch(MissingManifestResourceException)
+            {
+                Console.WriteLine("Available language option");
+                Console.WriteLine("1) en");
+                Console.WriteLine("2) zh-TW");
+                Console.WriteLine("Please choose a language.");
+                temp = Console.ReadLine();
+                while(!int.TryParse(temp , out int i) && i < 3 && i > 0)
+                {
+                    Console.WriteLine("Unexpected response. Please choose a language.");
+                    temp = Console.ReadLine();
+                }
+                if(temp == "1")
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en");
+                else if(temp == "2")
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("zh-TW");
+                Console.WriteLine(manager.GetObject("Language"));
+            }
+            Console.WriteLine(manager.GetObject("PressKey"));
+            Console.ReadKey();
+            Clear();
             Console.ReadKey();
             Settings settings = new Settings
             {
@@ -49,49 +79,49 @@ namespace PCCSettingsGenerator
                 if(temp == "1" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the corrdinate of the center Of your FTL blast chamber :");
-                    chamber = ReadSurface2DFromConsole("FTL blast chamber ceter coordinate");
+                    Console.WriteLine(manager.GetObject("Chamber"));
+                    chamber = ReadSurface2DFromConsole((string)manager.GetObject("ChamberParameter"));
                 }
                 if(temp == "2" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the coordinate of the pearl:");
-                    settings.Pearl.Position = ReadSpace3DFromConsole("Pearl coordinate");
+                    Console.WriteLine(manager.GetObject("PearlCoordinate"));
+                    settings.Pearl.Position = ReadSpace3DFromConsole((string)manager.GetObject("PearlCoordinateParameter"));
                 }
                 if(temp == "3" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the pearl motion :");
-                    settings.Pearl.Motion = ReadSpace3DFromConsole("Pearl Motion");
+                    Console.WriteLine(manager.GetObject("PearlMotion"));
+                    settings.Pearl.Motion = ReadSpace3DFromConsole((string)manager.GetObject("PearlMotionParameter"));
                 }
                 if(temp == "4" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the coordinates of the north west TNT :");
-                    settings.NorthWestTNT = ReadSpace3DFromConsole("North west TNT coordinate");
+                    Console.WriteLine(manager.GetObject("NorthWestTNT"));
+                    settings.NorthWestTNT = ReadSpace3DFromConsole((string)manager.GetObject("NorthWestTNTParameter"));
                 }
                 if(temp == "5" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the coordinates of the north east TNT :");
-                    settings.NorthEastTNT = ReadSpace3DFromConsole("North east TNT coordinate");
+                    Console.WriteLine(manager.GetObject("NorthEastTNT"));
+                    settings.NorthEastTNT = ReadSpace3DFromConsole((string)manager.GetObject("NorthEastTNTParameter"));
                 }
                 if(temp == "6" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the coordinates of the south west TNT :");
-                    settings.SouthWestTNT = ReadSpace3DFromConsole("South west TNT coordinate");
+                    Console.WriteLine(manager.GetObject("SouthWestTNT"));
+                    settings.SouthWestTNT = ReadSpace3DFromConsole((string)manager.GetObject("SouthWestTNTParameter"));
                 }
                 if(temp == "7" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the coordinates of the south east TNT :");
-                    settings.SouthEastTNT = ReadSpace3DFromConsole("South east TNT coordinate");
+                    Console.WriteLine(manager.GetObject("SouthEastTNT"));
+                    settings.SouthEastTNT = ReadSpace3DFromConsole((string)manager.GetObject("SouthEastTNTParameter"));
                 }
                 if(temp == "9" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please take a look in the following AA image and press a key");
+                    Console.WriteLine(manager.GetObject("AAPressKey"));
                     Console.WriteLine();
                     Console.WriteLine(@"        |                                 |                           ");
                     Console.WriteLine(@"        |                                 |                           ");
@@ -116,22 +146,22 @@ namespace PCCSettingsGenerator
                     Console.WriteLine(@"        |                                 |                           ");
                     Console.ReadKey();
                     Console.WriteLine();
-                    Console.WriteLine("Please take a look in the following statement and understand it.");
+                    Console.WriteLine(manager.GetObject("StatementHeader"));
                     SeparatingLine();
-                    Console.WriteLine("Once your TNT was flew into the chamber.");
-                    Console.WriteLine("Don't use anything to move it.");
-                    Console.WriteLine("Let the TNT drop and remember it's place.");
-                    Console.WriteLine("Them, enter the corresponding English symbol.");
-                    Console.WriteLine("For example, the TNT was dropped in the south east corner.");
-                    Console.WriteLine("The corresponding English symbol will be D.");
+                    Console.WriteLine(manager.GetObject("Statement0"));
+                    Console.WriteLine(manager.GetObject("Statement1"));
+                    Console.WriteLine(manager.GetObject("Statement2"));
+                    Console.WriteLine(manager.GetObject("Statement3"));
+                    Console.WriteLine(manager.GetObject("Statement4"));
+                    Console.WriteLine(manager.GetObject("Statement5"));
                     SeparatingLine();
-                    Console.WriteLine("Corresponding English symbol for red TNT");
+                    Console.WriteLine(manager.GetObject("TNTSymbol"));
                     string temp2 = Console.ReadLine();
                     while(temp2 != "A" && temp2 != "B" && temp2 != "C" && temp2 != "D")
                     {
                         SeparatingLine();
-                        Console.WriteLine("Wrong format. Please enter the following value again.");
-                        Console.WriteLine("Corresponding English symbol for red TNT");
+                        Console.WriteLine(manager.GetObject("WrongFormat"));
+                        Console.WriteLine(manager.GetObject("TNTSymbolParameter"));
                         temp2 = Console.ReadLine();
                     }
                     switch(temp2)
@@ -157,13 +187,13 @@ namespace PCCSettingsGenerator
                 if(temp == "8" || temp == "Start")
                 {
                     Clear();
-                    Console.WriteLine("Please enter the maximum amount of TNT :");
+                    Console.WriteLine(manager.GetObject("MaxTNT"));
                     temp = Console.ReadLine();
                     while(!int.TryParse(temp , out settings.MaxTNT))
                     {
                         Clear();
-                        Console.WriteLine("Wrong format. Please enter the following value again.");
-                        Console.WriteLine("Maximum amount of TNT :");
+                        Console.WriteLine(manager.GetObject("WrongFormat"));
+                        Console.WriteLine(manager.GetObject("MaxTNTParamater"));
                         temp = Console.ReadLine();
                     }
                 }
@@ -173,32 +203,31 @@ namespace PCCSettingsGenerator
                 #region Verify
 
                 Clear();
-                Console.WriteLine("These are the parameters that you have entered.");
-                Console.WriteLine("1) FTL blast chamber center " + chamber);
-                Console.WriteLine("2) Ender Pearl " + settings.Pearl.Position);
-                temp = settings.Pearl.Motion.X.ToString() + " , " + settings.Pearl.Motion.Y.ToString() + " , " + pearl.Motion.Z.ToString();
-                Console.WriteLine("3) Ender Pearl motion : " + temp);
-                Console.WriteLine("4) North west TNT " + settings.NorthWestTNT);
-                Console.WriteLine("5) North east TNT " + settings.NorthEastTNT);
-                Console.WriteLine("6) South west TNT " + settings.SouthWestTNT);
-                Console.WriteLine("7) South east TNT " + settings.SouthEastTNT);
-                Console.WriteLine("8) Max TNT : " + settings.MaxTNT.ToString());
-                Console.WriteLine("9) Direction of the red TNT : " + settings.DefaultRedTNTDirection.ToString());
-                Console.WriteLine("Please confirm if they are all correct. (Y/N)");
+                Console.WriteLine(manager.GetObject("ParameterHeader"));
+                Console.WriteLine((string)manager.GetObject("Parameter0") + chamber);
+                Console.WriteLine((string)manager.GetObject("Parameter1") + settings.Pearl.Position);
+                Console.WriteLine((string)manager.GetObject("Parameter2") + settings.Pearl.Motion.ToString());
+                Console.WriteLine((string)manager.GetObject("Parameter3") + settings.NorthWestTNT);
+                Console.WriteLine((string)manager.GetObject("Parameter4") + settings.NorthEastTNT);
+                Console.WriteLine((string)manager.GetObject("Parameter5") + settings.SouthWestTNT);
+                Console.WriteLine((string)manager.GetObject("Parameter6") + settings.SouthEastTNT);
+                Console.WriteLine((string)manager.GetObject("Parameter7") + settings.MaxTNT.ToString());
+                Console.WriteLine((string)manager.GetObject("Parameter8") + settings.DefaultRedTNTDirection.ToString());
+                Console.WriteLine(manager.GetObject("CorfirmParameter"));
                 temp = Console.ReadLine().ToUpper();
                 while(temp != "Y" && temp != "N")
                 {
-                    Console.WriteLine("Unexpected response. Please confirm whether they are all correct. (Y/N)");
+                    Console.WriteLine(manager.GetObject("UnexpectedResponseSettings"));
                     temp = Console.ReadLine().ToUpper();
                 }
                 if(temp == "N")
                 {
-                    Console.WriteLine("Please specify the number of the parameter you would like to chamge.");
+                    Console.WriteLine(manager.GetObject("ChangeParameter"));
                     temp = Console.ReadLine();
                     while(!(int.TryParse(temp , out int i) && i < 10 && i > 0))
                     {
-                        Console.WriteLine("Wrong format. Please enter the following parameter again.");
-                        Console.WriteLine("Please specify the number of the parameter you would like to chamge.");
+                        Console.WriteLine(manager.GetObject("WrongFormat"));
+                        Console.WriteLine(manager.GetObject("ChangeParameter"));
                         temp = Console.ReadLine();
                     }
                 }
@@ -218,32 +247,31 @@ namespace PCCSettingsGenerator
             settings.Pearl.Position.Z = 0;
             settings.Direction = Direction.North;
             Clear();
-            Console.WriteLine("These are the settings it had generated.");
-            Console.WriteLine("1) Max TNT : " + settings.MaxTNT.ToString());
-            Console.WriteLine("2) North West TNT " + settings.NorthWestTNT.ToString());
-            Console.WriteLine("3) North East TNT " + settings.NorthEastTNT.ToString());
-            Console.WriteLine("4) South West TNT " + settings.SouthWestTNT.ToString());
-            Console.WriteLine("5) South East TNT " + settings.SouthEastTNT.ToString());
-            Console.WriteLine("6) Ender Pearl Height : " + settings.Pearl.Position.Y.ToString());
-            temp = settings.Pearl.Motion.X.ToString() + " , " + settings.Pearl.Motion.Y.ToString() + " , " + settings.Pearl.Motion.Z.ToString();
-            Console.WriteLine("7) Ender Pearl Motion : " + temp);
-            Console.WriteLine("8) Offset " + settings.Offset.ToString());
-            Console.WriteLine("9) Default Red TNT Direction : " + settings.DefaultRedTNTDirection.ToString());
-            Console.WriteLine("10) Default Blue TNT Direction : " + settings.DefaultBlueTNTDirection.ToString());
-            Console.WriteLine("Do you want to save as settings.json? (Y/N)");
+            Console.WriteLine(manager.GetObject("SettingHeader"));
+            Console.WriteLine((string)manager.GetObject("Setting0") + settings.MaxTNT.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting1") + settings.NorthWestTNT.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting2") + settings.NorthEastTNT.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting3") + settings.SouthWestTNT.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting4") + settings.SouthEastTNT.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting5") + settings.Pearl.Position.Y.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting6") + settings.Pearl.Motion.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting7") + settings.Offset.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting8") + settings.DefaultRedTNTDirection.ToString());
+            Console.WriteLine((string)manager.GetObject("Setting9") + settings.DefaultBlueTNTDirection.ToString());
+            Console.WriteLine((string)manager.GetObject("ConfirmSave"));
             temp = Console.ReadLine().ToUpper();
             while(temp != "Y" && temp != "N")
             {
-                Console.WriteLine("Unexpected response. Do you want to save as settings.json? (Y/N)");
+                Console.WriteLine((string)manager.GetObject("UnexpectedResponseJson"));
                 temp = Console.ReadLine().ToUpper();
             }
             Clear();
             if(temp == "Y")
             {
                 SaveSettingsToJson("./settings.json" , settings);
-                Console.WriteLine("File saved.");
+                Console.WriteLine((string)manager.GetObject("FileSaved"));
             }
-            Console.WriteLine("Press any key to quit.");
+            Console.WriteLine((string)manager.GetObject("PressKeyExist"));
             Console.ReadKey();
 
             #endregion
@@ -266,7 +294,7 @@ namespace PCCSettingsGenerator
             string temp = Console.ReadLine();
             while(!double.TryParse(temp , out result.X))
             {
-                Console.WriteLine("Wrong format. Please enter the following parameter again.");
+                Console.WriteLine(manager.GetObject("WrongFormat"));
                 Console.WriteLine(valueName + " X :");
                 temp = Console.ReadLine();
             }
@@ -274,7 +302,7 @@ namespace PCCSettingsGenerator
             temp = Console.ReadLine();
             while(!double.TryParse(temp , out result.Y))
             {
-                Console.WriteLine("Wrong format. Please enter the following parameter again.");
+                Console.WriteLine(manager.GetObject("WrongFormat"));
                 Console.WriteLine(valueName + " X :");
                 temp = Console.ReadLine();
             }
@@ -282,7 +310,7 @@ namespace PCCSettingsGenerator
             temp = Console.ReadLine();
             while(!double.TryParse(temp , out result.Z))
             {
-                Console.WriteLine("Wrong format. Please enter the following parameter again.");
+                Console.WriteLine(manager.GetObject("WrongFormat"));
                 Console.WriteLine(valueName + " Z :");
                 temp = Console.ReadLine();
             }
@@ -296,7 +324,7 @@ namespace PCCSettingsGenerator
             string temp = Console.ReadLine();
             while(!double.TryParse(temp , out result.X))
             {
-                Console.WriteLine("Wrong format. Please enter the following parameter again.");
+                Console.WriteLine(manager.GetObject("WrongFormat"));
                 Console.WriteLine(valueName + " X :");
                 temp = Console.ReadLine();
             }
@@ -304,7 +332,7 @@ namespace PCCSettingsGenerator
             temp = Console.ReadLine();
             while(!double.TryParse(temp , out result.Z))
             {
-                Console.WriteLine("Wrong format. Please enter the following parameter again.");
+                Console.WriteLine(manager.GetObject("WrongFormat"));
                 Console.WriteLine(valueName + " Z :");
                 temp = Console.ReadLine();
             }
@@ -314,20 +342,21 @@ namespace PCCSettingsGenerator
         public static void Clear()
         {
             Console.Clear();
-            Console.WriteLine("Welcome to the Pearl Calculator Core Settings Generator.");
-            Console.WriteLine("Please make sure you can see all the symbols(=) in the following line");
+            Console.WriteLine(manager.GetObject("Welcome"));
+            Console.WriteLine(manager.GetObject("Caution"));
             Console.WriteLine("=====================================================================================================================");
-            Console.WriteLine("Note :");
-            Console.WriteLine("Please keep in mind that,");
-            Console.WriteLine("There will be precision loss for those settings generated by this application.");
-            Console.WriteLine("Press any key to proceed if you acknowledge the above remark and prefer using this application.");
+            Console.WriteLine(manager.GetObject("NoteHeader"));
+            Console.WriteLine(manager.GetObject("Note0"));
+            Console.WriteLine(manager.GetObject("Note1"));
+            Console.WriteLine(manager.GetObject("Note2"));
+            Console.WriteLine(manager.GetObject("StartPressKey"));
             Console.WriteLine();
             Console.WriteLine();
         }
 
         public static void SeparatingLine()
         {
-            Console.WriteLine("---------------------------------------------------Separating Line---------------------------------------------------");
+            Console.WriteLine(manager.GetObject("Separate"));
         }
     }
 }

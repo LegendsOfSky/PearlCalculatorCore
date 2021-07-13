@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AAPressKey" xml:space="preserve">
+    <value>請查看下方的字符畫並按下任意鍵。</value>
+  </data>
+  <data name="Caution" xml:space="preserve">
+    <value>請確保您可以在同一行中顯示所有的符號(=)</value>
+  </data>
+  <data name="Chamber" xml:space="preserve">
+    <value>請輸入珍珠砲膛室中心的座標 :</value>
+  </data>
+  <data name="ChamberParameter" xml:space="preserve">
+    <value>珍珠砲膛室中心座標</value>
+  </data>
+  <data name="ChangeParameter" xml:space="preserve">
+    <value>請指定您想要修改的數值。</value>
+  </data>
+  <data name="ConfirmSave" xml:space="preserve">
+    <value>請問您是否希望將此設定保存為settings.json？(Y/N)</value>
+  </data>
+  <data name="CorfirmParameter" xml:space="preserve">
+    <value>請確認以上數值是否正確。(Y/N)</value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>文件已保存。</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>語言 : 中文</value>
+  </data>
+  <data name="MaxTNT" xml:space="preserve">
+    <value>請輸入單邊最大可複製的TNT當量 :</value>
+  </data>
+  <data name="MaxTNTParamater" xml:space="preserve">
+    <value>單邊最大可複製的TNT當量</value>
+  </data>
+  <data name="NorthEastTNT" xml:space="preserve">
+    <value>請輸入東北方TNT的座標 :</value>
+  </data>
+  <data name="NorthEastTNTParameter" xml:space="preserve">
+    <value>東北方的TNT座標</value>
+  </data>
+  <data name="NorthWestTNT" xml:space="preserve">
+    <value>請輸入西北方TNT的座標 :</value>
+  </data>
+  <data name="NorthWestTNTParameter" xml:space="preserve">
+    <value>西北方的TNT座標</value>
+  </data>
+  <data name="Note0" xml:space="preserve">
+    <value>請時刻記得，</value>
+    <comment>Please keep in mind that,</comment>
+  </data>
+  <data name="Note1" xml:space="preserve">
+    <value>這個軟件所產生的設定檔可能會輕微丟失精度</value>
+  </data>
+  <data name="Note2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoteHeader" xml:space="preserve">
+    <value>備註 :</value>
+  </data>
+  <data name="Parameter0" xml:space="preserve">
+    <value>1) 珍珠砲膛室中心的座標 : </value>
+  </data>
+  <data name="Parameter1" xml:space="preserve">
+    <value>2) 珍珠的座標 : </value>
+  </data>
+  <data name="Parameter2" xml:space="preserve">
+    <value>3) 珍珠的矢量 : </value>
+  </data>
+  <data name="Parameter3" xml:space="preserve">
+    <value>4) 西北方的TNT座標 : </value>
+  </data>
+  <data name="Parameter4" xml:space="preserve">
+    <value>5) 東北方的TNT座標 : </value>
+  </data>
+  <data name="Parameter5" xml:space="preserve">
+    <value>6) 西南方TNT的座標 : </value>
+  </data>
+  <data name="Parameter6" xml:space="preserve">
+    <value>7) 東南方TNT的座標 : </value>
+  </data>
+  <data name="Parameter7" xml:space="preserve">
+    <value>8) 單邊最大可複製的TNT當量 : </value>
+  </data>
+  <data name="Parameter8" xml:space="preserve">
+    <value>9) 珍珠砲紅色陣列複製出來的TNT於膛室的方向 : </value>
+  </data>
+  <data name="ParameterHeader" xml:space="preserve">
+    <value>以下是您所輸入的參數</value>
+  </data>
+  <data name="PearlCoordinate" xml:space="preserve">
+    <value>請輸入珍珠的座標 :</value>
+  </data>
+  <data name="PearlCoordinateParameter" xml:space="preserve">
+    <value>珍珠的座標</value>
+  </data>
+  <data name="PearlMotion" xml:space="preserve">
+    <value>請輸入珍珠的動能 :</value>
+  </data>
+  <data name="PearlMotionParameter" xml:space="preserve">
+    <value>珍珠的動能</value>
+  </data>
+  <data name="PressKey" xml:space="preserve">
+    <value>請按下任意鍵。</value>
+  </data>
+  <data name="PressKeyExist" xml:space="preserve">
+    <value>請按下任意鍵以離開。</value>
+  </data>
+  <data name="Separate" xml:space="preserve">
+    <value>---------------------------------------------------  分  隔  線  ----------------------------------------------------</value>
+  </data>
+  <data name="Setting0" xml:space="preserve">
+    <value>1) 單邊最大可複製的TNT當量 :</value>
+  </data>
+  <data name="Setting1" xml:space="preserve">
+    <value>2) 西北方的TNT座標 :</value>
+  </data>
+  <data name="Setting2" xml:space="preserve">
+    <value>3) 東北方的TNT座標 :</value>
+  </data>
+  <data name="Setting3" xml:space="preserve">
+    <value>4) 西南方TNT的座標 :</value>
+  </data>
+  <data name="Setting4" xml:space="preserve">
+    <value>5) 東南方TNT的座標 :</value>
+  </data>
+  <data name="Setting5" xml:space="preserve">
+    <value>6) 珍珠的高度 : </value>
+  </data>
+  <data name="Setting6" xml:space="preserve">
+    <value>7) 珍珠的動能 : </value>
+  </data>
+  <data name="Setting7" xml:space="preserve">
+    <value>8) 珍珠的偏移 : </value>
+  </data>
+  <data name="Setting8" xml:space="preserve">
+    <value>9) 紅色TNT的預設膛室落點 : </value>
+  </data>
+  <data name="Setting9" xml:space="preserve">
+    <value>10) 藍色TNT的預設膛室落點 : </value>
+  </data>
+  <data name="SettingHeader" xml:space="preserve">
+    <value>以下是此軟件所產生的設定。</value>
+  </data>
+  <data name="SouthEastTNT" xml:space="preserve">
+    <value>請輸入東南方TNT的座標 :</value>
+  </data>
+  <data name="SouthEastTNTParameter" xml:space="preserve">
+    <value>東南方TNT的座標</value>
+  </data>
+  <data name="SouthWestTNT" xml:space="preserve">
+    <value>請輸入西南方TNT的座標 :</value>
+  </data>
+  <data name="SouthWestTNTParameter" xml:space="preserve">
+    <value>西南方TNT的座標</value>
+  </data>
+  <data name="StartPressKey" xml:space="preserve">
+    <value>如果您已經了解此風險且仍然想要繼續使用此軟件，請按下任意鍵</value>
+  </data>
+  <data name="Statement0" xml:space="preserve">
+    <value>一旦TNT進入膛室後，</value>
+  </data>
+  <data name="Statement1" xml:space="preserve">
+    <value>請不要使用任何東西改變TNT的位置，</value>
+  </data>
+  <data name="Statement2" xml:space="preserve">
+    <value>讓TNT自由下落至膛室中並記住其位置，</value>
+  </data>
+  <data name="Statement3" xml:space="preserve">
+    <value>然後輸入與之對應的英文代表符號。</value>
+  </data>
+  <data name="Statement4" xml:space="preserve">
+    <value>例子 : TNT掉入膛室的東北角落，</value>
+  </data>
+  <data name="Statement5" xml:space="preserve">
+    <value>其對應的英文代表符號為D。</value>
+  </data>
+  <data name="StatementHeader" xml:space="preserve">
+    <value>請詳閱以下內容並理解它。</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TNTSymbol" xml:space="preserve">
+    <value>請輸入於珍珠砲紅色陣列複製出來的TNT於膛室內的落點的對應英文代表符號 :</value>
+  </data>
+  <data name="TNTSymbolParameter" xml:space="preserve">
+    <value>珍珠砲紅色陣列複製出來的TNT於膛室內的落點的對應英文代表符號</value>
+  </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>非預期的回覆，請確認以上數值是否正確。(Y/N)</value>
+  </data>
+  <data name="UnexpectedResponseJson" xml:space="preserve">
+    <value>非預期的回覆，請問您是否希望將此設定保存為settings.json？(Y/N)</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>歡迎使用珍珠計算器設定檔生成器。</value>
+  </data>
+  <data name="WrongFormat" xml:space="preserve">
+    <value>錯誤格式，請重新輸入以下參數。</value>
+  </data>
+</root>

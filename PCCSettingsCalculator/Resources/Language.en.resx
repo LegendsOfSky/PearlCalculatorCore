@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AAPressKey" xml:space="preserve">
+    <value>Please take a look in the following AA image and press a key</value>
+  </data>
+  <data name="Caution" xml:space="preserve">
+    <value>Please make sure you can see all the symbols(=) in the following line</value>
+  </data>
+  <data name="Chamber" xml:space="preserve">
+    <value>Please enter the corrdinate of the center Of your FTL blast chamber :</value>
+  </data>
+  <data name="ChamberParameter" xml:space="preserve">
+    <value>FTL blast chamber ceter coordinate</value>
+  </data>
+  <data name="ChangeParameter" xml:space="preserve">
+    <value>Please specify the number of the parameter you would like to chamge.</value>
+  </data>
+  <data name="ConfirmSave" xml:space="preserve">
+    <value>Do you want to save as settings.json? (Y/N)</value>
+  </data>
+  <data name="CorfirmParameter" xml:space="preserve">
+    <value>Please confirm whether they are all correct. (Y/N)</value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>File Saved.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language : English</value>
+  </data>
+  <data name="MaxTNT" xml:space="preserve">
+    <value>Please enter the maximum amount of TNT in one side :</value>
+  </data>
+  <data name="MaxTNTParamater" xml:space="preserve">
+    <value>Maximum amount of TNT in one side:</value>
+  </data>
+  <data name="NorthEastTNT" xml:space="preserve">
+    <value>Please enter the coordinates of the north east TNT :</value>
+  </data>
+  <data name="NorthEastTNTParameter" xml:space="preserve">
+    <value>North east TNT coordinate</value>
+  </data>
+  <data name="NorthWestTNT" xml:space="preserve">
+    <value>Please enter the coordinates of the north west TNT :</value>
+  </data>
+  <data name="NorthWestTNTParameter" xml:space="preserve">
+    <value>North west TNT coordinate</value>
+  </data>
+  <data name="Note0" xml:space="preserve">
+    <value>Please keep in mind that,</value>
+  </data>
+  <data name="Note1" xml:space="preserve">
+    <value>There will be precision loss for those settings generated by this application.</value>
+  </data>
+  <data name="Note2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoteHeader" xml:space="preserve">
+    <value>Note :</value>
+  </data>
+  <data name="Parameter0" xml:space="preserve">
+    <value>1) FTL blast chamber center : </value>
+  </data>
+  <data name="Parameter1" xml:space="preserve">
+    <value>2) Ender Pearl coordinate : </value>
+  </data>
+  <data name="Parameter2" xml:space="preserve">
+    <value>3) Ender Pearl motion : </value>
+  </data>
+  <data name="Parameter3" xml:space="preserve">
+    <value>4) North west TNT coordinate : </value>
+  </data>
+  <data name="Parameter4" xml:space="preserve">
+    <value>5) North east TNT coordinate : </value>
+  </data>
+  <data name="Parameter5" xml:space="preserve">
+    <value>6) South west TNT coordinate : </value>
+  </data>
+  <data name="Parameter6" xml:space="preserve">
+    <value>7) South east TNT coordinate : </value>
+  </data>
+  <data name="Parameter7" xml:space="preserve">
+    <value>8) Max TNT : </value>
+  </data>
+  <data name="Parameter8" xml:space="preserve">
+    <value>9) Direction of the red TNT :</value>
+  </data>
+  <data name="ParameterHeader" xml:space="preserve">
+    <value>These are the parameters that you have entered.</value>
+  </data>
+  <data name="PearlCoordinate" xml:space="preserve">
+    <value>Please enter the coordinate of the pearl :</value>
+  </data>
+  <data name="PearlCoordinateParameter" xml:space="preserve">
+    <value>Pearl coordinate</value>
+  </data>
+  <data name="PearlMotion" xml:space="preserve">
+    <value>Please enter the pearl motion :</value>
+  </data>
+  <data name="PearlMotionParameter" xml:space="preserve">
+    <value>Pearl motion</value>
+  </data>
+  <data name="PressKey" xml:space="preserve">
+    <value>Please press any key.</value>
+  </data>
+  <data name="PressKeyExist" xml:space="preserve">
+    <value>Press any key to quit.</value>
+  </data>
+  <data name="Separate" xml:space="preserve">
+    <value>---------------------------------------------------Separating Line---------------------------------------------------</value>
+  </data>
+  <data name="Setting0" xml:space="preserve">
+    <value>1) Max TNT : </value>
+  </data>
+  <data name="Setting1" xml:space="preserve">
+    <value>2) North West TNT Coordinate : </value>
+  </data>
+  <data name="Setting2" xml:space="preserve">
+    <value>3) North East TNT Coordinate : </value>
+  </data>
+  <data name="Setting3" xml:space="preserve">
+    <value>4) South West TNT Coordinate : </value>
+  </data>
+  <data name="Setting4" xml:space="preserve">
+    <value>5) South East TNT Coordinate : </value>
+  </data>
+  <data name="Setting5" xml:space="preserve">
+    <value>6) Ender Pearl Height : </value>
+  </data>
+  <data name="Setting6" xml:space="preserve">
+    <value>7) Ender Pearl Motion : </value>
+  </data>
+  <data name="Setting7" xml:space="preserve">
+    <value>8) Offset : </value>
+  </data>
+  <data name="Setting8" xml:space="preserve">
+    <value>9) Default Red TNT Direction : </value>
+  </data>
+  <data name="Setting9" xml:space="preserve">
+    <value>10) Default Blue TNT Direction : </value>
+  </data>
+  <data name="SettingHeader" xml:space="preserve">
+    <value>These are the settings it had generated.</value>
+  </data>
+  <data name="SouthEastTNT" xml:space="preserve">
+    <value>Please enter the coordinates of the south east TNT :</value>
+  </data>
+  <data name="SouthEastTNTParameter" xml:space="preserve">
+    <value>South east TNT coordinate</value>
+  </data>
+  <data name="SouthWestTNT" xml:space="preserve">
+    <value>Please enter the coordinates of the south west TNT :</value>
+  </data>
+  <data name="SouthWestTNTParameter" xml:space="preserve">
+    <value>South west TNT coordinate</value>
+  </data>
+  <data name="StartPressKey" xml:space="preserve">
+    <value>Press any key to proceed if you acknowledge the above remark and prefer using this application.</value>
+  </data>
+  <data name="Statement0" xml:space="preserve">
+    <value>Once your TNT was flew into the chamber.</value>
+  </data>
+  <data name="Statement1" xml:space="preserve">
+    <value>Don't use anything to move it.</value>
+  </data>
+  <data name="Statement2" xml:space="preserve">
+    <value>Let the TNT drop and remember it's place.</value>
+  </data>
+  <data name="Statement3" xml:space="preserve">
+    <value>Them, enter the corresponding English symbol.</value>
+  </data>
+  <data name="Statement4" xml:space="preserve">
+    <value>For example, the TNT was dropped in the south east corner.</value>
+  </data>
+  <data name="Statement5" xml:space="preserve">
+    <value>The corresponding English symbol will be D.</value>
+  </data>
+  <data name="StatementHeader" xml:space="preserve">
+    <value>Please take a look in the following statement and understand it.</value>
+  </data>
+  <data name="TNTSymbol" xml:space="preserve">
+    <value>Please enter the corresponding English symbol for red TNT</value>
+  </data>
+  <data name="TNTSymbolParameter" xml:space="preserve">
+    <value>Corresponding English symbol for red TNT</value>
+  </data>
+  <data name="UnexpectedResponseJson" xml:space="preserve">
+    <value>Unexpected response. Do you want to save as settings.json? (Y/N)</value>
+  </data>
+  <data name="UnexpectedResponseSettings" xml:space="preserve">
+    <value>Unexpected response. Please confirm whether they are all correct. (Y/N)</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to the Pearl Calculator Core Settings Generator.</value>
+  </data>
+  <data name="WrongFormat" xml:space="preserve">
+    <value>Wrong format. Please enter the following parameter again.</value>
+  </data>
+</root>
