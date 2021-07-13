@@ -41,8 +41,6 @@ namespace PearlCalculatorWFA
         };
 
         private bool IsDisplayOnTNT = false;
-        private string OffsetXTextBoxString = "0.";
-        private string OffsetZTextBoxString = "0.";
         private int MaxTicks = 100;
         private int ManuallyAtntAmount = 0;
         private int ManuallyBtntAmount = 0;
@@ -328,43 +326,29 @@ namespace PearlCalculatorWFA
 
         private void OffsetXTextBox_TextChanged(object sender , EventArgs e)
         {
-            if(GeneralOffsetXTextBox.Text == OffsetXTextBoxString)
-            {
-                return;
-            }
             Surface2D offset = new Surface2D();
-            if(!double.TryParse(GeneralOffsetXTextBox.Text , out offset.X) || offset.X >= 1)
+            double.TryParse(GeneralOffsetXTextBox.Text , out offset.X);
+            GeneralData.PearlOffset = offset;
+            if(offset.X != GeneralData.PearlOffset.X)
             {
-                GeneralOffsetXTextBox.Text = OffsetXTextBoxString;
-                GeneralOffsetXTextBox.Select(GeneralOffsetXTextBox.Text.Length , 0);
-            }
-            else
-            {
-                offset.Z = GeneralData.PearlOffset.Z;
-                GeneralData.PearlOffset = offset;
-                DisplaySetting();
-                OffsetXTextBoxString = GeneralOffsetXTextBox.Text;
+                if(GeneralData.PearlOffset.X == 0)
+                    GeneralOffsetXTextBox.Text = "0.";
+                else
+                    GeneralOffsetXTextBox.Text = GeneralData.PearlOffset.X.ToString();
             }
         }
 
         private void OffsetZTextBox_TextChanged(object sender , EventArgs e)
         {
-            if(GeneralOffsetZTextBox.Text == OffsetZTextBoxString)
-            {
-                return;
-            }
             Surface2D offset = new Surface2D();
-            if(!double.TryParse(GeneralOffsetZTextBox.Text , out offset.Z) || offset.Z >= 1)
+            double.TryParse(GeneralOffsetZTextBox.Text , out offset.Z);
+            GeneralData.PearlOffset = offset;
+            if(offset.Z != GeneralData.PearlOffset.Z)
             {
-                GeneralOffsetZTextBox.Text = OffsetZTextBoxString;
-                GeneralOffsetZTextBox.Select(GeneralOffsetZTextBox.Text.Length , 0);
-            }
-            else
-            {
-                offset.X = GeneralData.PearlOffset.X;
-                GeneralData.PearlOffset = offset;
-                DisplaySetting();
-                OffsetZTextBoxString = GeneralOffsetZTextBox.Text;
+                if(GeneralData.PearlOffset.Z == 0)
+                    GeneralOffsetZTextBox.Text = "0.";
+                else
+                    GeneralOffsetZTextBox.Text = GeneralData.PearlOffset.Z.ToString();
             }
         }
 
