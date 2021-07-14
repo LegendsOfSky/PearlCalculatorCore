@@ -300,6 +300,9 @@
   <data name="TNTSymbolParameter" xml:space="preserve">
     <value>Corresponding English symbol for red TNT</value>
   </data>
+  <data name="Translate" xml:space="preserve">
+    <value>Translate : LegendsOfSky</value>
+  </data>
   <data name="UnexpectedResponseJson" xml:space="preserve">
     <value>Unexpected response. Do you want to save as settings.json? (Y/N)</value>
   </data>

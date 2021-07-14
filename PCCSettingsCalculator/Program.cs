@@ -41,22 +41,9 @@ namespace PCCSettingsGenerator
             }
             catch(MissingManifestResourceException)
             {
-                Console.WriteLine("Available language option");
-                Console.WriteLine("1) en");
-                Console.WriteLine("2) zh-TW");
-                Console.WriteLine("Please choose a language.");
-                temp = Console.ReadLine();
-                while(!int.TryParse(temp , out int i) && i < 3 && i > 0)
-                {
-                    Console.WriteLine("Unexpected response. Please choose a language.");
-                    temp = Console.ReadLine();
-                }
-                if(temp == "1")
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en");
-                else if(temp == "2")
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("zh-TW");
-                Console.WriteLine(manager.GetObject("Language"));
+                LanguageRequest();
             }
+            Console.WriteLine(manager.GetObject("Translate"));
             Console.WriteLine(manager.GetObject("PressKey"));
             Console.ReadKey();
             Clear();
@@ -156,7 +143,7 @@ namespace PCCSettingsGenerator
                     Console.WriteLine(manager.GetObject("Statement5"));
                     SeparatingLine();
                     Console.WriteLine(manager.GetObject("TNTSymbol"));
-                    string temp2 = Console.ReadLine();
+                    string temp2 = Console.ReadLine().ToUpper();
                     while(temp2 != "A" && temp2 != "B" && temp2 != "C" && temp2 != "D")
                     {
                         SeparatingLine();
@@ -287,7 +274,7 @@ namespace PCCSettingsGenerator
         }
 
 
-        public static Space3D ReadSpace3DFromConsole(string valueName)
+        private static Space3D ReadSpace3DFromConsole(string valueName)
         {
             Space3D result;
             Console.WriteLine(valueName + " X :");
@@ -317,7 +304,7 @@ namespace PCCSettingsGenerator
             return result;
         }
 
-        public static Surface2D ReadSurface2DFromConsole(string valueName)
+        private static Surface2D ReadSurface2DFromConsole(string valueName)
         {
             Surface2D result = new Surface2D();
             Console.WriteLine(valueName + " X :");
@@ -339,7 +326,7 @@ namespace PCCSettingsGenerator
             return result;
         }
 
-        public static void Clear()
+        private static void Clear()
         {
             Console.Clear();
             Console.WriteLine(manager.GetObject("Welcome"));
@@ -354,9 +341,18 @@ namespace PCCSettingsGenerator
             Console.WriteLine();
         }
 
-        public static void SeparatingLine()
+        private static void SeparatingLine() => Console.WriteLine(manager.GetObject("Separate"));
+
+        private static void LanguageRequest()
         {
-            Console.WriteLine(manager.GetObject("Separate"));
+            int i = 0;
+            Console.WriteLine("Available language option");
+            foreach(var item in Enum.GetValues(typeof(LanguageType)))
+                Console.WriteLine((++i).ToString() + ") " + LanguageTypeUtils.ToString((LanguageType)item));
+            Console.WriteLine("Please choose a language.");
+            int.TryParse(Console.ReadLine() , out i);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(LanguageTypeUtils.ToString((LanguageType)(i - 1)));
+            Console.WriteLine(manager.GetObject("Language"));
         }
     }
 }
