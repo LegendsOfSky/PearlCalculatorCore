@@ -367,6 +367,7 @@ namespace PearlCalculatorWFA
                 {
                     ImportSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
                     RefleshInput();
+                    DisplaySetting();
                 }
                 catch (Exception)
                 {
@@ -398,6 +399,7 @@ namespace PearlCalculatorWFA
                 {
                     ImportSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
                     RefleshInput();
+                    DisplaySetting();
                 }
                 catch (Exception)
                 {
@@ -460,8 +462,8 @@ namespace PearlCalculatorWFA
             GeneralRedTNTTextBox.Text = GeneralData.RedTNT.ToString();
             GeneralBlueTNTTextBox.Text = GeneralData.BlueTNT.ToString();
 
-            GeneralOffsetXTextBox.Text = GeneralData.PearlOffset.X.ToString();
-            GeneralOffsetZTextBox.Text = GeneralData.PearlOffset.Z.ToString();
+            //GeneralOffsetXTextBox.Text = GeneralData.PearlOffset.X.ToString();
+            //GeneralOffsetZTextBox.Text = GeneralData.PearlOffset.Z.ToString();
 
             PearlSimulate();
             GeneralPearlSimulateButton.Focus();
