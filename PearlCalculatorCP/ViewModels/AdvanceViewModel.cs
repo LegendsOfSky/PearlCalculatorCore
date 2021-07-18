@@ -73,8 +73,18 @@ namespace PearlCalculatorCP.ViewModels
                 EventManager.PublishEvent(this, "switchChunkMode", new SwitchChunkModeArgs("OtherSettings", value));
             }
         }
+
+
+        public AdvanceViewModel()
+        {
+            EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
+            {
+                PearlOffsetX = args.Settings.Offset.X;
+                PearlOffsetZ = args.Settings.Offset.Z;
+            });
+        }
     }
-    
+
     public enum TNTWeightModeEnum
     {
         Distance, Total
