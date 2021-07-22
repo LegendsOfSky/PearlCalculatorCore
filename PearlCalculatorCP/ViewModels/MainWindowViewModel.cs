@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
 using Avalonia.Media;
 using PearlCalculatorCP.Models;
-using PearlCalculatorCP.Commands;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
@@ -184,7 +182,10 @@ namespace PearlCalculatorCP.ViewModels
             EventManager.PublishEvent(this, "loadSettings", new LoadSettingsArgs("LoadSettings", settings));
             
             ShowDirectionResult(Data.Pearl.Position, Data.Destination);
-            PearlSimulate();
+            if (RedTNT > 0 || BlueTNT > 0)
+            {
+                PearlSimulate();
+            }
         }
 
         #region Calculate

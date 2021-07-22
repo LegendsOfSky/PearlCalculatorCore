@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using PearlCalculatorCP.Models;
-using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
 

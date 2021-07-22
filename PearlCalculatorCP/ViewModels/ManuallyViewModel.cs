@@ -4,7 +4,6 @@ using PearlCalculatorCP.Models;
 using ReactiveUI;
 using PearlCalculatorLib.Manually;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
-using PearlCalculatorLib.Result;
 
 namespace PearlCalculatorCP.ViewModels
 {
