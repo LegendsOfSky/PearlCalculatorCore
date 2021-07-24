@@ -12,12 +12,12 @@
   
   <PropertyGroup Condition=" '$(Configuration)' == 'DEBUG' ">
     <Version>2.71</Version>
-    <FileVersion>2.7182818</FileVersion>
+    <FileVersion>2.71828182</FileVersion>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'RELEASE' ">
     <Version>1.41</Version>
-    <FileVersion>1.4142</FileVersion>
+    <FileVersion>1.41423</FileVersion>
   </PropertyGroup>
   
   <ItemGroup>
