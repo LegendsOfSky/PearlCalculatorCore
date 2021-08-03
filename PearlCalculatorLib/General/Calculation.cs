@@ -186,7 +186,7 @@ namespace PearlCalculatorLib.General
                 }
                 else if(Data.DefaultRedDuper.IsNorth())
                 {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
