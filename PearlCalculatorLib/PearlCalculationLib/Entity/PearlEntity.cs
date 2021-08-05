@@ -1,9 +1,5 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.PearlCalculationLib.World;
-using PearlCalculatorLib.PearlCalculationLib.AABB;
+﻿using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
@@ -25,18 +21,6 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
         public PearlEntity()
         {
 
-        }
-
-        public PearlEntity WithPosition(double x , double y , double z)
-        {
-            Position = new Space3D(x , y , z);
-            return this;
-        }
-
-        public PearlEntity WithVector(double x , double y , double z)
-        {
-            Motion = new Space3D(x , y , z);
-            return this;
         }
 
         public override void Tick()

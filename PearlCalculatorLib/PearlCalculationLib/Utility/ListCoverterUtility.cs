@@ -1,8 +1,5 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.PearlCalculationLib.World;
-using System;
+﻿using PearlCalculatorLib.PearlCalculationLib.World;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Utility
 {

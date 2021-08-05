@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
@@ -83,7 +77,21 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
                     result = Direction.None;
                     return false;
             }
+        }
 
+        public static Direction GetDirection(double angle)
+        {
+            Direction direction = World.Direction.None;
+
+            if(angle > -135 && angle <= -45)
+                direction = World.Direction.East;
+            else if(angle > -45 && angle <= 45)
+                direction = World.Direction.South;
+            else if(angle > 45 && angle <= 135)
+                direction = World.Direction.West;
+            else if((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
+                direction = World.Direction.North;
+            return direction;
         }
     }
 }

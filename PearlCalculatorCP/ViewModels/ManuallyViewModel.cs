@@ -4,6 +4,7 @@ using PearlCalculatorCP.Models;
 using ReactiveUI;
 using PearlCalculatorLib.Manually;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
+using PearlCalculatorLib.PearlCalculationLib.World;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -208,7 +209,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", result));
                 var angle = Data.Pearl.Position.WorldAngle(Data.Destination.ToSpace3D());
-                var direction = Data.Pearl.Position.Direction(angle).ToString();
+                var direction = DirectionUtils.GetDirection(angle).ToString();
                 EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", direction, angle.ToString()));
             }
         }

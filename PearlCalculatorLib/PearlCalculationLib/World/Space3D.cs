@@ -1,14 +1,5 @@
-﻿using PearlCalculatorLib.General;
-using PearlCalculatorLib.PearlCalculationLib;
-using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.PearlCalculationLib.World;
+﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Xml.Serialization;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
@@ -72,21 +63,6 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             throw new ArgumentOutOfRangeException();
         }
 
-        public Direction Direction(double angle)
-        {
-            Direction direction = World.Direction.None;
-
-            if(angle > -135 && angle <= -45)
-                direction = World.Direction.East;
-            else if(angle > -45 && angle <= 45)
-                direction = World.Direction.South;
-            else if(angle > 45 && angle <= 135)
-                direction = World.Direction.West;
-            else if((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
-                direction = World.Direction.North;
-            return direction;
-        }
-
         public double Distance2D(Space3D position2) => Math.Sqrt(Math.Pow(position2.X - X , 2) + Math.Pow(position2.Z - Z , 2));
 
         public double DistanceSq() => X * X + Y * Y + Z * Z;
@@ -100,6 +76,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             return Math.Sqrt(dis3.DistanceSq());
         }
 
+        public Space3D Absolute() => new Space3D(Math.Abs(X) , Math.Abs(Y) , Math.Abs(Z));
 
         public Surface2D ToSurface2D() => new Surface2D(X , Z);
 
@@ -120,21 +97,27 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         public Space3D Rotate(double degree)
         {
             Space3D result;
+
             double distance = Math.Sqrt(X * X + Z * Z);
             double angle = new Space3D(0 , 0 , 0).AngleInRad(this) + MathHelper.DegreeToRadiant(degree);
+            
             result = FromPolarCoordinate(new Space3D(0 , 0 , 0).Distance2D(this) , angle);
             result.X = distance * Math.Sin(angle);
             result.Z = distance * Math.Cos(angle);
+            
             return result;
         }
 
         public Space3D Mirror(bool onXAxis , bool onZAxis)
         {
             Space3D result = new Space3D(0 , Y , 0);
+            
             if(onXAxis)
                 result.X = -X;
+            
             if(onZAxis)
                 result.Z = -Z;
+            
             return result;
         }
 
@@ -145,6 +128,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
                 X = lenght * Math.Sin(Radinat) ,
                 Z = lenght * Math.Cos(Radinat)
             };
+            
             return result;
         }
 
@@ -229,10 +213,18 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public static bool operator ==(Space3D left , Space3D right) => left.Equals(right);
 
+        public static bool operator ==(Space3D left , double right) => left.X == right && left.Y == right && left.Z == right;
+
         public static bool operator >(Space3D left , double right) => left.X > right && left.Y > right && left.Z > right;
+
+        public static bool operator >=(Space3D left , double right) => left.X >= right && left.Y >= right && left.Z >= right;
 
         public static bool operator <(Space3D left , double right) => left.X < right && left.Y < right && left.Z < right;
 
+        public static bool operator <=(Space3D left , double right) => left.X <= right && left.Y <= right && left.Z <= right;
+
         public static bool operator !=(Space3D left , Space3D right) => !left.Equals(right);
+
+        public static bool operator !=(Space3D left , double right) => !(left.X == right || left.Y == right || left.Z == right);
     }
 }

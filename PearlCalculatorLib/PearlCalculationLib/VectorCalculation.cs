@@ -1,10 +1,5 @@
 ﻿using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.General;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib
 {
@@ -18,6 +13,9 @@ namespace PearlCalculatorLib.PearlCalculationLib
         /// <returns>Return the accelerating vector of the TNT</returns>
         public static Space3D CalculateMotion(Space3D pearlPosition , Space3D tntPosition)
         {
+            //Don't ask me
+            //I have No Idea about it
+            //Ask Mojang instead
             tntPosition.Y += 0.98F * 0.0625D;
             Space3D distance = pearlPosition - tntPosition;
             double distanceSqrt = MathHelper.Sqrt(distance.DistanceSq());
@@ -25,7 +23,7 @@ namespace PearlCalculatorLib.PearlCalculationLib
             Space3D vector = new Space3D(distance.X , pearlPosition.Y + (0.85F * 0.25F) - tntPosition.Y , distance.Z);
             double d13 = MathHelper.Sqrt(vector.DistanceSq());
             vector /= d13;
-            double d11 = (1.0D - d12);
+            double d11 = 1.0D - d12;
             return new Space3D(vector * d11);
         }
     }

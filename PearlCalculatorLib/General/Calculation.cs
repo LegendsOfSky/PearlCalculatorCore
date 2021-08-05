@@ -4,12 +4,7 @@ using PearlCalculatorLib.PearlCalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Xml.Serialization;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorLib.General
@@ -18,11 +13,16 @@ namespace PearlCalculatorLib.General
     {
         private static PearlEntity PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
         {
-            PearlEntity pearlEntity = new PearlEntity(Data.Pearl);
+            //Simulating the pearl and return the end point
+            PearlEntity pearlEntity = (PearlEntity)new PearlEntity(Data.Pearl).AddPosition(Data.PearlOffset);
+
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            pearlEntity.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector;
+            
+            pearlEntity.Motion += redTNT * redTNTVector + blueTNT * blueTNTVector;
+            
             for(int i = 0; i < ticks; i++)
                 pearlEntity.Tick();
+            
             return pearlEntity;
         }
 
@@ -38,30 +38,46 @@ namespace PearlCalculatorLib.General
         /// </returns>
         public static bool CalculateTNTAmount(int maxTicks , double maxDistance)
         {
-            int redTNT;
-            int blueTNT;
-            Space3D distance;
+            int redTNT , blueTNT;
             double divider = 0;
             Direction direction;
-            distance = Data.Destination - Data.Pearl.Position;
-            if(Math.Abs(distance.X) == 0 && Math.Abs(distance.Z) == 0)
+            Space3D distance , trueDistance , truePosition;
+            
+            truePosition = Data.Pearl.Position + Data.PearlOffset.ToSpace3D();
+            trueDistance = Data.Destination - truePosition;
+
+            //trueDistance with zero in X and Z axis triggers DevidedByZeroEception
+            if(trueDistance == 0)
                 return false;
+            
             Data.TNTResult.Clear();
-            direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
+            direction = DirectionUtils.GetDirection(truePosition.WorldAngle(Data.Destination));
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
+            
             for(int tick = 1; tick <= maxTicks; tick++)
             {
+                //Factorization trueDistance to get a easier calculation
                 divider += Math.Pow(0.99 , tick - 1);
-                distance = (Data.Destination - Data.Pearl.Position) / divider;
+                distance = trueDistance / divider;
+
+                //Calculate redTNT and blueTNT through simultaneous equations
                 redTNT = Convert.ToInt32(Math.Round((distance.Z * blueTNTVector.X - distance.X * blueTNTVector.Z) / (redTNTVector.Z * blueTNTVector.X - blueTNTVector.Z * redTNTVector.X)));
                 blueTNT = Convert.ToInt32(Math.Round((distance.X - redTNT * redTNTVector.X) / blueTNTVector.X));
+                
+                //Run through the loops to get a better result around the redTNT and blueTNT
+                //It is not perfect dude to the round up
                 for(int r = -5; r <= 5; r++)
                 {
+                
                     for(int b = -5; b <= 5; b++)
                     {
+                        //Simulate the pearl and get it's end point
                         PearlEntity pearlEntity = PearlSimulation(redTNT + r , blueTNT + b , tick , direction);
-                        if(Math.Abs(pearlEntity.Position.X - Data.Destination.X) <= maxDistance && Math.Abs(pearlEntity.Position.Z - Data.Destination.Z) <= maxDistance)
+                        
+                        //Only the pearl with a difference smaller than 5 will pass the check
+                        if((pearlEntity.Position - Data.Destination).ToSurface2D().Absolute() <= 5)
                         {
+                        
                             TNTCalculationResult result = new TNTCalculationResult
                             {
                                 Distance = pearlEntity.Position.Distance2D(Data.Destination) ,
@@ -71,19 +87,23 @@ namespace PearlCalculatorLib.General
                                 TotalTNT = blueTNT + b + redTNT + r ,
                                 Pearl = pearlEntity
                             };
-                            if(Data.MaxTNT <= 0)
+                            
+                            //Bypass MaxTNT check if it is set to 0
+                            //If MaxTNT is greater than 0 , only add those result which is lesser than MaxTNT
+                            //If both redTNT and blueTNT are not greater or equal than zero , ignore them
+                            if((Data.MaxTNT <= 0 || (result.Blue <= Data.MaxTNT && result.Red <= Data.MaxTNT)) && result.Blue >= 0 && result.Red >= 0)
                                 Data.TNTResult.Add(result);
-                            else if((blueTNT + b) <= Data.MaxTNT && (redTNT + r) <= Data.MaxTNT)
-                                Data.TNTResult.Add(result);
+                            
                             if(Data.MaxCalculateTNT < result.TotalTNT)
                                 Data.MaxCalculateTNT = result.TotalTNT;
+                            
                             if(Data.MaxCalculateDistance < result.Distance)
                                 Data.MaxCalculateDistance = result.Distance;
                         }
                     }
                 }
             }
-            Data.TNTResult = Data.TNTResult.Where(result => result.Blue >= 0 && result.Red >= 0).ToList();
+            
             return true;
         }
 
@@ -100,15 +120,18 @@ namespace PearlCalculatorLib.General
         public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             List<Entity> result = new List<Entity>();
-            PearlEntity pearl = new PearlEntity(Data.Pearl);
+            PearlEntity pearl = new PearlEntity((PearlEntity)Data.Pearl.AddPosition(Data.PearlOffset));
+            
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            pearl.Motion = redTNT * redTNTVector + blueTNT * blueTNTVector + Data.Pearl.Motion;
+            pearl.Motion += redTNT * redTNTVector + blueTNT * blueTNTVector;
             result.Add(new PearlEntity(pearl));
+            
             for(int i = 0; i < ticks; i++)
             {
                 pearl.Tick();
                 result.Add(new PearlEntity(pearl));
             }
+            
             return result;
         }
 
@@ -123,41 +146,51 @@ namespace PearlCalculatorLib.General
         {
             int indexCount = Data.RedTNTConfiguration.Count + Data.BlueTNTConfiguration.Count;
             tntCombination = new BitArray(indexCount);
+            
+            //How can i sort it if i don't know anything about the configuration
             if(Data.RedTNTConfiguration.Count == 0 && Data.BlueTNTConfiguration.Count == 0)
                 return false;
-            int red = redTNT;
-            int blue = blueTNT;
+            
             BitArray redBitArray = new BitArray(indexCount);
             BitArray blueBitArray = new BitArray(indexCount);
-            List<int> sortedRedConfig = Data.RedTNTConfiguration;
-            List<int> sortedBlueConfig = Data.BlueTNTConfiguration;
-            sortedRedConfig.Sort();
-            sortedRedConfig.Reverse();
-            sortedBlueConfig.Sort();
-            sortedBlueConfig.Reverse();
+            List<int> sortedRedConfig = new List<int>(Data.RedTNTConfiguration);
+            List<int> sortedBlueConfig = new List<int>(Data.BlueTNTConfiguration);
+            
+            //Sorts the list from large to small
+            sortedRedConfig.Sort((a , b) => a >= b ? (a == b ? 0 : -1) : 1);
+            sortedBlueConfig.Sort((a , b) => a >= b ? (a == b ? 0 : -1) : 1);
+            
             for(int i = 0; i < sortedRedConfig.Count; i++)
             {
-                if(red >= sortedRedConfig[i])
+            
+                if(redTNT >= sortedRedConfig[i])
                 {
-                    red -= sortedRedConfig[i];
+                    redTNT -= sortedRedConfig[i];
+                    //Sets the corresponding bit to true according to the Data.RedTNTConfiguration
                     redBitArray.Set(Data.RedTNTConfiguration.FindIndex(x => x == sortedRedConfig[i]) , true);
                 }
                 else
                     redBitArray.Set(Data.RedTNTConfiguration.FindIndex(x => x == sortedRedConfig[i]) , false);
             }
+            
             for(int i = 0; i < sortedBlueConfig.Count; i++)
             {
-                if(blue >= sortedBlueConfig[i])
+            
+                if(blueTNT >= sortedBlueConfig[i])
                 {
-                    blue -= sortedBlueConfig[i];
+                    blueTNT -= sortedBlueConfig[i];
+                    //Sets the corresponding bit to true according to the Data.BlueTNTConfiguration
                     blueBitArray.Set(Data.BlueTNTConfiguration.FindIndex(x => x == sortedBlueConfig[i]) , true);
                 }
                 else
                     blueBitArray.Set(Data.BlueTNTConfiguration.FindIndex(x => x == sortedBlueConfig[i]) , false);
             }
+            
+            //Combine those result into tntCombination
             tntCombination.Or(redBitArray);
             blueBitArray.LeftShift(Data.RedTNTConfiguration.Count);
             tntCombination.Or(blueBitArray);
+            
             return true;
         }
 
@@ -169,19 +202,27 @@ namespace PearlCalculatorLib.General
         /// <param name="blueTNTVector">Return an accelerating vector of Blue TNT</param>
         public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
-            Space3D aVector;
-            Space3D bVector;
-            redTNTVector = new Space3D(0 , 0 , 0);
-            blueTNTVector = new Space3D(0 , 0 , 0);
+            Space3D aVector , bVector;
+
             Space3D pearlPosition = Data.PearlOffset.ToSpace3D();
+            
+            redTNTVector = blueTNTVector = Space3D.zero;
             pearlPosition.Y = Data.Pearl.Position.Y;
+            
             if(direction.IsSouth())
             {
                 aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthWestTNT);
+                
+                //There is only one TNT which does not need to be recalibrate
+                //The following method is used to check which TNT does not need any recalibration
                 if(Data.DefaultBlueDuper.IsNorth())
                 {
+                    //Calculate the vector of the TNT which does not need to be recalibrate
                     blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+
+                    //By canceling each other
+                    //We can get the vector of the remaining TNT
                     redTNTVector = aVector + bVector - blueTNTVector;
                 }
                 else if(Data.DefaultRedDuper.IsNorth())
@@ -190,10 +231,12 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
+            
             else if(direction.IsNorth())
             {
                 aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthWestTNT);
+                
                 if(Data.DefaultBlueDuper.IsSouth())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
@@ -205,10 +248,12 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
+            
             else if(direction.IsEast())
             {
                 aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthWestTNT);
                 bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthWestTNT);
+                
                 if(Data.DefaultBlueDuper.IsWest())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
@@ -220,10 +265,12 @@ namespace PearlCalculatorLib.General
                     blueTNTVector = aVector + bVector - redTNTVector;
                 }
             }
+            
             else if(direction.IsWest())
             {
                 aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthEastTNT);
                 bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthEastTNT);
+               
                 if(Data.DefaultBlueDuper.IsEast())
                 {
                     blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
@@ -251,6 +298,7 @@ namespace PearlCalculatorLib.General
                 tntCoordinate = Data.SouthEastTNT;
             else if(coner == Direction.SouthWest)
                 tntCoordinate = Data.SouthWestTNT;
+
             return tntCoordinate;
         }
     }

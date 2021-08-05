@@ -1,9 +1,6 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.PearlCalculationLib.World;
+﻿using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.AABB;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
@@ -21,5 +18,34 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
         public virtual AABBBox AABB => _aabb.ReSize(Position , Position + Size);
 
         public abstract void Tick();
+
+        public virtual Entity AddMotion(Space3D motion)
+        {
+            Motion += motion;
+            return this;
+        }
+
+        public virtual Entity AddPosition(Space3D position)
+        {
+            Position += position;
+            return this;
+        }
+        public virtual Entity AddPosition(Surface2D position)
+        {
+            Position += position.ToSpace3D();
+            return this;
+        }
+
+        public Entity WithPosition(double x , double y , double z)
+        {
+            Position = new Space3D(x , y , z);
+            return this;
+        }
+
+        public Entity WithMotion(double x , double y , double z)
+        {
+            Motion = new Space3D(x , y , z);
+            return this;
+        }
     }
 }

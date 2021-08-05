@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace PearlCalculatorLib.PearlCalculationLib.MathLib
 {
+    /// <summary>
+    /// Ask Mojang for it's weird API
+    /// I have No clue about it
+    /// </summary>
     public static class MathHelper
     {
         public static float Sqrt(double value) => (float)Math.Sqrt(value);

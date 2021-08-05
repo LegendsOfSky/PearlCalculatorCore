@@ -138,7 +138,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 RedTNT = (uint) args.Red;
                 BlueTNT = (uint) args.Blue;
-                Direction = Data.Pearl.Position.Direction(Data.Pearl.Position.WorldAngle(Data.Destination));
+                Direction = DirectionUtils.GetDirection(Data.Pearl.Position.WorldAngle(Data.Destination));
             });
             
             EventManager.AddListener<NotificationArgs>("resetSettings", (sender, args) =>
@@ -219,7 +219,7 @@ namespace PearlCalculatorCP.ViewModels
         private void ShowDirectionResult(Space3D pearlPos, Space3D destination)
         {
             var angle = pearlPos.WorldAngle(destination);
-            var direction = pearlPos.Direction(angle).ToString();
+            var direction = DirectionUtils.GetDirection(angle).ToString();
             EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("GeneralFTL", direction, angle.ToString()));
         }
         

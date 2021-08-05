@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
@@ -56,6 +51,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
             };
             return result;
         }
+
+        public Surface2D Absolute() => new Surface2D(Math.Abs(X) , Math.Abs(Z));
 
         public bool AxialDistanceLessThan(double distance) => Math.Abs(X) < distance && Math.Abs(Z) < distance;
 

@@ -13,7 +13,7 @@ namespace RTPearlCalculatorLib.AttachedLLFTL
 
         public static PearlEntity OriginalPearl = new PearlEntity().
             WithPosition(0 , 170.34722638929408 , 0).
-            WithVector(0 , 0.2716278719434352 , 0);
+            WithMotion(0 , 0.2716278719434352 , 0);
 
         public static Surface2D PearlOffset = new Surface2D();
 
