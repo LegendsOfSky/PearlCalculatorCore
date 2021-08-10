@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
+using System.Security.Cryptography;
+using System.Transactions;
 
 namespace PearlCalculatorLib.General
 {
@@ -47,7 +49,7 @@ namespace PearlCalculatorLib.General
             trueDistance = Data.Destination - truePosition;
 
             //trueDistance with zero in X and Z axis triggers DevidedByZeroEception
-            if(trueDistance == 0)
+            if(trueDistance.ToSurface2D() == 0)
                 return false;
             
             Data.TNTResult.Clear();
@@ -202,88 +204,41 @@ namespace PearlCalculatorLib.General
         /// <param name="blueTNTVector">Return an accelerating vector of Blue TNT</param>
         public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
-            Space3D aVector , bVector;
-
             Space3D pearlPosition = Data.PearlOffset.ToSpace3D();
             
             redTNTVector = blueTNTVector = Space3D.zero;
             pearlPosition.Y = Data.Pearl.Position.Y;
-            
-            if(direction.IsSouth())
-            {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthWestTNT);
-                
-                //There is only one TNT which does not need to be recalibrate
-                //The following method is used to check which TNT does not need any recalibration
-                if(Data.DefaultBlueDuper.IsNorth())
-                {
-                    //Calculate the vector of the TNT which does not need to be recalibrate
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
 
-                    //By canceling each other
-                    //We can get the vector of the remaining TNT
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsNorth())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
-            }
-            
-            else if(direction.IsNorth())
+            if((Data.DefaultBlueDuper | Data.DefaultRedDuper) != (Direction.NorthEast | Direction.SouthWest))
+                throw new ArgumentException("Wrong value in Data.DefaultBlueDuper and Data,DefaultRedDuper");
+
+            if((direction & Data.DefaultBlueDuper) == 0)
             {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthWestTNT);
-                
-                if(Data.DefaultBlueDuper.IsSouth())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsSouth())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
-            }
-            
-            else if(direction.IsEast())
-            {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthWestTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthWestTNT);
-                
-                if(Data.DefaultBlueDuper.IsWest())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsWest())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
-            }
-            
-            else if(direction.IsWest())
-            {
-                aVector = VectorCalculation.CalculateMotion(pearlPosition , Data.SouthEastTNT);
-                bVector = VectorCalculation.CalculateMotion(pearlPosition , Data.NorthEastTNT);
-               
-                if(Data.DefaultBlueDuper.IsEast())
-                {
-                    blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
-                    redTNTVector = aVector + bVector - blueTNTVector;
-                }
-                else if(Data.DefaultRedDuper.IsEast())
-                {
-                    redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
-                    blueTNTVector = aVector + bVector - redTNTVector;
-                }
+                //There is always a TNT that is already stand by
+                //In this case, it is blue.
+                blueTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultBlueDuper));
+                redTNTVector = VectorCalculation.CalculateMotion
+                    (   
+                        pearlPosition ,
+                        TNTDirectionToCoordinate
+                        (
+                            // 0b1111 = Direction.NorthEast | Direction.SouthWest
+                            (Direction)(  ((int)~(direction | Data.DefaultBlueDuper) & 0b1111) | (int)direction.Invert()  )
+                        )
+                    );
             }
             else
-                throw new ArgumentException();
+            {
+                redTNTVector = VectorCalculation.CalculateMotion(pearlPosition , TNTDirectionToCoordinate(Data.DefaultRedDuper));
+                blueTNTVector = VectorCalculation.CalculateMotion
+                    (
+                        pearlPosition ,
+                        TNTDirectionToCoordinate
+                        (
+                            (Direction)(  ((int)~(direction | Data.DefaultRedDuper) & 0b1111) | (int)direction.Invert()  )
+                        )
+                    );
+            }
         }
 
         private static Space3D TNTDirectionToCoordinate(Direction coner)

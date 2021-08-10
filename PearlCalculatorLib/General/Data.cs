@@ -129,14 +129,36 @@ namespace PearlCalculatorLib.General
         /// <para>Note : Only Allow For NorthWest, NorthEast, SouthWest, SouthEast</para>
         /// <para>Required for all calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Direction DefaultRedDuper = Direction.SouthEast;
+        public static Direction DefaultRedDuper
+        {
+            get => _DefaultRedDuper;
+            set
+            {
+                if((value.IsNorth() || value.IsSouth()) && (value.IsEast() || value.IsWest()))
+                    _DefaultRedDuper = value;
+            }
+        }
+
+        private static Direction _DefaultRedDuper = Direction.SouthEast;
+
+
 
         /// <summary>
         /// The default position in the lava pool. Should be opposite to Red
         /// <para>Note : Only Allow For NorthWest, NorthEast, SouthWest, SouthEast</para>
         /// <para>Required for all calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Direction DefaultBlueDuper = Direction.NorthWest;
+        public static Direction DefaultBlueDuper
+        {
+            get => _DefaultBlueDuper;
+            set
+            {
+                if((value.IsNorth() || value.IsSouth()) && (value.IsEast() || value.IsWest()))
+                    _DefaultBlueDuper = value;
+            }    
+        }
+
+        private static Direction _DefaultBlueDuper = Direction.NorthWest;
 
 
 

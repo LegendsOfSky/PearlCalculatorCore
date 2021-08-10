@@ -225,6 +225,6 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public static bool operator !=(Space3D left , Space3D right) => !left.Equals(right);
 
-        public static bool operator !=(Space3D left , double right) => !(left.X == right || left.Y == right || left.Z == right);
+        public static bool operator !=(Space3D left , double right) => !(left == right);
     }
 }

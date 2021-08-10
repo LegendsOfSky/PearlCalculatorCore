@@ -27,6 +27,18 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public static bool IsWest(this Direction direction) => (direction & Direction.West) > 0;
 
+        public static Direction Invert(this Direction direction)
+        {
+            int result = 0;
+
+            if(((int)direction & 0b0011) > 0)
+                result = ~(int)direction & 0b0011;
+            if(((int)direction & 0b1100) > 0)
+                result |= ~(int)direction & 0b1100;
+
+            return (Direction)result;
+        }
+
     }
 
     public static class DirectionUtils
