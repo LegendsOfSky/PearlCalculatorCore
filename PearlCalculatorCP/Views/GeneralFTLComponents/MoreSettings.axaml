@@ -47,17 +47,6 @@
             <Setter Property="Padding" Value="12,4,0,4" />
             <Setter Property="BorderBrush" Value="#E5E5E5" />
         </Style>
-
-        <Style Selector="ToolTip">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-        </Style>
-
-        <Style Selector="Border.ToolTipContentBorder">
-            <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
-            <Setter Property="Padding" Value="2" />
-        </Style>
     </UserControl.Styles>
 
     <Grid RowDefinitions="*, Auto">
