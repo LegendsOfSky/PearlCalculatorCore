@@ -209,7 +209,6 @@
                     <Button.ContextMenu>
                         <ContextMenu Background="White">
                             <MenuItem Header="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}" Click="SetDefaultSettings" />
-                            <MenuItem Header="{i18n:Translate VideoLink, Fallback='Video'}" Click="OpenVideoLink" IsEnabled="False" />
                             <MenuItem Header="{i18n:Translate GithubLink, Fallback='Github'}" Click="OpenGithubLink" />
                             <MenuItem Header="{i18n:Translate About, Fallback='About'}" Click="OpenAboutWindow" />
                             <MenuItem Header="{i18n:Translate Languages, Fallback='Languages'}">

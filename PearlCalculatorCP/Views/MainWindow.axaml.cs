@@ -148,9 +148,6 @@ namespace PearlCalculatorCP.Views
             _moreInfoBtn.ContextMenu.Open();
         }
 
-        //not link
-        private void OpenVideoLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl(null);
-        
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
 
         private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
