@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Media;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.Localizer;
+using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
@@ -192,24 +193,38 @@ namespace PearlCalculatorCP.ViewModels
         
         public void CalculateTNTAmount()
         {
-            if (Calculation.CalculateTNTAmount(MaxTicks, 10))
+            try
             {
-                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", Data.TNTResult));
-                ShowDirectionResult(Data.Pearl.Position, Data.Destination);
+                if (Calculation.CalculateTNTAmount(MaxTicks, 10))
+                {
+                    EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", Data.TNTResult));
+                    ShowDirectionResult(Data.Pearl.Position, Data.Destination);
+                }
+            }
+            catch (Exception e)
+            {
+                LogUtils.Error(e.Message);
             }
         }
 
         public void PearlSimulate()
         {
-            var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
-            var chunks = ListCoverterUtility.ToChunk(entities);
+            try
+            {
+                var entities = Calculation.CalculatePearlTrace((int)RedTNT, (int)BlueTNT, MaxTicks, Direction);
+                var chunks = ListCoverterUtility.ToChunk(entities);
             
-            var traces = new List<PearlTraceModel>(entities.Count);
-            var chunkModels = new List<PearlTraceChunkModel>(chunks.Count);
+                var traces = new List<PearlTraceModel>(entities.Count);
+                var chunkModels = new List<PearlTraceChunkModel>(chunks.Count);
             
-            traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
-            chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
-            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces, chunkModels));
+                traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
+                chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
+                EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces, chunkModels));
+            }
+            catch (Exception e)
+            {
+                LogUtils.Error(e.Message);
+            }
         }
         
         #endregion
