@@ -1,4 +1,5 @@
 using System;
+using PearlCalculatorCP.Utils;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using ReactiveUI;
@@ -234,6 +235,15 @@ namespace PearlCalculatorCP.ViewModels
                 
                 DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedTNTDirection.ToString());
                 DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueTNTDirection.ToString());
+            });
+            
+            EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (sender, args) =>
+            {
+                var red = Data.DefaultRedDuper;
+                var direction = (red.IsNorth() ? Direction.South : Direction.North) |
+                                (red.IsEast() ? Direction.West : Direction.East);
+                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(direction.ToString());
+                LogUtils.Log($"change DefaultBlueDuper to {direction.ToString()}");
             });
         }
 

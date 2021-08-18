@@ -201,6 +201,11 @@ namespace PearlCalculatorCP.ViewModels
                     ShowDirectionResult(Data.Pearl.Position, Data.Destination);
                 }
             }
+            catch (ArgumentException e)
+            {
+                LogUtils.Error(e.Message);
+                EventManager.PublishEvent(this, "changeDefaultBlueDuper", new NotificationArgs("GeneralFTL"));
+            }
             catch (Exception e)
             {
                 LogUtils.Error(e.Message);
@@ -220,6 +225,11 @@ namespace PearlCalculatorCP.ViewModels
                 traces.AddRange(entities.Select((t, i) => new PearlTraceModel {Tick = i, XCoor = t.Position.X, YCoor = t.Position.Y, ZCoor = t.Position.Z}));
                 chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
                 EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("GeneralFTL", traces, chunkModels));
+            }
+            catch (ArgumentException e)
+            {
+                LogUtils.Error(e.Message);
+                EventManager.PublishEvent(this, "changeDefaultBlueDuper", new NotificationArgs("GeneralFTL"));
             }
             catch (Exception e)
             {
