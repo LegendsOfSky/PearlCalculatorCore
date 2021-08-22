@@ -106,12 +106,22 @@ namespace PearlCalculatorLib.General
         /// <summary>
         /// Ignore This Please. For Internal Calculation Only
         /// </summary>
-        public static int MaxCalculateTNT;
+        public static int MaxCalculateTNT
+        {
+            get => _maxCalculateTNT;
+            internal set => _maxCalculateTNT = value;
+        }
+        private static int _maxCalculateTNT;
 
         /// <summary>
         /// Ignore This Please. For Internal Calculation Only
         /// </summary>
-        public static double MaxCalculateDistance;
+        public static double MaxCalculateDistance
+        {
+            get => _maxCalculateDistance;
+            internal set => _maxCalculateDistance = value;
+        }
+        private static double _maxCalculateDistance;
 
 
 
