@@ -153,7 +153,7 @@ namespace PearlCalculatorCP.ViewModels
             
             EventManager.AddListener<PearlSimulateArgs>("pearlMotion", (sender, args) =>
             {
-                _showMode = ResultShowMode.Motion;
+                ShowMode = ResultShowMode.Motion;
                 PearlMotionList = new ObservableCollection<PearlTraceModel>(args.Trace);
 
                 AmountResultSelectedIndex = -1;
