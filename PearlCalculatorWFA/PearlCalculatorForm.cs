@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.Result;
-using PearlCalculatorLib.PearlCalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using GeneralData = PearlCalculatorLib.General.Data;
 using GeneralCalculation = PearlCalculatorLib.General.Calculation;
 using ManuallyData = PearlCalculatorLib.Manually.Data;
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
-using System.Runtime;
-using System.Drawing.Printing;
-using System.Runtime.Serialization;
 using System.Drawing;
 using System.Text;
 using System.Text.Json;
@@ -128,7 +121,7 @@ namespace PearlCalculatorWFA
                 return;
             Log("Main" , "Msg" , "Auto-implement");
             int index = BasicOutputSystem.FocusedItem.Index;
-            var direction = GeneralData.Pearl.Position.Direction(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination));
+            var direction = DirectionUtils.GetDirection(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination));
 
             GeneralRedTNTTextBox.Text = GeneralData.TNTResult[index].Red.ToString();
             GeneralBlueTNTTextBox.Text = GeneralData.TNTResult[index].Blue.ToString();
@@ -203,7 +196,7 @@ namespace PearlCalculatorWFA
             Log("Main" , "Msg" , "Clear direction display");
             BasicDirectionOutSystem.Items.Clear();
             Log("Main" , "Msg" , "Calculate and display direction");
-            ListViewItem result = new ListViewItem(GeneralData.Pearl.Position.Direction(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination)).ToString());
+            ListViewItem result = new ListViewItem(DirectionUtils.GetDirection(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination)).ToString());
             result.SubItems.Add(GeneralData.Pearl.Position.WorldAngle(GeneralData.Destination).ToString());
             BasicDirectionOutSystem.Items.Add(result);
         }
@@ -646,14 +639,20 @@ namespace PearlCalculatorWFA
             else if(GeneralSettingListView.FocusedItem.Index == 16)
             {
                 Log("Main" , "Msg" , "Update Default Red TNT Position");
-                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultRedDuper))
+                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out Direction direction))
+                {
+                    GeneralData.DefaultRedDuper = direction;
                     Log("Main" , "Msg" , "Updated Default Red TNT Position");
+                }
             }
             else if(GeneralSettingListView.FocusedItem.Index == 17)
             {
                 Log("Main" , "Msg" , "Update Default Blue TNT Position");
-                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out GeneralData.DefaultBlueDuper))
+                if(DirectionUtils.TryParse(GeneralSettingInputTextBox.Text , out Direction direction))
+                {
+                    GeneralData.DefaultBlueDuper = direction;
                     Log("Main" , "Msg" , "Updated Default Blue TNT Position");
+                }
             }
             DisplaySetting();
         }
