@@ -63,7 +63,6 @@
                     <TextBlock Name="VerTextTB" />
                 </StackPanel>
 
-                <TextBlock Text="{i18n:Translate Youtube, Fallback='Youtube tutorial : coming soon'}" />
                 <TextBlock Text="{i18n:Translate Credit, Fallback='Credit : Mojang for his &quot;best&quot; coding'}" />
 
                 <StackPanel Orientation="Horizontal">

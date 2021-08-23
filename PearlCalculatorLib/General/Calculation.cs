@@ -38,6 +38,7 @@ namespace PearlCalculatorLib.General
         /// <returns>Returns a true or false value indicates whether the calculation is correctly executed or not
         /// <para>TNT combination result will be stored into <see cref="Data.TNTResult"/></para>
         /// </returns>
+        /// <exception cref="ArgumentException"></exception>
         public static bool CalculateTNTAmount(int maxTicks , double maxDistance)
         {
             int redTNT , blueTNT;
@@ -119,6 +120,7 @@ namespace PearlCalculatorLib.General
         /// <param name="ticks">The Maximum Tick the Ender Pearl Allowed to travel</param>
         /// <param name="direction">The accelerating Direction of the Ender Pearl. Only Allow North, South, East, West</param>
         /// <returns>Return A List of Entity contains the Motion and Position in each Ticks</returns>
+        /// <exception cref="ArgumentException"></exception>
         public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             List<Entity> result = new List<Entity>();
@@ -202,6 +204,7 @@ namespace PearlCalculatorLib.General
         /// <param name="direction">The Acceleration Direction of the Ender Pearl</param>
         /// <param name="redTNTVector">Return am accelerating vector of Red TNT</param>
         /// <param name="blueTNTVector">Return an accelerating vector of Blue TNT</param>
+        /// <exception cref="ArgumentException"></exception>
         public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
         {
             Space3D pearlPosition = Data.PearlOffset.ToSpace3D();

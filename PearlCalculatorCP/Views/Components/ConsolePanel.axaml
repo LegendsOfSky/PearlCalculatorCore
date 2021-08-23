@@ -56,7 +56,13 @@
                         <DataTemplate>
                             <Grid ColumnDefinitions="0.2*, 1, *">
                                 <TextBlock Grid.Column="0" Foreground="Gray" Text="{Binding Type}" Width="{Binding #ConsoleType.Bounds.Width}" />
-                                <TextBlock Grid.Column="2" Foreground="{Binding TextColor}" Text="{Binding Message}" Width="{Binding #ConsoleMessage.Bounds.Width}" />
+                                <TextBlock Grid.Column="2" Foreground="{Binding TextColor}" Text="{Binding Message}" Width="{Binding #ConsoleMessage.Bounds.Width}">
+                                    <ToolTip.Tip>
+                                        <Border Classes="ToolTipContentBorder">
+                                            <TextBlock Text="{Binding $parent[TextBlock].Text}" Foreground="{Binding $parent[TextBlock].Foreground}" TextWrapping="WrapWithOverflow" />
+                                        </Border>
+                                    </ToolTip.Tip>
+                                </TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -48,4 +48,16 @@
         <Setter Property="Padding" Value="0" />
     </Style>
     
+    
+    <Style Selector="ToolTip">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+
+    <Style Selector="Border.ToolTipContentBorder">
+        <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
+        <Setter Property="Padding" Value="2" />
+    </Style>
+    
 </Styles>
