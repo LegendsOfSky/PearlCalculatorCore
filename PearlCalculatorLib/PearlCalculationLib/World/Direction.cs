@@ -93,16 +93,16 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public static Direction GetDirection(double angle)
         {
-            Direction direction = World.Direction.None;
+            Direction direction = Direction.None;
 
             if(angle > -135 && angle <= -45)
-                direction = World.Direction.East;
+                direction = Direction.East;
             else if(angle > -45 && angle <= 45)
-                direction = World.Direction.South;
+                direction = Direction.South;
             else if(angle > 45 && angle <= 135)
-                direction = World.Direction.West;
+                direction = Direction.West;
             else if((angle > 135 && angle <= 180) || (angle > -180 && angle <= -135))
-                direction = World.Direction.North;
+                direction = Direction.North;
             return direction;
         }
     }

@@ -1,13 +1,10 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.Result;
+﻿using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using System;
 using System.Collections.Generic;
 using System.Collections;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
-using System.Security.Cryptography;
-using System.Transactions;
 
 namespace PearlCalculatorLib.General
 {
@@ -41,10 +38,12 @@ namespace PearlCalculatorLib.General
         /// <exception cref="ArgumentException"></exception>
         public static bool CalculateTNTAmount(int maxTicks , double maxDistance)
         {
-            int redTNT , blueTNT;
-            double divider = 0;
+            int redTNT, blueTNT;
+            double trueRed, trueBlue;
             Direction direction;
-            Space3D distance , trueDistance , truePosition;
+            Space3D trueDistance, truePosition;
+            
+            double divider = 0;
             
             truePosition = Data.Pearl.Position + Data.PearlOffset.ToSpace3D();
             trueDistance = Data.Destination - truePosition;
@@ -56,17 +55,18 @@ namespace PearlCalculatorLib.General
             Data.TNTResult.Clear();
             direction = DirectionUtils.GetDirection(truePosition.WorldAngle(Data.Destination));
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
-            
+            //Calculate redTNT and blueTNT through simultaneous equations
+            trueRed = (trueDistance.Z * blueTNTVector.X - trueDistance.X * blueTNTVector.Z) / (redTNTVector.Z * blueTNTVector.X - blueTNTVector.Z * redTNTVector.X);
+            trueBlue = (trueDistance.X - trueRed * redTNTVector.X) / blueTNTVector.X;
+
             for(int tick = 1; tick <= maxTicks; tick++)
             {
-                //Factorization trueDistance to get a easier calculation
+                //Factorization trueDistance to make a easier calculation
                 divider += Math.Pow(0.99 , tick - 1);
-                distance = trueDistance / divider;
 
-                //Calculate redTNT and blueTNT through simultaneous equations
-                redTNT = Convert.ToInt32(Math.Round((distance.Z * blueTNTVector.X - distance.X * blueTNTVector.Z) / (redTNTVector.Z * blueTNTVector.X - blueTNTVector.Z * redTNTVector.X)));
-                blueTNT = Convert.ToInt32(Math.Round((distance.X - redTNT * redTNTVector.X) / blueTNTVector.X));
-                
+                redTNT = Convert.ToInt32(trueRed / divider);
+                blueTNT = Convert.ToInt32(trueBlue / divider);
+
                 //Run through the loops to get a better result around the redTNT and blueTNT
                 //It is not perfect dude to the round up
                 for(int r = -5; r <= 5; r++)
@@ -78,7 +78,7 @@ namespace PearlCalculatorLib.General
                         PearlEntity pearlEntity = PearlSimulation(redTNT + r , blueTNT + b , tick , direction);
                         
                         //Only the pearl with a difference smaller than 5 will pass the check
-                        if((pearlEntity.Position - Data.Destination).ToSurface2D().Absolute() <= 5)
+                        if((pearlEntity.Position - Data.Destination).ToSurface2D().Absolute() <= maxDistance)
                         {
                         
                             TNTCalculationResult result = new TNTCalculationResult
@@ -93,7 +93,7 @@ namespace PearlCalculatorLib.General
                             
                             //Bypass MaxTNT check if it is set to 0
                             //If MaxTNT is greater than 0 , only add those result which is lesser than MaxTNT
-                            //If both redTNT and blueTNT are not greater or equal than zero , ignore them
+                            //If both redTNT and blueTNT are not greater or equal to zero , ignore them
                             if((Data.MaxTNT <= 0 || (result.Blue <= Data.MaxTNT && result.Red <= Data.MaxTNT)) && result.Blue >= 0 && result.Red >= 0)
                                 Data.TNTResult.Add(result);
                             
@@ -123,7 +123,7 @@ namespace PearlCalculatorLib.General
         /// <exception cref="ArgumentException"></exception>
         public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
         {
-            List<Entity> result = new List<Entity>();
+            List<Entity> result = new List<Entity>(ticks + 1);
             PearlEntity pearl = new PearlEntity((PearlEntity)Data.Pearl.AddPosition(Data.PearlOffset));
             
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
@@ -166,7 +166,6 @@ namespace PearlCalculatorLib.General
             
             for(int i = 0; i < sortedRedConfig.Count; i++)
             {
-            
                 if(redTNT >= sortedRedConfig[i])
                 {
                     redTNT -= sortedRedConfig[i];
@@ -179,7 +178,6 @@ namespace PearlCalculatorLib.General
             
             for(int i = 0; i < sortedBlueConfig.Count; i++)
             {
-            
                 if(blueTNT >= sortedBlueConfig[i])
                 {
                     blueTNT -= sortedBlueConfig[i];
@@ -199,10 +197,10 @@ namespace PearlCalculatorLib.General
         }
 
         /// <summary>
-        /// Calculate the accelerating vector of each Blue and Red TNT in given Direction
+        /// Calculate the accelerating vector created by Blue and Red TNT in a given Direction
         /// </summary>
         /// <param name="direction">The Acceleration Direction of the Ender Pearl</param>
-        /// <param name="redTNTVector">Return am accelerating vector of Red TNT</param>
+        /// <param name="redTNTVector">Return an accelerating vector of Red TNT</param>
         /// <param name="blueTNTVector">Return an accelerating vector of Blue TNT</param>
         /// <exception cref="ArgumentException"></exception>
         public static void CalculateTNTVector(Direction direction , out Space3D redTNTVector , out Space3D blueTNTVector)
@@ -246,18 +244,14 @@ namespace PearlCalculatorLib.General
 
         private static Space3D TNTDirectionToCoordinate(Direction coner)
         {
-            Space3D tntCoordinate = new Space3D(0 , 0 , 0);
-
-            if(coner == Direction.NorthEast)
-                tntCoordinate = Data.NorthEastTNT;
-            else if(coner == Direction.NorthWest)
-                tntCoordinate = Data.NorthWestTNT;
-            else if(coner == Direction.SouthEast)
-                tntCoordinate = Data.SouthEastTNT;
-            else if(coner == Direction.SouthWest)
-                tntCoordinate = Data.SouthWestTNT;
-
-            return tntCoordinate;
+            return coner switch
+            {
+                Direction.NorthEast => Data.NorthEastTNT,
+                Direction.NorthWest => Data.NorthWestTNT,
+                Direction.SouthEast => Data.SouthEastTNT,
+                Direction.SouthWest => Data.SouthWestTNT,
+                _ => Space3D.zero
+            };
         }
     }
 }

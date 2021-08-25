@@ -54,6 +54,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public Surface2D Absolute() => new Surface2D(Math.Abs(X) , Math.Abs(Z));
 
+        public double Distance(Surface2D position2) => Math.Sqrt(Math.Pow(position2.X - X , 2) + Math.Pow(position2.Z - Z , 2));
+
         public override bool Equals(object obj) => obj is Surface2D s && Equals(s);
 
         public bool AxialDistanceLessThan(double distance) => Math.Abs(X) < distance && Math.Abs(Z) < distance;

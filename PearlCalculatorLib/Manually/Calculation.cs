@@ -12,28 +12,33 @@ namespace PearlCalculatorLib.Manually
         public static bool CalculateTNTAmount(Surface2D destination , int ticks , out List<TNTCalculationResult> result)
         {
             int aTNT , bTNT;
-            Space3D aTNTVector , bTNTVector;
+            double denominator, trueA, trueB;
+            Space3D aTNTVector , bTNTVector , distance;
 
             double divider = 0;
-            Space3D distance = destination.ToSpace3D() - Data.Pearl.Position;
+
+            distance = destination.ToSpace3D() - Data.Pearl.Position;
             result = new List<TNTCalculationResult>();
             
-            if(Math.Abs(distance.X) == 0 && Math.Abs(distance.Z) == 0)
+            if(distance.Absolute().ToSurface2D() == 0)
                 return false;
             
             aTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.ATNT);
             bTNTVector = VectorCalculation.CalculateMotion(Data.Pearl.Position , Data.BTNT);
-            
-            if(aTNTVector.Z * bTNTVector.X - bTNTVector.Z * aTNTVector.X == 0)
+            denominator = aTNTVector.Z * bTNTVector.X - bTNTVector.Z * aTNTVector.X;
+
+            trueA = (distance.Z * bTNTVector.X - distance.X * bTNTVector.Z) / (aTNTVector.Z * bTNTVector.X - bTNTVector.Z * aTNTVector.X);
+            trueB = (distance.X - trueA * aTNTVector.X) / bTNTVector.X;
+
+
+            if(denominator == 0)
                 return false;
             
             for(int i = 1; i <= ticks; i++)
             {
                 divider += Math.Pow(0.99 , i - 1);
-                distance = (distance - Data.Pearl.Position) / divider;
-                
-                aTNT = Convert.ToInt32(Math.Round((distance.Z * bTNTVector.X - distance.X * bTNTVector.Z) / (aTNTVector.Z * bTNTVector.X - bTNTVector.Z * aTNTVector.X)));
-                bTNT = Convert.ToInt32(Math.Round((distance.X - aTNT * aTNTVector.X) / bTNTVector.X));
+                aTNT = Convert.ToInt32(trueA / divider);
+                bTNT = Convert.ToInt32(trueB / divider);
                 
                 for(int a = -5; a <= 5; a++)
                 {
@@ -41,14 +46,14 @@ namespace PearlCalculatorLib.Manually
                     for(int b = -5; b <= 5; b++)
                     {
                         PearlEntity aPearl = PearlSimulation(aTNT + a , bTNT + b , i , aTNTVector , bTNTVector);
-                        Surface2D difference = aPearl.Position.ToSurface2D() - destination;
+                        Surface2D displacement = aPearl.Position.ToSurface2D() - destination;
 
-                        if(difference.AxialDistanceLessOrEqualTo(10) && bTNT + b > 0 && aTNT + a > 0)
+                        if(displacement.AxialDistanceLessOrEqualTo(10) && bTNT + b > 0 && aTNT + a > 0)
                         {
                     
                             TNTCalculationResult tResult = new TNTCalculationResult
                             {
-                                Distance = aPearl.Position.Distance2D(destination.ToSpace3D()) ,
+                                Distance = displacement.Distance(Surface2D.zero) ,
                                 Tick = i ,
                                 Blue = bTNT + b ,
                                 Red = aTNT + a ,
