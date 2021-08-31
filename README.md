@@ -2,7 +2,7 @@
 
 Just A Pearl Calculator Core Project Attempt.
 
-[简体中文](README zh-CN.md) | [繁體中文](README zh-TW.md)
+[简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md)
 
 # Bug Report Rules
 

@@ -2,7 +2,7 @@
 
 只是一个珍珠计算器核心计划的尝试而已。
 
-[English](README.md) | [繁體中文](README zh-TW.md)
+[English](README.md) | [繁體中文](README_zh-TW.md)
 
 # Bug报告规则
 
