@@ -13,7 +13,7 @@ namespace PearlCalculatorLib.General
         private static PearlEntity PearlSimulation(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             //Simulating the pearl and return the end point
-            PearlEntity pearlEntity = (PearlEntity)new PearlEntity(Data.Pearl).AddPosition(Data.PearlOffset);
+            PearlEntity pearlEntity = new PearlEntity(Data.Pearl).AddPosition(Data.PearlOffset);
 
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
             
@@ -124,7 +124,7 @@ namespace PearlCalculatorLib.General
         public static List<Entity> CalculatePearlTrace(int redTNT , int blueTNT , int ticks , Direction direction)
         {
             List<Entity> result = new List<Entity>(ticks + 1);
-            PearlEntity pearl = new PearlEntity((PearlEntity)Data.Pearl.AddPosition(Data.PearlOffset));
+            PearlEntity pearl = new PearlEntity(Data.Pearl.AddPosition(Data.PearlOffset));
             
             CalculateTNTVector(direction , out Space3D redTNTVector , out Space3D blueTNTVector);
             pearl.Motion += redTNT * redTNTVector + blueTNT * blueTNTVector;

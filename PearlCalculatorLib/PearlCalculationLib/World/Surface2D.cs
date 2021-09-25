@@ -72,6 +72,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public Surface2D Round() => new Surface2D(Math.Round(X) , Math.Round(Z));
 
+        public override int GetHashCode() => X.GetHashCode() ^ Z.GetHashCode();
+
         public static Surface2D operator +(Surface2D left , Surface2D right) => new Surface2D(left.X + right.X , left.Z + right.Z);
 
         public static Surface2D operator -(Surface2D left , Surface2D right) => new Surface2D(left.X - right.X , left.Z - right.Z);
