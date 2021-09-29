@@ -131,8 +131,8 @@ options:
         - 指示珍珠的飞行方向(只运行四大方位)
         - 被使用于`CalculatePearlTrace`
     10. `DefaultRedDuper`和`DefaultBlueDuper`
-        - 只允許复合方位
-        - 用于指示TNT在膛室內的方位
+        - 只允许复合方位
+        - 用于指示TNT在膛室内的方位
     11. `TNTResult`
         - 用于输出/保存计算结果
         - 包含以下內容
@@ -156,7 +156,7 @@ options:
 
     2. `CalculatePearlTrace`可用于模拟珍珠的轨迹，计算出的结果将会返回一个`List<PearlEntity>`；
 
-    3. `CalculateTNTConfiguration`可用于协助使用者编码珍珠跑，此算法可通过填入与珍珠炮配置区相同的参数，计算出编码结果；
+    3. `CalculateTNTConfiguration`可用于协助使用者编码珍珠炮，此算法可通过填入与珍珠炮配置区相同的参数，计算出编码结果；
 
     4. `CalculateTNTVector`可用于计算由TNT施加给TNT的矢量，详细信息请参阅文档注释；
 
