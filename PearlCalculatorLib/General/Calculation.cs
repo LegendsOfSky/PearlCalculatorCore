@@ -207,7 +207,7 @@ namespace PearlCalculatorLib.General
         {
             Space3D pearlPosition = Data.PearlOffset.ToSpace3D();
             
-            redTNTVector = blueTNTVector = Space3D.zero;
+            redTNTVector = blueTNTVector = Space3D.Zero;
             pearlPosition.Y = Data.Pearl.Position.Y;
 
             if((Data.DefaultBlueDuper | Data.DefaultRedDuper) != (Direction.NorthEast | Direction.SouthWest))
@@ -250,7 +250,7 @@ namespace PearlCalculatorLib.General
                 Direction.NorthWest => Data.NorthWestTNT,
                 Direction.SouthEast => Data.SouthEastTNT,
                 Direction.SouthWest => Data.SouthWestTNT,
-                _ => Space3D.zero
+                _ => Space3D.Zero
             };
         }
     }

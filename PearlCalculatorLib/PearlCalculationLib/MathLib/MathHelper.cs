@@ -4,7 +4,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.MathLib
 {
     /// <summary>
     /// Ask Mojang for it's weird API
-    /// I have No clue about it
+    /// <para>I have No clue about it</para>
     /// </summary>
     public static class MathHelper
     {

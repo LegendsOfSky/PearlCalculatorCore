@@ -1,13 +1,14 @@
 ﻿using PearlCalculatorLib.PearlCalculationLib.MathLib;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     [Serializable]
     public struct Space3D : IEquatable<Space3D>
     {
-        public static readonly Space3D zero = new Space3D();
-        public static readonly Space3D one = new Space3D(1 , 1 , 1);
+        public static readonly Space3D Zero = new Space3D();
+        public static readonly Space3D One = new Space3D(1 , 1 , 1);
 
         public double X;
         public double Y;
@@ -93,6 +94,16 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         public bool IsOrigin() => X == 0 && Y == 0 && Z == 0;
 
         public double AngleInRad(Space3D position2) => Math.Atan((position2.Z - Z) / (position2.X - X));
+
+        public double AngleInAbsPolarRad(Space3D position2)
+        {
+            double angle = Math.Atan2(position2.Z - Z , position2.X - X);
+            return angle < 0 ? angle + Math.PI * 2 : angle;
+        }
+
+        public double AngleInPolarRad(Space3D position2) => Math.Atan2(position2.Z - Z , position2.X - X);
+
+        public double AngleInRad() => Math.Atan2(Z , X) + Math.PI;
 
         public Space3D Rotate(double degree)
         {

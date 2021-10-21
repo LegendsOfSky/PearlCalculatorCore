@@ -117,15 +117,17 @@ namespace PearlCalculatorCP.ViewModels
         {
             EventManager.AddListener<CalculateTNTAmountArgs>("calculate", (sender, args) =>
             {
-                ShowMode = ResultShowMode.Amount;
+                var isNaN = args.IsNaN;
+                ShowMode = isNaN ? ResultShowMode.AmountNaN : ResultShowMode.Amount;
 
                 _amountDataSource = args.PublishKey == "Manually"
                     ? ResultAmountDataSource.Manually
                     : ResultAmountDataSource.General;
                 
                 _amountList = args.Results;
-                SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
-                AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
+                if (!isNaN)
+                    SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
+                AmountResult = isNaN ? null : new ObservableCollection<TNTCalculationResult>(_amountList);
                 AmountResultSelectedIndex = -1;
 
                 PearlMotionList = null;
@@ -223,6 +225,7 @@ namespace PearlCalculatorCP.ViewModels
     public enum ResultShowMode
     {
         Amount,
+        AmountNaN,
         Trace,
         Motion,
         ChunkTrace

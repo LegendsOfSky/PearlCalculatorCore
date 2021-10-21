@@ -8,7 +8,9 @@
 
         public TNTResultSortByWeightedArgs(int tntWeight , int maxCalculateTNT , double maxCalculateDistance)
         {
-            (this.TNTWeight, this.MaxCalculateTNT, this.MaxCalculateDistance) = (tntWeight, maxCalculateTNT, maxCalculateDistance);
+            this.TNTWeight = tntWeight;
+            this.MaxCalculateTNT = maxCalculateTNT == 0 ? 1 : maxCalculateTNT;
+            this.MaxCalculateDistance = maxCalculateDistance == 0 ? 1 : maxCalculateDistance;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
@@ -7,7 +8,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
     {
         public double X;
         public double Z;
-        public static readonly Surface2D zero = new Surface2D();
+        public static Surface2D Zero => new Surface2D();
 
         public Surface2D()
         {
@@ -30,6 +31,10 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         public bool IsEast(Surface2D position2) => position2.Z < Z;
 
         public bool IsWest(Surface2D position2) => position2.Z > Z;
+
+        public bool IsClockWise(Surface2D vector2) => vector2.Transform(this / Zero.Distance(this) , Zero) > 0;
+
+        public bool IsCounterClockWise(Surface2D vector2) => vector2.Transform(this / Zero.Distance(this) , Zero) < 0;
 
         public double Angle(Surface2D position2) => Math.Atan((position2.Z - Z) / (position2.X - X)) / Math.PI * 180;
 
@@ -58,6 +63,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public override bool Equals(object obj) => obj is Surface2D s && Equals(s);
 
+        public Surface2D Transform(Surface2D iHat , Surface2D jHat) => X * iHat + Z * jHat;
+
         public bool AxialDistanceLessThan(double distance) => Math.Abs(X) < distance && Math.Abs(Z) < distance;
 
         public bool AxialDistanceLargerThan(double distance) => Math.Abs(X) > distance && Math.Abs(Z) > distance;
@@ -77,6 +84,12 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
         public static Surface2D operator +(Surface2D left , Surface2D right) => new Surface2D(left.X + right.X , left.Z + right.Z);
 
         public static Surface2D operator -(Surface2D left , Surface2D right) => new Surface2D(left.X - right.X , left.Z - right.Z);
+
+        public static Surface2D operator *(Surface2D left , double right) => new Surface2D(left.X * right , left.Z * right);
+
+        public static Surface2D operator *(double left , Surface2D right) => new Surface2D(left * right.X , left * right.Z);
+
+        public static Surface2D operator /(Surface2D left , double right) => new Surface2D(left.X / right , left.Z / right);
 
         public static bool operator <(Surface2D left , double right) => left.X < right && left.Z < right;
 

@@ -48,7 +48,7 @@ namespace RTPearlCalculatorLib.Blocks
 
         public static bool TryGetBlockSize(Type type, out Space3D size)
         {
-            size = Space3D.zero;
+            size = Space3D.Zero;
 
             if (type == typeof(Block) || type.BaseType != typeof(Block) || BlockUtils.BlockSizeBlackList.Contains(type))
                 return false;

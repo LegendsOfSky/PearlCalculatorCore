@@ -7,7 +7,7 @@ using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using GeneralData = PearlCalculatorLib.General.Data;
 using GeneralCalculation = PearlCalculatorLib.General.Calculation;
-using ManuallyData = PearlCalculatorLib.Manually.Data;
+using ManuallyData = PearlCalculatorLib.Manually.ManuallyData;
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
 using System.Drawing;
 using System.Text;

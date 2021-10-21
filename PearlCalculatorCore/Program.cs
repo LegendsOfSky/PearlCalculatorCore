@@ -11,6 +11,8 @@ using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.IO.Compression;
+using PearlCalculatorLib.Manually;
+using PearlCalculatorLib.Result;
 
 namespace PearlCalculatorCore
 {
@@ -19,33 +21,16 @@ namespace PearlCalculatorCore
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
-            string filePath = @"G:\r.0.0.mca";
-
-            Console.WriteLine("File Exists : " + File.Exists(filePath).ToString());
-
-            
-
-            Console.WriteLine("End");
-            Console.ReadKey();
-        }
-
-        public static void Decompress(FileInfo fileToDecompress)
-        {
-            using(FileStream originalFileStream = fileToDecompress.OpenRead())
+            PearlEntity pearl = new PearlEntity
             {
-                string currentFileName = fileToDecompress.FullName;
-                string newFileName = currentFileName.Remove(currentFileName.Length - fileToDecompress.Extension.Length);
+                Position = new Space3D(0 , 0 , 0) ,
+                Motion = Space3D.Zero
+            };
 
-                using(FileStream decompressedFileStream = File.Create(newFileName))
-                {
-                    using(GZipStream decompressionStream = new GZipStream(originalFileStream , CompressionMode.Decompress))
-                    {
-                        decompressionStream.CopyTo(decompressedFileStream);
-                        Console.WriteLine($"Decompressed: {fileToDecompress.Name}");
-                    }
-                }
-            }
+            ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-0.775 , 0 , -0.775) , new Space3D(-0.885 , 0 , -0.775) , new Surface2D(151.25 , 605) , pearl);
+            //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.25 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
+            //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.2 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
+            PearlCalculatorLib.Manually.Calculation.CalculateTNTAmount(data , 20000 , 10 , out List<TNTCalculationResult> result);
         }
     }
 }

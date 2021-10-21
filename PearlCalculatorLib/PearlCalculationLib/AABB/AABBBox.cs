@@ -23,7 +23,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
 
         public AABBBox(double x2 , double y2 , double z2)
         {
-            Min = Space3D.zero;
+            Min = Space3D.Zero;
             Max = new Space3D(x2 , y2 , z2);
         }
 
@@ -39,7 +39,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.AABB
             Max = max;
         }
 
-        public AABBBox(Space3D max) : this(Space3D.zero , max) { }
+        public AABBBox(Space3D max) : this(Space3D.Zero , max) { }
 
         public AABBBox ReSize(Space3D min , Space3D max)
         {

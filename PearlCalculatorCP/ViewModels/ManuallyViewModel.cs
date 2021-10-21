@@ -5,218 +5,163 @@ using ReactiveUI;
 using PearlCalculatorLib.Manually;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorCP.ViewModels
 {
     public class ManuallyViewModel : ViewModelBase
-    {
+    {   
         private double _pearlX;
         public double PearlX
         {
             get => _pearlX;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _pearlX, value);
-                if (Data.Pearl.Position.X != _pearlX)
-                    Data.Pearl.Position.X = _pearlX;
-            }
+            set => this.RaiseAndSetIfChanged(ref _pearlX , value);
         }
 
         private double _pearlY;
         public double PearlY
         {
             get => _pearlY;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _pearlY, value);
-                if (Data.Pearl.Position.Y != _pearlY)
-                    Data.Pearl.Position.Y = _pearlY;
-            }
+            set => this.RaiseAndSetIfChanged(ref _pearlY , value);
         }
-        
+
         private double _pearlZ;
         public double PearlZ
         {
             get => _pearlZ;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _pearlZ, value);
-                if (Data.Pearl.Position.Z != _pearlZ)
-                    Data.Pearl.Position.Z = _pearlZ;
-            }
+            set => this.RaiseAndSetIfChanged(ref _pearlZ , value);
         }
+
+        public Space3D PearlPos => new Space3D(_pearlX, _pearlY, _pearlZ);
 
         private double _momentumX;
         public double MomentumX
         {
             get => _momentumX;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _momentumX, value);
-                if (Data.Pearl.Motion.X != _momentumX)
-                    Data.Pearl.Motion.X = _momentumX;
-            }
+            set => this.RaiseAndSetIfChanged(ref _momentumX , value);
         }
-        
+
         private double _momentumY;
         public double MomentumY
         {
             get => _momentumY;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _momentumY, value);
-                if (Data.Pearl.Motion.Y != _momentumY)
-                    Data.Pearl.Motion.Y = _momentumY;
-            }
+            set => this.RaiseAndSetIfChanged(ref _momentumY , value);
         }
 
         private double _momentumZ;
         public double MomentumZ
         {
             get => _momentumZ;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _momentumZ, value);
-                if (Data.Pearl.Motion.Z != _momentumZ)
-                    Data.Pearl.Motion.Z = _momentumZ;
-            }
+            set => this.RaiseAndSetIfChanged(ref _momentumZ , value);
         }
+
+        public Space3D PearlMomentum => new Space3D(_momentumX, _momentumY, _momentumZ);
+
+        public PearlEntity Pearl => new PearlEntity(PearlMomentum, PearlPos);
+
 
         private double _aTX;
         public double ATX
         {
             get => _aTX;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _aTX, value);
-                if (Data.ATNT.X != _aTX)
-                    Data.ATNT.X = _aTX;
-            }
+            set => this.RaiseAndSetIfChanged(ref _aTX , value);
         }
 
         private double _aTY;
         public double ATY
         {
             get => _aTY;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _aTY, value);
-                if (Data.ATNT.Y != _aTY)
-                    Data.ATNT.Y = _aTY;
-            }
+            set => this.RaiseAndSetIfChanged(ref _aTY , value);
         }
 
         private double _aTZ;
         public double ATZ
         {
             get => _aTZ;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _aTZ, value);
-                if (Data.ATNT.Z != _aTZ)
-                    Data.ATNT.Z = _aTZ;
-            }
+            set => this.RaiseAndSetIfChanged(ref _aTZ , value);
         }
+
+        public Space3D ATNT => new Space3D(_aTX, _aTY, _aTZ);
 
         private double _bTX;
         public double BTX
         {
             get => _bTX;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _bTX, value);
-                if (Data.BTNT.X != _bTX)
-                    Data.BTNT.X = _bTX;
-            }
+            set => this.RaiseAndSetIfChanged(ref _bTX , value);
         }
-        
+
         private double _bTY;
         public double BTY
         {
             get => _bTY;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _bTY, value);
-                if (Data.BTNT.Y != _bTY)
-                    Data.BTNT.Y = _bTY;
-            }
+            set => this.RaiseAndSetIfChanged(ref _bTY , value);
         }
-        
+
         private double _bTZ;
         public double BTZ
         {
             get => _bTZ;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _bTZ, value);
-                if (Data.BTNT.Z != _bTZ)
-                    Data.BTNT.Z = _bTZ;
-            }
+            set => this.RaiseAndSetIfChanged(ref _bTZ , value);
         }
         
+        public Space3D BTNT => new Space3D(_bTX, _bTY, _bTZ);
+
+
 
         private int _aTNTAmount;
         public int ATNTAmount
         {
             get => _aTNTAmount;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _aTNTAmount, value);
-                if (Data.ATNTAmount != _aTNTAmount)
-                    Data.ATNTAmount = _aTNTAmount;
-            }
+            set => this.RaiseAndSetIfChanged(ref _aTNTAmount , value);
         }
-        
+
         private int _bTNTAmount;
         public int BTNTAmount
         {
             get => _bTNTAmount;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _bTNTAmount, value);
-                if (Data.BTNTAmount != _bTNTAmount)
-                    Data.BTNTAmount = _bTNTAmount;
-            }
+            set => this.RaiseAndSetIfChanged(ref _bTNTAmount , value);
         }
 
         private double _destinationX;
         public double DestinationX
         {
             get => _destinationX;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _destinationX, value);
-                if (Data.Destination.X != _destinationX)
-                    Data.Destination.X = _destinationX;
-            }
+            set => this.RaiseAndSetIfChanged(ref _destinationX , value);
         }
 
         private double _destinationZ;
         public double DestinationZ
         {
             get => _destinationZ;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _destinationZ, value);
-                if (Data.Destination.Z != _destinationZ)
-                    Data.Destination.Z = _destinationZ;
-            }
+            set => this.RaiseAndSetIfChanged(ref _destinationZ , value);
         }
+
+        public Surface2D Destination => new Surface2D(_destinationX, _destinationZ);
+
+        public ManuallyData GetManuallyData() => new ManuallyData(ATNTAmount, BTNTAmount, ATNT, BTNT, Destination, Pearl);
+
 
         public void CalculateAmount()
         {
-            if (Calculation.CalculateTNTAmount(Data.Destination, MainWindowViewModel.MaxTicks, out var result))
+            var data = GetManuallyData();
+            if (Calculation.CalculateTNTAmount(data, MainWindowViewModel.MaxTicks, MainWindowViewModel.MaxDistance, out var result))
             {
                 EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", result));
-                var angle = Data.Pearl.Position.WorldAngle(Data.Destination.ToSpace3D());
+                var angle = data.Pearl.Position.WorldAngle(data.Destination.ToSpace3D());
                 var direction = DirectionUtils.GetDirection(angle).ToString();
                 EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", direction, angle.ToString()));
+            }
+            else
+            {
+                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", null));
+                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
             }
         }
 
         public void CalculateTrace()
         {
-            var entities = Calculation.CalculatePearl(ATNTAmount, BTNTAmount, MainWindowViewModel.MaxTicks);
+            var data = GetManuallyData();
+            var entities = Calculation.CalculatePearlTrace(data, MainWindowViewModel.MaxTicks);
             var chunks = ListCoverterUtility.ToChunk(entities);
 
             var traces = new List<PearlTraceModel>(entities.Count);
@@ -237,7 +182,8 @@ namespace PearlCalculatorCP.ViewModels
 
         public void CalculateMomentum()
         {
-            var entities = Calculation.CalculatePearl(ATNTAmount, BTNTAmount, MainWindowViewModel.MaxTicks);
+            var data = GetManuallyData();
+            var entities = Calculation.CalculatePearlTrace(data, MainWindowViewModel.MaxTicks);
             var traces = new List<PearlTraceModel>(entities.Count);
             traces.AddRange(entities.Select((t, i) => new PearlTraceModel
             {

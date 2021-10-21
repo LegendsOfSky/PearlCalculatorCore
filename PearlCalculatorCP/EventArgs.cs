@@ -58,11 +58,13 @@ namespace PearlCalculatorCP
 
     public class CalculateTNTAmountArgs : PCEventArgs
     {
-        public readonly List<TNTCalculationResult> Results;
+        public readonly List<TNTCalculationResult>? Results;
+        public readonly bool IsNaN;
 
-        public CalculateTNTAmountArgs(string publishKey, List<TNTCalculationResult> results) : base(publishKey)
+        public CalculateTNTAmountArgs(string publishKey, List<TNTCalculationResult>? results) : base(publishKey)
         {
             this.Results = results;
+            this.IsNaN = results is null || results.Count == 0;
         }
     }
 

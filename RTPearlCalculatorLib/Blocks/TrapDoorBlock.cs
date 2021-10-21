@@ -54,10 +54,10 @@ namespace RTPearlCalculatorLib.Blocks
             {
                 AABB = direction switch
                 {
-                    Direction.North => new AABBBox(Position + new Space3D(0, 0, 0.8125), Position + Space3D.one),
+                    Direction.North => new AABBBox(Position + new Space3D(0, 0, 0.8125), Position + Space3D.One),
                     Direction.South => new AABBBox(Position, Position + new Space3D(1, 1, 0.1875)),
                     Direction.East  => new AABBBox(Position, Position + new Space3D(0.1875, 1, 1)),
-                    _               => new AABBBox(Position + new Space3D(0.8125, 0, 0), Position + Space3D.one),
+                    _               => new AABBBox(Position + new Space3D(0.8125, 0, 0), Position + Space3D.One),
                 };
             }
         }

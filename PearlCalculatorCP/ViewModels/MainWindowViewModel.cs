@@ -13,7 +13,7 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 using ReactiveUI;
 
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
-using ManuallyData = PearlCalculatorLib.Manually.Data;
+using ManuallyData = PearlCalculatorLib.Manually.ManuallyData;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -48,6 +48,7 @@ namespace PearlCalculatorCP.ViewModels
         private bool _isEnableIfChanged = true;
 
         public static int MaxTicks { get; set; } = 100;
+        public static double MaxDistance { get; set; } = 10;
 
         #region GeneralFTL General Input Data
         
@@ -195,10 +196,15 @@ namespace PearlCalculatorCP.ViewModels
         {
             try
             {
-                if (Calculation.CalculateTNTAmount(MaxTicks, 10))
+                if (Calculation.CalculateTNTAmount(MaxTicks, MaxDistance))
                 {
                     EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", Data.TNTResult));
                     ShowDirectionResult(Data.Pearl.Position, Data.Destination);
+                }
+                else
+                {
+                    EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("GeneralFTL", null));
+                    EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("GeneralFTL", string.Empty, string.Empty));
                 }
             }
             catch (ArgumentException e)
