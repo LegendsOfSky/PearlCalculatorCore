@@ -22,9 +22,9 @@ namespace PearlCalculatorCP
                 "change MaxTicks"
             });
 
-            CommandManager.Register("changeManuallyMaxDistance", new ChangeMaxDistance(), new List<string>
+            CommandManager.Register("changeMaxDistance", new ChangeMaxDistance(), new List<string>
             {
-                
+                "change MaxDistance"
             });
 
             CommandManager.Register("clear", new Clear(), null);
