@@ -30,7 +30,7 @@ namespace PearlCalculatorCore
             ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-0.775 , 0 , -0.775) , new Space3D(-0.885 , 0 , -0.775) , new Surface2D(151.25 , 605) , pearl);
             //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.25 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
             //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.2 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
-            PearlCalculatorLib.Manually.Calculation.CalculateTNTAmount(data , 20000 , 10 , out List<TNTCalculationResult> result);
+            PearlCalculatorLib.Manually.Calculation.CalculateTNTAmount(data , 10270 , 10 , out List<TNTCalculationResult> result);
         }
     }
 }

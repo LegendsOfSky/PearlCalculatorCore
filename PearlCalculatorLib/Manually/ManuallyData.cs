@@ -17,10 +17,6 @@ namespace PearlCalculatorLib.Manually
 
         public PearlEntity Pearl;
 
-        public static bool EnableThreading = false;
-
-        public static int ThreadCount = 4;
-
         public ManuallyData(int aTNTAmount , int bTNTAmount , Space3D aTNT , Space3D bTNT , Surface2D destination , PearlEntity pearl)
         {
             ATNTAmount = aTNTAmount;

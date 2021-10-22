@@ -91,153 +91,44 @@ namespace PearlCalculatorLib.Manually
 
             result = null;
 
-            if(ticks > 2500 && ManuallyData.EnableThreading)
-                CalculateSingleTNTAmountAsync(data , vector , ticks , ManuallyData.ThreadCount , isSpot1Closer , trueAmount1 , trueAmount2 , trueAmount3 , trueAmount4 , out result);
-            else
-            {
                 double divider = 0;
 
                 result = new List<TNTCalculationResult>(4 * ticks);
 
-                if(isSpot1Closer)
-                {
-                    for(int tick = 1; tick <= ticks; tick++)
-                    {
-                        divider += Math.Pow(0.99 , tick - 1);
-                        int tnt1 = Convert.ToInt32(trueAmount1 / divider);
-                        int tnt2 = Convert.ToInt32(trueAmount2 / divider);
-                        int tnt3 = Convert.ToInt32(trueAmount3 / divider);
-                        int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-                        result.Add(SingleTNTPearlSimulation(tnt1 , 0 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(tnt2 , 0 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(tnt3 , 0 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(tnt4 , 0 , tick , vector , data.Destination , data.Pearl));
-                    }
-                }
-                else
-                {
-                    for(int tick = 1; tick <= ticks; tick++)
-                    {
-                        divider += Math.Pow(0.99 , tick - 1);
-                        int tnt1 = Convert.ToInt32(trueAmount1 / divider);
-                        int tnt2 = Convert.ToInt32(trueAmount2 / divider);
-                        int tnt3 = Convert.ToInt32(trueAmount3 / divider);
-                        int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-                        result.Add(SingleTNTPearlSimulation(0 , tnt1 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(0 , tnt2 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(0 , tnt3 , tick , vector , data.Destination , data.Pearl));
-                        result.Add(SingleTNTPearlSimulation(0 , tnt4 , tick , vector , data.Destination , data.Pearl));
-                    }
-                }
-            }
-            result = result.Where(r => r.Blue + r.Red != 0).ToList();
-            return true;
-        }
-
-        private static void CalculateSingleTNTAmountAsync(ManuallyData data , Space3D vector , int ticks , int core, bool isSpot1Closer , double trueAmount1 , double trueAmount2 , double trueAmount3 , double trueAmount4 , out List<TNTCalculationResult> result)
-        {
-            Task[] tasks = new Task[core];
-            TNTCalculationResult[] resultArray = new TNTCalculationResult[4 * ticks];
-            int count = ticks / core;
-
-            if(isSpot1Closer)
+            if (isSpot1Closer)
             {
-                for(int i = 0; i < core; i++)
+                for (int tick = 1; tick <= ticks; tick++)
                 {
-                    int ic = i;
-                    tasks[i] = new Task(() =>
-                    {
-                        int baseTick = count * ic;
-                        double divider = 100 * (1 - Math.Pow(0.99 , baseTick));
-                        for(int j = 1; j <= count; j++)
-                        {
-                            int tick = baseTick + j;
-                            divider += Math.Pow(0.99 , tick - 1);
-
-                            int tnt1 = Convert.ToInt32(trueAmount1 / divider);
-                            int tnt2 = Convert.ToInt32(trueAmount2 / divider);
-                            int tnt3 = Convert.ToInt32(trueAmount3 / divider);
-                            int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-
-                            int k = (tick - 1) * 4;
-
-                            resultArray[k] = SingleTNTPearlSimulation(tnt1 , 0 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 1] = SingleTNTPearlSimulation(tnt2 , 0 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 2] = SingleTNTPearlSimulation(tnt3 , 0 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 3] = SingleTNTPearlSimulation(tnt4 , 0 , tick , vector , data.Destination , data.Pearl);
-                        }
-                    });
+                    divider += Math.Pow(0.99, tick - 1);
+                    int tnt1 = Convert.ToInt32(trueAmount1 / divider);
+                    int tnt2 = Convert.ToInt32(trueAmount2 / divider);
+                    int tnt3 = Convert.ToInt32(trueAmount3 / divider);
+                    int tnt4 = Convert.ToInt32(trueAmount4 / divider);
+                    result.Add(SingleTNTPearlSimulation(tnt1, 0, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(tnt2, 0, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(tnt3, 0, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(tnt4, 0, tick, vector, data.Destination, data.Pearl));
                 }
             }
             else
             {
-                for(int i = 0; i < core; i++)
+                for (int tick = 1; tick <= ticks; tick++)
                 {
-                    int ic = i;
-                    tasks[i] = new Task(() =>
-                    {
-                        int baseTick = count * ic;
-                        double divider = 100 * (1 - Math.Pow(0.99 , baseTick));
-                        for(int j = 1; j <= count; j++)
-                        {
-                            int tick = baseTick + j;
-                            divider += Math.Pow(0.99 , tick - 1);
-
-                            int tnt1 = Convert.ToInt32(trueAmount1 / divider);
-                            int tnt2 = Convert.ToInt32(trueAmount2 / divider);
-                            int tnt3 = Convert.ToInt32(trueAmount3 / divider);
-                            int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-
-                            int k = (tick - 1) * 4;
-                            resultArray[k] = SingleTNTPearlSimulation(0 , tnt1 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 1] = SingleTNTPearlSimulation(0 , tnt2 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 2] = SingleTNTPearlSimulation(0 , tnt3 , tick , vector , data.Destination , data.Pearl);
-                            resultArray[k + 3] = SingleTNTPearlSimulation(0 , tnt4 , tick , vector , data.Destination , data.Pearl);
-                        }
-                    });
-                }
-            }
-
-            foreach(var t in tasks)
-                t.Start();
-
-            for(int tick = count * core + 1; tick <= ticks; tick++)
-            {
-                double divider = 100 * (1 - Math.Pow(0.99 , tick - 1));
-                if(isSpot1Closer)
-                {
+                    divider += Math.Pow(0.99, tick - 1);
                     int tnt1 = Convert.ToInt32(trueAmount1 / divider);
                     int tnt2 = Convert.ToInt32(trueAmount2 / divider);
                     int tnt3 = Convert.ToInt32(trueAmount3 / divider);
                     int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-
-                    int k = (tick - 1) * 4;
-                    resultArray[k] = SingleTNTPearlSimulation(tnt1 , 0 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 1] = SingleTNTPearlSimulation(tnt2 , 0 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 2] = SingleTNTPearlSimulation(tnt3 , 0 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 3] = SingleTNTPearlSimulation(tnt4 , 0 , tick , vector , data.Destination , data.Pearl);
-
-                }
-                else
-                {
-                    int tnt1 = Convert.ToInt32(trueAmount1 / divider);
-                    int tnt2 = Convert.ToInt32(trueAmount2 / divider);
-                    int tnt3 = Convert.ToInt32(trueAmount3 / divider);
-                    int tnt4 = Convert.ToInt32(trueAmount4 / divider);
-
-                    int k = (tick - 1) * 4;
-                    resultArray[k] = SingleTNTPearlSimulation(0 , tnt1 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 1] = SingleTNTPearlSimulation(0 , tnt2 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 2] = SingleTNTPearlSimulation(0 , tnt3 , tick , vector , data.Destination , data.Pearl);
-                    resultArray[k + 3] = SingleTNTPearlSimulation(0 , tnt4 , tick , vector , data.Destination , data.Pearl);
+                    result.Add(SingleTNTPearlSimulation(0, tnt1, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(0, tnt2, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(0, tnt3, tick, vector, data.Destination, data.Pearl));
+                    result.Add(SingleTNTPearlSimulation(0, tnt4, tick, vector, data.Destination, data.Pearl));
                 }
             }
 
-            Task.WaitAll(tasks);
-
-            result = new List<TNTCalculationResult>(resultArray);
+            result = result.Where(r => r.Blue + r.Red != 0).ToList();
+            return true;
         }
-
 
         private static bool CalculateDualTNTAmount(ManuallyData data , Space3D vectorA , Space3D vectorB , int ticks , double maxDistance , out List<TNTCalculationResult> result)
         {

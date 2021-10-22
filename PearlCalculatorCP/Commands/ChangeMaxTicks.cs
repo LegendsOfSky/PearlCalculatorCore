@@ -15,6 +15,7 @@ namespace PearlCalculatorCP.Commands
                 int.TryParse(parameters[0], out int maxTicks);
                 if(maxTicks > 0)
                 {
+                    maxTicks = maxTicks > 10270 ? 10270 : maxTicks;
                     MainWindowViewModel.MaxTicks = maxTicks;
                     messageSender(DefineCmdOutput.MsgTemplate($"Change Max Ticks to {maxTicks}"));
                 }
