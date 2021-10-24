@@ -158,7 +158,10 @@ namespace PearlCalculatorCP
             SendMessage(new ConsoleOutputItemModel{Type = MsgType, Message = "Input \"/help\" or \"/?\" to check instructions"});
 
             foreach (var reg in CommandList.Values)
-                reg.Handler.OnLinkOutput(_messageSender);
+            {
+                if (reg.Handler is ICommandOutputLink o)
+                    o.OnLinkOutput(_messageSender);
+            }
         }
     }
 

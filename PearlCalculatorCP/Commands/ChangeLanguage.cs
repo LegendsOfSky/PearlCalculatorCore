@@ -5,7 +5,7 @@ using PearlCalculatorCP.Models;
 
 namespace PearlCalculatorCP.Commands
 {
-    public class ChangeLanguage : ICommand
+    public class ChangeLanguage : ICommand, ICommandOutputLink
     {
         public void OnLinkOutput(Action<ConsoleOutputItemModel> messageSender)
         {
