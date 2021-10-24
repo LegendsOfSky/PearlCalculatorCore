@@ -19,7 +19,8 @@ namespace PearlCalculatorCP
 
             CommandManager.Register("changeMaxTicks", new ChangeMaxTicks(), new List<string> 
             {
-                "change MaxTicks"
+                "change MaxTicks",
+                "value range : 10 - 10270"
             });
 
             CommandManager.Register("changeMaxDistance", new ChangeMaxDistance(), new List<string>
