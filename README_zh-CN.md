@@ -15,7 +15,7 @@
 
 在运行本仓库的所有软件前，请先安装`dotnet Core`运行时
 
-- [dotnet Core 3.1](https://dotnet.microsoft.com/download)
+- [dotnet Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1)
 
 # PearlCalculatorCP
 

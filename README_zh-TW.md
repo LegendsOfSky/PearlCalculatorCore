@@ -15,7 +15,7 @@
 
 在前往下個頁面前，請先安裝`dotnet Core運行時`。
 
-- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download)
+- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download/dotnet/3.1)
 
 # PearlCalculatorCP
 
@@ -26,8 +26,6 @@
 - English
 - 繁體中文
 - 简体中文
-
-如果你想為此軟體提供語言支持，可通過Github的`Pull requests`並於[PearlCalculatorCP/Assets/i18n/](PearlCalculatorCP/Assets/i18n/)文件夾中提供一份json格式的翻譯文件。
 
 ## 安裝指引
 

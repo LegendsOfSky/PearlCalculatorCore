@@ -13,7 +13,7 @@ Just A Pearl Calculator Core Project Attempt.
 
 Please install the dotnet Core runtime before proceeding.
 
-- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download)
+- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download/dotnet/3.1)
 
 # PearlCalculatorCP
 
@@ -24,8 +24,6 @@ This is a cross-platform graphical frontend for receiving parameters and present
 - English
 - 繁體中文
 - 简体中文
-
-If you want to provide a language support, feel free to provide a json formated language file in [PearlCalculatorCP/Assets/i18n/](PearlCalculatorCP/Assets/i18n/) folder through `Pull requests`.
 
 ## Install Instructions
 
