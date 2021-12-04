@@ -30,7 +30,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
 
         public static T WithMotion<T>(this T entity, double x, double y, double z) where T : Entity
         {
-            entity.Position = new Space3D(x, y, z);
+            entity.Motion = new Space3D(x, y, z);
             return entity;
         }
 
