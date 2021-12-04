@@ -7,7 +7,7 @@ namespace PearlCalculatorCP
 {
     public class EventManager
     {
-        private static EventManager _instance;
+        private static EventManager? _instance;
         public static EventManager Instance => _instance ??= new EventManager();
 
         interface IEventHandlerWrapper
@@ -18,7 +18,7 @@ namespace PearlCalculatorCP
         class EventHandlerWrapper<T> : IEventHandlerWrapper where T : PCEventArgs
         {
 
-            public event PCEventHandler<T> Handler;
+            public event PCEventHandler<T>? Handler;
 
             public void Invoke(object sender, PCEventArgs e) => Handler?.Invoke(sender, (T)e);
         }

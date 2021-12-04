@@ -1,3 +1,5 @@
+#nullable disable
+
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
@@ -28,7 +30,7 @@ namespace PearlCalculatorCP.Views.Components
             _consoleOutputListBox = this.FindControl<ListBox>("ConsoleOutputListBox");
         }
 
-        private void OnCmdInput_KeyUp(object? sender, KeyEventArgs e)
+        private void OnCmdInput_KeyUp(object sender, KeyEventArgs e)
         {
             bool isSetCaretIndex = false;
 

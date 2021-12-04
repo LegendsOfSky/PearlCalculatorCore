@@ -1,12 +1,20 @@
+#nullable disable
+
+using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.VisualTree;
 using PearlCalculatorCP.ViewModels;
 
 namespace PearlCalculatorCP.Views.Components
 {
     public class ResultPanel : UserControl
     {
+        private Panel _pearlTraceItemContextPanel;
+        
         private Grid _tntAmountGrid;
         private Grid _pearlTraceGrid;
         private Grid _pearlMotionGrid;
@@ -30,6 +38,7 @@ namespace PearlCalculatorCP.Views.Components
         {
             AvaloniaXamlLoader.Load(this);
 
+            _pearlTraceItemContextPanel = this.FindControl<Panel>("PearlTraceItemContextPanel");
             _tntAmountGrid = this.FindControl<Grid>("TNTAmountGrid");
             _pearlTraceGrid = this.FindControl<Grid>("PearlTraceGrid");
             _pearlMotionGrid = this.FindControl<Grid>("PearlMotionGrid");
@@ -88,6 +97,18 @@ namespace PearlCalculatorCP.Views.Components
                         new ColumnDefinition {Width = GridLength.Parse("*"), MinWidth = 50}
                     };
                     break;
+            }
+        }
+
+        private void PearlTraceItem_OnPointerPressed(object sender, PointerPressedEventArgs e)
+        {
+            var grid = sender as Grid;
+            if (e.GetCurrentPoint(grid).Properties.IsRightButtonPressed)
+            {
+                var contextMenu = _pearlTraceItemContextPanel.ContextMenu;
+                contextMenu.PlacementTarget = grid;
+                contextMenu.PlacementRect = grid.Bounds;
+                contextMenu.Open();
             }
         }
     }

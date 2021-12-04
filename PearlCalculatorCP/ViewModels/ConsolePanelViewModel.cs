@@ -42,6 +42,7 @@ namespace PearlCalculatorCP.ViewModels
             CommandManager.Instance.ExecuteCommand(cmd);
         }
         
+#nullable disable
         private void AddConsoleMessage(ConsoleOutputItemModel message)
         {
             if(ConsoleOutputs.Count >= 500)
@@ -50,6 +51,7 @@ namespace PearlCalculatorCP.ViewModels
             
             ConsoleOutputs.Add(message);
         }
+#nullable enable
 
         private void ClearConsole() => ConsoleOutputs?.Clear();
 

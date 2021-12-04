@@ -156,7 +156,7 @@ namespace PearlCalculatorCP.ViewModels
             });
         }
 
-        public MainWindowViewModel(ref Action onStartupCompleted) : this()
+        public MainWindowViewModel(ref Action? onStartupCompleted) : this()
         {
             onStartupCompleted = () =>
             {

@@ -68,6 +68,7 @@
     "DisplayAngle": "发射角度",
     
     "EnableChunkCoordinate": "启用区块坐标",
+    "CopyTracePosToTp": "复制为tp",
 
     "Authors": "作者 : ",
     "Translators": "翻译 : ",

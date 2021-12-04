@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Avalonia;
 using PearlCalculatorCP.Models;
 using PearlCalculatorLib.Result;
 using ReactiveUI;
@@ -48,6 +49,19 @@ namespace PearlCalculatorCP.ViewModels
         {
             get => _pearlTraceList;
             set => this.RaiseAndSetProperty(ref _pearlTraceList, value);
+        }
+
+        private int _traceResultSelectedIndex = -1;
+        public int TraceResultSelectedIndex
+        {
+            get => _traceResultSelectedIndex;
+            set
+            {
+                if (value < -1 || value == _traceResultSelectedIndex || (PearlTraceList != null && value >= PearlTraceList.Count))
+                    return;
+
+                this.RaiseAndSetIfChanged(ref _traceResultSelectedIndex, value);
+            }
         }
 
         private ObservableCollection<PearlTraceChunkModel>? _pearlTraceChunkList;
@@ -129,6 +143,7 @@ namespace PearlCalculatorCP.ViewModels
                     SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
                 AmountResult = isNaN ? null : new ObservableCollection<TNTCalculationResult>(_amountList);
                 AmountResultSelectedIndex = -1;
+                TraceResultSelectedIndex = -1;
 
                 PearlMotionList = null;
                 PearlTraceList = null;
@@ -148,6 +163,7 @@ namespace PearlCalculatorCP.ViewModels
                 PearlTraceChunkList = new ObservableCollection<PearlTraceChunkModel>(args.Chunks!);
                 
                 AmountResultSelectedIndex = -1;
+                TraceResultSelectedIndex = -1;
                 AmountResult = null;
                 _amountList = null;
                 PearlMotionList = null;
@@ -159,6 +175,7 @@ namespace PearlCalculatorCP.ViewModels
                 PearlMotionList = new ObservableCollection<PearlTraceModel>(args.Trace);
 
                 AmountResultSelectedIndex = -1;
+                TraceResultSelectedIndex = -1;
                 AmountResult = null;
                 _amountList = null;
                 PearlTraceList = null;
@@ -219,6 +236,14 @@ namespace PearlCalculatorCP.ViewModels
             {
                 _amountList.SortByWeightedTotal(args);
             }
+        }
+
+        public async void CopyPearlCoorToClipboard()
+        {
+            var model = PearlTraceList[TraceResultSelectedIndex];
+            var coorStr = $"{Convert.ToInt32(model.XCoor)} {(int) model.YCoor} {Convert.ToInt32(model.YCoor)}";
+            
+            await Application.Current.Clipboard.SetTextAsync($"/tp {coorStr}");
         }
     }
     

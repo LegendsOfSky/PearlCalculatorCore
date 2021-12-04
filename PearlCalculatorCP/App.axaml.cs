@@ -16,7 +16,7 @@ namespace PearlCalculatorCP
 
         private Dictionary<string, string?> _argsDict = new Dictionary<string, string?>();
 
-        private Action _resetWindowScaleAction;
+        private Action? _resetWindowScaleAction;
 
         public override void Initialize()
         {
@@ -66,7 +66,7 @@ namespace PearlCalculatorCP
                         double.TryParse(s, out var r))
                         AppRuntimeSettings.Settings.Add("scale", r);
                     
-                    _resetWindowScaleAction.Invoke();
+                    _resetWindowScaleAction?.Invoke();
                 };
             }
 
