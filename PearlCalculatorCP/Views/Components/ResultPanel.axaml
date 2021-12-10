@@ -71,7 +71,7 @@
             <Panel Grid.Row="0" Height="0" Name="PearlTraceItemContextPanel">
                 <Panel.ContextMenu>
                     <ContextMenu Background="White">
-                        <MenuItem Header="{i18n:Translate CopyTracePosToTp, Fallback='copy to tp'}" Command="{Binding CopyPearlCoorToClipboard}" />
+                        <MenuItem Header="/tp" Command="{Binding CopyPearlCoorToClipboard}" />
                     </ContextMenu>
                 </Panel.ContextMenu>
             </Panel>
