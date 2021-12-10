@@ -240,7 +240,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public async void CopyPearlCoorToClipboard()
         {
-            var model = PearlTraceList[TraceResultSelectedIndex];
+            var model = PearlTraceList![TraceResultSelectedIndex];
             var coorStr = $"{Convert.ToInt32(model.XCoor)} {(int) model.YCoor} {Convert.ToInt32(model.ZCoor)}";
             
             await Application.Current.Clipboard.SetTextAsync($"/tp {coorStr}");
