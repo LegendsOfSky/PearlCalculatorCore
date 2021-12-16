@@ -79,8 +79,10 @@ namespace PearlCalculatorCP.ViewModels
         {
             EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
             {
-                PearlOffsetX = args.Settings.Offset.X;
-                PearlOffsetZ = args.Settings.Offset.Z;
+                TNTWeight = args.Settings.TNTWeight;
+                
+                PearlOffsetX = args.Settings.CannonSettings[0].Offset.X;
+                PearlOffsetZ = args.Settings.CannonSettings[0].Offset.Z;
             });
         }
     }

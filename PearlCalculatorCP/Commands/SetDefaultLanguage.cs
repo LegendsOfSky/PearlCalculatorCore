@@ -40,7 +40,7 @@ namespace PearlCalculatorCP.Commands
                 messageSender(DefineCmdOutput.ErrorTemplate($"current language is \"{Translator.FallbackLanguage}\", can't set to default"));
             else
             {
-                AppSettings.Instance.Lanuage = lang;
+                AppSettings.Instance.Language = lang;
                 AppSettings.Instance.MarkPropertyChanged();
                 messageSender(DefineCmdOutput.MsgTemplate("default language option changed"));
                 if (lang != Translator.Instance.CurrentLanguage)

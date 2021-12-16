@@ -81,7 +81,7 @@ namespace PearlCalculatorCP
 
         private void LoadLanguageSetting()
         {
-            var lang = AppSettings.Instance.Lanuage;
+            var lang = AppSettings.Instance.Language;
             if (lang != string.Empty &&
                 Translator.Instance.Exists(lang))
             {

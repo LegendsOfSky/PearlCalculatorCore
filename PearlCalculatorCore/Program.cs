@@ -36,11 +36,11 @@ namespace PearlCalculatorCore
                 Offset = Data.PearlOffset,
             };
 
-            SettingsColletion settingsColletion = new SettingsColletion()
+            SettingsCollection settingsCollection = new SettingsCollection()
             {
                 RedTNT = 10,
                 BlueTNT = 10,
-                Version = SettingsColletion.CurrentVersion,
+                Version = SettingsCollection.CurrentVersion,
                 SelectedCannon = "Test",
                 Direction = Direction.North,
                 Destination = new Surface2D(10 , 10),
@@ -48,11 +48,11 @@ namespace PearlCalculatorCore
             };
 
             JsonSerializerOptions option = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true};
-            string json = JsonSerializer.Serialize(settingsColletion , option);
+            string json = JsonSerializer.Serialize(settingsCollection , option);
             File.WriteAllText(@"G:\json.json" , json);
 
             string text = File.ReadAllText(@"G:\SMT_588FTL_by_LegendsOfSky.json");
-            SettingsColletion collection = JsonUtils.DeSerialize(text);
+            SettingsCollection collection = JsonUtils.DeSerialize(text);
         }
     }
 }

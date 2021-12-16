@@ -13,7 +13,7 @@ using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using System.Text;
-using System.Text.Json;
+using PearlCalculatorIntermediateLib.Settings;
 
 #nullable disable
 
@@ -22,28 +22,11 @@ namespace PearlCalculatorCP.Views
     public class MainWindow : Window
     {
 
-        private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
+        private static readonly List<FileDialogFilter> FileDialogFilter = new()
         {
-            new FileDialogFilter
-            {
-                Name = "json",
-                Extensions = {"json"}
-            },
-        };
-        
-        private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
-        
-        private static readonly JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
-        {
-            Converters = { JsonConverter },
-            WriteIndented = true
+            new(){Name = "json", Extensions = {"json"}},
         };
 
-        private static readonly JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
-        {
-            Converters = { JsonConverter }
-        };
-        
         private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
@@ -55,7 +38,7 @@ namespace PearlCalculatorCP.Views
         {
             InitializeComponent();
 
-            DataContextChanged += (sender, args) =>
+            DataContextChanged += (_, _) =>
             {
                 _vm = DataContext as MainWindowViewModel;
                 
@@ -77,14 +60,13 @@ namespace PearlCalculatorCP.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            //this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
 
             _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
         }
 
         private void Window_OnTapped(object sender, RoutedEventArgs e)
         {
-            if (!(e.Source is TextPresenter))
+            if (e.Source is not TextPresenter)
                 this.Focus();
         }
 
@@ -104,7 +86,7 @@ namespace PearlCalculatorCP.Views
             var json = await File.ReadAllTextAsync(path, Encoding.UTF8);
             try
             {
-                _vm.LoadDataFormSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
+                _vm.LoadDataFormSettings(JsonUtils.DeSerialize(json));
             }
             catch (Exception)
             {
@@ -123,7 +105,36 @@ namespace PearlCalculatorCP.Views
         
         private async void SaveSettings(string path)
         {
-            var json = JsonSerializer.SerializeToUtf8Bytes(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+            var settings = new SettingsCollection
+            {
+                Version = SettingsCollection.CurrentVersion,
+                RedTNT = Data.RedTNT,
+                BlueTNT = Data.BlueTNT,
+                TNTWeight = Data.TNTWeight,
+                SelectedCannon = string.Empty,
+                Direction = Data.Direction,
+                Destination = Data.Destination.ToSurface2D(),
+                CannonSettings = new[]
+                {
+                    new CannonSettings
+                    {
+                        CannonName = "Default",
+                        MaxTNT = Data.MaxTNT,
+                        DefaultRedDirection = Data.DefaultRedDuper,
+                        DefaultBlueDirection = Data.DefaultBlueDuper,
+                        NorthWestTNT = Data.NorthWestTNT,
+                        NorthEastTNT = Data.NorthEastTNT,
+                        SouthWestTNT = Data.NorthWestTNT,
+                        SouthEastTNT = Data.SouthEastTNT,
+                        Pearl = Data.Pearl,
+                        Offset = Data.PearlOffset,
+                        RedTNTConfiguration = Data.RedTNTConfiguration,
+                        BlueTNTConfiguration = Data.BlueTNTConfiguration
+                    }
+                }
+            };
+
+            var json = JsonUtils.SerializeToUtf8Bytes(settings);
 
             using var sr = File.OpenWrite(path);
             sr.SetLength(0);

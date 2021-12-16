@@ -212,8 +212,8 @@ namespace PearlCalculatorCP.ViewModels
             
             EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
             {
-                var settings = args.Settings;
-                
+                var settings = args.Settings.CannonSettings[0];
+
                 NorthWestTNTX = settings.NorthWestTNT.X;
                 NorthWestTNTY = settings.NorthWestTNT.Y;
                 NorthWestTNTZ = settings.NorthWestTNT.Z;
@@ -233,8 +233,8 @@ namespace PearlCalculatorCP.ViewModels
                 PearlYCoor     = settings.Pearl.Position.Y;
                 PearlYMomentum = settings.Pearl.Motion.Y;
                 
-                DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedTNTDirection.ToString());
-                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueTNTDirection.ToString());
+                DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedDirection.ToString());
+                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueDirection.ToString());
             });
             
             EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (sender, args) =>

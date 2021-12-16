@@ -16,14 +16,19 @@ namespace PearlCalculatorIntermediateLib.Settings
 
         public static readonly JsonSerializerOptions DefaultSerializerOptions = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true };
 
-        public static string Serialize(SettingsColletion settings , JsonSerializerOptions options = null)
+        public static string Serialize(SettingsCollection settings , JsonSerializerOptions options = null)
         {
             return JsonSerializer.Serialize(settings , options ?? DefaultSerializerOptions);
         }
 
-        public static SettingsColletion DeSerialize(string json)
+        public static byte[] SerializeToUtf8Bytes(SettingsCollection settings , JsonSerializerOptions options = null)
         {
-            return JsonSerializer.Deserialize<SettingsColletion>(json , DefaultReadConverter);
+            return JsonSerializer.SerializeToUtf8Bytes(settings, options ?? DefaultSerializerOptions);
+        }
+
+        public static SettingsCollection DeSerialize(string json)
+        {
+            return JsonSerializer.Deserialize<SettingsCollection>(json , DefaultReadConverter);
         }
 
         public static void SetGeneralData(CannonSettings settings)
@@ -43,9 +48,9 @@ namespace PearlCalculatorIntermediateLib.Settings
     }
 
 
-    internal class SettingsJsonConverter : JsonConverter<SettingsColletion>
+    internal class SettingsJsonConverter : JsonConverter<SettingsCollection>
     {
-        public override SettingsColletion Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)
+        public override SettingsCollection Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)
         {
             JsonDocument document = JsonDocument.ParseValue(ref reader);
             if (document.RootElement.TryGetProperty(("Version") , out JsonElement ver))
@@ -53,25 +58,25 @@ namespace PearlCalculatorIntermediateLib.Settings
                 string str = ver.GetString();
                 if (string.IsNullOrEmpty(str) || str.Length <= "2.7".Length)
                 {
-                    return ReadOldSettings(document , str);
+                    return ReadOldSettings(document);
                 }
             }
 
-            return JsonSerializer.Deserialize<SettingsColletion>(document);
+            return document.Deserialize<SettingsCollection>();
         }
 
-        public override void Write(Utf8JsonWriter writer , SettingsColletion value , JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer , SettingsCollection value , JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }
 
-        private SettingsColletion ReadOldSettings(JsonDocument document, string version)
+        private SettingsCollection ReadOldSettings(JsonDocument document)
         {
             JsonElement root = document.RootElement;
 
-            SettingsColletion result = new SettingsColletion();
+            SettingsCollection result = new SettingsCollection();
 
-            result.Version = SettingsColletion.CurrentVersion;
+            result.Version = SettingsCollection.CurrentVersion;
 
             result.RedTNT = root.GetProperty(nameof(result.RedTNT)).GetInt32();
             result.BlueTNT = root.GetProperty(nameof(result.BlueTNT)).GetInt32();

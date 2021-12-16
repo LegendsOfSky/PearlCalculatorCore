@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PearlCalculatorIntermediateLib.Settings
 {
     [Serializable]
-    public class SettingsColletion
+    public class SettingsCollection
     {
         public const string CurrentVersion = "2.71";
 

@@ -7,6 +7,7 @@ using PearlCalculatorCP.Models;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.Views;
+using PearlCalculatorIntermediateLib.Settings;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
@@ -166,19 +167,21 @@ namespace PearlCalculatorCP.ViewModels
         }
         
 
-        public void LoadDataFormSettings(Settings settings)
+        public void LoadDataFormSettings(SettingsCollection settings)
         {
-            Data.Pearl = settings.Pearl;
+            var cannon = settings.CannonSettings[0];
             
-            Data.Destination = settings.Destination;
+            Data.Pearl = cannon.Pearl;
+            
+            Data.Destination = settings.Destination.ToSpace3D();
 
-            PearlPosX      = settings.Pearl.Position.X;
-            PearlPosZ      = settings.Pearl.Position.Z;
+            PearlPosX      = cannon.Pearl.Position.X;
+            PearlPosZ      = cannon.Pearl.Position.Z;
             DestinationX   = settings.Destination.X;
             DestinationZ   = settings.Destination.Z;
             BlueTNT        = (uint) settings.BlueTNT;
             RedTNT         = (uint) settings.RedTNT;
-            MaxTNT         = (uint) settings.MaxTNT;
+            MaxTNT         = (uint) cannon.MaxTNT;
             Direction      = settings.Direction;
             
             EventManager.PublishEvent(this, "loadSettings", new LoadSettingsArgs("LoadSettings", settings));

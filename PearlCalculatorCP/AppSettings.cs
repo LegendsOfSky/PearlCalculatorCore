@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
 namespace PearlCalculatorCP
 {
+    [Serializable]
     class AppSettings
     {
         private static readonly string FilePath = $"{ProgramInfo.BaseDirectory}AppSettings.json";
@@ -16,24 +19,26 @@ namespace PearlCalculatorCP
         {
             get
             {
-                if (_instance is { }) return _instance;
+                if (_instance is not null) return _instance;
                 
                 if (File.Exists(FilePath))
                 {
                     var json = File.ReadAllText(FilePath);
-                    _instance = JsonSerializer.Deserialize<AppSettings>(json);
+                    var options = new JsonSerializerOptions {Converters = {new AppSettingsConverter()}};
+                    _instance = JsonSerializer.Deserialize<AppSettings>(json, options);
                     return _instance;
                 }
 
-                return _instance = new AppSettings();
+                return _instance = new();
             }
         }
 
         private bool _hasChanged;
         
-        public string Lanuage { get; set; } = string.Empty;
+        public string Language { get; set; } = string.Empty;
         public string DefaultLoadSettingsFile { get; set; } = string.Empty;
 
+        [JsonConstructor]
         private AppSettings() { }
 
         public static void Save()
@@ -47,11 +52,31 @@ namespace PearlCalculatorCP
         }
 
         public void MarkPropertyChanged() => _hasChanged = true;
+
+        private class AppSettingsConverter : JsonConverter<AppSettings>
+        {
+            public override AppSettings Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            {
+                var root = JsonDocument.ParseValue(ref reader).RootElement;
+                var settings = new AppSettings();
+                if (root.TryGetProperty(nameof(settings.Language), out var value))
+                    settings.Language = value.GetString();
+                
+                if (root.TryGetProperty(nameof(settings.DefaultLoadSettingsFile), out value))
+                    settings.DefaultLoadSettingsFile = value.GetString();
+
+                return settings;
+            }
+
+            public override void Write(Utf8JsonWriter writer, AppSettings value, JsonSerializerOptions options)
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 
     static class AppRuntimeSettings
     {
-        private static Dictionary<string, object> _settings = new Dictionary<string, object>();
-        public static Dictionary<string, object> Settings => _settings;
+        public static readonly Dictionary<string, object> Settings = new();
     }
 }
