@@ -11,6 +11,8 @@ namespace PearlCalculatorCP.ViewModels
     public class ResultPanelViewModel : ViewModelBase
     {
         public event Action<ResultShowMode>? OnShowModeSet;
+
+        private static readonly List<TNTCalculationResult> EmptyAmountList = new();
         
         //Amount
         private List<TNTCalculationResult>? _amountList;
@@ -141,7 +143,7 @@ namespace PearlCalculatorCP.ViewModels
                 _amountList = args.Results;
                 if (!isNaN)
                     SortAmountResultByWeight(AdvanceViewModel.StaticWeightMode);
-                AmountResult = isNaN ? null : new ObservableCollection<TNTCalculationResult>(_amountList);
+                AmountResult = isNaN ? null : new ObservableCollection<TNTCalculationResult>(_amountList ?? EmptyAmountList);
                 AmountResultSelectedIndex = -1;
                 TraceResultSelectedIndex = -1;
 
@@ -204,21 +206,21 @@ namespace PearlCalculatorCP.ViewModels
         {
             if (_amountList is null || _amountList.Count == 0) return;
             _amountList.SortByDistance();
-            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList!);
+            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
         }
 
         public void SortAmountResultByTick()
         {
             if (_amountList is null || _amountList.Count == 0) return;
             _amountList.SortByTick();
-            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList!);
+            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
         }
 
         public void SortAmountResultByTotal()
         {
             if (_amountList is null || _amountList.Count == 0) return;
             _amountList.SortByTotal();
-            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList!);
+            AmountResult = new ObservableCollection<TNTCalculationResult>(_amountList);
         }
 
         private void SortAmountResultByWeight(TNTWeightModeEnum weightMode)

@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Authors>memorydream</Authors>
     <Product>PearlCalculatorCP</Product>
@@ -26,14 +26,15 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\PearlCalculatorIntermediateLib\PearlCalculatorIntermediateLib.csproj" />
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.6" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.6" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.6" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.6" />
+    <PackageReference Include="Avalonia" Version="0.10.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.10" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
   </ItemGroup>
   
   <ItemGroup>
