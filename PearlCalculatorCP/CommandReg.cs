@@ -5,11 +5,11 @@ namespace PearlCalculatorCP
 {
     public static class CommandReg
     {
-        private static bool isRegistered = false;
+        private static bool _isRegistered;
 
         public static void Register()
         {
-            if (isRegistered) return;
+            if (_isRegistered) return;
         
             CommandManager.Register("showData", new ShowGeneralData(), new List<string>
             {
@@ -34,7 +34,7 @@ namespace PearlCalculatorCP
             CommandManager.Register("setDefaultLang", new SetDefaultLanguage(), null);
             CommandManager.Register("setDefaultSettings", new SetDefaultSettings(), null);
             
-            isRegistered = true;
+            _isRegistered = true;
         }
     }
 }

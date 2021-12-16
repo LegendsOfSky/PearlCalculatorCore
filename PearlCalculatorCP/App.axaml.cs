@@ -12,9 +12,9 @@ namespace PearlCalculatorCP
 {
     public class App : Application
     {
-        private CustomFontManagerImpl _fontManager = new CustomFontManagerImpl();
+        private CustomFontManagerImpl _fontManager = new();
 
-        private Dictionary<string, string?> _argsDict = new Dictionary<string, string?>();
+        private Dictionary<string, string?> _argsDict = new();
 
         private Action? _resetWindowScaleAction;
 
@@ -35,7 +35,7 @@ namespace PearlCalculatorCP
                     DataContext = new MainWindowViewModel(ref _resetWindowScaleAction),
                 };
                 
-                desktop.MainWindow.Closed += (sender, args) =>
+                desktop.MainWindow.Closed += (_, _) =>
                     AppSettings.Save();
 
                 desktop.Startup += (sender, e) =>

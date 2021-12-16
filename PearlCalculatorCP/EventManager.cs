@@ -24,13 +24,10 @@ namespace PearlCalculatorCP
         }
 
 
-        Dictionary<string, Dictionary<Type, IEventHandlerWrapper>> _eventCon;
+        private Dictionary<string, Dictionary<Type, IEventHandlerWrapper>> _eventCon = new();
 
 
-        private EventManager()
-        {
-            _eventCon = new Dictionary<string, Dictionary<Type, IEventHandlerWrapper>>();
-        }
+        private EventManager() { }
 
         public static void AddListener<T>(string eventKey, PCEventHandler<T> eventHandler) where T : PCEventArgs
         {

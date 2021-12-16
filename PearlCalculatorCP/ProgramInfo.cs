@@ -8,11 +8,11 @@ namespace PearlCalculatorCP
 {
     public static class ProgramInfo
     {
-        public static string Version { get; private set; }
+        public static readonly string Version;
 
         public static string Title => $"PearlCalculator v{Version}";
 
-        public static string BaseDirectory { get; private set; }
+        public static readonly string BaseDirectory;
 
         static ProgramInfo()
         {
