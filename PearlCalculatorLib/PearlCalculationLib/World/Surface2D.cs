@@ -4,16 +4,13 @@ using System.Runtime.CompilerServices;
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     [Serializable]
-    public class Surface2D
+    public struct Surface2D
     {
+        public static readonly Surface2D Zero = new Surface2D();
+
         public double X;
         public double Z;
-        public static Surface2D Zero => new Surface2D();
 
-        public Surface2D()
-        {
-
-        }
         public Surface2D(double x , double z)
         {
             X = x;
