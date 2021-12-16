@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
+  </ItemGroup>
+
 </Project>
