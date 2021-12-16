@@ -13,6 +13,8 @@ using System.Runtime.InteropServices.ComTypes;
 using System.IO.Compression;
 using PearlCalculatorLib.Manually;
 using PearlCalculatorLib.Result;
+using PearlCalculatorIntermediateLib.Settings;
+using System.Text.Json;
 
 namespace PearlCalculatorCore
 {
@@ -20,17 +22,37 @@ namespace PearlCalculatorCore
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            PearlEntity pearl = new PearlEntity
+            CannonSettings cannonSettings = new CannonSettings()
             {
-                Position = new Space3D(0 , 0 , 0) ,
-                Motion = Space3D.Zero
+                CannonName = "Test",
+                MaxTNT = 0,
+                DefaultBlueDirection = Direction.NorthEast,
+                DefaultRedDirection = Direction.SouthWest,
+                NorthEastTNT = Data.NorthEastTNT,
+                NorthWestTNT = Data.NorthWestTNT,
+                SouthEastTNT = Data.SouthEastTNT,
+                SouthWestTNT = Data.SouthWestTNT,
+                Pearl = Data.Pearl,
+                Offset = Data.PearlOffset,
             };
 
-            ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-0.775 , 0 , -0.775) , new Space3D(-0.885 , 0 , -0.775) , new Surface2D(151.25 , 605) , pearl);
-            //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.25 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
-            //ManuallyData data = new ManuallyData(0 , 0 , new Space3D(-1.2 , 0 , 3) , new Space3D(-3.25 , 0 , 0) , new Surface2D(1 , 15) , pearl);
-            PearlCalculatorLib.Manually.Calculation.CalculateTNTAmount(data , 10270 , 10 , out List<TNTCalculationResult> result);
+            SettingsColletion settingsColletion = new SettingsColletion()
+            {
+                RedTNT = 10,
+                BlueTNT = 10,
+                Version = SettingsColletion.CurrentVersion,
+                SelectedCannon = "Test",
+                Direction = Direction.North,
+                Destination = new Surface2D(10 , 10),
+                CannonSettings = new CannonSettings[] {cannonSettings }
+            };
+
+            JsonSerializerOptions option = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true};
+            string json = JsonSerializer.Serialize(settingsColletion , option);
+            File.WriteAllText(@"G:\json.json" , json);
+
+            string text = File.ReadAllText(@"G:\SMT_588FTL_by_LegendsOfSky.json");
+            SettingsColletion collection = JsonUtils.DeSerialize(text);
         }
     }
 }
