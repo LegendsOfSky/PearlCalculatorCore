@@ -2,9 +2,9 @@
 
 Just A Pearl Calculator Core Project Attempt.
 
-[简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md)
+![GitHub](https://img.shields.io/github/license/LegendsOfSky/PearlCalculatorCore)
 
-[Gitee Repo](https://gitee.com/memorydream/PearlCalculatorCore)
+[简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md)
 
 # Bug Report Rules
 

@@ -2,9 +2,9 @@
 
 只是一個珍珠計算器核心計畫的嘗試而已。
 
-[English](README.md) | [简体中文](README_zh-CN.md)
+![GitHub](https://img.shields.io/github/license/LegendsOfSky/PearlCalculatorCore)
 
-[Gitee Repo](https://gitee.com/memorydream/PearlCalculatorCore)
+[English](README.md) | [简体中文](README_zh-CN.md)
 
 # Bug回報規則
 
