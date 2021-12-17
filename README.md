@@ -4,6 +4,8 @@ Just A Pearl Calculator Core Project Attempt.
 
 [简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md)
 
+[Gitee Repo](https://gitee.com/memorydream/PearlCalculatorCore)
+
 # Bug Report Rules
 
 1. Any Bug report should be reported at GitHub Issue page. Any report on other platform won't be considered;

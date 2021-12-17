@@ -4,6 +4,8 @@
 
 [English](README.md) | [繁體中文](README_zh-TW.md)
 
+[Gitee仓库](https://gitee.com/memorydream/PearlCalculatorCore)
+
 # Bug报告规则
 
 1. 所有报告者须在Github的Issues中报告；
