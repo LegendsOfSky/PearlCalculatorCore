@@ -14,7 +14,19 @@ namespace PearlCalculatorIntermediateLib.Settings
     {
         private static readonly JsonSerializerOptions DefaultReadConverter = new JsonSerializerOptions { Converters = { new SettingsJsonConverter() } };
 
-        public static readonly JsonSerializerOptions DefaultSerializerOptions = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true };
+        private static readonly JsonSerializerOptions NewVersionReadOptions = new JsonSerializerOptions
+        {
+            IncludeFields = true,
+            Converters = { new JsonStringEnumConverter() }
+        };
+
+        public static readonly JsonSerializerOptions DefaultSerializerOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true , 
+            IncludeFields = true, 
+            IgnoreReadOnlyProperties = true,
+            Converters = { new JsonStringEnumConverter() }
+        };
 
         public static string Serialize(SettingsCollection settings , JsonSerializerOptions options = null)
         {
@@ -45,115 +57,114 @@ namespace PearlCalculatorIntermediateLib.Settings
             PearlCalculatorLib.General.Data.RedTNTConfiguration = settings.RedTNTConfiguration;
             PearlCalculatorLib.General.Data.BlueTNTConfiguration = settings.BlueTNTConfiguration;
         }
-    }
-
-
-    internal class SettingsJsonConverter : JsonConverter<SettingsCollection>
-    {
-        public override SettingsCollection Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)
+        
+        internal class SettingsJsonConverter : JsonConverter<SettingsCollection>
         {
-            JsonDocument document = JsonDocument.ParseValue(ref reader);
-            if (document.RootElement.TryGetProperty(("Version") , out JsonElement ver))
+            public override SettingsCollection Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)
             {
-                string str = ver.GetString();
-                if (string.IsNullOrEmpty(str) || str.Length <= "2.7".Length)
+                JsonDocument document = JsonDocument.ParseValue(ref reader);
+                if (document.RootElement.TryGetProperty("Version" , out JsonElement ver))
                 {
-                    return ReadOldSettings(document);
+                    string str = ver.GetString();
+                    if (string.IsNullOrEmpty(str) || str.Length <= "2.7".Length)
+                    {
+                        return ReadOldSettings(document);
+                    }
                 }
+
+                return document.Deserialize<SettingsCollection>(NewVersionReadOptions);
             }
 
-            return document.Deserialize<SettingsCollection>();
-        }
-
-        public override void Write(Utf8JsonWriter writer , SettingsCollection value , JsonSerializerOptions options)
-        {
-            throw new NotImplementedException();
-        }
-
-        private SettingsCollection ReadOldSettings(JsonDocument document)
-        {
-            JsonElement root = document.RootElement;
-
-            SettingsCollection result = new SettingsCollection();
-
-            result.Version = SettingsCollection.CurrentVersion;
-
-            result.RedTNT = root.GetProperty(nameof(result.RedTNT)).GetInt32();
-            result.BlueTNT = root.GetProperty(nameof(result.BlueTNT)).GetInt32();
-
-            result.SelectedCannon = "Default";
-
+            public override void Write(Utf8JsonWriter writer , SettingsCollection value , JsonSerializerOptions options)
             {
-                result.Direction =
-                    Enum.TryParse<Direction>(root.GetProperty(nameof(result.Direction)).GetString(),
-                        out var direction)
-                        ? direction
-                        : Direction.North;
+                throw new NotImplementedException();
             }
 
-            result.Destination = ReadSurface2D(root.GetProperty(nameof(result.Destination)));
+            private SettingsCollection ReadOldSettings(JsonDocument document)
+            {
+                JsonElement root = document.RootElement;
+
+                SettingsCollection result = new SettingsCollection();
+
+                result.Version = SettingsCollection.CurrentVersion;
+
+                result.RedTNT = root.GetProperty(nameof(result.RedTNT)).GetInt32();
+                result.BlueTNT = root.GetProperty(nameof(result.BlueTNT)).GetInt32();
+
+                result.SelectedCannon = "Default";
+
+                {
+                    result.Direction =
+                        Enum.TryParse<Direction>(root.GetProperty(nameof(result.Direction)).GetString() ,
+                            out var direction)
+                            ? direction
+                            : Direction.North;
+                }
+
+                result.Destination = ReadSurface2D(root.GetProperty(nameof(result.Destination)));
 
 #region read cannon settings
-            CannonSettings cannon = new CannonSettings();
+                CannonSettings cannon = new CannonSettings();
 
-            cannon.CannonName = "Default";
+                cannon.CannonName = "Default";
 
-            cannon.MaxTNT = root.GetProperty(nameof(cannon.MaxTNT)).GetInt32();
+                cannon.MaxTNT = root.GetProperty(nameof(cannon.MaxTNT)).GetInt32();
 
-            {
-                cannon.DefaultRedDirection = root.TryGetProperty("DefaultRedTNTDirection", out var drt) &&
-                    Enum.TryParse<Direction>(drt.GetString(), out var direction)
-                        ? direction
-                        : PearlCalculatorLib.General.Data.DefaultRedDuper;
-            }
+                {
+                    cannon.DefaultRedDirection = root.TryGetProperty("DefaultRedTNTDirection" , out var drt) &&
+                        Enum.TryParse<Direction>(drt.GetString() , out var direction)
+                            ? direction
+                            : PearlCalculatorLib.General.Data.DefaultRedDuper;
+                }
 
-            {
-                cannon.DefaultBlueDirection = root.TryGetProperty("DefaultBlueTNTDirection", out var drt) &&
-                    Enum.TryParse<Direction>(drt.GetString(), out var direction)
-                        ? direction
-                        : PearlCalculatorLib.General.Data.DefaultBlueDuper;
-            }
+                {
+                    cannon.DefaultBlueDirection = root.TryGetProperty("DefaultBlueTNTDirection" , out var drt) &&
+                        Enum.TryParse<Direction>(drt.GetString() , out var direction)
+                            ? direction
+                            : PearlCalculatorLib.General.Data.DefaultBlueDuper;
+                }
 
-            cannon.NorthWestTNT = ReadSpace3D(root.GetProperty(nameof(cannon.NorthWestTNT)));
-            cannon.NorthEastTNT = ReadSpace3D(root.GetProperty(nameof(cannon.NorthEastTNT)));
-            cannon.SouthWestTNT = ReadSpace3D(root.GetProperty(nameof(cannon.SouthWestTNT)));
-            cannon.SouthEastTNT = ReadSpace3D(root.GetProperty(nameof(cannon.SouthEastTNT)));
+                cannon.NorthWestTNT = ReadSpace3D(root.GetProperty(nameof(cannon.NorthWestTNT)));
+                cannon.NorthEastTNT = ReadSpace3D(root.GetProperty(nameof(cannon.NorthEastTNT)));
+                cannon.SouthWestTNT = ReadSpace3D(root.GetProperty(nameof(cannon.SouthWestTNT)));
+                cannon.SouthEastTNT = ReadSpace3D(root.GetProperty(nameof(cannon.SouthEastTNT)));
 
-            var pearlElemRoot = root.GetProperty(nameof(cannon.Pearl));
-            cannon.Pearl = new PearlCalculatorLib.PearlCalculationLib.Entity.PearlEntity
-            {
-                Position = ReadSpace3D(pearlElemRoot.GetProperty(nameof(cannon.Pearl.Position))) ,
-                Motion = ReadSpace3D(pearlElemRoot.GetProperty(nameof(cannon.Pearl.Motion)))
-            };
-            
-            cannon.Offset = ReadSurface2D(root.GetProperty(nameof(cannon.Offset)));
+                var pearlElemRoot = root.GetProperty(nameof(cannon.Pearl));
+                cannon.Pearl = new PearlCalculatorLib.PearlCalculationLib.Entity.PearlEntity
+                {
+                    Position = ReadSpace3D(pearlElemRoot.GetProperty(nameof(cannon.Pearl.Position))) ,
+                    Motion = ReadSpace3D(pearlElemRoot.GetProperty(nameof(cannon.Pearl.Motion)))
+                };
+                
+                cannon.Offset = ReadSurface2D(root.GetProperty(nameof(cannon.Offset)));
 
-            cannon.RedTNTConfiguration = new List<int>();
-            cannon.BlueTNTConfiguration = new List<int>();
+                cannon.RedTNTConfiguration = new List<int>();
+                cannon.BlueTNTConfiguration = new List<int>();
 #endregion
 
-            result.CannonSettings = new[] { cannon };
+                result.CannonSettings = new[] { cannon };
 
-            return result;
-        }
+                return result;
+            }
 
-        private Space3D ReadSpace3D(JsonElement elem)
-        {
-            return new Space3D
+            private Space3D ReadSpace3D(JsonElement elem)
             {
-                X = elem.GetProperty("X").GetDouble(),
-                Y = elem.GetProperty("Y").GetDouble(),
-                Z = elem.GetProperty("Z").GetDouble()
-            };
-        }
+                return new Space3D
+                {
+                    X = elem.GetProperty("X").GetDouble(),
+                    Y = elem.GetProperty("Y").GetDouble(),
+                    Z = elem.GetProperty("Z").GetDouble()
+                };
+            }
 
-        private Surface2D ReadSurface2D(JsonElement elem)
-        {
-            return new Surface2D
+            private Surface2D ReadSurface2D(JsonElement elem)
             {
-                X = elem.GetProperty("X").GetDouble(),
-                Z = elem.GetProperty("Z").GetDouble()
-            };
+                return new Surface2D
+                {
+                    X = elem.GetProperty("X").GetDouble(),
+                    Z = elem.GetProperty("Z").GetDouble()
+                };
+            }
         }
     }
 }

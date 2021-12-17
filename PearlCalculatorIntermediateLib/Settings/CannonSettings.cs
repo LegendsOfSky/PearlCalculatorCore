@@ -23,7 +23,7 @@ namespace PearlCalculatorIntermediateLib.Settings
         public Space3D NorthEastTNT  { get; set; }
         public Space3D SouthWestTNT { get; set; }
         public Space3D SouthEastTNT { get; set; }
-
+        
         public PearlEntity Pearl { get; set; }
         public Surface2D Offset { get; set; }
 

@@ -34,6 +34,8 @@ namespace PearlCalculatorCore
                 SouthWestTNT = Data.SouthWestTNT,
                 Pearl = Data.Pearl,
                 Offset = Data.PearlOffset,
+                RedTNTConfiguration = new List<int>(),
+                BlueTNTConfiguration = new List<int>()
             };
 
             SettingsCollection settingsCollection = new SettingsCollection()
@@ -46,12 +48,11 @@ namespace PearlCalculatorCore
                 Destination = new Surface2D(10 , 10),
                 CannonSettings = new CannonSettings[] {cannonSettings }
             };
-
-            JsonSerializerOptions option = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true};
-            string json = JsonSerializer.Serialize(settingsCollection , option);
+            
+            string json = JsonUtils.Serialize(settingsCollection);
             File.WriteAllText(@"G:\json.json" , json);
-
-            string text = File.ReadAllText(@"G:\SMT_588FTL_by_LegendsOfSky.json");
+            
+            string text = File.ReadAllText(@"G:\json.json");
             SettingsCollection collection = JsonUtils.DeSerialize(text);
         }
     }

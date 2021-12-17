@@ -6,6 +6,8 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
     [Serializable]
     public class PearlEntity : Entity, ICloneable
     {
+        public override Space3D Size => new Space3D(0.25 , 0.25 , 0.25);
+        
         public PearlEntity(Space3D momemtum , Space3D position)
         {
             Motion = momemtum;
@@ -35,7 +37,5 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
             };
             return pearl;
         }
-
-        public override Space3D GetSize() => new Space3D(0.25 , 0.25 , 0.25);
     }
 }

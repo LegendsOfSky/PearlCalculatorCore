@@ -13,7 +13,7 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public double Length => Math.Sqrt(X * X + Z * Z);
 
-        public Surface2D Normalized => this / Length;
+        public Surface2D Normalized => Length == 0 ? Zero : this / Length;
 
         public Surface2D(double x , double z)
         {
