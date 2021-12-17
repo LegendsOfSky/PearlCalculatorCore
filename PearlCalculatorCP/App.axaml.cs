@@ -12,17 +12,19 @@ namespace PearlCalculatorCP
 {
     public class App : Application
     {
-        private CustomFontManagerImpl _fontManager = new();
+        private CustomFontManagerImpl? _fontManager;
 
-        private Dictionary<string, string?> _argsDict = new();
-
-        private Action? _resetWindowScaleAction;
-
-        public override void Initialize()
+        public App()
         {
             LoadLanguageSetting();
             CommandReg.Register();
-
+            
+            if (AppCommandLineArgs.Args.TryGetValue("scale", out var s) && double.TryParse(s, out var r))
+                AppRuntimeSettings.Settings.Add("scale", r);
+        }
+        
+        public override void Initialize()
+        {
             AvaloniaXamlLoader.Load(this);
         }
 
@@ -32,42 +34,11 @@ namespace PearlCalculatorCP
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(ref _resetWindowScaleAction),
+                    DataContext = new MainWindowViewModel(),
                 };
                 
                 desktop.MainWindow.Closed += (_, _) =>
                     AppSettings.Save();
-
-                desktop.Startup += (sender, e) =>
-                {
-                    if (e.Args is null || e.Args.Length == 0) return;
-                    
-                    var args = e.Args;
-
-                    for (int i = 0; i < args.Length; i++)
-                    {
-                        var k = args[i];
-
-                        
-                        if (_argsDict.ContainsKey(k)) continue;
-                        
-                        if (k.StartsWith('-'))
-                        {
-                            _argsDict.Add(k[1..], args[i + 1]);
-                            i++;
-                        }
-                        else
-                        {
-                            _argsDict.Add(k, null);
-                        }
-                    }
-                    
-                    if (_argsDict.TryGetValue("scale", out var s) &&
-                        double.TryParse(s, out var r))
-                        AppRuntimeSettings.Settings.Add("scale", r);
-                    
-                    _resetWindowScaleAction?.Invoke();
-                };
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -75,7 +46,12 @@ namespace PearlCalculatorCP
 
         public override void RegisterServices()
         {
-            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
+            if (!AppCommandLineArgs.Args.ContainsKey("useSystemFont"))
+            {
+                _fontManager = new CustomFontManagerImpl();
+                AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
+            }
+
             base.RegisterServices();
         }
 

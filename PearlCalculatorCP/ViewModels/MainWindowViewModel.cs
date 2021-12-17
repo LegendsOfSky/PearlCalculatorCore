@@ -155,17 +155,10 @@ namespace PearlCalculatorCP.ViewModels
                 
                 _isEnableIfChanged = true;
             });
+            
+            if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
+                WindowScale = (double)s;
         }
-
-        public MainWindowViewModel(ref Action? onStartupCompleted) : this()
-        {
-            onStartupCompleted = () =>
-            {
-                if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
-                    WindowScale = (double)s;
-            };
-        }
-        
 
         public void LoadDataFormSettings(SettingsCollection settings)
         {

@@ -79,4 +79,31 @@ namespace PearlCalculatorCP
     {
         public static readonly Dictionary<string, object> Settings = new();
     }
+
+    static class AppCommandLineArgs
+    {
+        public static readonly Dictionary<string, string> Args = new();
+
+        public static void Parse(string[] args)
+        {
+            if (args is null || args.Length == 0) return;
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                var k = args[i];
+                
+                if (Args.ContainsKey(k)) continue;
+
+                if (k.StartsWith('-'))
+                {
+                    Args.Add(k[1..], args[i + 1]);
+                    i++;
+                }
+                else
+                {
+                    Args.Add(k, null);
+                }
+            }
+        }
+    }
 }
