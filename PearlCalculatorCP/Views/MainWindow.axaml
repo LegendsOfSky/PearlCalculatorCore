@@ -98,60 +98,65 @@
                                 <!--General-->
                                 <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
 
-                                    <StackPanel Spacing="8">
+                                    <Grid RowDefinitions="*, Auto">
 
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding PearlPosX}" />
-                                        </StackPanel>
+                                        <Grid Grid.Row="0" DockPanel.Dock="Top" RowDefinitions="*,*,*,*,*,0.7*,*,*">
 
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding PearlPosZ}" />
-                                        </StackPanel>
-
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding DestinationX}" />
-                                        </StackPanel>
-
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding DestinationZ}" />
-                                        </StackPanel>
-
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
-
-                                        <Border Margin="12,4,12,0">
-                                            <StackPanel Orientation="Horizontal" Spacing="60">
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
-                                                <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                            <StackPanel Grid.Row="0">
+                                                <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding PearlPosX}" />
                                             </StackPanel>
-                                        </Border>
 
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
+                                            <StackPanel Grid.Row="1">
+                                                <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding PearlPosZ}" />
+                                            </StackPanel>
 
-                                        <StackPanel>
-                                            <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
-                                            <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                        </StackPanel>
+                                            <StackPanel Grid.Row="2">
+                                                <StackPanel>
+                                                    <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
+                                                    <NumericUpDown Value="{Binding DestinationX}" />
+                                                </StackPanel>
+                                            </StackPanel>
 
-                                        <StackPanel Spacing="2" Margin="0,4,0,0">
+                                            <StackPanel Grid.Row="3">
+                                                <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding DestinationZ}" />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="4">
+                                                <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                            <Border Grid.Row="5" Margin="12,0,12,0">
+                                                <StackPanel Orientation="Horizontal" Spacing="60" VerticalAlignment="Center">
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" Name="NorthRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" Name="SouthRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" Name="EastRB" />
+                                                    <RadioButton IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" Name="WestRB" />
+                                                </StackPanel>
+                                            </Border>
+
+                                            <StackPanel Grid.Row="6">
+                                                <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="7">
+                                                <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                        <StackPanel Grid.Row="1" DockPanel.Dock="Bottom" Spacing="2" Margin="0,4">
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
                                             <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
                                         </StackPanel>
-
-                                    </StackPanel>
+                                    </Grid>
 
                                 </TabItem>
 
