@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using JetBrains.Annotations;
+using PearlCalculatorCP.Models;
 
 namespace PearlCalculatorCP.Localizer
 {
@@ -16,7 +17,7 @@ namespace PearlCalculatorCP.Localizer
 
         public const string FallbackLanguage = "en(fallback)";
 
-        public event Action? OnLanguageChanged;
+        public event Action<string>? OnLanguageChanged;
         
         private static Translator? _instance;
         public static Translator Instance => _instance ??= new Translator();
@@ -31,11 +32,11 @@ namespace PearlCalculatorCP.Localizer
             ? string.Empty
             : $"{CurrentLanguage}.json";
 
-        public List<string> Languages { get; private set; } = new List<string>()
+        public List<TranslateFileModel> Languages { get; private set; } = new()
         {
-            "zh_cn",
-            "zh_tw",
-            "en"
+            new(){FileName = "en", Language = "en", DisplayName = "EN"},
+            new(){FileName = "zh_cn", Language = "zh_cn", DisplayName = "中文(简体)"},
+            new(){FileName = "zh_tw", Language = "zh_tw", DisplayName = "中文(繁体)"},
         };
         
         private Translator()
@@ -50,7 +51,9 @@ namespace PearlCalculatorCP.Localizer
                 return true;
             }
 
-            var path = Path.Combine(ProgramInfo.BaseDirectory, $"Assets/i18n/{language}.json");
+            var model = Languages.Find(e => e.Language == language);
+            var path = model is null ? string.Empty : Path.Combine(ProgramInfo.BaseDirectory, $"Assets/i18n/{model.FileName}.json");
+            
             if (!File.Exists(path))
             {
                 if (CurrentLanguage == string.Empty) //at app launch load i18n file
@@ -68,7 +71,7 @@ namespace PearlCalculatorCP.Localizer
             {
                 _translateDict = JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd());
                 CurrentLanguage = language;
-                OnLanguageChanged?.Invoke();
+                OnLanguageChanged?.Invoke(language);
                 Invalidate();
                 isLoaded = true;
             }
@@ -92,7 +95,7 @@ namespace PearlCalculatorCP.Localizer
 
             _translateDict = new Dictionary<string, string>();
             CurrentLanguage = FallbackLanguage;
-            OnLanguageChanged?.Invoke();
+            OnLanguageChanged?.Invoke(FallbackLanguage);
             Invalidate();
         }
 
@@ -118,7 +121,7 @@ namespace PearlCalculatorCP.Localizer
                 return true;
             
             return !string.IsNullOrWhiteSpace(language) && !string.IsNullOrEmpty(language) &&
-                   Languages.Exists((opt) => opt.Equals(language));
+                   Languages.Exists(opt => opt.Language.Equals(language));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -45,16 +45,22 @@ namespace PearlCalculatorCP.ViewModels
 
         public AppSettingsPanelViewModel()
         {
-            Languages = new List<LanguageComboBoxModel>
+            Languages = new List<LanguageComboBoxModel>(Translator.Instance.Languages.Count + 1);
+            
+            foreach (var lang in Translator.Instance.Languages)
             {
-                new("EN", "en"),
-                new("中文(简体)", "zh_cn"),
-                new("中文(繁体)", "zh_tw"),
-                new("EN (Fallback)", Translator.FallbackLanguage)
-            };
+                Languages.Add(new(lang.DisplayName, lang.FileName));
+            }
+            Languages.Add(new("EN (Fallback)", Translator.FallbackLanguage));
 
             var cur = Translator.Instance.CurrentLanguage;
             _curSelectLanguage = Languages.Find(e => e.CommandOption == cur)!;
+
+            Translator.Instance.OnLanguageChanged += lang =>
+            {
+                var langOptModel = Languages.Find(e => e.CommandOption == lang)!;
+                RaiseAndSetProperty(ref _curSelectLanguage, langOptModel, nameof(CurSelectLanguage));
+            };
         }
         
         public void ChangeLanguageOptional(string lang)

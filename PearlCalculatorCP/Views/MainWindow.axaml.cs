@@ -155,8 +155,6 @@ namespace PearlCalculatorCP.Views
         
         private void OpenDiscordLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/MMzsVuuSxT");
 
-        private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
-
         private async void SetDefaultSettings(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog {Filters = FileDialogFilter};
