@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RegionFIleReading.NBT;
+using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO.Compression;
@@ -64,6 +65,7 @@ namespace RegionFIleReading
                     using MemoryStream memory = new MemoryStream(compressedData);
                     memory.Read(spanResultByte);
                 }
+                
                 File.WriteAllBytes("M:\\ChunkData\\ChunkData" + i , spanResultByte.ToArray());
             }
         }
