@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace PearlCalculatorCP.ViewModels
 {
-    public class AboutWindowViewModel : ViewModelBase
+    public class AboutWindowViewModel : ViewModelBase, IWindowViewModelScale
     {
         private static readonly Size DefaultWindowSize = new Size(600, 350);
         
@@ -18,7 +18,7 @@ namespace PearlCalculatorCP.ViewModels
         public double WindowScale
         {
             get => _windowScale;
-            private set
+            set
             {
                 this.RaiseAndSetIfChanged(ref _windowScale, value);
                 WindowSize = DefaultWindowSize * value;
@@ -27,8 +27,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public AboutWindowViewModel()
         {
-            if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
-                WindowScale = (double)s;
+            this.ApplyScale();
         }
     }
 }

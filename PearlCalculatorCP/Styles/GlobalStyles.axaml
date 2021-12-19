@@ -30,6 +30,11 @@
         <Setter Property="Padding" Value="8, 0" />
     </Style>
     
+    <Style Selector="ComboBox">
+        <Setter Property="Padding" Value="12,4,0,4" />
+        <Setter Property="BorderBrush" Value="#E5E5E5" />
+    </Style>
+    
     <Style Selector="ComboBox[IsFocused=False]:pointerover /template/Border#Background">
         <Setter Property="BorderBrush" Value="#0373EC" />
     </Style>

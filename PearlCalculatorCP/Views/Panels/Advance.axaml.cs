@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace PearlCalculatorCP.Views.GeneralFTLComponents
+namespace PearlCalculatorCP.Views.Panels
 {
-    public partial class MoreSettings : UserControl
+    public partial class Advance : UserControl
     {
-        public MoreSettings()
+        public Advance()
         {
             InitializeComponent();
         }

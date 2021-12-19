@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="680"
-             x:Class="PearlCalculatorCP.Views.GeneralFTLComponents.MoreSettings">
+             x:Class="PearlCalculatorCP.Views.Panels.MoreSettings">
 
     <UserControl.DataContext>
         <vm:MoreSettingsViewModel />
@@ -44,8 +44,6 @@
             <Setter Property="Margin" Value="33,0,0,4" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="12,4,0,4" />
-            <Setter Property="BorderBrush" Value="#E5E5E5" />
         </Style>
     </UserControl.Styles>
 

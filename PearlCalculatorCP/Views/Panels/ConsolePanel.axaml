@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
-             x:Class="PearlCalculatorCP.Views.Components.ConsolePanel">
+             x:Class="PearlCalculatorCP.Views.Panels.ConsolePanel">
 
     <UserControl.DataContext>
         <vm:ConsolePanelViewModel />

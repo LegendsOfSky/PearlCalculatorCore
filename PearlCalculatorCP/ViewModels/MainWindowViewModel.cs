@@ -14,16 +14,15 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 using ReactiveUI;
 
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
-using ManuallyData = PearlCalculatorLib.Manually.ManuallyData;
 
 namespace PearlCalculatorCP.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IWindowViewModelScale
     {
-        #region Window Scale
 
-        private static readonly Size DefaultWindowSize = new Size(1000, 800);
-        
+        private static readonly Size DefaultWindowSize = new(1000, 800);
+        private const double DefaultSettingsPopupWidth = 300;
+
         private Size _windowSize = DefaultWindowSize;
         public Size WindowSize
         {
@@ -31,18 +30,27 @@ namespace PearlCalculatorCP.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _windowSize, value);
         }
 
+        private double _settingsPopupWidth = DefaultSettingsPopupWidth;
+        public double SettingsPopupWidth
+        {
+            get => _settingsPopupWidth;
+            private set => this.RaiseAndSetIfChanged(ref _settingsPopupWidth, value);
+        }
+        
         private double _windowScale = 1.0d;
         public double WindowScale
         {
             get => _windowScale;
-            private set
+            set
             {
-                this.RaiseAndSetIfChanged(ref _windowScale, value);
+                if (value <= 0 || _windowScale == value)
+                    return;
+                
+                RaiseAndSetProperty(ref _windowScale, value);
                 WindowSize = DefaultWindowSize * value;
+                SettingsPopupWidth = DefaultSettingsPopupWidth * value;
             }
         }
-
-        #endregion
         
         
         //this field for RaiseAndSetIfChanged()
@@ -51,7 +59,7 @@ namespace PearlCalculatorCP.ViewModels
         public static int MaxTicks { get; set; } = 100;
         public static double MaxDistance { get; set; } = 10;
 
-        #region GeneralFTL General Input Data
+#region GeneralFTL General Input Data
         
         private double _pearlPosX;
         public double PearlPosX
@@ -121,19 +129,7 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
         }
 
-        #endregion
-
-        private IBrush _moreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
-        public IBrush MoreInfoBrush
-        {
-            get => _moreInfoBrush;
-            set
-            {
-                this.RaisePropertyChanging();
-                _moreInfoBrush = value;
-                this.RaisePropertyChanged();
-            }
-        }
+#endregion
 
         public MainWindowViewModel()
         {
@@ -156,8 +152,7 @@ namespace PearlCalculatorCP.ViewModels
                 _isEnableIfChanged = true;
             });
             
-            if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
-                WindowScale = (double)s;
+            this.ApplyScale();
         }
 
         public void LoadDataFormSettings(SettingsCollection settings)
@@ -251,14 +246,6 @@ namespace PearlCalculatorCP.ViewModels
         }
         
         #endregion
-
-        public void ChangeLanguageOptional(string lang)
-        {
-            CommandManager.Instance.ExecuteCommand(
-                Translator.Instance.CurrentLanguage == lang
-                ? $"setDefaultLang {lang}"
-                : $"changeLang {lang}");
-        }
 
         private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
         {

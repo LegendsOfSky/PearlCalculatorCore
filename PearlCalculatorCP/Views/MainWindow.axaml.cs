@@ -13,6 +13,8 @@ using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using System.Text;
+using Avalonia.Controls.Primitives;
+using PearlCalculatorCP.Views.Panels;
 using PearlCalculatorIntermediateLib.Settings;
 
 #nullable disable
@@ -30,10 +32,10 @@ namespace PearlCalculatorCP.Views
         private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
+        
+        private Popup _appSettingsPopup;
 
-        private Button _moreInfoBtn;
-        
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,8 +62,7 @@ namespace PearlCalculatorCP.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
+            _appSettingsPopup = this.FindControl<Popup>("AppSettingsPopup");
         }
 
         private void Window_OnTapped(object sender, RoutedEventArgs e)
@@ -70,7 +71,7 @@ namespace PearlCalculatorCP.Views
                 this.Focus();
         }
 
-        #region Settings Import/Export
+#region Settings Import/Export
 
         private async void ImportSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
@@ -141,24 +142,13 @@ namespace PearlCalculatorCP.Views
             await sr.WriteAsync(json.AsMemory());
         }
 
-        #endregion
+#endregion
 
         private void NumericUpDownToUInt_OnValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {
             NumericBoxUtils.ToUInt(sender as NumericUpDown, e);
         }
-
-        private void MoreInfoBtn_OnPointerEnter(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.OnEnterMoreInfoBrush;
-
-        private void MoreInfoBtn_OnPointerLeave(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
-
-        private void MoreInfoBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            _moreInfoBtn.ContextMenu.PlacementTarget = (Control)sender;
-            _moreInfoBtn.ContextMenu.PlacementMode = PlacementMode.Bottom;
-            _moreInfoBtn.ContextMenu.Open();
-        }
-
+        
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
 
         private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
@@ -172,11 +162,7 @@ namespace PearlCalculatorCP.Views
 
             CommandManager.Instance.ExecuteCommand($"setDefaultSettings {result[0]}", false);
         }
-    }
 
-    static class MainWindowMoreInfoColor
-    {
-        public static readonly IBrush DefaultMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#CCCCCC"));
-        public static readonly IBrush OnEnterMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#999999"));
+        private void AppSettingsBtn_OnClick(object sender, RoutedEventArgs e) => _appSettingsPopup.Open();
     }
 }

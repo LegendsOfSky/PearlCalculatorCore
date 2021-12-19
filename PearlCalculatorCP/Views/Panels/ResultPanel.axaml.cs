@@ -1,15 +1,12 @@
 #nullable disable
 
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.VisualTree;
 using PearlCalculatorCP.ViewModels;
 
-namespace PearlCalculatorCP.Views.Components
+namespace PearlCalculatorCP.Views.Panels
 {
     public class ResultPanel : UserControl
     {

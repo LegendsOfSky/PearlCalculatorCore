@@ -2,13 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:PearlCalculatorCP.ViewModels"
         xmlns:views="using:PearlCalculatorCP.Views"
-        xmlns:gFTLComponents="clr-namespace:PearlCalculatorCP.Views.GeneralFTLComponents"
         xmlns:converters="using:PearlCalculatorCP.Converters"
         xmlns:libWorld="clr-namespace:PearlCalculatorLib.PearlCalculationLib.World;assembly=PearlCalculatorLib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
-        xmlns:vc="clr-namespace:PearlCalculatorCP.Views.Components"
+        xmlns:panels="clr-namespace:PearlCalculatorCP.Views.Panels"
         mc:Ignorable="d" 
         d:DesignWidth="{Binding WindowSize.Width}" 
         d:DesignHeight="{Binding WindowSize.Height}"
@@ -30,6 +29,7 @@
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/IconButtonStyle.axaml" />
 
         <Style Selector="TabItem">
             <Setter Property="FontSize" Value="16" />
@@ -162,12 +162,12 @@
 
                                 <!--Advanced-->
                                 <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
-                                    <gFTLComponents:Advance />
+                                    <panels:Advance />
                                 </TabItem>
 
                                 <!--Settings-->
                                 <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
-                                    <gFTLComponents:MoreSettings />
+                                    <panels:MoreSettings />
                                 </TabItem>
 
                             </TabControl>
@@ -183,71 +183,81 @@
 
                 </TabControl>
 
-                <!--More info btn-->
-                <Button Grid.Row="0" Grid.Column="1" Name="MoreInfoBtn" Margin="12, 12" BorderThickness="0"
-                        PointerEnter="MoreInfoBtn_OnPointerEnter" PointerLeave="MoreInfoBtn_OnPointerLeave"
-                        Click="MoreInfoBtn_OnClick">
-
-                    <Button.Styles>
-                        <Style Selector="Button">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Style>
-
-                        <Style Selector="Button:pointerover /template/ContentPresenter">
-                            <Setter Property="Background" Value="#66E0E0E0" />
-                            <Setter Property="BorderThickness" Value="0" />
-                        </Style>
-                        <Style Selector="Button:pressed /template/ContentPresenter">
-                            <Setter Property="Background" Value="#BBE0E0E0" />
-                            <Setter Property="BorderThickness" Value="0" />
-                        </Style>
-                    </Button.Styles>
-
-                    <Button.Content>
-                        <StackPanel Spacing="2">
-                            <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                            <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                            <Ellipse Width="5" Height="5" Fill="{Binding MoreInfoBrush}" />
-                        </StackPanel>
-                    </Button.Content>
-
-                    <Button.ContextMenu>
-                        <ContextMenu Background="White">
-                            <MenuItem Header="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}" Click="SetDefaultSettings" />
-                            <MenuItem Header="{i18n:Translate GithubLink, Fallback='Github'}" Click="OpenGithubLink" />
-                            <MenuItem Header="{i18n:Translate About, Fallback='About'}" Click="OpenAboutWindow" />
-                            <MenuItem Header="{i18n:Translate Languages, Fallback='Languages'}">
-                                <MenuItem Header="en" Command="{Binding ChangeLanguageOptional}" CommandParameter="en" />
-                                <MenuItem Header="中文(简体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_cn" />
-                                <MenuItem Header="中文(繁体)" Command="{Binding ChangeLanguageOptional}" CommandParameter="zh_tw" />
-
-                                <MenuItem.Resources>
-                                    <Color x:Key="MenuFlyoutPresenterBackground">White</Color>
-                                </MenuItem.Resources>
-
-                            </MenuItem>
-                        </ContextMenu>
-                    </Button.ContextMenu>
-
-                </Button>
-
             </Grid>
+            
 
-            <Grid Column="1">
-                <TabControl>
-
+            <Grid Column="1" ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+                
+                <TabControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
                     <!--Result Display-->
                     <TabItem Header="{i18n:Translate DisplayHeader, Fallback='Display'}">
-                        <vc:ResultPanel Margin="0,5" />
+                        <panels:ResultPanel Margin="0,5" />
                     </TabItem>
 
                     <!--Console-->
                     <TabItem Header="{i18n:Translate ConsoleHeader, Fallback='Console'}">
-                        <vc:ConsolePanel Margin="0, 5" />
+                        <panels:ConsolePanel Margin="0, 5" />
                     </TabItem>
 
                 </TabControl>
+                
+                <Button Grid.Row="0" Grid.Column="1" Margin="8, 12" Name="AppSettingsBtn" Classes="IconButton" Click="AppSettingsBtn_OnClick">
+                    <Button.Content>
+                        <Path Stretch="Uniform"
+                              Width="16"
+                              Height="16"
+                              Data="{DynamicResource SettingsIcon}"
+                              Fill="{Binding $parent.Foreground}"
+                              VerticalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
             </Grid>
+            
+            <!--Settings Popup-->
+            <Panel Grid.Column="1" Height="0">
+                <Popup Name="AppSettingsPopup" PlacementMode="AnchorAndGravity" PlacementTarget="AppSettingsBtn" PlacementGravity="BottomLeft" PlacementAnchor="BottomRight" IsOpen="False" IsLightDismissEnabled="True">
+                        
+                    <Border BorderThickness="1" CornerRadius="{DynamicResource FluentPopupCornerRadius}" BorderBrush="{DynamicResource CPBorderBrush}" Background="White" Width="{Binding SettingsPopupWidth}">
+
+                        <LayoutTransformControl>
+                            
+                            <LayoutTransformControl.LayoutTransform>
+                                <ScaleTransform ScaleX="{Binding WindowScale}" 
+                                                ScaleY="{Binding WindowScale}" />
+                            </LayoutTransformControl.LayoutTransform>
+
+                            <Grid RowDefinitions="Auto, 1, *">
+
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="16, 2">
+
+                                    <TextBlock Grid.Column="0" Text="Settings" VerticalAlignment="Center" />
+
+                                    <Button Grid.Column="1" Margin="4" Classes="IconButton" HorizontalAlignment="Right"
+                                            Click="OpenGithubLink">
+                                        <Button.Content>
+                                            <Path Stretch="Uniform"
+                                                  Width="16"
+                                                  Height="16"
+                                                  Data="{DynamicResource GithubIcon}"
+                                                  VerticalAlignment="Center"
+                                                  Fill="{Binding $parent.Foreground}" />
+                                        </Button.Content>
+                                    </Button>
+
+                                </Grid>
+
+                                <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
+
+                                <panels:AppSettingsPanel Grid.Row="2"
+                                                         OnAboutClick="OpenAboutWindow"
+                                                         OnSetDefaultSettingsClick="SetDefaultSettings"/>
+
+                            </Grid>
+                        </LayoutTransformControl>
+                    </Border>
+                </Popup>
+            </Panel>
+
             
         </Grid>
     </LayoutTransformControl>

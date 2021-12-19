@@ -7,7 +7,7 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using PearlCalculatorCP.ViewModels;
 
-namespace PearlCalculatorCP.Views.Components
+namespace PearlCalculatorCP.Views.Panels
 {
     public partial class ConsolePanel : UserControl
     {

@@ -33,7 +33,7 @@ namespace PearlCalculatorCP.Commands
                 messageSender(DefineCmdOutput.MsgTemplate("you don't need change language"));
             else
             {
-                if (opt == "cn" || opt == "tw" || Translator.Instance.Languages.Contains(opt))
+                if (opt is "cn" or "tw" or Translator.FallbackLanguage || Translator.Instance.Languages.Contains(opt))
                 {
                     var lang = opt switch
                     {
@@ -41,7 +41,7 @@ namespace PearlCalculatorCP.Commands
                         "tw" => "zh_tw",
                         _ => opt
                     };
-                    
+
                     if (Translator.Instance.LoadLanguage(lang, s => messageSender(new ConsoleOutputItemModel("Error/i18n", s, Brushes.Red))))
                         messageSender(DefineCmdOutput.MsgTemplate("change language success"));
                 }
