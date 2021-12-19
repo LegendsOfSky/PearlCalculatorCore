@@ -33,6 +33,10 @@
                 <ComboBox DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="150"
                           Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
                 
+                    <ComboBox.Resources>
+                        <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
+                    </ComboBox.Resources>
+                    
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />

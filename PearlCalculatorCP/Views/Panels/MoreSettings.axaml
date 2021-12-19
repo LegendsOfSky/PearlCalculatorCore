@@ -10,6 +10,10 @@
     <UserControl.DataContext>
         <vm:MoreSettingsViewModel />
     </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
+    </UserControl.Resources>
 
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
