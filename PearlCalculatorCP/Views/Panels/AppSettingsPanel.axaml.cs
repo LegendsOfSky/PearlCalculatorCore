@@ -8,7 +8,6 @@ namespace PearlCalculatorCP.Views.Panels;
 
 public class AppSettingsPanel : UserControl
 {
-    public event EventHandler<RoutedEventArgs>? OnAboutClick;
     public event EventHandler<RoutedEventArgs>? OnSetDefaultSettingsClick; 
 
     public AppSettingsPanel()
@@ -20,8 +19,7 @@ public class AppSettingsPanel : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-
-    private void OpenAboutWindow(object sender, RoutedEventArgs e) => OnAboutClick?.Invoke(sender, e);
+    
     private void SetDefaultSettings(object sender, RoutedEventArgs e) => OnSetDefaultSettingsClick?.Invoke(sender, e);
 
 }

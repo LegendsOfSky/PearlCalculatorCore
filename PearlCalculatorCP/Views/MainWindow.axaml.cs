@@ -34,6 +34,7 @@ namespace PearlCalculatorCP.Views
         private MainWindowViewModel _vm;
         
         private Popup _appSettingsPopup;
+        private SplitView _settingsSplitView;
 
 
         public MainWindow()
@@ -63,6 +64,7 @@ namespace PearlCalculatorCP.Views
         {
             AvaloniaXamlLoader.Load(this);
             _appSettingsPopup = this.FindControl<Popup>("AppSettingsPopup");
+            _settingsSplitView = this.FindControl<SplitView>("SettingsSplitView");
         }
 
         private void Window_OnTapped(object sender, RoutedEventArgs e)
@@ -150,6 +152,8 @@ namespace PearlCalculatorCP.Views
         }
         
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
+        
+        private void OpenDiscordLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/MMzsVuuSxT");
 
         private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
 
@@ -163,6 +167,17 @@ namespace PearlCalculatorCP.Views
             CommandManager.Instance.ExecuteCommand($"setDefaultSettings {result[0]}", false);
         }
 
-        private void AppSettingsBtn_OnClick(object sender, RoutedEventArgs e) => _appSettingsPopup.Open();
+        private void AppSettingsBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_settingsSplitView.IsPaneOpen)
+                _settingsSplitView.IsPaneOpen = false;
+            
+            _appSettingsPopup.Open();
+        }
+
+        private void SwitchSplitOpenState(object sender, RoutedEventArgs e)
+        {
+            _settingsSplitView.IsPaneOpen = !_settingsSplitView.IsPaneOpen;
+        }
     }
 }

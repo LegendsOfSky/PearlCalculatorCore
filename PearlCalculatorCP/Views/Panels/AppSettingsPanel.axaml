@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+             xmlns:local="clr-namespace:PearlCalculatorCP"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
              x:Class="PearlCalculatorCP.Views.Panels.AppSettingsPanel">
     
@@ -25,48 +26,40 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto, 1, Auto">
-        <StackPanel Grid.Row="0" Spacing="4" Margin="16, 2">
-        
-            <DockPanel Height="40">
-                <TextBlock Text="{i18n:Translate Languages, Fallback='Languages'}" />
-                <ComboBox DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="150"
-                          Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
-                
-                    <ComboBox.Resources>
-                        <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
-                    </ComboBox.Resources>
-                    
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                
-                </ComboBox>
-            </DockPanel>
+    <StackPanel Spacing="4" Margin="16, 2">
 
-            <DockPanel Height="40">
-                <TextBlock Text="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}"></TextBlock>
-                <Button DockPanel.Dock="Right" Content="Import" Height="32" MinWidth="96" Padding="8, 0"
-                        HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="SetDefaultSettings" />
-            </DockPanel>
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate Languages, Fallback='Languages'}" />
+            <ComboBox DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="150"
+                      Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
 
-            <DockPanel Height="40">
-                <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" />
+                <ComboBox.Resources>
+                    <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
+                </ComboBox.Resources>
 
-                <ToggleSwitch OnContent="" OffContent=""
-                              DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,-12,0"
-                              IsChecked="{Binding EnableChunkMode}" />
-            </DockPanel>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
 
-        </StackPanel>
-        
-        <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
-        
-        <Panel Grid.Row="2" Margin="16, 8">
-            <Button Content="{i18n:Translate About, Fallback='About'}" MinWidth="96" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="OpenAboutWindow" />
-        </Panel>
-    </Grid>
+            </ComboBox>
+        </DockPanel>
+
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}"></TextBlock>
+            <Button DockPanel.Dock="Right" Content="Import" Height="32" MinWidth="96" Padding="8, 0"
+                    HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="SetDefaultSettings" />
+        </DockPanel>
+
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" />
+
+            <ToggleSwitch OnContent="" OffContent=""
+                          DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,-12,0"
+                          IsChecked="{Binding EnableChunkMode}" />
+        </DockPanel>
+
+    </StackPanel>
     
 </UserControl>

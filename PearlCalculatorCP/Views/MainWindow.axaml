@@ -8,6 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
         xmlns:panels="clr-namespace:PearlCalculatorCP.Views.Panels"
+        xmlns:local="clr-namespace:PearlCalculatorCP"
         mc:Ignorable="d" 
         d:DesignWidth="{Binding WindowSize.Width}" 
         d:DesignHeight="{Binding WindowSize.Height}"
@@ -21,6 +22,8 @@
 
     <Window.Resources>
         <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
+        <StreamGeometry x:Key="RightArrow">m1,0l9,10l-9,10l-1,-1l8,-9l-8,-9l1,-1z</StreamGeometry>
+        <StreamGeometry x:Key="LeftArrow" >m9,0l-9,10l9,10l1,-1l-8,-9l8,-9l-1,-1z</StreamGeometry>
     </Window.Resources>
 
     <!--Styles define-->
@@ -230,33 +233,121 @@
                                                 ScaleY="{Binding WindowScale}" />
                             </LayoutTransformControl.LayoutTransform>
 
-                            <Grid RowDefinitions="Auto, 1, *">
+                            <SplitView IsPaneOpen="False" DisplayMode="Overlay" Name="SettingsSplitView" OpenPaneLength="{Binding $self.Bounds.Width}">
+                                <Grid RowDefinitions="Auto, 1, *">
+                                
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="16, 2" Name="SettingsPopupHeader">
 
-                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="16, 2">
+                                        <TextBlock Grid.Column="0" Text="{i18n:Translate AppSettings, Fallback='Settings'}" VerticalAlignment="Center" />
 
-                                    <TextBlock Grid.Column="0" Text="Settings" VerticalAlignment="Center" />
+                                        <StackPanel Grid.Column="1" Margin="0, 2" HorizontalAlignment="Right" Orientation="Horizontal">
+                                            <Button Classes="IconButton" Click="OpenDiscordLink">
+                                                <Button.Content>
+                                                    <Path Stretch="Uniform"
+                                                          Width="21"
+                                                          Height="16"
+                                                          Data="{DynamicResource DiscordIcon}"
+                                                          VerticalAlignment="Center"
+                                                          Fill="{Binding $parent.Foreground}">
+                                                    </Path>
+                                                </Button.Content>
+                                            </Button>
+                                            
+                                            <Button Classes="IconButton" Click="OpenGithubLink">
+                                                <Button.Content>
+                                                    <Path Stretch="Uniform"
+                                                          Width="16"
+                                                          Height="16"
+                                                          Data="{DynamicResource GithubIcon}"
+                                                          VerticalAlignment="Center"
+                                                          Fill="{Binding $parent.Foreground}" />
+                                                </Button.Content>
+                                            </Button>
+                                            
+                                            <Button Classes="IconButton" Width="32" Click="SwitchSplitOpenState">
+                                                <Button.Content>
+                                                    <Path Stretch="Uniform"
+                                                          Width="8"
+                                                          Height="16"
+                                                          Data="{DynamicResource RightArrow}"
+                                                          VerticalAlignment="Center"
+                                                          Fill="{Binding $parent.Foreground}" />
+                                                </Button.Content>
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                    </Grid>
 
-                                    <Button Grid.Column="1" Margin="4" Classes="IconButton" HorizontalAlignment="Right"
-                                            Click="OpenGithubLink">
-                                        <Button.Content>
-                                            <Path Stretch="Uniform"
-                                                  Width="16"
-                                                  Height="16"
-                                                  Data="{DynamicResource GithubIcon}"
-                                                  VerticalAlignment="Center"
-                                                  Fill="{Binding $parent.Foreground}" />
-                                        </Button.Content>
-                                    </Button>
+                                    <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
+
+                                    <panels:AppSettingsPanel Grid.Row="2" OnSetDefaultSettingsClick="SetDefaultSettings"/>
 
                                 </Grid>
 
-                                <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
+                                <SplitView.Pane>
+                                    <Border Background="White" CornerRadius="{DynamicResource FluentPopupCornerRadius}">
+                                        <Grid RowDefinitions="Auto, 1, Auto, 1, Auto">
 
-                                <panels:AppSettingsPanel Grid.Row="2"
-                                                         OnAboutClick="OpenAboutWindow"
-                                                         OnSetDefaultSettingsClick="SetDefaultSettings"/>
+                                            <Border Grid.Row="0" Padding="16, 2">
+                                                <DockPanel Height="{Binding #SettingsPopupHeader.Height}">
 
-                            </Grid>
+                                                    <Button DockPanel.Dock="Left" Classes="IconButton" Width="32" Click="SwitchSplitOpenState">
+                                                        <Button.Content>
+                                                            <Path Stretch="Uniform"
+                                                                  Width="8"
+                                                                  Height="16"
+                                                                  Data="{DynamicResource LeftArrow}"
+                                                                  VerticalAlignment="Center"
+                                                                  Fill="{Binding $parent.Foreground}" />
+                                                        </Button.Content>
+                                                    </Button>
+
+                                                    <TextBlock DockPanel.Dock="Right" Text="{i18n:Translate About, Fallback='About'}"
+                                                               VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                                </DockPanel>
+                                            </Border>
+
+                                            <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
+
+                                            <Border Grid.Row="2" Padding="16, 4">
+                                                <StackPanel Spacing="8">
+                                                    <StackPanel>
+                                                        <TextBlock
+                                                            Text="{i18n:Translate Authors, Fallback='Authors : '}" />
+                                                        <UniformGrid Columns="2" Margin="12, 0">
+                                                            <TextBlock Text="memorydream" />
+                                                            <TextBlock Text="LegendsOfSky" />
+                                                        </UniformGrid>
+                                                    </StackPanel>
+
+                                                    <StackPanel>
+                                                        <TextBlock
+                                                            Text="{i18n:Translate Translators, Fallback='Translators : '}" />
+                                                        <UniformGrid Columns="2" Margin="12, 0">
+                                                            <TextBlock Text="njes9701" />
+                                                            <TextBlock Text="whats2000_" />
+                                                        </UniformGrid>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Rectangle Grid.Row="3" Fill="{DynamicResource CPBorderBrush}" />
+
+                                            <StackPanel Grid.Row="4" Margin="16, 4" Spacing="8">
+                                                <TextBlock
+                                                    Text="{i18n:Translate Credit, Fallback='Credit : Mojang for his &quot;best&quot; coding'}" />
+                                                <StackPanel>
+                                                    <TextBlock Text="{i18n:Translate Version, Fallback='Version : '}" />
+                                                    <TextBlock Margin="12, 0"
+                                                               Text="{x:Static local:ProgramInfo.VersionWithEnv}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </SplitView.Pane>
+
+                            </SplitView>
+                            
                         </LayoutTransformControl>
                     </Border>
                 </Popup>

@@ -12,6 +12,12 @@ namespace PearlCalculatorCP
 
         public static string Title => $"PearlCalculator v{Version}";
 
+#if DEBUG
+        public static string VersionWithEnv => $"{Version} (development)";
+#else
+        public static string VersionWithEnv => $"{Version} (release)";
+#endif
+
         public static readonly string BaseDirectory;
 
         static ProgramInfo()
