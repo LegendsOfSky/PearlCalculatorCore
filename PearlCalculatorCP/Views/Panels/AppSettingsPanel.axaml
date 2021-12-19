@@ -49,7 +49,7 @@
             <DockPanel Height="40">
                 <TextBlock Text="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}"></TextBlock>
                 <Button DockPanel.Dock="Right" Content="Import" Height="32" MinWidth="96" Padding="8, 0"
-                        HorizontalAlignment="Right" HorizontalContentAlignment="Center"  />
+                        HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="SetDefaultSettings" />
             </DockPanel>
 
             <DockPanel Height="40">
