@@ -198,12 +198,7 @@
                             </ToolTip.Tip>
                         </TextBlock>
 
-                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="NorthWest" />
-                            <ComboBoxItem Content="NorthEast" />
-                            <ComboBoxItem Content="SouthWest" />
-                            <ComboBoxItem Content="SouthEast" />
-                        </ComboBox>
+                        <ComboBox Grid.Column="1" Items="{Binding CannonDuperDirections}" SelectedItem="{Binding DefaultRedDuper}" HorizontalAlignment="Stretch" />
                     </Grid>
 
                     <Grid ColumnDefinitions="*, *">
@@ -215,12 +210,7 @@
                             </ToolTip.Tip>
                         </TextBlock>
 
-                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="NorthWest" />
-                            <ComboBoxItem Content="NorthEast" />
-                            <ComboBoxItem Content="SouthWest" />
-                            <ComboBoxItem Content="SouthEast" />
-                        </ComboBox>
+                        <ComboBox Grid.Column="1" Items="{Binding CannonDuperDirections}" SelectedItem="{Binding DefaultBlueDuper}" HorizontalAlignment="Stretch" />
                     </Grid>
 
                 </StackPanel>

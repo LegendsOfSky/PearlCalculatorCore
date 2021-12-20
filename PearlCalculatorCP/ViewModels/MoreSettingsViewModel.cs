@@ -164,25 +164,27 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        private int _defaultRedDuperIndex;
-        public int DefaultRedDuperIndex
+        public Direction[] CannonDuperDirections { get; } = { Direction.NorthWest, Direction.NorthEast, Direction.SouthWest, Direction.SouthEast };
+
+        private Direction _defaultRedDuper;
+        public Direction DefaultRedDuper
         {
-            get => _defaultRedDuperIndex;
+            get => _defaultRedDuper;
             set
             {
-                this.RaiseAndSetIfChanged(ref _defaultRedDuperIndex, value);
-                Data.DefaultRedDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+                Data.DefaultRedDuper = value;
+                RaiseAndSetProperty(ref _defaultRedDuper, Data.DefaultRedDuper);
             }
         }
 
-        private int _defaultBlueDuperIndex;
-        public int DefaultBlueDuperIndex
+        private Direction _defaultBlueDuper;
+        public Direction DefaultBlueDuper
         {
-            get => _defaultBlueDuperIndex;
+            get => _defaultBlueDuper;
             set
             {
-                this.RaiseAndSetIfChanged(ref _defaultBlueDuperIndex, value);
-                Data.DefaultBlueDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+                Data.DefaultBlueDuper = value;
+                RaiseAndSetProperty(ref _defaultBlueDuper, Data.DefaultBlueDuper);
             }
         }
 
@@ -207,10 +209,10 @@ namespace PearlCalculatorCP.ViewModels
             _pearlYCoor     = Data.Pearl.Position.Y;
             _pearlYMomentum = Data.Pearl.Motion.Y;
             
-            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
-            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
+            DefaultRedDuper  = Data.DefaultRedDuper;
+            DefaultBlueDuper = Data.DefaultBlueDuper;
             
-            EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
+            EventManager.AddListener<LoadSettingsArgs>("loadSettings", (_, args) =>
             {
                 var settings = args.Settings.CannonSettings[0];
 
@@ -233,17 +235,16 @@ namespace PearlCalculatorCP.ViewModels
                 PearlYCoor     = settings.Pearl.Position.Y;
                 PearlYMomentum = settings.Pearl.Motion.Y;
                 
-                DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedDirection.ToString());
-                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueDirection.ToString());
+                DefaultRedDuper  = settings.DefaultRedDirection;
+                DefaultBlueDuper = settings.DefaultBlueDirection;
             });
             
-            EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (sender, args) =>
+            EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (_, _) =>
             {
                 var red = Data.DefaultRedDuper;
-                var direction = (red.IsNorth() ? Direction.South : Direction.North) |
-                                (red.IsEast() ? Direction.West : Direction.East);
-                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(direction.ToString());
-                LogUtils.Log($"change DefaultBlueDuper to {direction.ToString()}");
+                DefaultBlueDuper = (red.IsNorth() ? Direction.South : Direction.North) |
+                                   (red.IsEast() ? Direction.West : Direction.East);
+                LogUtils.Log($"change DefaultBlueDuper to {DefaultBlueDuper.ToString()}");
             });
         }
 
@@ -271,8 +272,8 @@ namespace PearlCalculatorCP.ViewModels
             PearlYCoor     = Data.Pearl.Position.Y;
             PearlYMomentum = Data.Pearl.Motion.Y;
             
-            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
-            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
+            DefaultRedDuper  = Data.DefaultRedDuper;
+            DefaultBlueDuper = Data.DefaultBlueDuper;
             
             _isEnableIfChanged = true;
             

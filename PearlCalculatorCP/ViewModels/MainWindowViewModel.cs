@@ -133,14 +133,14 @@ namespace PearlCalculatorCP.ViewModels
 
         public MainWindowViewModel()
         {
-            EventManager.AddListener<SetRTCountArgs>("setRTCount", (sender, args) =>
+            EventManager.AddListener<SetRTCountArgs>("setRTCount", (_, args) =>
             {
                 RedTNT = (uint) args.Red;
                 BlueTNT = (uint) args.Blue;
                 Direction = DirectionUtils.GetDirection(Data.Pearl.Position.WorldAngle(Data.Destination));
             });
             
-            EventManager.AddListener<NotificationArgs>("resetSettings", (sender, args) =>
+            EventManager.AddListener<NotificationArgs>("resetSettings", (_, _) =>
             {
                 _isEnableIfChanged = false;
                 
@@ -252,19 +252,5 @@ namespace PearlCalculatorCP.ViewModels
             if (!vmBacking.Equals(dataBacking))
                 dataBacking = vmBacking;
         }
-    }
-
-    //I don't know why ComboBox.SelectedItem cause a issue
-    //avalonia can't resolve item form string
-    //may need to ComboBoxItem?
-    //So, i decide use a Enum link Direction Enum to ComboBox.SelectedIndex
-    //and selectedIndex form the enum
-    //it's value(int) is the same as ComboBoxItem index
-    internal enum ComboBoxDireEnum
-    {
-        NorthWest,
-        NorthEast,
-        SouthWest,
-        SouthEast
     }
 }
