@@ -1,23 +1,11 @@
 using System.Collections.Generic;
 using PearlCalculatorCP.Localizer;
-using ReactiveUI;
+using PearlCalculatorCP.Models;
 
 namespace PearlCalculatorCP.ViewModels
 {
     public class AppSettingsPanelViewModel : ViewModelBase
     {
-        public class LanguageComboBoxModel
-        {
-            public string DisplayName { get; private set; }
-            public string CommandOption { get; private set; }
-
-            public LanguageComboBoxModel(string? displayName, string? commandOption)
-            {
-                DisplayName = displayName ?? "Empty";
-                CommandOption = commandOption ?? string.Empty;
-            }
-        }
-        
         private bool _enableChunkMode;
         public bool EnableChunkMode
         {

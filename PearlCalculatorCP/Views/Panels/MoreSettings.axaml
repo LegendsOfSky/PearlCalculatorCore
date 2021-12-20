@@ -10,14 +10,11 @@
     <UserControl.DataContext>
         <vm:MoreSettingsViewModel />
     </UserControl.DataContext>
-    
-    <UserControl.Resources>
-        <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
-    </UserControl.Resources>
 
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
 
         <Style Selector="NumericUpDown">
@@ -46,8 +43,6 @@
 
         <Style Selector="ComboBox">
             <Setter Property="Margin" Value="33,0,0,4" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
     </UserControl.Styles>
 

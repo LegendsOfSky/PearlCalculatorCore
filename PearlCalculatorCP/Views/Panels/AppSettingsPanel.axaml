@@ -14,6 +14,7 @@
     
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/IconButtonStyle.axaml" />
         
@@ -32,10 +33,6 @@
             <TextBlock Text="{i18n:Translate Languages, Fallback='Languages'}" />
             <ComboBox DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="150"
                       Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
-
-                <ComboBox.Resources>
-                    <Thickness x:Key="ComboBoxDropdownBorderThickness">1,2</Thickness>
-                </ComboBox.Resources>
 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
