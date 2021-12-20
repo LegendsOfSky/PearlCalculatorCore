@@ -43,6 +43,16 @@ namespace PearlCalculatorIntermediateLib.Settings
             return JsonSerializer.Deserialize<SettingsCollection>(json , DefaultReadConverter);
         }
 
+        public static CannonSettings GetSettingFromCollection(string cannonName , SettingsCollection settings)
+        {
+            for (int i = 0; i < settings.CannonSettings.Length; i++)
+            {
+                if (cannonName == settings.CannonSettings[i].CannonName)
+                    return settings.CannonSettings[i];
+            }
+            return null;
+        }
+
         public static void SetGeneralData(CannonSettings settings)
         {
             PearlCalculatorLib.General.Data.MaxTNT = settings.MaxTNT;
