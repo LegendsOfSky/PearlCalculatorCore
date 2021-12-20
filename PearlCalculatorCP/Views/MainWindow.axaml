@@ -208,7 +208,7 @@
 
                 </TabControl>
                 
-                <Button Grid.Row="0" Grid.Column="1" Margin="8, 12" Name="AppSettingsBtn" Classes="IconButton" Click="AppSettingsBtn_OnClick">
+                <Button Grid.Row="0" Grid.Column="1" Margin="8, 14" Name="AppSettingsBtn" Classes="IconButton" Click="AppSettingsBtn_OnClick">
                     <Button.Content>
                         <Path Stretch="Uniform"
                               Width="16"
