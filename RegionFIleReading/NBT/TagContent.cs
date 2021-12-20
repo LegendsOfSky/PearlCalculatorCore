@@ -10,5 +10,16 @@ namespace RegionFIleReading.NBT
     {
         internal string? Name;
         internal T? Data;
+
+        public TagContent()
+        {
+
+        }
+
+        public TagContent(string name , T data)
+        {
+            Name = name;
+            Data = data;
+        }
     }
 }

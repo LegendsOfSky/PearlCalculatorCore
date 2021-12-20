@@ -61,6 +61,16 @@ namespace RegionFIleReading.NBT
             return content;
         }
 
+        static TagContent<short> ReadTagShort(ref byte* pointer)
+        {
+            TagContent<short> content = new TagContent<short>();
+            pointer += 2;
+            content.Name = ReadName(ref pointer);
+            content.Data = *(short*)pointer;
+            pointer += 2;
+            return content;
+        }
+
         static TagContent<byte> ReadTagByte(ref byte* pointer)
         {
             TagContent<byte> content = new TagContent<byte>();
@@ -71,13 +81,33 @@ namespace RegionFIleReading.NBT
             return content;
         }
 
-        static TagContent<short> ReadTagShort(ref byte* pointer)
+        static TagContent<long> ReadTagLong(ref byte* pointer)
         {
-            TagContent<short> content = new TagContent<short>();
+            TagContent<long> content = new TagContent<long>();
             pointer += 2;
             content.Name = ReadName(ref pointer);
-            content.Data = *(short*)pointer;
+            content.Data= *(long*)pointer;
+            pointer += 8;
+            return content;
+        }
+
+        static TagContent<float> ReadTagFloat(ref byte* pointer)
+        {
+            TagContent<float> content = new TagContent<float>();
             pointer += 2;
+            content.Name = ReadName(ref pointer);
+            content.Data = *(float*)pointer;
+            pointer += 4;
+            return content;
+        }
+
+        static TagContent<double> ReadTagDouble(ref byte* pointer)
+        {
+            TagContent<double> content = new TagContent<double>();
+            pointer += 2;
+            content.Name = ReadName(ref pointer);
+            content.Data = *(double*)pointer;
+            pointer += 8;
             return content;
         }
     }
