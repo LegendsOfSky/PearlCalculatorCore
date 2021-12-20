@@ -153,7 +153,7 @@ namespace PearlCalculatorCP.Views
         
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
         
-        private void OpenDiscordLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/MMzsVuuSxT");
+        private void OpenDiscordLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/seAMcy2eGN");
 
         private async void SetDefaultSettings(object sender, RoutedEventArgs e)
         {
