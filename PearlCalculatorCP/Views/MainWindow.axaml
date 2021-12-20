@@ -233,14 +233,15 @@
                                                 ScaleY="{Binding WindowScale}" />
                             </LayoutTransformControl.LayoutTransform>
 
-                            <SplitView IsPaneOpen="False" DisplayMode="Overlay" Name="SettingsSplitView" OpenPaneLength="{Binding $self.Bounds.Width}">
+                            <SplitView IsPaneOpen="False" DisplayMode="Overlay" Name="SettingsSplitView" OpenPaneLength="{Binding $self.Bounds.Width}" PaneBackground="Transparent">
+                                
                                 <Grid RowDefinitions="Auto, 1, *">
                                 
-                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="16, 2" Name="SettingsPopupHeader">
+                                    <DockPanel Grid.Row="0" Margin="16, 2" Name="SettingsPopupHeader">
 
-                                        <TextBlock Grid.Column="0" Text="{i18n:Translate AppSettings, Fallback='Settings'}" VerticalAlignment="Center" />
+                                        <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate AppSettings, Fallback='Settings'}" VerticalAlignment="Center" />
 
-                                        <StackPanel Grid.Column="1" Margin="0, 2" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <StackPanel DockPanel.Dock="Right" Margin="0, 2" HorizontalAlignment="Right" Orientation="Horizontal">
                                             <Button Classes="IconButton" Click="OpenDiscordLink">
                                                 <Button.Content>
                                                     <Path Stretch="Uniform"
@@ -276,7 +277,7 @@
                                             </Button>
                                         </StackPanel>
                                         
-                                    </Grid>
+                                    </DockPanel>
 
                                     <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
 
@@ -285,11 +286,12 @@
                                 </Grid>
 
                                 <SplitView.Pane>
+                                    
                                     <Border Background="White" CornerRadius="{DynamicResource FluentPopupCornerRadius}">
                                         <Grid RowDefinitions="Auto, 1, Auto, 1, Auto">
 
                                             <Border Grid.Row="0" Padding="16, 2">
-                                                <DockPanel Height="{Binding #SettingsPopupHeader.Height}">
+                                                <DockPanel Height="{Binding #SettingsPopupHeader.Height}" Margin="0, 2">
 
                                                     <Button DockPanel.Dock="Left" Classes="IconButton" Width="32" Click="SwitchSplitOpenState">
                                                         <Button.Content>
