@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -7,6 +5,9 @@ using Avalonia.Platform;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorCP.Views;
+
+using static PearlCalculatorCP.AppCommandLineArgDefinitions;
+using static PearlCalculatorCP.ConstantDefinitions;
 
 namespace PearlCalculatorCP
 {
@@ -19,8 +20,8 @@ namespace PearlCalculatorCP
             LoadLanguageSetting();
             CommandReg.Register();
             
-            if (AppCommandLineArgs.Args.TryGetValue("scale", out var s) && double.TryParse(s, out var r))
-                AppRuntimeSettings.Settings.Add("scale", r);
+            if (AppCommandLineArgs.Args.TryGetValue(Scale, out var s) && double.TryParse(s, out var r))
+                AppRuntimeSettings.Settings.Add(Scale, r);
         }
         
         public override void Initialize()
@@ -46,7 +47,7 @@ namespace PearlCalculatorCP
 
         public override void RegisterServices()
         {
-            if (!AppCommandLineArgs.Args.ContainsKey("useSystemFont"))
+            if (!AppCommandLineArgs.Args.ContainsKey(UseSystemFont))
             {
                 _fontManager = new CustomFontManagerImpl();
                 AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
@@ -58,12 +59,11 @@ namespace PearlCalculatorCP
         private void LoadLanguageSetting()
         {
             var lang = AppSettings.Instance.Language;
-            if (lang != string.Empty &&
-                Translator.Instance.Exists(lang))
+            if (lang != string.Empty && Translator.Instance.Exists(lang))
             {
                 Translator.Instance.LoadLanguage(lang);
             }
-            else if (!Translator.Instance.LoadLanguage("en"))
+            else if (!Translator.Instance.LoadLanguage(DefaultLanguage))
                 Translator.Instance.LoadLanguage(Translator.FallbackLanguage);
         }
     }

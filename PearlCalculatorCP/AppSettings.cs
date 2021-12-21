@@ -11,7 +11,9 @@ namespace PearlCalculatorCP
     [Serializable]
     class AppSettings
     {
-        private static readonly string FilePath = $"{ProgramInfo.BaseDirectory}AppSettings.json";
+        public const string SettingsFileName = "AppSettings.json";
+
+        private static readonly string FilePath = Path.Combine(ProgramInfo.BaseDirectory, SettingsFileName);
 
         private static AppSettings _instance;
 
@@ -37,8 +39,7 @@ namespace PearlCalculatorCP
         
         public string Language { get; set; } = string.Empty;
         public string DefaultLoadSettingsFile { get; set; } = string.Empty;
-
-        [JsonConstructor]
+        
         private AppSettings() { }
 
         public static void Save()

@@ -24,6 +24,9 @@
         <converters:IsCheckedFormEnum x:Key="IsCheckedFormEnum" />
         <StreamGeometry x:Key="RightArrow">m1,0l9,10l-9,10l-1,-1l8,-9l-8,-9l1,-1z</StreamGeometry>
         <StreamGeometry x:Key="LeftArrow" >m9,0l-9,10l9,10l1,-1l-8,-9l8,-9l-1,-1z</StreamGeometry>
+        
+        <Thickness x:Key="LeftArrowMargin">0,0,1,0</Thickness>
+        <Thickness x:Key="RightArrowMargin">1,0,0,0</Thickness>
     </Window.Resources>
 
     <!--Styles define-->
@@ -271,6 +274,7 @@
                                                           Width="8"
                                                           Height="16"
                                                           Data="{DynamicResource RightArrow}"
+                                                          Margin="{DynamicResource RightArrowMargin}"
                                                           VerticalAlignment="Center"
                                                           Fill="{Binding $parent.Foreground}" />
                                                 </Button.Content>
@@ -292,20 +296,21 @@
 
                                             <Border Grid.Row="0" Padding="16, 2">
                                                 <DockPanel Height="{Binding #SettingsPopupHeader.Height}" Margin="0, 2">
-
-                                                    <Button DockPanel.Dock="Left" Classes="IconButton" Width="32" Click="SwitchSplitOpenState">
+                                                    
+                                                    <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate About, Fallback='About'}" VerticalAlignment="Center" />
+                                                    
+                                                    <Button DockPanel.Dock="Right" Classes="IconButton" Width="32" HorizontalAlignment="Right" Click="SwitchSplitOpenState">
                                                         <Button.Content>
                                                             <Path Stretch="Uniform"
                                                                   Width="8"
                                                                   Height="16"
                                                                   Data="{DynamicResource LeftArrow}"
+                                                                  Margin="{DynamicResource LeftArrowMargin}"
                                                                   VerticalAlignment="Center"
                                                                   Fill="{Binding $parent.Foreground}" />
                                                         </Button.Content>
                                                     </Button>
-
-                                                    <TextBlock DockPanel.Dock="Right" Text="{i18n:Translate About, Fallback='About'}"
-                                                               VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                                    
                                                 </DockPanel>
                                             </Border>
 
