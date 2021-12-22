@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal interface ITagContent
     {
-
+        string Name { get; set; }
     }
 }

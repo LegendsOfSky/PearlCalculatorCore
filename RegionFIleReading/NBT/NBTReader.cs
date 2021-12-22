@@ -9,7 +9,7 @@ namespace RegionFIleReading.NBT
 {
     internal unsafe static class NBTReader
     {
-        internal static void ReadTag(ref byte* pointer)
+        internal static CompoundTagContent ReadTag(ref byte* pointer)
         {
             TagType type = (TagType)(*pointer);
             switch (type)
@@ -43,6 +43,7 @@ namespace RegionFIleReading.NBT
                 default:
                     break;
             }
+            throw new NotImplementedException();
         }
 
         private static string ReadString(ref byte* pointer)
@@ -52,76 +53,104 @@ namespace RegionFIleReading.NBT
             return name;
         }
 
-        private static BasicTagContent<int> ReadTagInt(ref byte* pointer)
+        private static T CreateTag<T>(ref byte* pointer) where T : ITagContent , new()
         {
-            BasicTagContent<int> content = new BasicTagContent<int>();
+            T content = new T();
             pointer += 2;
             content.Name = ReadString(ref pointer);
+            return content;
+        }
+
+        private static IntTagContent ReadTagInt(ref byte* pointer)
+        {
+            IntTagContent content = CreateTag<IntTagContent>(ref pointer);
             content.Data = *(int*)pointer;
             pointer += 4;
             return content;
         }
 
-        private static BasicTagContent<short> ReadTagShort(ref byte* pointer)
+        private static ShortTagContent ReadTagShort(ref byte* pointer)
         {
-            BasicTagContent<short> content = new BasicTagContent<short>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            ShortTagContent content = CreateTag<ShortTagContent>(ref pointer);
             content.Data = *(short*)pointer;
             pointer += 2;
             return content;
         }
 
-        private static BasicTagContent<byte> ReadTagByte(ref byte* pointer)
+        private static ByteTagContent ReadTagByte(ref byte* pointer)
         {
-            BasicTagContent<byte> content = new BasicTagContent<byte>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            ByteTagContent content = CreateTag<ByteTagContent>(ref pointer);
             content.Data = *pointer;
             pointer++;
             return content;
         }
 
-        private static BasicTagContent<long> ReadTagLong(ref byte* pointer)
+        private static LongTagContent ReadTagLong(ref byte* pointer)
         {
-            BasicTagContent<long> content = new BasicTagContent<long>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            LongTagContent content = CreateTag<LongTagContent>(ref pointer);
             content.Data= *(long*)pointer;
             pointer += 8;
             return content;
         }
 
-        private static BasicTagContent<float> ReadTagFloat(ref byte* pointer)
+        private static FloatTagContent ReadTagFloat(ref byte* pointer)
         {
-            BasicTagContent<float> content = new BasicTagContent<float>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            FloatTagContent content = CreateTag<FloatTagContent>(ref pointer);
             content.Data = *(float*)pointer;
             pointer += 4;
             return content;
         }
 
-        private static BasicTagContent<double> ReadTagDouble(ref byte* pointer)
+        private static DoubleTagContent ReadTagDouble(ref byte* pointer)
         {
-            BasicTagContent<double> content = new BasicTagContent<double>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            DoubleTagContent content = CreateTag<DoubleTagContent>(ref pointer);
             content.Data = *(double*)pointer;
             pointer += 8;
             return content;
         }
 
-        private static BasicTagContent<string> ReadTagString(ref byte* pointer)
+        private static StringTagContent ReadTagString(ref byte* pointer)
         {
-            BasicTagContent<string> content = new BasicTagContent<string>();
-            pointer += 2;
-            content.Name = ReadString(ref pointer);
+            StringTagContent content = CreateTag<StringTagContent>(ref pointer);
             content.Data = ReadString(ref pointer);
             pointer += content.Data.Length;
             return content;
         }
 
-        
+        private static CompoundTagContent ReadTagCompound(ref byte* pointer)
+        {
+            CompoundTagContent content = CreateTag<CompoundTagContent>(ref pointer);
+            content.Data = ReadTag(ref pointer);
+            // WaitForTest : pointer++???
+            return content;
+        }
+
+        private static ListTagContent<ITagContent> ReadTagList(ref byte* pointer)
+        {
+            ListTagContent<ITagContent> content = CreateTag<ListTagContent<ITagContent>>(ref pointer);
+            // Unfinish : Read List Data
+            return content;
+        }
+
+        private static IntArrayTagContent ReadTagIntArray(ref byte* pointer)
+        {
+            IntArrayTagContent content = CreateTag<IntArrayTagContent>(ref pointer);
+            // Unfinish : Read IntArray Data
+            return content;
+        }
+
+        private static ByteArrayTagContent ReadTagByteArray(ref byte* pointer)
+        {
+            ByteArrayTagContent content = CreateTag<ByteArrayTagContent>(ref pointer);
+            //Unfinish : Read ByteArray Data
+            return content;
+        }
+
+        private static LongArrayTagContent ReadTagLongArray(ref byte* pointer)
+        {
+            LongArrayTagContent content = CreateTag<LongArrayTagContent>(ref pointer);
+            //Unfinish : ReadByteArray Data
+            return content;
+        }
     }
 }
