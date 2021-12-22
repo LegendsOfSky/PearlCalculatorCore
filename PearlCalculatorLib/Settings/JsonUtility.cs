@@ -51,21 +51,6 @@ namespace PearlCalculatorLib.Settings
             return null;
         }
 
-        public static void SetGeneralData(CannonSettings settings)
-        {
-            PearlCalculatorLib.General.Data.MaxTNT = settings.MaxTNT;
-            PearlCalculatorLib.General.Data.DefaultBlueDuper = settings.DefaultBlueDirection;
-            PearlCalculatorLib.General.Data.DefaultRedDuper = settings.DefaultRedDirection;
-            PearlCalculatorLib.General.Data.NorthEastTNT = settings.NorthEastTNT;
-            PearlCalculatorLib.General.Data.NorthWestTNT = settings.NorthWestTNT;
-            PearlCalculatorLib.General.Data.SouthEastTNT = settings.SouthEastTNT;
-            PearlCalculatorLib.General.Data.SouthWestTNT = settings.SouthWestTNT;
-            PearlCalculatorLib.General.Data.Pearl = settings.Pearl;
-            PearlCalculatorLib.General.Data.PearlOffset = settings.Offset;
-            PearlCalculatorLib.General.Data.RedTNTConfiguration = settings.RedTNTConfiguration;
-            PearlCalculatorLib.General.Data.BlueTNTConfiguration = settings.BlueTNTConfiguration;
-        }
-        
         internal class SettingsJsonConverter : JsonConverter<SettingsCollection>
         {
             public override SettingsCollection Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)
