@@ -7,14 +7,14 @@ namespace PearlCalculatorCP.Converters
 {
     public class IsCheckedFormEnum : IValueConverter
     {
-        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return value?.Equals(parameter) ?? false;
         }
 
-        public object ConvertBack(object? value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return !(value is null) && (bool)value ? parameter : BindingOperations.DoNothing;
+            return value is bool b && parameter is not null && b ? parameter : BindingOperations.DoNothing;
         }
     }
 }

@@ -240,6 +240,7 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
+#nullable disable
         public async void CopyPearlCoorToClipboard()
         {
             var model = PearlTraceList![TraceResultSelectedIndex];
@@ -247,6 +248,7 @@ namespace PearlCalculatorCP.ViewModels
             
             await Application.Current.Clipboard.SetTextAsync($"/tp {coorStr}");
         }
+#nullable enable
     }
     
     public enum ResultShowMode
