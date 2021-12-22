@@ -64,7 +64,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlPosX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlPosX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _pearlPosX, value, _isEnableIfChanged);
                 Data.Pearl.Position.X = _pearlPosX;
             }
         }
@@ -75,7 +75,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlPosZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlPosZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _pearlPosZ, value, _isEnableIfChanged);
                 Data.Pearl.Position.Z = _pearlPosZ;
             }
         }
@@ -86,7 +86,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _destinationX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _destinationX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _destinationX, value, _isEnableIfChanged);
                 var des = Data.Destination;
                 des.X = _destinationX;
                 Data.Destination = des;
@@ -99,49 +99,54 @@ namespace PearlCalculatorCP.ViewModels
             get => _destinationZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _destinationZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _destinationZ, value, _isEnableIfChanged);
                 var des = Data.Destination;
                 des.Z = _destinationZ;
                 Data.Destination = des;
             }
         }
 
+        private uint _maxTNT;
         public uint MaxTNT
         {
-            get => (uint)Data.MaxTNT;
+            get => _maxTNT;
             set
             {
-                var v = (int)value;
-                if (Data.MaxTNT != v)
-                    Data.MaxTNT = v;
+                RaiseAndSetOrIfChanged(ref _maxTNT, value, _isEnableIfChanged);
+                Data.MaxTNT = (int)_maxTNT;
             }
         }
 
+        private Direction _direction;
         public Direction Direction
         {
-            get => Data.Direction;
-            set => Data.Direction = value;
-        }
-
-        public uint RedTNT
-        {
-            get => (uint)Data.RedTNT;
+            get => _direction;
             set
             {
-                var v = (int)value;
-                if (Data.RedTNT != v)
-                    Data.RedTNT = v;
+                RaiseAndSetOrIfChanged(ref _direction, value, _isEnableIfChanged);
+                Data.Direction = _direction;
             }
         }
 
-        public uint BlueTNT
+        private uint _redTNT;
+        public uint RedTNT
         {
-            get => (uint)Data.BlueTNT;
+            get => _redTNT;
             set
             {
-                var v = (int)value;
-                if (Data.BlueTNT != v)
-                    Data.BlueTNT = v;
+                RaiseAndSetOrIfChanged(ref _redTNT, value, _isEnableIfChanged);
+                Data.RedTNT = (int)_redTNT;
+            }
+        }
+
+        private uint _blueTNT;
+        public uint BlueTNT
+        {
+            get => _blueTNT;
+            set
+            {
+                RaiseAndSetOrIfChanged(ref _blueTNT, value, _isEnableIfChanged);
+                Data.BlueTNT = (int)_blueTNT;
             }
         }
 
@@ -149,6 +154,8 @@ namespace PearlCalculatorCP.ViewModels
 
         public MainWindowViewModel()
         {
+            _direction = Data.Direction;
+            
             EventManager.AddListener<SetRTCountArgs>("setRTCount", (_, args) =>
             {
                 RedTNT = (uint) args.Red;
@@ -164,6 +171,7 @@ namespace PearlCalculatorCP.ViewModels
                 PearlPosZ      = Data.Pearl.Position.Z;
                 DestinationX   = Data.Destination.X;
                 DestinationZ   = Data.Destination.Z;
+                Direction      = Data.Direction;
                 
                 _isEnableIfChanged = true;
             });

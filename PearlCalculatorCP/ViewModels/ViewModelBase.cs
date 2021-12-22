@@ -16,7 +16,7 @@ namespace PearlCalculatorCP.ViewModels
             return newValue;
         }
 
-        protected TRet RaiseAndSetOrIfChanged<TRet>(ref TRet backingField, ref TRet newValue, bool isIfChanged,
+        protected TRet RaiseAndSetOrIfChanged<TRet>(ref TRet backingField, TRet newValue, bool isIfChanged,
             [CallerMemberName] string? propertyName = null)
         {
             return isIfChanged

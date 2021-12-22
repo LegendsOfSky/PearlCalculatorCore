@@ -16,7 +16,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTX;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northWestTNTX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northWestTNTX, value, _isEnableIfChanged);
                 UpdateNorthWestTNT();
             }
         }
@@ -27,7 +27,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTY;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northWestTNTY, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northWestTNTY, value, _isEnableIfChanged);
                 UpdateNorthWestTNT();
             }
         }
@@ -38,7 +38,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTZ;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northWestTNTZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northWestTNTZ, value, _isEnableIfChanged);
                 UpdateNorthWestTNT();
             }
         }
@@ -49,7 +49,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTX;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northEastTNTX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northEastTNTX, value, _isEnableIfChanged);
                 UpdateNorthEastTNT();
             }
         }
@@ -60,7 +60,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTY;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northEastTNTY, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northEastTNTY, value, _isEnableIfChanged);
                 UpdateNorthEastTNT();
             }
         }
@@ -71,7 +71,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTZ;
             set
             {
-                RaiseAndSetOrIfChanged(ref _northEastTNTZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _northEastTNTZ, value, _isEnableIfChanged);
                 UpdateNorthEastTNT();
             }
         }
@@ -82,7 +82,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTX;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southWestTNTX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southWestTNTX, value, _isEnableIfChanged);
                 UpdateSouthWestTNT();
             }
         }
@@ -93,7 +93,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTY;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southWestTNTY, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southWestTNTY, value, _isEnableIfChanged);
                 UpdateSouthWestTNT();
             }
         }
@@ -104,7 +104,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTZ;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southWestTNTZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southWestTNTZ, value, _isEnableIfChanged);
                 UpdateSouthWestTNT();
             }
         }
@@ -115,7 +115,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTX;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southEastTNTX, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southEastTNTX, value, _isEnableIfChanged);
                 UpdateSouthEastTNT();
             }
         }
@@ -126,7 +126,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTY;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southEastTNTY, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southEastTNTY, value, _isEnableIfChanged);
                 UpdateSouthEastTNT();
             }
         }
@@ -137,7 +137,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTZ;
             set
             {
-                RaiseAndSetOrIfChanged(ref _southEastTNTZ, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _southEastTNTZ, value, _isEnableIfChanged);
                 UpdateSouthEastTNT();
             }
         }
@@ -148,7 +148,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlYCoor;
             set
             {
-                RaiseAndSetOrIfChanged(ref _pearlYCoor, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _pearlYCoor, value, _isEnableIfChanged);
                 Data.Pearl.Position.Y = _pearlYCoor;
             }
         }
@@ -159,7 +159,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlYMomentum;
             set
             {
-                RaiseAndSetOrIfChanged(ref _pearlYMomentum, ref value, _isEnableIfChanged);
+                RaiseAndSetOrIfChanged(ref _pearlYMomentum, value, _isEnableIfChanged);
                 Data.Pearl.Motion.Y = _pearlYMomentum;
             }
         }
