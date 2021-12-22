@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RegionFIleReading.NBT
 {
-    internal enum TagType
+    internal enum TagType : sbyte
     {
         Null,
         Int,
