@@ -1,11 +1,8 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.Result;
+﻿using PearlCalculatorLib.Result;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.ViewModels;
-using PearlCalculatorIntermediateLib.Settings;
-using PearlCalculatorLib.General;
+using PearlCalculatorLib.Settings;
 
 namespace PearlCalculatorCP
 {

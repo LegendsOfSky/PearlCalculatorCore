@@ -1,11 +1,7 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.World;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using PearlCalculatorLib.PearlCalculationLib.World;
 
-namespace PearlCalculatorIntermediateLib.Settings
+namespace PearlCalculatorLib.Settings
 {
     [Serializable]
     public class SettingsCollection

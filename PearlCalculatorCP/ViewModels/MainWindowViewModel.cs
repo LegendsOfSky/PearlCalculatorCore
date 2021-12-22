@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
-using Avalonia.Media;
 using PearlCalculatorCP.Models;
-using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Utils;
-using PearlCalculatorCP.Views;
-using PearlCalculatorIntermediateLib.Settings;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
+using PearlCalculatorLib.Settings;
 using ReactiveUI;
 
 using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;

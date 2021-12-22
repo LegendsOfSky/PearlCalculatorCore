@@ -1,13 +1,9 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.PearlCalculationLib.World;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using PearlCalculatorLib.PearlCalculationLib.Entity;
+using PearlCalculatorLib.PearlCalculationLib.World;
 
-namespace PearlCalculatorIntermediateLib.Settings
+namespace PearlCalculatorLib.Settings
 {
     [Serializable]
     public class CannonSettings

@@ -1,20 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using PearlCalculatorLib;
-using PearlCalculatorLib.PearlCalculationLib.MathLib;
-using PearlCalculatorLib.General;
-using PearlCalculatorLib.PearlCalculationLib;
+﻿using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using System.Collections.Generic;
-using PearlCalculatorLib.PearlCalculationLib.Entity;
-using System.Collections;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using System.IO.Compression;
-using PearlCalculatorLib.Manually;
-using PearlCalculatorLib.Result;
-using PearlCalculatorIntermediateLib.Settings;
-using System.Text.Json;
+using PearlCalculatorLib.Settings;
 
 namespace PearlCalculatorCore
 {
@@ -49,11 +37,11 @@ namespace PearlCalculatorCore
                 CannonSettings = new CannonSettings[] {cannonSettings }
             };
             
-            string json = JsonUtils.Serialize(settingsCollection);
+            string json = JsonUtility.Serialize(settingsCollection);
             File.WriteAllText(@"G:\json.json" , json);
             
             string text = File.ReadAllText(@"G:\json.json");
-            SettingsCollection collection = JsonUtils.DeSerialize(text);
+            SettingsCollection collection = JsonUtility.DeSerialize(text);
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿using Microsoft.VisualBasic.FileIO;
+#if NET6_0_OR_GREATER
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using PearlCalculatorLib.PearlCalculationLib.World;
 
-namespace PearlCalculatorIntermediateLib.Settings
+namespace PearlCalculatorLib.Settings
 {
-    public static class JsonUtils
+    public static class JsonUtility
     {
         private static readonly JsonSerializerOptions DefaultReadConverter = new JsonSerializerOptions { Converters = { new SettingsJsonConverter() } };
 
@@ -177,4 +175,7 @@ namespace PearlCalculatorIntermediateLib.Settings
             }
         }
     }
+
 }
+
+#endif

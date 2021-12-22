@@ -4,18 +4,14 @@ using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using System.Text;
 using Avalonia.Controls.Primitives;
-using PearlCalculatorCP.Views.Panels;
-using PearlCalculatorIntermediateLib.Settings;
+using PearlCalculatorLib.Settings;
 
 #nullable disable
 
@@ -89,7 +85,7 @@ namespace PearlCalculatorCP.Views
             var json = await File.ReadAllTextAsync(path, Encoding.UTF8);
             try
             {
-                _vm.LoadDataFormSettings(JsonUtils.DeSerialize(json));
+                _vm.LoadDataFormSettings(JsonUtility.DeSerialize(json));
             }
             catch (Exception)
             {
@@ -137,7 +133,7 @@ namespace PearlCalculatorCP.Views
                 }
             };
 
-            var json = JsonUtils.SerializeToUtf8Bytes(settings);
+            var json = JsonUtility.SerializeToUtf8Bytes(settings);
 
             using var sr = File.OpenWrite(path);
             sr.SetLength(0);
