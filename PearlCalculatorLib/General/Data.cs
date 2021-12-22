@@ -104,11 +104,11 @@ namespace PearlCalculatorLib.General
 
 
 
-        internal static int MaxCalculateTNT { get; set; }
+        public static int MaxCalculateTNT { get; internal set; }
 
 
 
-        internal static double MaxCalculateDistance { get; set; }
+        public static double MaxCalculateDistance { get; internal set; }
 
 
 

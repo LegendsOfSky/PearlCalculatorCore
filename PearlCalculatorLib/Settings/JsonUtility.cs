@@ -41,16 +41,6 @@ namespace PearlCalculatorLib.Settings
             return JsonSerializer.Deserialize<SettingsCollection>(json , DefaultReadConverter);
         }
 
-        public static CannonSettings GetSettingFromCollection(string cannonName , SettingsCollection settings)
-        {
-            for (int i = 0; i < settings.CannonSettings.Length; i++)
-            {
-                if (cannonName == settings.CannonSettings[i].CannonName)
-                    return settings.CannonSettings[i];
-            }
-            return null;
-        }
-
         internal class SettingsJsonConverter : JsonConverter<SettingsCollection>
         {
             public override SettingsCollection Read(ref Utf8JsonReader reader , Type typeToConvert , JsonSerializerOptions options)

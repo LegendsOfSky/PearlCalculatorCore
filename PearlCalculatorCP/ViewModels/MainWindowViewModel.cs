@@ -65,7 +65,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetOrIfChanged(ref _pearlPosX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlPosX, ref Data.Pearl.Position.X);
+                Data.Pearl.Position.X = _pearlPosX;
             }
         }
 
@@ -76,7 +76,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetOrIfChanged(ref _pearlPosZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlPosZ, ref Data.Pearl.Position.Z);
+                Data.Pearl.Position.Z = _pearlPosZ;
             }
         }
 
@@ -87,7 +87,9 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetOrIfChanged(ref _destinationX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _destinationX, ref Data.Destination.X);
+                var des = Data.Destination;
+                des.X = _destinationX;
+                Data.Destination = des;
             }
         }
 
@@ -98,32 +100,49 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 this.RaiseAndSetOrIfChanged(ref _destinationZ, ref value, _isEnableIfChanged);
-                DataUpdate (ref _destinationZ, ref Data.Destination.Z);
+                var des = Data.Destination;
+                des.Z = _destinationZ;
+                Data.Destination = des;
             }
         }
 
         public uint MaxTNT
         {
             get => (uint)Data.MaxTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.MaxTNT, (int)value);
+            set
+            {
+                var v = (int)value;
+                if (Data.MaxTNT != v)
+                    Data.MaxTNT = v;
+            }
         }
 
         public Direction Direction
         {
             get => Data.Direction;
-            set => this.RaiseAndSetIfChanged(ref Data.Direction, value);
+            set => Data.Direction = value;
         }
 
         public uint RedTNT
         {
             get => (uint)Data.RedTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.RedTNT, (int)value);
+            set
+            {
+                var v = (int)value;
+                if (Data.RedTNT != v)
+                    Data.RedTNT = v;
+            }
         }
 
         public uint BlueTNT
         {
             get => (uint)Data.BlueTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
+            set
+            {
+                var v = (int)value;
+                if (Data.BlueTNT != v)
+                    Data.BlueTNT = v;
+            }
         }
 
 #endregion
@@ -243,11 +262,5 @@ namespace PearlCalculatorCP.ViewModels
         }
         
         #endregion
-
-        private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
-        {
-            if (!vmBacking.Equals(dataBacking))
-                dataBacking = vmBacking;
-        }
     }
 }
