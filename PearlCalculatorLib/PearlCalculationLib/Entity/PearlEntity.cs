@@ -4,7 +4,7 @@ using System;
 namespace PearlCalculatorLib.PearlCalculationLib.Entity
 {
     [Serializable]
-    public class PearlEntity : Entity, ICloneable
+    public class PearlEntity : Entity, IDeepCloneable<PearlEntity>
     {
         public override Space3D Size => new Space3D(0.25 , 0.25 , 0.25);
         
@@ -28,14 +28,12 @@ namespace PearlCalculatorLib.PearlCalculationLib.Entity
             Motion.Y -= 0.03;
         }
 
-        public object Clone()
+        public PearlEntity DeepClone() => new PearlEntity
         {
-            PearlEntity pearl = new PearlEntity
-            {
-                Position = Position ,
-                Motion = Motion
-            };
-            return pearl;
-        }
+            Position = Position ,
+            Motion = Motion
+        };
+
+        object IDeepCloneable.DeepClone() => DeepClone();
     }
 }

@@ -16,7 +16,7 @@ namespace PearlCalculatorLib.Settings
             set
             {
                 if (value is null || !SettingsList.Contains(value))
-                    throw new ArgumentException(nameof(value));
+                    throw new ArgumentException("value is null or not found in SettingsList");
 
                 _selectedCannon = value;
             }
