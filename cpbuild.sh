@@ -9,5 +9,5 @@ for r in "${rids[@]}"
 do
     echo "====================================="
     echo "build $r"
-    dotnet publish ./PearlCalculatorCP/PearlCalculatorCP.csproj -c Release -f $dotnetVer --no-self-contained -p:PublishSingleFile=true --nologo -r $r -o $publishFolderRoot/$r
+    dotnet publish ./PearlCalculatorCP/PearlCalculatorCP.csproj -c Release -f $dotnetVer --no-self-contained -p:PublishSingleFile=true -p:DebugType=None --nologo -r $r -o $publishFolderRoot/$r
 done
