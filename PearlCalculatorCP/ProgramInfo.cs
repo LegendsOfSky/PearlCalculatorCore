@@ -22,7 +22,7 @@ namespace PearlCalculatorCP
 
         static ProgramInfo()
         {
-            Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version;
             BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
     }

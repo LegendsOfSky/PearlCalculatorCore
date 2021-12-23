@@ -45,6 +45,7 @@
 
         <Style Selector="Button.ResultHeader:pressed /template/ ContentPresenter">
             <Setter Property="Background" Value="#EE99CCFF" />
+            <Setter Property="TextBlock.Foreground" Value="Black" />
         </Style>
 
         <Style Selector="Button.ResultHeader:disabled /template/ ContentPresenter">
