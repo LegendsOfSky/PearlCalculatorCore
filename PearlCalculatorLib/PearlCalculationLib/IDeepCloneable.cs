@@ -7,6 +7,6 @@ namespace PearlCalculatorLib.PearlCalculationLib
 
     public interface IDeepCloneable<T> : IDeepCloneable
     {
-        T DeepClone();
+        new T DeepClone();
     }
 }
