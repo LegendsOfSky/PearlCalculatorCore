@@ -17,11 +17,9 @@ namespace PearlCalculatorCP
 
         public App()
         {
+            InitAppRuntimeSettings();
             LoadLanguageSetting();
             CommandReg.Register();
-            
-            if (AppCommandLineArgs.Args.TryGetValue(Scale, out var s) && double.TryParse(s, out var r))
-                AppRuntimeSettings.Settings.Add(Scale, r);
         }
         
         public override void Initialize()
@@ -47,7 +45,7 @@ namespace PearlCalculatorCP
 
         public override void RegisterServices()
         {
-            if (!AppCommandLineArgs.Args.ContainsKey(UseSystemFont))
+            if (!AppRuntimeSettings.IsDefined(UseSystemFont))
             {
                 _fontManager = new CustomFontManagerImpl();
                 AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
@@ -59,12 +57,27 @@ namespace PearlCalculatorCP
         private void LoadLanguageSetting()
         {
             var lang = AppSettings.Instance.Language;
-            if (lang != string.Empty && Translator.Instance.Exists(lang))
+            if (!string.IsNullOrEmpty(lang) && !string.IsNullOrWhiteSpace(lang))
             {
-                Translator.Instance.LoadLanguage(lang);
+                var model = Translator.Instance.Languages.Find(e => e.Language == lang);
+                if (model is not null && model.CanLoad(AppRuntimeSettings.IsDefined(UseSystemFont)))
+                {
+                    Translator.Instance.LoadLanguage(lang);
+                    return;
+                }
             }
-            else if (!Translator.Instance.LoadLanguage(DefaultLanguage))
+            
+            if (!Translator.Instance.LoadLanguage(DefaultLanguage))
                 Translator.Instance.LoadLanguage(Translator.FallbackLanguage);
+        }
+
+        private void InitAppRuntimeSettings()
+        {
+            if (AppCommandLineArgs.Args.TryGetValue(Scale, out var s) && double.TryParse(s, out var r))
+                AppRuntimeSettings.Settings.Add(Scale, r);
+            
+            if (AppCommandLineArgs.Args.ContainsKey(UseSystemFont))
+                AppRuntimeSettings.Settings.Add(UseSystemFont, null);
         }
     }
 }

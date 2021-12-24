@@ -79,6 +79,8 @@ namespace PearlCalculatorCP
     static class AppRuntimeSettings
     {
         public static readonly Dictionary<string, object> Settings = new();
+
+        public static bool IsDefined(string key) => Settings.ContainsKey(key);
     }
 
     static class AppCommandLineArgs

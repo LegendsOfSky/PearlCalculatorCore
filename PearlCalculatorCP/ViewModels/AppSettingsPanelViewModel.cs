@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Models;
+using ReactiveUI;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -25,8 +26,7 @@ namespace PearlCalculatorCP.ViewModels
             get => _curSelectLanguage;
             set
             {
-                if (_curSelectLanguage != value)
-                    RaiseAndSetProperty(ref _curSelectLanguage, value);
+                this.RaiseAndSetIfChanged(ref _curSelectLanguage, value);
                 ChangeLanguageOptional(value.CommandOption);
             }
         }
@@ -34,10 +34,14 @@ namespace PearlCalculatorCP.ViewModels
         public AppSettingsPanelViewModel()
         {
             Languages = new List<LanguageComboBoxModel>(Translator.Instance.Languages.Count + 1);
-            
+
+            var isSystemFont = AppRuntimeSettings.IsDefined(AppCommandLineArgDefinitions.UseSystemFont);
             foreach (var lang in Translator.Instance.Languages)
             {
-                Languages.Add(new(lang.DisplayName, lang.FileName));
+                if (lang.CanLoad(isSystemFont))
+                {
+                    Languages.Add(new(lang.DisplayName, lang.FileName));
+                }
             }
             Languages.Add(new("EN (Fallback)", Translator.FallbackLanguage));
 

@@ -140,10 +140,10 @@
                                             </StackPanel>
                                             
                                             <Grid ColumnDefinitions="Auto, *,Auto, *,Auto, *,Auto" Margin="12, 0">
-                                                <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" HorizontalAlignment="Center" />
-                                                <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" HorizontalAlignment="Center" />
-                                                <RadioButton Grid.Column="4" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" HorizontalAlignment="Center" />
-                                                <RadioButton Grid.Column="6" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" HorizontalAlignment="Center" />
+                                                <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="4" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="6" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" />
                                             </Grid>
 
                                             <StackPanel>

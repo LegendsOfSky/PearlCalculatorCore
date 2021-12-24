@@ -8,6 +8,8 @@ using System.Text.Json;
 using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
 
+using static PearlCalculatorCP.AppCommandLineArgDefinitions;
+
 namespace PearlCalculatorCP.Localizer
 {
     public partial class Translator : INotifyPropertyChanged
@@ -34,9 +36,9 @@ namespace PearlCalculatorCP.Localizer
 
         public List<TranslateFileModel> Languages { get; private set; } = new()
         {
-            new(){FileName = "en", Language = "en", DisplayName = "EN"},
-            new(){FileName = "zh_cn", Language = "zh_cn", DisplayName = "中文(简体)"},
-            new(){FileName = "zh_tw", Language = "zh_tw", DisplayName = "中文(繁体)"},
+            new(){FileName = "en", Language = "en", DisplayName = "EN", LoadTypes = TranslateFileLoadTypes.All},
+            new(){FileName = "zh_cn", Language = "zh_cn", DisplayName = "中文(简体)", LoadTypes = TranslateFileLoadTypes.All},
+            new(){FileName = "zh_tw", Language = "zh_tw", DisplayName = "中文(繁体)", LoadTypes = TranslateFileLoadTypes.All},
         };
         
         private Translator()
@@ -63,7 +65,14 @@ namespace PearlCalculatorCP.Localizer
                 
                 return false;
             }
-            
+
+            if (!model!.CanLoad(AppRuntimeSettings.IsDefined(UseSystemFont)))
+            {
+                exceptionMessageSender?.Invoke($"language {language} can not load");
+                exceptionMessageSender?.Invoke($"because font file not support it");
+                return false;
+            }
+
             bool isLoaded = false;
             using var sr = new StreamReader(path, Encoding.UTF8);
             
