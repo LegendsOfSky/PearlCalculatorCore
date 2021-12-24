@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
-             xmlns:local="clr-namespace:PearlCalculatorCP"
-             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
+             xmlns:panels="clr-namespace:PearlCalculatorCP.Views.Panels"
+             xmlns:components="clr-namespace:PearlCalculatorCP.Views.Components"
+             xmlns:models="clr-namespace:PearlCalculatorCP.Models"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
              x:Class="PearlCalculatorCP.Views.Panels.AppSettingsPanel">
     
     <UserControl.DataContext>
@@ -15,6 +17,7 @@
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxExStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/IconButtonStyle.axaml" />
         
@@ -25,22 +28,61 @@
         <Style Selector="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
+        
+        <Style Selector="components|ComboBoxEx">
+            <Setter Property="Padding" Value="12,4,0,4" />
+            <Setter Property="BorderBrush" Value="#E5E5E5" />
+        </Style>
+
+        <Style Selector="components|ComboBoxEx[IsFocused=False]:pointerover /template/Border#Background">
+            <Setter Property="BorderBrush" Value="#0373EC" />
+        </Style>
+        
+        <Style Selector="components|ComboBoxEx:focus /template/Border#Background">
+            <Setter Property="BorderBrush" Value="#0472CB" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        
     </UserControl.Styles>
 
     <StackPanel Spacing="4" Margin="16, 2">
 
         <DockPanel Height="40">
             <TextBlock Text="{i18n:Translate Languages, Fallback='Languages'}" />
-            <ComboBox DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="150"
-                      Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
-
-                <ComboBox.ItemTemplate>
+            
+            <components:ComboBoxEx DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="180"
+                                   Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
+                
+                <components:ComboBoxEx.SelectionBoxItemTemplate>
+                    <DataTemplate DataType="models:LanguageComboBoxItemModel">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBlock Grid.Column="0" Text="{Binding DisplayName}" />
+                            <Button Grid.Column="1" Classes="IconButton"
+                                    IsVisible="{Binding $parent[panels:AppSettingsPanel].DataContext.CanSetDefault, Mode=OneWay}" 
+                                    Command="{Binding $parent[panels:AppSettingsPanel].DataContext.SetDefaultLanguageOptional}">
+                                
+                                <Button.Content>
+                                    <Path Stretch="Uniform"
+                                          Width="16"
+                                          Height="16"
+                                          Data="{DynamicResource FluentSaveIcon}"
+                                          VerticalAlignment="Center"
+                                          Fill="{Binding $parent[Button].Foreground}">
+                                    </Path>
+                                </Button.Content>
+                                
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </components:ComboBoxEx.SelectionBoxItemTemplate>
+            
+                <components:ComboBoxEx.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
                     </DataTemplate>
-                </ComboBox.ItemTemplate>
+                </components:ComboBoxEx.ItemTemplate>
 
-            </ComboBox>
+            </components:ComboBoxEx>
         </DockPanel>
 
         <DockPanel Height="40">

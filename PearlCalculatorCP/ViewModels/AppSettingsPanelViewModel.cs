@@ -18,10 +18,10 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        public List<LanguageComboBoxModel> Languages { get; private set; }
+        public List<LanguageComboBoxItemModel> Languages { get; private set; }
 
-        private LanguageComboBoxModel _curSelectLanguage;
-        public LanguageComboBoxModel CurSelectLanguage
+        private LanguageComboBoxItemModel _curSelectLanguage;
+        public LanguageComboBoxItemModel CurSelectLanguage
         {
             get => _curSelectLanguage;
             set
@@ -31,9 +31,16 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
+        private bool _canSetDefault;
+        public bool CanSetDefault
+        {
+            get => _canSetDefault;
+            set => this.RaiseAndSetIfChanged(ref _canSetDefault, value);
+        }
+
         public AppSettingsPanelViewModel()
         {
-            Languages = new List<LanguageComboBoxModel>(Translator.Instance.Languages.Count + 1);
+            Languages = new List<LanguageComboBoxItemModel>(Translator.Instance.Languages.Count + 1);
             
             foreach (var lang in Translator.Instance.Languages)
             {
@@ -51,15 +58,25 @@ namespace PearlCalculatorCP.ViewModels
             {
                 var langOptModel = Languages.Find(e => e.CommandOption == lang)!;
                 RaiseAndSetProperty(ref _curSelectLanguage, langOptModel, nameof(CurSelectLanguage));
+                RefreshSetDefaultState();
             };
         }
         
         public void ChangeLanguageOptional(string lang)
         {
-            CommandManager.Instance.ExecuteCommand(
-                Translator.Instance.CurrentLanguage == lang
-                    ? $"setDefaultLang {lang}"
-                    : $"changeLang {lang}");
+            CommandManager.Instance.ExecuteCommand($"changeLang {lang}");
+        }
+
+        public void SetDefaultLanguageOptional()
+        {
+            CommandManager.Instance.ExecuteCommand($"setDefaultLang {_curSelectLanguage.CommandOption}");
+            RefreshSetDefaultState();
+        }
+        
+        private void RefreshSetDefaultState()
+        {
+            CanSetDefault = CurSelectLanguage.CommandOption != AppSettings.Instance.Language &&
+                            CurSelectLanguage.CommandOption != Translator.FallbackLanguage;
         }
     }
 }

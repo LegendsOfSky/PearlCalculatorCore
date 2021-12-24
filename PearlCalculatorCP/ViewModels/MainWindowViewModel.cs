@@ -18,7 +18,7 @@ namespace PearlCalculatorCP.ViewModels
     {
 
         private static readonly Size DefaultWindowSize = new(1000, 800);
-        private const double DefaultSettingsPopupWidth = 300;
+        private const double DefaultSettingsPopupWidth = 350;
 
         private Size _windowSize = DefaultWindowSize;
         public Size WindowSize
