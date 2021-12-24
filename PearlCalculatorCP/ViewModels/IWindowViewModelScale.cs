@@ -9,8 +9,7 @@ namespace PearlCalculatorCP.ViewModels
     {
         public static void ApplyScale(this IWindowViewModelScale vm)
         {
-            if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
-                vm.WindowScale = (double)s;
+            vm.WindowScale = AppRuntimeSettings.Scale;
         }
     }
 }

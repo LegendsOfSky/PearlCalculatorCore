@@ -8,8 +8,6 @@ using System.Text.Json;
 using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
 
-using static PearlCalculatorCP.AppCommandLineArgDefinitions;
-
 namespace PearlCalculatorCP.Localizer
 {
     public partial class Translator : INotifyPropertyChanged
@@ -65,8 +63,8 @@ namespace PearlCalculatorCP.Localizer
                 
                 return false;
             }
-
-            if (!model!.CanLoad(AppRuntimeSettings.IsDefined(UseSystemFont)))
+            
+            if (!model!.CanLoad())
             {
                 exceptionMessageSender?.Invoke($"language {language} can not load");
                 exceptionMessageSender?.Invoke($"because font file not support it");

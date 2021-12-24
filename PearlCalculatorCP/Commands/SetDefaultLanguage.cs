@@ -10,7 +10,7 @@ namespace PearlCalculatorCP.Commands
         public void Execute(string[]? parameters, string? cmdName, Action<ConsoleOutputItemModel> messageSender)
         {
             string lang = string.Empty;
-            if (!(parameters is null))
+            if (parameters is not null)
             {
                 if (parameters.Length > 1)
                 {

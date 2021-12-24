@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using PearlCalculatorCP.Localizer;
+using PearlCalculatorCP.Models;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorCP.Views;
 
@@ -45,7 +46,7 @@ namespace PearlCalculatorCP
 
         public override void RegisterServices()
         {
-            if (!AppRuntimeSettings.IsDefined(UseSystemFont))
+            if (!AppRuntimeSettings.UseSystemFont)
             {
                 _fontManager = new CustomFontManagerImpl();
                 AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
@@ -60,7 +61,7 @@ namespace PearlCalculatorCP
             if (!string.IsNullOrEmpty(lang) && !string.IsNullOrWhiteSpace(lang))
             {
                 var model = Translator.Instance.Languages.Find(e => e.Language == lang);
-                if (model is not null && model.CanLoad(AppRuntimeSettings.IsDefined(UseSystemFont)))
+                if (model is not null && model.CanLoad())
                 {
                     Translator.Instance.LoadLanguage(lang);
                     return;
@@ -74,10 +75,10 @@ namespace PearlCalculatorCP
         private void InitAppRuntimeSettings()
         {
             if (AppCommandLineArgs.Args.TryGetValue(Scale, out var s) && double.TryParse(s, out var r))
-                AppRuntimeSettings.Settings.Add(Scale, r);
-            
-            if (AppCommandLineArgs.Args.ContainsKey(UseSystemFont))
-                AppRuntimeSettings.Settings.Add(UseSystemFont, null);
+                AppRuntimeSettings.Scale = r;
+
+            AppRuntimeSettings.UseSystemFont = AppCommandLineArgs.Args.ContainsKey(UseSystemFont);
+
         }
     }
 }

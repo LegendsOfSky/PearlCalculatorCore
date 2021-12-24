@@ -1,6 +1,5 @@
 using System.Text;
-
-using static PearlCalculatorCP.AppCommandLineArgDefinitions;
+using PearlCalculatorCP.Models;
 
 namespace PearlCalculatorCP.Localizer
 {
@@ -16,7 +15,7 @@ namespace PearlCalculatorCP.Localizer
             StringBuilder sb = new StringBuilder();
             foreach (var lang in translator.Languages)
             {
-                if (lang.CanLoad(AppRuntimeSettings.IsDefined(UseSystemFont)))
+                if (lang.CanLoad())
                     sb.Append($"\"{lang.Language}\"  ");
             }
 

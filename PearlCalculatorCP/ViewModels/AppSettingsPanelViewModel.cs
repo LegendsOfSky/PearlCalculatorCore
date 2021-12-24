@@ -34,11 +34,10 @@ namespace PearlCalculatorCP.ViewModels
         public AppSettingsPanelViewModel()
         {
             Languages = new List<LanguageComboBoxModel>(Translator.Instance.Languages.Count + 1);
-
-            var isSystemFont = AppRuntimeSettings.IsDefined(AppCommandLineArgDefinitions.UseSystemFont);
+            
             foreach (var lang in Translator.Instance.Languages)
             {
-                if (lang.CanLoad(isSystemFont))
+                if (lang.CanLoad())
                 {
                     Languages.Add(new(lang.DisplayName, lang.FileName));
                 }

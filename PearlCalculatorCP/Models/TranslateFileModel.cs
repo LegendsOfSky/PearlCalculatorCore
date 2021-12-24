@@ -17,6 +17,11 @@ namespace PearlCalculatorCP.Models
         }
     }
 
+    public static class TranslateFileModelExtension
+    {
+        public static bool CanLoad(this TranslateFileModel model) => model.CanLoad(AppRuntimeSettings.UseSystemFont);
+    }
+
     [Flags]
     public enum TranslateFileLoadTypes
     {
