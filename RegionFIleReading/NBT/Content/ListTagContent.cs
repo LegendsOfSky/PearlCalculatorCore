@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class ListTagContent<T> : TagContent<List<TagContent<T>>> where T : ITagContent
     {
-        internal override TagType TagType => TagType.List;
+        public override TagType TagType => TagType.List;
     }
 }

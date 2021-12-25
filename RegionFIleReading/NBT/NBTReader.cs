@@ -9,41 +9,58 @@ namespace RegionFIleReading.NBT
 {
     internal unsafe static class NBTReader
     {
-        internal static CompoundTagContent ReadTag(ref byte* pointer)
+        private static CompoundTagContent ReadTag(ref byte* pointer)
         {
+            CompoundTagContent compoundTagContent = new CompoundTagContent();
+            
             TagType type = (TagType)(*pointer);
-            switch (type)
+            while (type != TagType.Null)
             {
-                case TagType.Null:
-                    break;
-                case TagType.Int:
-                    break;
-                case TagType.Short:
-                    break;
-                case TagType.Byte:
-                    break;
-                case TagType.Long:
-                    break;
-                case TagType.Float:
-                    break;
-                case TagType.Double:
-                    break;
-                case TagType.String:
-                    break;
-                case TagType.Compound:
-                    break;
-                case TagType.List:
-                    break;
-                case TagType.IntArray:
-                    break;
-                case TagType.ByteArray:
-                    break;
-                case TagType.LongArray:
-                    break;
-                default:
-                    break;
+#nullable disable
+                switch (type)
+                {
+                    case TagType.Null:
+                        break;
+                    case TagType.Int:
+                        compoundTagContent.Data.Add(ReadTagInt(ref pointer));
+                        break;
+                    case TagType.Short:
+                        compoundTagContent.Data.Add(ReadTagShort(ref pointer));
+                        break;
+                    case TagType.Byte:
+                        compoundTagContent.Data.Add(ReadTagByte(ref pointer));
+                        break;
+                    case TagType.Long:
+                        compoundTagContent.Data.Add(ReadTagLong(ref pointer));
+                        break;
+                    case TagType.Float:
+                        compoundTagContent.Data.Add(ReadTagFloat(ref pointer));
+                        break;
+                    case TagType.Double:
+                        compoundTagContent.Data.Add(ReadTagDouble(ref pointer));
+                        break;
+                    case TagType.String:
+                        compoundTagContent.Data.Add(ReadTagString(ref pointer));
+                        break;
+                    case TagType.Compound:
+                        compoundTagContent.Data.Add(ReadTagCompound(ref pointer));
+                        break;
+                    case TagType.List:
+                        compoundTagContent.Data.Add(ReadTagList(ref pointer));
+                        break;
+                    case TagType.IntArray:
+                        compoundTagContent.Data.Add(ReadTagIntArray(ref pointer));
+                        break;
+                    case TagType.ByteArray:
+                        compoundTagContent.Data.Add(ReadTagByteArray(ref pointer));
+                        break;
+                    case TagType.LongArray:
+                        compoundTagContent.Data.Add(ReadTagLongArray(ref pointer));
+                        break;
+                }
+#nullable enable
             }
-            throw new NotImplementedException();
+            return compoundTagContent;
         }
 
         private static string ReadString(ref byte* pointer)
@@ -120,7 +137,7 @@ namespace RegionFIleReading.NBT
         private static CompoundTagContent ReadTagCompound(ref byte* pointer)
         {
             CompoundTagContent content = CreateTag<CompoundTagContent>(ref pointer);
-            content.Data = ReadTag(ref pointer);
+            content.Data = ReadTag(ref pointer).Data;
             // WaitForTest : pointer++???
             return content;
         }

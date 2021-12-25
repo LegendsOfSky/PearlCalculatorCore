@@ -8,8 +8,8 @@ namespace RegionFIleReading.NBT.Content
 {
     internal abstract class TagContent<T> : ITagContent
     {
-        public T Data;
-        public string Name { get; set; }
+        public T? Data;
+        public string? Name { get; set; }
         public abstract TagType TagType { get; }
     }
 }

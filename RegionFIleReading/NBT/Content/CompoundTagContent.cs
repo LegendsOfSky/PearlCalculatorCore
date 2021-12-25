@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace RegionFIleReading.NBT.Content
 {
-    internal class CompoundTagContent : TagContent<ITagContent>
+    internal class CompoundTagContent : TagContent<List<ITagContent>>
     {
-        internal override TagType TagType => TagType.Compound;
+        public override TagType TagType => TagType.Compound;
+
+        public CompoundTagContent()
+        {
+            Data = new List<ITagContent>();
+        }
     }
 }
