@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class ByteArrayTagContent : TagContent<byte[]>
     {
-        internal override TagType TagType => TagType.ByteArray;
+        public override TagType TagType => TagType.ByteArray;
     }
 }

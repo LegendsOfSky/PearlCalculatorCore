@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class FloatTagContent : TagContent<float>
     {
-        internal override TagType TagType => TagType.Float;
+        public override TagType TagType => TagType.Float;
     }
 }

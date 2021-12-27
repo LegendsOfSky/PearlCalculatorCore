@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class DoubleTagContent : TagContent<double>
     {
-        internal override TagType TagType => TagType.Double;
+        public override TagType TagType => TagType.Double;
     }
 }

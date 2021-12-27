@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class LongArrayTagContent : TagContent<long[]>
     {
-        internal override TagType TagType => TagType.LongArray;
+        public override TagType TagType => TagType.LongArray;
     }
 }

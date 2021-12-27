@@ -9,17 +9,17 @@ namespace RegionFIleReading.NBT
     internal enum TagType : sbyte
     {
         Null,
-        Int,
-        Short,
         Byte,
+        Short,
+        Int,
         Long,
         Float,
         Double,
-        String,
-        Compound,
-        List,
-        IntArray,
         ByteArray,
+        String,
+        List,
+        Compound,
+        IntArray,
         LongArray,
     }
 }

@@ -8,6 +8,6 @@ namespace RegionFIleReading.NBT.Content
 {
     internal class ShortTagContent : TagContent<short>
     {
-        internal override TagType TagType => TagType.Short;
+        public override TagType TagType => TagType.Short;
     }
 }

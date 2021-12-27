@@ -3,11 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PearlCalculatorIntermediateLib\PearlCalculatorIntermediateLib.csproj" />
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
+    <ProjectReference Include="..\RegionFIleReading\RegionFIleReading.csproj" />
   </ItemGroup>
 
 </Project>

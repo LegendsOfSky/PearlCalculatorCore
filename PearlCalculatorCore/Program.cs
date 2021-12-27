@@ -15,44 +15,20 @@ using PearlCalculatorLib.Manually;
 using PearlCalculatorLib.Result;
 using PearlCalculatorIntermediateLib.Settings;
 using System.Text.Json;
+using System.Runtime.InteropServices;
+using RegionFIleReading;
 
 namespace PearlCalculatorCore
 {
     class Program
     {
-        static void Main(string[] args)
+        static unsafe void Main(string[] args)
         {
-            CannonSettings cannonSettings = new CannonSettings()
-            {
-                CannonName = "Test",
-                MaxTNT = 0,
-                DefaultBlueDirection = Direction.NorthEast,
-                DefaultRedDirection = Direction.SouthWest,
-                NorthEastTNT = Data.NorthEastTNT,
-                NorthWestTNT = Data.NorthWestTNT,
-                SouthEastTNT = Data.SouthEastTNT,
-                SouthWestTNT = Data.SouthWestTNT,
-                Pearl = Data.Pearl,
-                Offset = Data.PearlOffset,
-            };
-
-            SettingsColletion settingsColletion = new SettingsColletion()
-            {
-                RedTNT = 10,
-                BlueTNT = 10,
-                Version = SettingsColletion.CurrentVersion,
-                SelectedCannon = "Test",
-                Direction = Direction.North,
-                Destination = new Surface2D(10 , 10),
-                CannonSettings = new CannonSettings[] {cannonSettings }
-            };
-
-            JsonSerializerOptions option = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true};
-            string json = JsonSerializer.Serialize(settingsColletion , option);
-            File.WriteAllText(@"G:\json.json" , json);
-
-            string text = File.ReadAllText(@"G:\SMT_588FTL_by_LegendsOfSky.json");
-            SettingsColletion collection = JsonUtils.DeSerialize(text);
+            Span<byte> data = new Span<byte>(File.ReadAllBytes(@"M:\ChunkData\ChunkData0"));
+            IntPtr pointer = Marshal.AllocHGlobal(data.Length);
+            Marshal.Copy(data.ToArray() , 0 , pointer , data.Length);
+            RegionFileHandler.Read((byte*)pointer);
+            Console.ReadKey();
         }
     }
 }

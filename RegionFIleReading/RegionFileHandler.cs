@@ -1,4 +1,5 @@
 ﻿using RegionFIleReading.NBT;
+using RegionFIleReading.NBT.Content;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
@@ -68,6 +69,12 @@ namespace RegionFIleReading
                 
                 File.WriteAllBytes("M:\\ChunkData\\ChunkData" + i , spanResultByte.ToArray());
             }
+        }
+
+        public static unsafe void Read(byte* pointer)
+        {
+            CompoundTagContent content = new CompoundTagContent();
+            content = NBTReader.ReadTag(ref pointer);
         }
     }
 }

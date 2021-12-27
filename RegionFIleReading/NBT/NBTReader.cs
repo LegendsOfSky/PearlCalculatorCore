@@ -9,7 +9,7 @@ namespace RegionFIleReading.NBT
 {
     internal unsafe static class NBTReader
     {
-        private static CompoundTagContent ReadTag(ref byte* pointer)
+        internal static CompoundTagContent ReadTag(ref byte* pointer)
         {
             CompoundTagContent compoundTagContent = new CompoundTagContent();
             
@@ -17,6 +17,7 @@ namespace RegionFIleReading.NBT
             while (type != TagType.Null)
             {
 #nullable disable
+                type = (TagType)(*pointer);
                 switch (type)
                 {
                     case TagType.Null:
@@ -65,8 +66,8 @@ namespace RegionFIleReading.NBT
 
         private static string ReadString(ref byte* pointer)
         {
-            string name = new string((char*)(pointer + 1) , 0 , *pointer);
-            pointer += *pointer;
+            string name = new string((sbyte*)(pointer + 1) , 0 , *pointer , Encoding.ASCII);
+            pointer += *pointer + 1;
             return name;
         }
 
@@ -129,8 +130,8 @@ namespace RegionFIleReading.NBT
         private static StringTagContent ReadTagString(ref byte* pointer)
         {
             StringTagContent content = CreateTag<StringTagContent>(ref pointer);
+            pointer++;
             content.Data = ReadString(ref pointer);
-            pointer += content.Data.Length;
             return content;
         }
 
@@ -138,7 +139,6 @@ namespace RegionFIleReading.NBT
         {
             CompoundTagContent content = CreateTag<CompoundTagContent>(ref pointer);
             content.Data = ReadTag(ref pointer).Data;
-            // WaitForTest : pointer++???
             return content;
         }
 
