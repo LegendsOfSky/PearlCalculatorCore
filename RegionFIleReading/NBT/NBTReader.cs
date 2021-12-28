@@ -1,5 +1,6 @@
 ﻿using RegionFIleReading.NBT.Content;
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -152,21 +153,42 @@ namespace RegionFIleReading.NBT
         private static IntArrayTagContent ReadTagIntArray(ref byte* pointer)
         {
             IntArrayTagContent content = CreateTag<IntArrayTagContent>(ref pointer);
-            // Unfinish : Read IntArray Data
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            content.Data = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                content.Data[i] = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+                pointer += 4;
+            }
             return content;
         }
 
         private static ByteArrayTagContent ReadTagByteArray(ref byte* pointer)
         {
             ByteArrayTagContent content = CreateTag<ByteArrayTagContent>(ref pointer);
-            //Unfinish : Read ByteArray Data
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            content.Data = new byte[length];
+            for (int i = 0; i < length; i++)
+            {
+                content.Data[i] = BinaryPrimitives.ReverseEndianness(*pointer);
+                pointer++;
+            }
             return content;
         }
 
         private static LongArrayTagContent ReadTagLongArray(ref byte* pointer)
         {
             LongArrayTagContent content = CreateTag<LongArrayTagContent>(ref pointer);
-            //Unfinish : ReadByteArray Data
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            content.Data = new long[length];
+            for (int i = 0; i < length; i++)
+            {
+                content.Data[i] = BinaryPrimitives.ReverseEndianness(*(long*)pointer);
+                pointer += 8;
+            }
             return content;
         }
     }
