@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RegionFIleReading.NBT.Content
 {
-    internal class ListTagContent<T> : TagContent<List<TagContent<T>>> where T : ITagContent
+    internal class ListTagContent<T> : TagContent<List<T>> where T : ITagContent
     {
         public override TagType TagType => TagType.List;
     }

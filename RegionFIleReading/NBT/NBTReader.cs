@@ -2,7 +2,10 @@
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,6 +65,7 @@ namespace RegionFIleReading.NBT
                 }
 #nullable enable
             }
+            pointer++;
             return compoundTagContent;
         }
 
@@ -145,9 +149,46 @@ namespace RegionFIleReading.NBT
 
         private static ListTagContent<ITagContent> ReadTagList(ref byte* pointer)
         {
-            ListTagContent<ITagContent> content = CreateTag<ListTagContent<ITagContent>>(ref pointer);
-            // Unfinish : Read List Data
-            return content;
+            ListTagContent<ITagContent> contents = CreateTag<ListTagContent<ITagContent>>(ref pointer);
+            TagType tagType = (TagType)(*pointer);
+            pointer++;
+
+            switch (tagType)
+            {
+                case TagType.Null:
+                    int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+                    pointer += (length + 1) * 4;
+                    break;
+                case TagType.Compound:
+                    contents.Data = GetCompoundTagContentsInTagList(ref pointer);
+                    break;
+
+                case TagType.Byte:
+                case TagType.Short:
+                case TagType.Int:
+                case TagType.Long:
+                case TagType.Float:
+                case TagType.Double:
+                case TagType.ByteArray:
+                case TagType.String:
+                case TagType.List:
+                case TagType.IntArray:
+                case TagType.LongArray:
+                default:
+                    throw new NotImplementedException();
+            }
+
+            return contents;
+        }
+
+        private static List<ITagContent> GetCompoundTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+                contents.Add(ReadTag(ref pointer));
+            return contents;
         }
 
         private static IntArrayTagContent ReadTagIntArray(ref byte* pointer)
