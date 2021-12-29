@@ -11,5 +11,15 @@ namespace RegionFIleReading.NBT.Content
         public T? Data;
         public string? Name { get; set; }
         public abstract TagType TagType { get; }
+
+
+
+        public override string ToString()
+        {
+            if (Name == null)
+                return "Null";
+            else
+                return Name;
+        }
     }
 }

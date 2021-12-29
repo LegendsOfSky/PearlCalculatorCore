@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Reflection.Metadata;
@@ -162,6 +163,9 @@ namespace RegionFIleReading.NBT
                 case TagType.Compound:
                     contents.Data = GetCompoundTagContentsInTagList(ref pointer);
                     break;
+                case TagType.List:
+                    contents.Data = GetListTagContentsInTaglist(ref pointer);
+                    break;
 
                 case TagType.Byte:
                 case TagType.Short:
@@ -171,7 +175,6 @@ namespace RegionFIleReading.NBT
                 case TagType.Double:
                 case TagType.ByteArray:
                 case TagType.String:
-                case TagType.List:
                 case TagType.IntArray:
                 case TagType.LongArray:
                 default:
@@ -188,6 +191,49 @@ namespace RegionFIleReading.NBT
             pointer += 4;
             for (int i = 0; i < length; i++)
                 contents.Add(ReadTag(ref pointer));
+            return contents;
+        }
+
+        private static List<ITagContent> GetListTagContentsInTaglist(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            ListTagContent<ITagContent> subContent = new ListTagContent<ITagContent>();
+            int listLength = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+
+            for (int i = 0; i < listLength; i++)
+            {
+                TagType tagType = (TagType)(*pointer);
+                switch (tagType)
+                {
+                    case TagType.Null:
+                        int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+                        pointer += (length + 1) * 4;
+                        break;
+                    case TagType.Compound:
+                        subContent.Data = GetCompoundTagContentsInTagList(ref pointer);
+                        break;
+                        //WaitForTest : List in List
+                    case TagType.List:
+                        subContent.Data = GetListTagContentsInTaglist(ref pointer);
+                        break;
+
+                    case TagType.Byte:
+                    case TagType.Short:
+                    case TagType.Int:
+                    case TagType.Long:
+                    case TagType.Float:
+                    case TagType.Double:
+                    case TagType.ByteArray:
+                    case TagType.String:
+                    case TagType.IntArray:
+                    case TagType.LongArray:
+                    default:
+                        throw new NotImplementedException();
+                }
+                contents.Add(subContent);
+            }
+
             return contents;
         }
 
