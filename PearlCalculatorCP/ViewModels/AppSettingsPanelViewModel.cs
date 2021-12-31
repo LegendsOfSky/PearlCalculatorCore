@@ -60,6 +60,8 @@ namespace PearlCalculatorCP.ViewModels
                 RaiseAndSetProperty(ref _curSelectLanguage, langOptModel, nameof(CurSelectLanguage));
                 RefreshSetDefaultState();
             };
+            
+            RefreshSetDefaultState();
         }
         
         public void ChangeLanguageOptional(string lang)

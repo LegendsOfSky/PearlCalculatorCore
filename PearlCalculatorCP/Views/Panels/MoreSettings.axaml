@@ -44,6 +44,11 @@
         <Style Selector="ComboBox">
             <Setter Property="Margin" Value="33,0,0,4" />
         </Style>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="ToolTip.VerticalOffset" Value="5" />
+        </Style>
+        
     </UserControl.Styles>
 
     <Grid RowDefinitions="*, Auto">

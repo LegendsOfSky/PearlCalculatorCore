@@ -61,8 +61,8 @@
 
     <Style Selector="Border.ToolTipContentBorder">
         <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
-        <Setter Property="Padding" Value="2" />
+        <Setter Property="Padding" Value="{DynamicResource ToolTipPadding}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource FluentPopupCornerRadius}" />
     </Style>
     
 </Styles>

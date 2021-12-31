@@ -55,27 +55,6 @@
             <Setter Property="Width" Value="2" />
             <Setter Property="MinWidth" Value="1" />
         </Style>
-        
-
-        <Style Selector="TextBlock.ResultListTBPadding">
-            <Setter Property="Padding" Value="5, 2" />
-        </Style>
-
-        <!--Tooltip Styles-->
-
-        <Style Selector="ToolTip">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-        </Style>
-
-
-        <Style Selector="Border.ToolTipContentBorder">
-            <Setter Property="Background" Value="{DynamicResource ToolTipBackground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ToolTipBorderBrush}" />
-            <Setter Property="Padding" Value="2" />
-        </Style>
-
-        <!--End-->
 
     </Window.Styles>
 
