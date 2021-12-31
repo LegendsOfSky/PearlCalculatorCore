@@ -17,6 +17,9 @@ using PearlCalculatorIntermediateLib.Settings;
 using System.Text.Json;
 using System.Runtime.InteropServices;
 using RegionFIleReading;
+using System.Resources;
+using System.Reflection;
+using System.Text;
 
 namespace PearlCalculatorCore
 {
@@ -24,10 +27,9 @@ namespace PearlCalculatorCore
     {
         static unsafe void Main(string[] args)
         {
-            Span<byte> data = new Span<byte>(File.ReadAllBytes(@"M:\ChunkData\ChunkData0"));
-            IntPtr pointer = Marshal.AllocHGlobal(data.Length);
-            Marshal.Copy(data.ToArray() , 0 , pointer , data.Length);
-            RegionFileHandler.Read((byte*)pointer);
+            RegionFileHandler.Test();
+
+            Console.WriteLine("End");
             Console.ReadKey();
         }
     }

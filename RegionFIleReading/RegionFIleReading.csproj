@@ -7,4 +7,19 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\NonSolidBlockList.txt" />
+    <None Remove="Resources\SolidBlockList.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\NonSolidBlockList.txt" />
+    <EmbeddedResource Include="Resources\SolidBlockList.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\NonSolidBlockList.txt" />
+    <Resource Include="Resources\SolidBlockList.txt" />
+  </ItemGroup>
+
 </Project>

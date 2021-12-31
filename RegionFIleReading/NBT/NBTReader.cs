@@ -17,7 +17,6 @@ namespace RegionFIleReading.NBT
         internal static CompoundTagContent ReadTag(ref byte* pointer)
         {
             CompoundTagContent compoundTagContent = new CompoundTagContent();
-            
             TagType type = (TagType)(*pointer);
             while (type != TagType.Null)
             {

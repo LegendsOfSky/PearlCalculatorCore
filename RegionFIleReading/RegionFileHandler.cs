@@ -5,6 +5,7 @@ using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,15 +67,42 @@ namespace RegionFIleReading
                     using MemoryStream memory = new MemoryStream(compressedData);
                     memory.Read(spanResultByte);
                 }
-                
+                byte* pointer = (byte*)stackAddress;
+                CompoundTagContent content = NBTReader.ReadTag(ref pointer);
+
                 File.WriteAllBytes("M:\\ChunkData\\ChunkData" + i , spanResultByte.ToArray());
             }
+        }
+
+        public static void Analyze()
+        {
+
         }
 
         public static unsafe void Read(byte* pointer)
         {
             CompoundTagContent content = new CompoundTagContent();
             content = NBTReader.ReadTag(ref pointer);
+        }
+
+        public static void Test()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string[] name = assembly.GetManifestResourceNames();
+            List<string> list = new List<string>();
+            foreach (var item in name)
+            {
+                using (Stream stream = assembly.GetManifestResourceStream(item))
+                {
+                    if (stream != null)
+                    {
+                        byte[] data = new byte[stream.Length];
+                        stream.Read(data , 0 , (int)stream.Length);
+                        string str = Encoding.Default.GetString(data);
+                        list.Add(str);
+                    }
+                }
+            }
         }
     }
 }
