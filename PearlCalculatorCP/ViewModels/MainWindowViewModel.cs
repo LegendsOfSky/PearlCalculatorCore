@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
 using PearlCalculatorCP.Models;
@@ -9,8 +10,6 @@ using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.Settings;
 using ReactiveUI;
-
-using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -152,6 +151,14 @@ namespace PearlCalculatorCP.ViewModels
 
 #endregion
 
+        private ObservableCollection<string> _configSelectList = new();
+
+        public ObservableCollection<string> ConfigSelectList
+        {
+            get => _configSelectList;
+            set => this.RaiseAndSetIfChanged(ref _configSelectList, value);
+        }
+
         public MainWindowViewModel()
         {
             _direction = Data.Direction;
@@ -175,6 +182,11 @@ namespace PearlCalculatorCP.ViewModels
                 
                 _isEnableIfChanged = true;
             });
+
+            for (int i = 0; i < 10; i++)
+            {
+                _configSelectList.Add($"Default ({i.ToString()})");
+            }
             
             this.ApplyScale();
         }

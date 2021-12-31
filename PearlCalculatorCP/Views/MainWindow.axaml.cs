@@ -32,6 +32,8 @@ namespace PearlCalculatorCP.Views
         private Popup _appSettingsPopup;
         private SplitView _settingsSplitView;
 
+        private Popup _cannonSettingsPopup;
+
 
         public MainWindow()
         {
@@ -61,6 +63,7 @@ namespace PearlCalculatorCP.Views
             AvaloniaXamlLoader.Load(this);
             _appSettingsPopup = this.FindControl<Popup>("AppSettingsPopup");
             _settingsSplitView = this.FindControl<SplitView>("SettingsSplitView");
+            _cannonSettingsPopup = this.FindControl<Popup>("CannonSettingsPopup");
         }
 
         private void Window_OnTapped(object sender, RoutedEventArgs e)
@@ -172,6 +175,11 @@ namespace PearlCalculatorCP.Views
         private void SwitchSplitOpenState(object sender, RoutedEventArgs e)
         {
             _settingsSplitView.IsPaneOpen = !_settingsSplitView.IsPaneOpen;
+        }
+
+        private void CannonSettingsListBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            _cannonSettingsPopup.Open();
         }
     }
 }
