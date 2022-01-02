@@ -20,6 +20,9 @@ using RegionFIleReading;
 using System.Resources;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Linq;
+using System.Reflection.Metadata;
 
 namespace PearlCalculatorCore
 {
@@ -28,7 +31,6 @@ namespace PearlCalculatorCore
         static unsafe void Main(string[] args)
         {
             RegionFileHandler.Test();
-
             Console.WriteLine("End");
             Console.ReadKey();
         }
