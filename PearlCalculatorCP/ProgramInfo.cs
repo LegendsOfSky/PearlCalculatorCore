@@ -8,15 +8,21 @@ namespace PearlCalculatorCP
 {
     public static class ProgramInfo
     {
-        public static string Version { get; private set; }
+        public static readonly string Version;
 
         public static string Title => $"PearlCalculator v{Version}";
 
-        public static string BaseDirectory { get; private set; }
+#if DEBUG
+        public static string VersionWithEnv => $"{Version} (development)";
+#else
+        public static string VersionWithEnv => $"{Version} (release)";
+#endif
+
+        public static readonly string BaseDirectory;
 
         static ProgramInfo()
         {
-            Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version;
             BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
     }

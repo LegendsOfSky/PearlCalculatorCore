@@ -1,8 +1,6 @@
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace PearlCalculatorCP.ViewModels
 {
@@ -18,13 +16,11 @@ namespace PearlCalculatorCP.ViewModels
             return newValue;
         }
 
-        protected TRet RaiseAndSetOrIfChanged<TRet>(ref TRet backingField, ref TRet newValue, bool isIfChanged,
-            [CallerMemberName] string? propertyName = null)
+        protected TRet RaiseAndSetOrIfChanged<TRet>(ref TRet backingField, TRet newValue, bool isIfChanged, [CallerMemberName] string? propertyName = null)
         {
             return isIfChanged
                 ? this.RaiseAndSetIfChanged(ref backingField, newValue, propertyName)
                 : RaiseAndSetProperty(ref backingField, newValue, propertyName);
-
         }
     }
 }

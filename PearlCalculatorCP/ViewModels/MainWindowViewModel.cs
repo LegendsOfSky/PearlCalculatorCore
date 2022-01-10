@@ -1,28 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
-using Avalonia.Media;
 using PearlCalculatorCP.Models;
-using PearlCalculatorCP.Localizer;
 using PearlCalculatorCP.Utils;
-using PearlCalculatorCP.Views;
 using PearlCalculatorLib.General;
 using PearlCalculatorLib.PearlCalculationLib.Utility;
 using PearlCalculatorLib.PearlCalculationLib.World;
+using PearlCalculatorLib.Settings;
 using ReactiveUI;
-
-using ManuallyCalculation = PearlCalculatorLib.Manually.Calculation;
-using ManuallyData = PearlCalculatorLib.Manually.ManuallyData;
 
 namespace PearlCalculatorCP.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IWindowViewModelScale
     {
-        #region Window Scale
 
-        private static readonly Size DefaultWindowSize = new Size(1000, 800);
-        
+        private static readonly Size DefaultWindowSize = new(1000, 800);
+        private const double DefaultAppSettingsPopupWidth = 350;
+
         private Size _windowSize = DefaultWindowSize;
         public Size WindowSize
         {
@@ -30,18 +26,27 @@ namespace PearlCalculatorCP.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _windowSize, value);
         }
 
+        private double _appSettingsPopupWidth = DefaultAppSettingsPopupWidth;
+        public double AppSettingsPopupWidth
+        {
+            get => _appSettingsPopupWidth;
+            private set => this.RaiseAndSetIfChanged(ref _appSettingsPopupWidth, value);
+        }
+        
         private double _windowScale = 1.0d;
         public double WindowScale
         {
             get => _windowScale;
-            private set
+            set
             {
-                this.RaiseAndSetIfChanged(ref _windowScale, value);
+                if (value <= 0 || _windowScale == value)
+                    return;
+                
+                RaiseAndSetProperty(ref _windowScale, value);
                 WindowSize = DefaultWindowSize * value;
+                AppSettingsPopupWidth = DefaultAppSettingsPopupWidth * value;
             }
         }
-
-        #endregion
         
         
         //this field for RaiseAndSetIfChanged()
@@ -50,7 +55,7 @@ namespace PearlCalculatorCP.ViewModels
         public static int MaxTicks { get; set; } = 100;
         public static double MaxDistance { get; set; } = 10;
 
-        #region GeneralFTL General Input Data
+#region GeneralFTL General Input Data
         
         private double _pearlPosX;
         public double PearlPosX
@@ -58,8 +63,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlPosX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlPosX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlPosX, ref Data.Pearl.Position.X);
+                RaiseAndSetOrIfChanged(ref _pearlPosX, value, _isEnableIfChanged);
+                Data.Pearl.Position.X = _pearlPosX;
             }
         }
 
@@ -69,8 +74,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlPosZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlPosZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlPosZ, ref Data.Pearl.Position.Z);
+                RaiseAndSetOrIfChanged(ref _pearlPosZ, value, _isEnableIfChanged);
+                Data.Pearl.Position.Z = _pearlPosZ;
             }
         }
 
@@ -80,8 +85,10 @@ namespace PearlCalculatorCP.ViewModels
             get => _destinationX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _destinationX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _destinationX, ref Data.Destination.X);
+                RaiseAndSetOrIfChanged(ref _destinationX, value, _isEnableIfChanged);
+                var des = Data.Destination;
+                des.X = _destinationX;
+                Data.Destination = des;
             }
         }
 
@@ -91,59 +98,71 @@ namespace PearlCalculatorCP.ViewModels
             get => _destinationZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _destinationZ, ref value, _isEnableIfChanged);
-                DataUpdate (ref _destinationZ, ref Data.Destination.Z);
+                RaiseAndSetOrIfChanged(ref _destinationZ, value, _isEnableIfChanged);
+                var des = Data.Destination;
+                des.Z = _destinationZ;
+                Data.Destination = des;
             }
         }
 
+        private uint _maxTNT;
         public uint MaxTNT
         {
-            get => (uint)Data.MaxTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.MaxTNT, (int)value);
-        }
-
-        public Direction Direction
-        {
-            get => Data.Direction;
-            set => this.RaiseAndSetIfChanged(ref Data.Direction, value);
-        }
-
-        public uint RedTNT
-        {
-            get => (uint)Data.RedTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.RedTNT, (int)value);
-        }
-
-        public uint BlueTNT
-        {
-            get => (uint)Data.BlueTNT;
-            set => this.RaiseAndSetIfChanged(ref Data.BlueTNT, (int)value);
-        }
-
-        #endregion
-
-        private IBrush _moreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
-        public IBrush MoreInfoBrush
-        {
-            get => _moreInfoBrush;
+            get => _maxTNT;
             set
             {
-                this.RaisePropertyChanging();
-                _moreInfoBrush = value;
-                this.RaisePropertyChanged();
+                RaiseAndSetOrIfChanged(ref _maxTNT, value, _isEnableIfChanged);
+                Data.MaxTNT = (int)_maxTNT;
             }
         }
+
+        private Direction _direction;
+        public Direction Direction
+        {
+            get => _direction;
+            set
+            {
+                RaiseAndSetOrIfChanged(ref _direction, value, _isEnableIfChanged);
+                Data.Direction = _direction;
+            }
+        }
+
+        private uint _redTNT;
+        public uint RedTNT
+        {
+            get => _redTNT;
+            set
+            {
+                RaiseAndSetOrIfChanged(ref _redTNT, value, _isEnableIfChanged);
+                Data.RedTNT = (int)_redTNT;
+            }
+        }
+
+        private uint _blueTNT;
+        public uint BlueTNT
+        {
+            get => _blueTNT;
+            set
+            {
+                RaiseAndSetOrIfChanged(ref _blueTNT, value, _isEnableIfChanged);
+                Data.BlueTNT = (int)_blueTNT;
+            }
+        }
+
+#endregion
 
         public MainWindowViewModel()
         {
-            EventManager.AddListener<SetRTCountArgs>("setRTCount", (sender, args) =>
+            _direction = Data.Direction;
+            
+            EventManager.AddListener<SetRTCountArgs>("setRTCount", (_, args) =>
             {
                 RedTNT = (uint) args.Red;
                 BlueTNT = (uint) args.Blue;
                 Direction = DirectionUtils.GetDirection(Data.Pearl.Position.WorldAngle(Data.Destination));
             });
             
-            EventManager.AddListener<NotificationArgs>("resetSettings", (sender, args) =>
+            EventManager.AddListener<NotificationArgs>("resetSettings", (_, _) =>
             {
                 _isEnableIfChanged = false;
                 
@@ -151,34 +170,29 @@ namespace PearlCalculatorCP.ViewModels
                 PearlPosZ      = Data.Pearl.Position.Z;
                 DestinationX   = Data.Destination.X;
                 DestinationZ   = Data.Destination.Z;
+                Direction      = Data.Direction;
                 
                 _isEnableIfChanged = true;
             });
+
+            this.ApplyScale();
         }
 
-        public MainWindowViewModel(ref Action? onStartupCompleted) : this()
+        public void LoadDataFormSettings(SettingsCollection settings)
         {
-            onStartupCompleted = () =>
-            {
-                if (AppRuntimeSettings.Settings.TryGetValue("scale", out var s))
-                    WindowScale = (double)s;
-            };
-        }
-        
-
-        public void LoadDataFormSettings(Settings settings)
-        {
-            Data.Pearl = settings.Pearl;
+            var cannon = settings.CannonSettings[0];
             
-            Data.Destination = settings.Destination;
+            Data.Pearl = cannon.Pearl;
+            
+            Data.Destination = settings.Destination.ToSpace3D();
 
-            PearlPosX      = settings.Pearl.Position.X;
-            PearlPosZ      = settings.Pearl.Position.Z;
+            PearlPosX      = cannon.Pearl.Position.X;
+            PearlPosZ      = cannon.Pearl.Position.Z;
             DestinationX   = settings.Destination.X;
             DestinationZ   = settings.Destination.Z;
             BlueTNT        = (uint) settings.BlueTNT;
             RedTNT         = (uint) settings.RedTNT;
-            MaxTNT         = (uint) settings.MaxTNT;
+            MaxTNT         = (uint) cannon.MaxTNT;
             Direction      = settings.Direction;
             
             EventManager.PublishEvent(this, "loadSettings", new LoadSettingsArgs("LoadSettings", settings));
@@ -190,7 +204,7 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        #region Calculate
+#region Calculate
         
         public void CalculateTNTAmount()
         {
@@ -243,9 +257,9 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
         
-        #endregion
+#endregion
 
-        #region Result Show
+#region Result Show
 
         private void ShowDirectionResult(Space3D pearlPos, Space3D destination)
         {
@@ -254,34 +268,6 @@ namespace PearlCalculatorCP.ViewModels
             EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("GeneralFTL", direction, angle.ToString()));
         }
         
-        #endregion
-
-        public void ChangeLanguageOptional(string lang)
-        {
-            CommandManager.Instance.ExecuteCommand(
-                Translator.Instance.CurrentLanguage == lang
-                ? $"setDefaultLang {lang}"
-                : $"changeLang {lang}");
-        }
-
-        private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
-        {
-            if (!vmBacking.Equals(dataBacking))
-                dataBacking = vmBacking;
-        }
-    }
-
-    //I don't know why ComboBox.SelectedItem cause a issue
-    //avalonia can't resolve item form string
-    //may need to ComboBoxItem?
-    //So, i decide use a Enum link Direction Enum to ComboBox.SelectedIndex
-    //and selectedIndex form the enum
-    //it's value(int) is the same as ComboBoxItem index
-    internal enum ComboBoxDireEnum
-    {
-        NorthWest,
-        NorthEast,
-        SouthWest,
-        SouthEast
+#endregion
     }
 }

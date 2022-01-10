@@ -34,7 +34,7 @@ namespace PearlCalculatorCP.ViewModels
             set
             {
                 if (Data.TNTWeight == value) return;
-                this.RaiseAndSetIfChanged(ref Data.TNTWeight, value);
+                Data.TNTWeight = value;
                 EventManager.PublishEvent(this, "tntWeightChanged", 
                     WeightMode == TNTWeightModeEnum.Distance ? _distanceModeArgs : _totalModeArgs);
             }
@@ -48,7 +48,7 @@ namespace PearlCalculatorCP.ViewModels
             {
                 if (value == _weightMode) return;
                 
-                this.RaiseAndSetProperty(ref _weightMode, value);
+                RaiseAndSetProperty(ref _weightMode, value);
                 StaticWeightMode = value;
                 EventManager.PublishEvent(this, "tntWeightChanged", 
                     value == TNTWeightModeEnum.Distance ? _distanceModeArgs : _totalModeArgs);
@@ -59,28 +59,17 @@ namespace PearlCalculatorCP.ViewModels
 
         public static TNTWeightModeEnum StaticWeightMode { get; private set; } = TNTWeightModeEnum.Distance;
 
-        private static TNTWeightChangedArgs _distanceModeArgs = new TNTWeightChangedArgs("GeneralFTL_Advance", TNTWeightModeEnum.Distance);
-        private static TNTWeightChangedArgs _totalModeArgs = new TNTWeightChangedArgs("GeneralFTL_Advance", TNTWeightModeEnum.Total);
-
-
-        private bool _enableChunkMode;
-        public bool EnableChunkMode
-        {
-            get => _enableChunkMode;
-            set
-            {
-                _enableChunkMode = value;
-                EventManager.PublishEvent(this, "switchChunkMode", new SwitchChunkModeArgs("OtherSettings", value));
-            }
-        }
-
+        private static TNTWeightChangedArgs _distanceModeArgs = new("GeneralFTL_Advance", TNTWeightModeEnum.Distance);
+        private static TNTWeightChangedArgs _totalModeArgs = new("GeneralFTL_Advance", TNTWeightModeEnum.Total);
 
         public AdvanceViewModel()
         {
             EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
             {
-                PearlOffsetX = args.Settings.Offset.X;
-                PearlOffsetZ = args.Settings.Offset.Z;
+                TNTWeight = args.Settings.TNTWeight;
+                
+                PearlOffsetX = args.Settings.CannonSettings[0].Offset.X;
+                PearlOffsetZ = args.Settings.CannonSettings[0].Offset.Z;
             });
         }
     }

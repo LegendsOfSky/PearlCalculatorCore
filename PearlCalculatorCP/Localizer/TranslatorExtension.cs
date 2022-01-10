@@ -1,4 +1,5 @@
 using System.Text;
+using PearlCalculatorCP.Models;
 
 namespace PearlCalculatorCP.Localizer
 {
@@ -13,7 +14,10 @@ namespace PearlCalculatorCP.Localizer
             
             StringBuilder sb = new StringBuilder();
             foreach (var lang in translator.Languages)
-                sb.Append($"\"{lang}\"  ");
+            {
+                if (lang.CanLoad())
+                    sb.Append($"\"{lang.Language}\"  ");
+            }
 
             _langOpt = sb.ToString();
             return _langOpt;

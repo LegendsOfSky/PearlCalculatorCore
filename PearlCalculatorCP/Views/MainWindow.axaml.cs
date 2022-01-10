@@ -4,16 +4,14 @@ using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using PearlCalculatorCP.Utils;
 using PearlCalculatorCP.ViewModels;
 using PearlCalculatorLib.General;
 using System.Text;
-using System.Text.Json;
+using Avalonia.Controls.Primitives;
+using PearlCalculatorLib.Settings;
 
 #nullable disable
 
@@ -22,40 +20,24 @@ namespace PearlCalculatorCP.Views
     public class MainWindow : Window
     {
 
-        private static readonly List<FileDialogFilter> FileDialogFilter = new List<FileDialogFilter>
+        private static readonly List<FileDialogFilter> FileDialogFilter = new()
         {
-            new FileDialogFilter
-            {
-                Name = "json",
-                Extensions = {"json"}
-            },
-        };
-        
-        private static readonly SettingsJsonConverter JsonConverter = new SettingsJsonConverter();
-        
-        private static readonly JsonSerializerOptions WriteSerializerOptions = new JsonSerializerOptions
-        {
-            Converters = { JsonConverter },
-            WriteIndented = true
+            new(){Name = "json", Extensions = {"json"}},
         };
 
-        private static readonly JsonSerializerOptions ReadSerializerOptions = new JsonSerializerOptions
-        {
-            Converters = { JsonConverter }
-        };
-        
         private bool _isLoadDefaultSettings;
         
         private MainWindowViewModel _vm;
+        
+        private Popup _appSettingsPopup;
+        private SplitView _settingsSplitView;
 
-        private Button _moreInfoBtn;
-        
-        
+
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContextChanged += (sender, args) =>
+            DataContextChanged += (_, _) =>
             {
                 _vm = DataContext as MainWindowViewModel;
                 
@@ -77,18 +59,17 @@ namespace PearlCalculatorCP.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            //this.FindControl<RadioButton>("MixedWeightRB").IsChecked = true;
-
-            _moreInfoBtn = this.FindControl<Button>("MoreInfoBtn");
+            _appSettingsPopup = this.FindControl<Popup>("AppSettingsPopup");
+            _settingsSplitView = this.FindControl<SplitView>("SettingsSplitView");
         }
 
         private void Window_OnTapped(object sender, RoutedEventArgs e)
         {
-            if (!(e.Source is TextPresenter))
+            if (e.Source is not TextPresenter)
                 this.Focus();
         }
 
-        #region Settings Import/Export
+#region Settings Import/Export
 
         private async void ImportSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
@@ -104,7 +85,7 @@ namespace PearlCalculatorCP.Views
             var json = await File.ReadAllTextAsync(path, Encoding.UTF8);
             try
             {
-                _vm.LoadDataFormSettings(JsonSerializer.Deserialize<Settings>(json, ReadSerializerOptions));
+                _vm.LoadDataFormSettings(JsonUtility.DeSerialize(json));
             }
             catch (Exception)
             {
@@ -123,34 +104,52 @@ namespace PearlCalculatorCP.Views
         
         private async void SaveSettings(string path)
         {
-            var json = JsonSerializer.SerializeToUtf8Bytes(Settings.CreateSettingsFormData(), WriteSerializerOptions);
+            var settings = new SettingsCollection
+            {
+                Version = SettingsCollection.CurrentVersion,
+                RedTNT = Data.RedTNT,
+                BlueTNT = Data.BlueTNT,
+                TNTWeight = Data.TNTWeight,
+                SelectedCannon = string.Empty,
+                Direction = Data.Direction,
+                Destination = Data.Destination.ToSurface2D(),
+                CannonSettings = new[]
+                {
+                    new CannonSettings
+                    {
+                        CannonName = "Default",
+                        MaxTNT = Data.MaxTNT,
+                        DefaultRedDirection = Data.DefaultRedDuper,
+                        DefaultBlueDirection = Data.DefaultBlueDuper,
+                        NorthWestTNT = Data.NorthWestTNT,
+                        NorthEastTNT = Data.NorthEastTNT,
+                        SouthWestTNT = Data.NorthWestTNT,
+                        SouthEastTNT = Data.SouthEastTNT,
+                        Pearl = Data.Pearl,
+                        Offset = Data.PearlOffset,
+                        RedTNTConfiguration = Data.RedTNTConfiguration,
+                        BlueTNTConfiguration = Data.BlueTNTConfiguration
+                    }
+                }
+            };
+
+            var json = JsonUtility.SerializeToUtf8Bytes(settings);
 
             using var sr = File.OpenWrite(path);
             sr.SetLength(0);
             await sr.WriteAsync(json.AsMemory());
         }
 
-        #endregion
+#endregion
 
         private void NumericUpDownToUInt_OnValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {
             NumericBoxUtils.ToUInt(sender as NumericUpDown, e);
         }
-
-        private void MoreInfoBtn_OnPointerEnter(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.OnEnterMoreInfoBrush;
-
-        private void MoreInfoBtn_OnPointerLeave(object sender, PointerEventArgs e) => _vm.MoreInfoBrush = MainWindowMoreInfoColor.DefaultMoreInfoBrush;
-
-        private void MoreInfoBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            _moreInfoBtn.ContextMenu.PlacementTarget = (Control)sender;
-            _moreInfoBtn.ContextMenu.PlacementMode = PlacementMode.Bottom;
-            _moreInfoBtn.ContextMenu.Open();
-        }
-
+        
         private void OpenGithubLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://github.com/LegendsOfSky/PearlCalculatorCore");
-
-        private void OpenAboutWindow(object sender, RoutedEventArgs e) => AboutWindow.OpenWindow(this);
+        
+        private void OpenDiscordLink(object sender, RoutedEventArgs e) => UrlUtils.OpenUrl("https://discord.gg/seAMcy2eGN");
 
         private async void SetDefaultSettings(object sender, RoutedEventArgs e)
         {
@@ -161,11 +160,18 @@ namespace PearlCalculatorCP.Views
 
             CommandManager.Instance.ExecuteCommand($"setDefaultSettings {result[0]}", false);
         }
-    }
 
-    static class MainWindowMoreInfoColor
-    {
-        public static readonly IBrush DefaultMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#CCCCCC"));
-        public static readonly IBrush OnEnterMoreInfoBrush = new ImmutableSolidColorBrush(Color.Parse("#999999"));
+        private void AppSettingsBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_settingsSplitView.IsPaneOpen)
+                _settingsSplitView.IsPaneOpen = false;
+            
+            _appSettingsPopup.Open();
+        }
+
+        private void SwitchSplitOpenState(object sender, RoutedEventArgs e)
+        {
+            _settingsSplitView.IsPaneOpen = !_settingsSplitView.IsPaneOpen;
+        }
     }
 }

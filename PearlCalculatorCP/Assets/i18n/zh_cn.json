@@ -74,6 +74,7 @@
     "Version": "版本 : ",
     "Credit": "特别感谢 : 来自 Mojang 的\"优质\"代码",
 
+    "AppSettings": "设置",
     "SetDefaultSettings": "默认加载配置",
     "GithubLink": "Github",
     "About": "关于",

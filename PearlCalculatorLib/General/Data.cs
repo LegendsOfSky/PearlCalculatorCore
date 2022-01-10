@@ -2,6 +2,7 @@
 using PearlCalculatorLib.Result;
 using PearlCalculatorLib.PearlCalculationLib.World;
 using PearlCalculatorLib.PearlCalculationLib.Entity;
+using PearlCalculatorLib.Settings;
 
 namespace PearlCalculatorLib.General
 {
@@ -12,28 +13,28 @@ namespace PearlCalculatorLib.General
         /// <para>Origin is set to the middle of the lava pool</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Space3D NorthWestTNT = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
+        public static Space3D NorthWestTNT { get; set; } = new Space3D(-0.884999990463257 , 170.5 , -0.884999990463257);
 
         /// <summary>
         /// The Local Coordinate of the North East TNT
         /// <para>Origin is set to the middle of the lava pool</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Space3D NorthEastTNT = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
+        public static Space3D NorthEastTNT { get; set; } = new Space3D(+0.884999990463257 , 170.5 , -0.884999990463257);
 
         /// <summary>
         /// The Local Coordinate of the South West TNT
         /// <para>Origin is set to the middle of the lava pool</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Space3D SouthWestTNT = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
+        public static Space3D SouthWestTNT { get; set; } = new Space3D(-0.884999990463257 , 170.5 , +0.884999990463257);
 
         /// <summary>
         /// The Local Coordinate of the South East TNT
         /// <para>Origin is set to the middle of the lava pool</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static Space3D SouthEastTNT = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
+        public static Space3D SouthEastTNT { get; set; } = new Space3D(+0.884999990463257 , 170.5 , +0.884999990463257);
 
 
 
@@ -42,7 +43,7 @@ namespace PearlCalculatorLib.General
         /// <para>Note : Y coordinate can be ignored. It does not take part in any calculation</para>
         /// <para>Required for <see cref="Calculation.CalculateTNTAmount(int, double)"/></para>
         /// </summary>
-        public static Space3D Destination = new Space3D();
+        public static Space3D Destination { get; set; } = new Space3D();
 
 
 
@@ -51,7 +52,7 @@ namespace PearlCalculatorLib.General
         /// <para>Note : X and Z should be the gobal coordinate of the lava pool center</para>
         /// <para>Required for All Calculation in <see cref="Calculation"/></para>
         /// </summary>
-        public static PearlEntity Pearl = new PearlEntity().WithPosition(0 , 170.34722638929412 , 0).WithMotion(0 , 0.2716278719434352 , 0);
+        public static PearlEntity Pearl { get; set; } = new PearlEntity().WithPosition(0 , 170.34722638929412 , 0).WithMotion(0 , 0.2716278719434352 , 0);
 
 
 
@@ -76,13 +77,13 @@ namespace PearlCalculatorLib.General
         /// The number of Blue TNT for accelerating the Ender Pearl
         /// <para>Note : Not bound to any calculation. You can store Blue acceleration TNT here or ignore this </para>
         /// </summary>
-        public static int BlueTNT;
+        public static int BlueTNT { get; set; }
 
         /// <summary>
         /// The number of Red TNT for accelerating the Ender Pearl
         /// <para>Note : Not bound to any calculation. You can store Red acceleration TNT here or ignore this </para>
         /// </summary>
-        public static int RedTNT;
+        public static int RedTNT { get; set; }
 
 
 
@@ -91,7 +92,7 @@ namespace PearlCalculatorLib.General
         /// <para>Note : Value Must be a Natural Number which is not larger than 100</para>
         /// <para>Required for <see cref="TNTCalculationResultSortComparerByWeighted"/></para>
         /// </summary>
-        public static int TNTWeight;
+        public static int TNTWeight { get; set; }
 
 
 
@@ -99,29 +100,15 @@ namespace PearlCalculatorLib.General
         /// The Max number of TNT from each side
         /// <para>Required for <see cref="Calculation.CalculateTNTAmount(int, double)"/></para>
         /// </summary>
-        public static int MaxTNT;
+        public static int MaxTNT { get; set; }
 
 
 
-        /// <summary>
-        /// Ignore This Please. For Internal Calculation Only
-        /// </summary>
-        public static int MaxCalculateTNT
-        {
-            get => _maxCalculateTNT;
-            internal set => _maxCalculateTNT = value;
-        }
-        private static int _maxCalculateTNT;
+        public static int MaxCalculateTNT { get; internal set; }
 
-        /// <summary>
-        /// Ignore This Please. For Internal Calculation Only
-        /// </summary>
-        public static double MaxCalculateDistance
-        {
-            get => _maxCalculateDistance;
-            internal set => _maxCalculateDistance = value;
-        }
-        private static double _maxCalculateDistance;
+
+
+        public static double MaxCalculateDistance { get; internal set; }
 
 
 
@@ -130,7 +117,7 @@ namespace PearlCalculatorLib.General
         /// <para>Note : Not bound to any calculation. You can store your acceleration direction here or ignore this </para>
         /// <para>Note : Only Allow For North, South, East, West</para>
         /// </summary>
-        public static Direction Direction = Direction.North;
+        public static Direction Direction { get; set; } = Direction.North;
 
 
 
@@ -176,18 +163,18 @@ namespace PearlCalculatorLib.General
         /// The Result of the <see cref="Calculation.CalculateTNTAmount(int, double)"/>
         /// <para>Note : It is a Data Output</para>
         /// </summary>
-        public static List<TNTCalculationResult> TNTResult = new List<TNTCalculationResult>();
+        public static List<TNTCalculationResult> TNTResult { get; set; } = new List<TNTCalculationResult>();
 
 
         /// <summary>
         /// A list of TNT configuration. 
         /// </summary>
-        public static List<int> RedTNTConfiguration = new List<int>();
+        public static List<int> RedTNTConfiguration { get; set; } = new List<int>();
 
         /// <summary>
         /// A list if TNT configuration
         /// </summary>
-        public static List<int> BlueTNTConfiguration = new List<int>();
+        public static List<int> BlueTNTConfiguration { get; set; } = new List<int>();
 
 
 

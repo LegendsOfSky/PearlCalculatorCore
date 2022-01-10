@@ -22,32 +22,25 @@ namespace PearlCalculatorCP.Commands
         {
             var len = parameters?.Length ?? 0;
 #nullable disable
-            var opt = len == 1 ? parameters[0].ToLower() : string.Empty;
+            var lang = len == 1 ? parameters[0].ToLower() : string.Empty;
 
             if (parameters is null || len != 1)
             {
                 messageSender(DefineCmdOutput.ErrorTemplate($"\"{cmdName}\" don't accept {len} parameters"));
                 messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {Translator.Instance.GetLanguagesOptional()}"));
             }
-            else if (Translator.Instance.CurrentLanguage == opt)
+            else if (Translator.Instance.CurrentLanguage == lang)
                 messageSender(DefineCmdOutput.MsgTemplate("you don't need change language"));
             else
             {
-                if (opt == "cn" || opt == "tw" || Translator.Instance.Languages.Contains(opt))
+                if (lang == Translator.FallbackLanguage || Translator.Instance.Languages.FindIndex(e => e.Language == lang) != -1)
                 {
-                    var lang = opt switch
-                    {
-                        "cn" => "zh_cn",
-                        "tw" => "zh_tw",
-                        _ => opt
-                    };
-                    
                     if (Translator.Instance.LoadLanguage(lang, s => messageSender(new ConsoleOutputItemModel("Error/i18n", s, Brushes.Red))))
                         messageSender(DefineCmdOutput.MsgTemplate("change language success"));
                 }
                 else
                 {
-                    messageSender(DefineCmdOutput.ErrorTemplate($"language option \"{opt}\" not found"));
+                    messageSender(DefineCmdOutput.ErrorTemplate($"language option \"{lang}\" not found"));
                     messageSender(DefineCmdOutput.ErrorTemplate($"optional paras: {Translator.Instance.GetLanguagesOptional()}"));
                 }
             }

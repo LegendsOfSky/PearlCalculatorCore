@@ -37,7 +37,7 @@ namespace PearlCalculatorLib.Manually
             if(vectorA.X != 0 && vectorB.X != 0)
             {
                 Surface2D distance = data.Destination - data.Pearl.Position.ToSurface2D();
-                Surface2D iHat = distance / Surface2D.Zero.Distance(distance);
+                Surface2D iHat = distance.Normalized;
                 if(distance.IsClockWise(vectorA.ToSurface2D()) ^ distance.IsCounterClockWise(vectorB.ToSurface2D()))
                     return CalculateSingleTNTAmount(data , vectorA , vectorB , ticks , out result);
                 else
@@ -176,7 +176,7 @@ namespace PearlCalculatorLib.Manually
                     
                             TNTCalculationResult tResult = new TNTCalculationResult
                             {
-                                Distance = displacement.Distance(Surface2D.Zero) ,
+                                Distance = displacement.Length,
                                 Tick = i ,
                                 Blue = bTNT + b ,
                                 Red = aTNT + a ,

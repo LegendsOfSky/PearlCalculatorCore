@@ -48,7 +48,13 @@ namespace PearlCalculatorCP.Commands
 
             messageSender(DefineCmdOutput.MsgTemplate("Direction:"));
             messageSender(DefineCmdOutput.MsgTemplate(Data.Direction.ToString()));
-            
+
+            messageSender(DefineCmdOutput.MsgTemplate("Red Duper:"));
+            messageSender(DefineCmdOutput.MsgTemplate(Data.DefaultRedDuper.ToString()));
+
+            messageSender(DefineCmdOutput.MsgTemplate("Blue Duper:"));
+            messageSender(DefineCmdOutput.MsgTemplate(Data.DefaultBlueDuper.ToString()));
+
         }
     }
 }

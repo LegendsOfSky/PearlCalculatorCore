@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
              xmlns:converters="clr-namespace:PearlCalculatorCP.Converters"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
-             x:Class="PearlCalculatorCP.Views.GeneralFTLComponents.Advance">
+             x:Class="PearlCalculatorCP.Views.Panels.Advance">
 
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
@@ -63,17 +63,6 @@
                                  IsChecked="{Binding WeightMode, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static vm:TNTWeightModeEnum.Total}}" />
                 </DockPanel>
             </StackPanel>
-        </Border>
-
-        <Border Classes="GlobalGeneralBorder" Padding="12, 0">
-            <DockPanel>
-                <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" VerticalAlignment="Center" />
-
-                <ToggleSwitch OnContent=""
-                              OffContent=""
-                              DockPanel.Dock="Right" HorizontalAlignment="Right"
-                              IsChecked="{Binding EnableChunkMode, Mode=OneWayToSource}"/>
-            </DockPanel>
         </Border>
         
     </StackPanel>

@@ -32,7 +32,7 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _pearlZ , value);
         }
 
-        public Space3D PearlPos => new Space3D(_pearlX, _pearlY, _pearlZ);
+        public Space3D PearlPos => new(_pearlX, _pearlY, _pearlZ);
 
         private double _momentumX;
         public double MomentumX
@@ -55,9 +55,9 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _momentumZ , value);
         }
 
-        public Space3D PearlMomentum => new Space3D(_momentumX, _momentumY, _momentumZ);
+        public Space3D PearlMomentum => new(_momentumX, _momentumY, _momentumZ);
 
-        public PearlEntity Pearl => new PearlEntity(PearlMomentum, PearlPos);
+        public PearlEntity Pearl => new(PearlMomentum, PearlPos);
 
 
         private double _aTX;
@@ -81,7 +81,7 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _aTZ , value);
         }
 
-        public Space3D ATNT => new Space3D(_aTX, _aTY, _aTZ);
+        public Space3D ATNT => new(_aTX, _aTY, _aTZ);
 
         private double _bTX;
         public double BTX
@@ -104,7 +104,7 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _bTZ , value);
         }
         
-        public Space3D BTNT => new Space3D(_bTX, _bTY, _bTZ);
+        public Space3D BTNT => new(_bTX, _bTY, _bTZ);
 
 
 
@@ -136,14 +136,14 @@ namespace PearlCalculatorCP.ViewModels
             set => this.RaiseAndSetIfChanged(ref _destinationZ , value);
         }
 
-        public Surface2D Destination => new Surface2D(_destinationX, _destinationZ);
+        public Surface2D Destination => new(_destinationX, _destinationZ);
 
-        public ManuallyData GetManuallyData() => new ManuallyData(ATNTAmount, BTNTAmount, ATNT, BTNT, Destination, Pearl);
+        public ManuallyData CreateManuallyData() => new(ATNTAmount, BTNTAmount, ATNT, BTNT, Destination, Pearl);
 
 
         public void CalculateAmount()
         {
-            var data = GetManuallyData();
+            var data = CreateManuallyData();
             if (Calculation.CalculateTNTAmount(data, MainWindowViewModel.MaxTicks, MainWindowViewModel.MaxDistance, out var result))
             {
                 EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", result));
@@ -160,7 +160,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public void CalculateTrace()
         {
-            var data = GetManuallyData();
+            var data = CreateManuallyData();
             var entities = Calculation.CalculatePearlTrace(data, MainWindowViewModel.MaxTicks);
             var chunks = ListCoverterUtility.ToChunk(entities);
 
@@ -182,7 +182,7 @@ namespace PearlCalculatorCP.ViewModels
 
         public void CalculateMomentum()
         {
-            var data = GetManuallyData();
+            var data = CreateManuallyData();
             var entities = Calculation.CalculatePearlTrace(data, MainWindowViewModel.MaxTicks);
             var traces = new List<PearlTraceModel>(entities.Count);
             traces.AddRange(entities.Select((t, i) => new PearlTraceModel

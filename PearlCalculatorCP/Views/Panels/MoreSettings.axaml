@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
              mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="680"
-             x:Class="PearlCalculatorCP.Views.GeneralFTLComponents.MoreSettings">
+             x:Class="PearlCalculatorCP.Views.Panels.MoreSettings">
 
     <UserControl.DataContext>
         <vm:MoreSettingsViewModel />
@@ -14,6 +14,7 @@
     <UserControl.Styles>
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentNumericUpDownStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxStyle.axaml" />
         <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
 
         <Style Selector="NumericUpDown">
@@ -42,11 +43,12 @@
 
         <Style Selector="ComboBox">
             <Setter Property="Margin" Value="33,0,0,4" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="12,4,0,4" />
-            <Setter Property="BorderBrush" Value="#E5E5E5" />
         </Style>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="ToolTip.VerticalOffset" Value="5" />
+        </Style>
+        
     </UserControl.Styles>
 
     <Grid RowDefinitions="*, Auto">
@@ -201,12 +203,7 @@
                             </ToolTip.Tip>
                         </TextBlock>
 
-                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultRedDuperIndex}" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="NorthWest" />
-                            <ComboBoxItem Content="NorthEast" />
-                            <ComboBoxItem Content="SouthWest" />
-                            <ComboBoxItem Content="SouthEast" />
-                        </ComboBox>
+                        <ComboBox Grid.Column="1" Items="{Binding CannonDuperDirections}" SelectedItem="{Binding DefaultRedDuper}" HorizontalAlignment="Stretch" />
                     </Grid>
 
                     <Grid ColumnDefinitions="*, *">
@@ -218,12 +215,7 @@
                             </ToolTip.Tip>
                         </TextBlock>
 
-                        <ComboBox Grid.Column="1" SelectedIndex="{Binding DefaultBlueDuperIndex}" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="NorthWest" />
-                            <ComboBoxItem Content="NorthEast" />
-                            <ComboBoxItem Content="SouthWest" />
-                            <ComboBoxItem Content="SouthEast" />
-                        </ComboBox>
+                        <ComboBox Grid.Column="1" Items="{Binding CannonDuperDirections}" SelectedItem="{Binding DefaultBlueDuper}" HorizontalAlignment="Stretch" />
                     </Grid>
 
                 </StackPanel>

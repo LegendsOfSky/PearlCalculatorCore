@@ -16,7 +16,7 @@ namespace PearlCalculatorCP
         public const string MsgType = "Msg";
         public const string ErrorType = "Error";
 
-        static readonly List<string> EmptyList = new List<string>(0);
+        static readonly List<string> EmptyList = new(0);
         
         internal class CommandRegistration
         {
@@ -59,7 +59,7 @@ namespace PearlCalculatorCP
             remove => _onMessageSend -= value;
         }
 
-        internal Dictionary<string ,CommandRegistration> CommandList { get; private set; } = new Dictionary<string, CommandRegistration>(1000);
+        internal Dictionary<string ,CommandRegistration> CommandList { get; private set; } = new(100);
 
         private readonly Action<ConsoleOutputItemModel> _messageSender;
 
@@ -70,7 +70,7 @@ namespace PearlCalculatorCP
 
         private void SendMessage(ConsoleOutputItemModel? message)
         {
-            if (message is { })
+            if (message is not null)
             {
                 Console.WriteLine($"{message.Type} : {message.Message}");
                 _onMessageSend?.Invoke(message);
@@ -167,11 +167,11 @@ namespace PearlCalculatorCP
 
     static class DefineCmdOutput
     {
-        public static readonly ConsoleOutputItemModel NullCmd = new ConsoleOutputItemModel(CommandManager.ErrorType, "Command can not be empty or null", Brushes.Red);
+        public static readonly ConsoleOutputItemModel NullCmd = new(CommandManager.ErrorType, "Command can not be empty or null", Brushes.Red);
         
-        public static ConsoleOutputItemModel ErrorTemplate(string msg) => new ConsoleOutputItemModel(CommandManager.ErrorType, msg, Brushes.Red);
+        public static ConsoleOutputItemModel ErrorTemplate(string msg) => new(CommandManager.ErrorType, msg, Brushes.Red);
 
-        public static ConsoleOutputItemModel MsgTemplate(string msg) => new ConsoleOutputItemModel(CommandManager.MsgType, msg);
+        public static ConsoleOutputItemModel MsgTemplate(string msg) => new(CommandManager.MsgType, msg);
         
     }
 }

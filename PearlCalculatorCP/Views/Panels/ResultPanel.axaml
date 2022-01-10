@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:PearlCalculatorCP.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
-             x:Class="PearlCalculatorCP.Views.Components.ResultPanel">
+             x:Class="PearlCalculatorCP.Views.Panels.ResultPanel">
 
     <UserControl.DataContext>
         <vm:ResultPanelViewModel />
@@ -45,6 +45,7 @@
 
         <Style Selector="Button.ResultHeader:pressed /template/ ContentPresenter">
             <Setter Property="Background" Value="#EE99CCFF" />
+            <Setter Property="TextBlock.Foreground" Value="Black" />
         </Style>
 
         <Style Selector="Button.ResultHeader:disabled /template/ ContentPresenter">
@@ -188,17 +189,17 @@
                                     <ColumnDefinition Width="*" MinWidth="{StaticResource GridHeaderItemMinWidth}" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="0" Content="{i18n:Translate DisplayDistance, Fallback='Distance'}" Name="AmounNaNModeDistance" Classes="ResultHeader" IsEnabled="False">
+                                <Button Grid.Column="0" Content="{i18n:Translate DisplayDistance, Fallback='Distance'}" Name="AmountNaNModeDistance" Classes="ResultHeader" IsEnabled="False">
                                     <Button.Styles>
                                         <Style Selector="Button.ResultHeader /template/ ContentPresenter">
                                             <Setter Property="CornerRadius" Value="4,0,0,0" />
                                         </Style>
                                     </Button.Styles>
                                 </Button>
-                                <Button Grid.Column="2" Content="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="AmounNaNtModeTicks" Classes="ResultHeader" IsEnabled="False" />
-                                <Button Grid.Column="4" Content="{i18n:Translate DisplayBlue, Fallback='Blue'}" Name="AmounNaNModeBlue" Classes="ResultHeader" IsEnabled="False" />
-                                <Button Grid.Column="6" Content="{i18n:Translate DisplayRed, Fallback='Red'}" Name="AmounNaNModeRed" Classes="ResultHeader" IsEnabled="False" />
-                                <Button Grid.Column="8" Content="{i18n:Translate DisplayTotal, Fallback='Total'}" Name="AmounNaNModeTotal" Classes="ResultHeader" IsEnabled="False">
+                                <Button Grid.Column="2" Content="{i18n:Translate DisplayTicks, Fallback='Ticks'}" Name="AmountNaNModeTicks" Classes="ResultHeader" IsEnabled="False" />
+                                <Button Grid.Column="4" Content="{i18n:Translate DisplayBlue, Fallback='Blue'}" Name="AmountNaNModeBlue" Classes="ResultHeader" IsEnabled="False" />
+                                <Button Grid.Column="6" Content="{i18n:Translate DisplayRed, Fallback='Red'}" Name="AmountNaNModeRed" Classes="ResultHeader" IsEnabled="False" />
+                                <Button Grid.Column="8" Content="{i18n:Translate DisplayTotal, Fallback='Total'}" Name="AmountNaNModeTotal" Classes="ResultHeader" IsEnabled="False">
                                     <Button.Styles>
                                         <Style Selector="Button.ResultHeader /template/ ContentPresenter">
                                             <Setter Property="CornerRadius" Value="0,4,0,0" />
@@ -428,11 +429,11 @@
             <Border Grid.Row="1" CornerRadius="0,0,4,4" Background="#F3F3F3">
                 <Panel>
                     <Grid RowDefinitions="*, *">
-                        <DockPanel Grid.Row="0" Margin="30, 0" Dock="Top">
+                        <DockPanel Grid.Row="0" Margin="30, 0">
                             <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayDirection, Fallback='Direction'}" VerticalAlignment="Center" />
                             <TextBlock DockPanel.Dock="Right" Text="{Binding ResultDirection}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </DockPanel>
-                        <DockPanel Grid.Row="1" Margin="30, 0" Dock="Bottom">
+                        <DockPanel Grid.Row="1" Margin="30, 0">
                             <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayAngle, Fallback='Angle'}" VerticalAlignment="Center" />
                             <TextBlock DockPanel.Dock="Right" Text="{Binding ResultAngle}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </DockPanel>

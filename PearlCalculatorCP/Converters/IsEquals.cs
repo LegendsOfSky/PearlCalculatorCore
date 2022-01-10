@@ -18,9 +18,9 @@ namespace PearlCalculatorCP.Converters
             return value!.GetType() == parameter!.GetType() && value.Equals(parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return BindingOperations.DoNothing;
         }
     }
 }

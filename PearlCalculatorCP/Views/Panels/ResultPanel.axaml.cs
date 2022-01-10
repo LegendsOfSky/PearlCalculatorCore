@@ -1,15 +1,12 @@
 #nullable disable
 
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.VisualTree;
 using PearlCalculatorCP.ViewModels;
 
-namespace PearlCalculatorCP.Views.Components
+namespace PearlCalculatorCP.Views.Panels
 {
     public class ResultPanel : UserControl
     {
@@ -103,11 +100,12 @@ namespace PearlCalculatorCP.Views.Components
         private void PearlTraceItem_OnPointerPressed(object sender, PointerPressedEventArgs e)
         {
             var grid = sender as Grid;
-            if (e.GetCurrentPoint(grid).Properties.IsRightButtonPressed)
+            var pointer = e.GetCurrentPoint(grid);
+            if (pointer.Properties.IsRightButtonPressed)
             {
                 var contextMenu = _pearlTraceItemContextPanel.ContextMenu;
                 contextMenu.PlacementTarget = grid;
-                contextMenu.PlacementRect = grid.Bounds;
+                contextMenu.PlacementRect = new Rect(pointer.Position, grid.Bounds.Size);
                 contextMenu.Open();
             }
         }

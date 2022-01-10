@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
+             xmlns:vm="clr-namespace:PearlCalculatorCP.ViewModels"
+             xmlns:panels="clr-namespace:PearlCalculatorCP.Views.Panels"
+             xmlns:components="clr-namespace:PearlCalculatorCP.Views.Components"
+             xmlns:models="clr-namespace:PearlCalculatorCP.Models"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
+             x:Class="PearlCalculatorCP.Views.Panels.AppSettingsPanel">
+    
+    <UserControl.DataContext>
+        <vm:AppSettingsPanelViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Styles>
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentButtonStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/FluentComboBoxExStyle.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/GlobalStyles.axaml" />
+        <StyleInclude Source="avares://PearlCalculatorCP/Styles/IconButtonStyle.axaml" />
+        
+        <Style Selector="ToggleSwitch">
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
+        <Style Selector="components|ComboBoxEx">
+            <Setter Property="Padding" Value="12,4,0,4" />
+            <Setter Property="BorderBrush" Value="#E5E5E5" />
+        </Style>
+
+        <Style Selector="components|ComboBoxEx[IsFocused=False]:pointerover /template/Border#Background">
+            <Setter Property="BorderBrush" Value="#0373EC" />
+        </Style>
+        
+        <Style Selector="components|ComboBoxEx:focus /template/Border#Background">
+            <Setter Property="BorderBrush" Value="#0472CB" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        
+    </UserControl.Styles>
+
+    <StackPanel Spacing="4" Margin="16, 2">
+
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate Languages, Fallback='Languages'}" />
+            
+            <components:ComboBoxEx DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="180"
+                                   Items="{Binding Languages}" SelectedItem="{Binding CurSelectLanguage}">
+                
+                <components:ComboBoxEx.SelectionBoxItemTemplate>
+                    <DataTemplate DataType="models:LanguageComboBoxItemModel">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBlock Grid.Column="0" Text="{Binding DisplayName}" />
+                            <Button Grid.Column="1" Classes="IconButton"
+                                    IsVisible="{Binding $parent[panels:AppSettingsPanel].DataContext.CanSetDefault, Mode=OneWay}" 
+                                    Command="{Binding $parent[panels:AppSettingsPanel].DataContext.SetDefaultLanguageOptional}">
+                                
+                                <Button.Content>
+                                    <Path Stretch="Uniform"
+                                          Width="16"
+                                          Height="16"
+                                          Data="{DynamicResource FluentSaveIcon}"
+                                          VerticalAlignment="Center"
+                                          Fill="{Binding $parent[Button].Foreground}">
+                                    </Path>
+                                </Button.Content>
+                                
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </components:ComboBoxEx.SelectionBoxItemTemplate>
+            
+                <components:ComboBoxEx.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
+                    </DataTemplate>
+                </components:ComboBoxEx.ItemTemplate>
+
+            </components:ComboBoxEx>
+        </DockPanel>
+
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate SetDefaultSettings, Fallback='Default settings'}"></TextBlock>
+            <Button DockPanel.Dock="Right" Content="Import" Height="32" MinWidth="96" Padding="8, 0"
+                    HorizontalAlignment="Right" HorizontalContentAlignment="Center" Click="SetDefaultSettings" />
+        </DockPanel>
+
+        <DockPanel Height="40">
+            <TextBlock Text="{i18n:Translate EnableChunkCoordinate,Fallback='Enable Chunk Coordinate'}" />
+
+            <ToggleSwitch OnContent="" OffContent=""
+                          DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,-12,0"
+                          IsChecked="{Binding EnableChunkMode}" />
+        </DockPanel>
+
+    </StackPanel>
+    
+</UserControl>

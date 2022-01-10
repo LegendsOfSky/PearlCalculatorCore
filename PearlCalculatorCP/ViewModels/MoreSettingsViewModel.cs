@@ -16,8 +16,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northWestTNTX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northWestTNTX, ref Data.NorthWestTNT.X);
+                RaiseAndSetOrIfChanged(ref _northWestTNTX, value, _isEnableIfChanged);
+                UpdateNorthWestTNT();
             }
         }
 
@@ -27,8 +27,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTY;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northWestTNTY, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northWestTNTY, ref Data.NorthWestTNT.Y);
+                RaiseAndSetOrIfChanged(ref _northWestTNTY, value, _isEnableIfChanged);
+                UpdateNorthWestTNT();
             }
         }
 
@@ -38,8 +38,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northWestTNTZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northWestTNTZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northWestTNTZ, ref Data.NorthWestTNT.Z);
+                RaiseAndSetOrIfChanged(ref _northWestTNTZ, value, _isEnableIfChanged);
+                UpdateNorthWestTNT();
             }
         }
 
@@ -49,8 +49,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northEastTNTX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northEastTNTX, ref Data.NorthEastTNT.X);
+                RaiseAndSetOrIfChanged(ref _northEastTNTX, value, _isEnableIfChanged);
+                UpdateNorthEastTNT();
             }
         }
 
@@ -60,8 +60,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTY;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northEastTNTY, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northEastTNTY, ref Data.NorthEastTNT.Y);
+                RaiseAndSetOrIfChanged(ref _northEastTNTY, value, _isEnableIfChanged);
+                UpdateNorthEastTNT();
             }
         }
 
@@ -71,8 +71,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _northEastTNTZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _northEastTNTZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _northEastTNTZ, ref Data.NorthEastTNT.Z);
+                RaiseAndSetOrIfChanged(ref _northEastTNTZ, value, _isEnableIfChanged);
+                UpdateNorthEastTNT();
             }
         }
 
@@ -82,8 +82,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southWestTNTX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southWestTNTX, ref Data.SouthWestTNT.X);
+                RaiseAndSetOrIfChanged(ref _southWestTNTX, value, _isEnableIfChanged);
+                UpdateSouthWestTNT();
             }
         }
 
@@ -93,8 +93,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTY;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southWestTNTY, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southWestTNTY, ref Data.SouthWestTNT.Y);
+                RaiseAndSetOrIfChanged(ref _southWestTNTY, value, _isEnableIfChanged);
+                UpdateSouthWestTNT();
             }
         }
 
@@ -104,8 +104,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southWestTNTZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southWestTNTZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southWestTNTZ, ref Data.SouthWestTNT.Z);
+                RaiseAndSetOrIfChanged(ref _southWestTNTZ, value, _isEnableIfChanged);
+                UpdateSouthWestTNT();
             }
         }
 
@@ -115,8 +115,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTX;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southEastTNTX, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southEastTNTX, ref Data.SouthEastTNT.X);
+                RaiseAndSetOrIfChanged(ref _southEastTNTX, value, _isEnableIfChanged);
+                UpdateSouthEastTNT();
             }
         }
 
@@ -126,8 +126,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTY;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southEastTNTY, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southEastTNTY, ref Data.SouthEastTNT.Y);
+                RaiseAndSetOrIfChanged(ref _southEastTNTY, value, _isEnableIfChanged);
+                UpdateSouthEastTNT();
             }
         }
 
@@ -137,8 +137,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _southEastTNTZ;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _southEastTNTZ, ref value, _isEnableIfChanged);
-                DataUpdate(ref _southEastTNTZ, ref Data.SouthEastTNT.Z);
+                RaiseAndSetOrIfChanged(ref _southEastTNTZ, value, _isEnableIfChanged);
+                UpdateSouthEastTNT();
             }
         }
 
@@ -148,8 +148,8 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlYCoor;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlYCoor, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlYCoor, ref Data.Pearl.Position.Y);
+                RaiseAndSetOrIfChanged(ref _pearlYCoor, value, _isEnableIfChanged);
+                Data.Pearl.Position.Y = _pearlYCoor;
             }
         }
 
@@ -159,30 +159,32 @@ namespace PearlCalculatorCP.ViewModels
             get => _pearlYMomentum;
             set
             {
-                this.RaiseAndSetOrIfChanged(ref _pearlYMomentum, ref value, _isEnableIfChanged);
-                DataUpdate(ref _pearlYMomentum, ref Data.Pearl.Motion.Y);
+                RaiseAndSetOrIfChanged(ref _pearlYMomentum, value, _isEnableIfChanged);
+                Data.Pearl.Motion.Y = _pearlYMomentum;
             }
         }
 
-        private int _defaultRedDuperIndex;
-        public int DefaultRedDuperIndex
+        public Direction[] CannonDuperDirections { get; } = { Direction.NorthWest, Direction.NorthEast, Direction.SouthWest, Direction.SouthEast };
+
+        private Direction _defaultRedDuper;
+        public Direction DefaultRedDuper
         {
-            get => _defaultRedDuperIndex;
+            get => _defaultRedDuper;
             set
             {
-                this.RaiseAndSetIfChanged(ref _defaultRedDuperIndex, value);
-                Data.DefaultRedDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+                Data.DefaultRedDuper = value;
+                RaiseAndSetProperty(ref _defaultRedDuper, Data.DefaultRedDuper);
             }
         }
 
-        private int _defaultBlueDuperIndex;
-        public int DefaultBlueDuperIndex
+        private Direction _defaultBlueDuper;
+        public Direction DefaultBlueDuper
         {
-            get => _defaultBlueDuperIndex;
+            get => _defaultBlueDuper;
             set
             {
-                this.RaiseAndSetIfChanged(ref _defaultBlueDuperIndex, value);
-                Data.DefaultBlueDuper = Enum.Parse<Direction>(((ComboBoxDireEnum) value).ToString());
+                Data.DefaultBlueDuper = value;
+                RaiseAndSetProperty(ref _defaultBlueDuper, Data.DefaultBlueDuper);
             }
         }
 
@@ -207,13 +209,13 @@ namespace PearlCalculatorCP.ViewModels
             _pearlYCoor     = Data.Pearl.Position.Y;
             _pearlYMomentum = Data.Pearl.Motion.Y;
             
-            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
-            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
+            DefaultRedDuper  = Data.DefaultRedDuper;
+            DefaultBlueDuper = Data.DefaultBlueDuper;
             
-            EventManager.AddListener<LoadSettingsArgs>("loadSettings", (sender, args) =>
+            EventManager.AddListener<LoadSettingsArgs>("loadSettings", (_, args) =>
             {
-                var settings = args.Settings;
-                
+                var settings = args.Settings.CannonSettings[0];
+
                 NorthWestTNTX = settings.NorthWestTNT.X;
                 NorthWestTNTY = settings.NorthWestTNT.Y;
                 NorthWestTNTZ = settings.NorthWestTNT.Z;
@@ -233,17 +235,16 @@ namespace PearlCalculatorCP.ViewModels
                 PearlYCoor     = settings.Pearl.Position.Y;
                 PearlYMomentum = settings.Pearl.Motion.Y;
                 
-                DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultRedTNTDirection.ToString());
-                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(settings.DefaultBlueTNTDirection.ToString());
+                DefaultRedDuper  = settings.DefaultRedDirection;
+                DefaultBlueDuper = settings.DefaultBlueDirection;
             });
             
-            EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (sender, args) =>
+            EventManager.AddListener<NotificationArgs>("changeDefaultBlueDuper", (_, _) =>
             {
                 var red = Data.DefaultRedDuper;
-                var direction = (red.IsNorth() ? Direction.South : Direction.North) |
-                                (red.IsEast() ? Direction.West : Direction.East);
-                DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(direction.ToString());
-                LogUtils.Log($"change DefaultBlueDuper to {direction.ToString()}");
+                DefaultBlueDuper = (red.IsNorth() ? Direction.South : Direction.North) |
+                                   (red.IsEast() ? Direction.West : Direction.East);
+                LogUtils.Log($"change DefaultBlueDuper to {DefaultBlueDuper.ToString()}");
             });
         }
 
@@ -271,18 +272,32 @@ namespace PearlCalculatorCP.ViewModels
             PearlYCoor     = Data.Pearl.Position.Y;
             PearlYMomentum = Data.Pearl.Motion.Y;
             
-            DefaultRedDuperIndex  = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultRedDuper.ToString());
-            DefaultBlueDuperIndex = (int) Enum.Parse<ComboBoxDireEnum>(Data.DefaultBlueDuper.ToString());
+            DefaultRedDuper  = Data.DefaultRedDuper;
+            DefaultBlueDuper = Data.DefaultBlueDuper;
             
             _isEnableIfChanged = true;
             
             EventManager.PublishEvent(this, "resetSettings", new NotificationArgs("GeneralData"));
         }
         
-        private void DataUpdate<T>(ref T vmBacking, ref T dataBacking) where T : IEquatable<T>
+        private void UpdateNorthWestTNT()
         {
-            if (!vmBacking.Equals(dataBacking))
-                dataBacking = vmBacking;
+            Data.NorthWestTNT = new(NorthWestTNTX, NorthWestTNTY, NorthWestTNTZ);
+        }
+        
+        private void UpdateNorthEastTNT()
+        {
+            Data.NorthEastTNT = new(NorthEastTNTX, NorthEastTNTY, NorthEastTNTZ);
+        }
+        
+        private void UpdateSouthWestTNT()
+        {
+            Data.SouthWestTNT = new(SouthWestTNTX, SouthWestTNTY, SouthWestTNTZ);
+        }
+        
+        private void UpdateSouthEastTNT()
+        {
+            Data.SouthEastTNT = new(SouthEastTNTX, SouthEastTNTY, SouthEastTNTZ);
         }
     }
 }

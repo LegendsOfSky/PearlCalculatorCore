@@ -670,62 +670,86 @@ namespace PearlCalculatorWFA
 
         private void ManuallyPearlXTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyPearlXTextBox.Text , out ManuallyData.Pearl.Position.X);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyMomemtumXTextBox.Text , out ManuallyData.Pearl.Motion.X);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyPearlYTextBox.Text , out ManuallyData.Pearl.Position.Y);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyMomemtumYTextBox.Text , out ManuallyData.Pearl.Motion.Y);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyPearlZTextBox.Text , out ManuallyData.Pearl.Position.Z);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
             double.TryParse(ManuallyMomemtumZTextBox.Text , out ManuallyData.Pearl.Motion.Z);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
         }
 
         private void ManuallyATNTXTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
             double.TryParse(ManuallyATNTXTextBox.Text , out ManuallyData.ATNT.X);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
         }
 
         private void ManuallyBTNTXTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
             double.TryParse(ManuallyBTNTXTextBox.Text , out ManuallyData.BTNT.X);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
         }
 
         private void ManuallyATNTYTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
             double.TryParse(ManuallyATNTYTextBox.Text , out ManuallyData.ATNT.Y);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
         }
 
         private void ManuallyBTNTYTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
             double.TryParse(ManuallyBTNTYTextBox.Text , out ManuallyData.BTNT.Y);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
         }
 
         private void ManuallyATNTZTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
             double.TryParse(ManuallyATNTZTextBox.Text , out ManuallyData.ATNT.Z);   
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
         }
 
         private void ManuallyBTNTZTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
             double.TryParse(ManuallyBTNTZTextBox.Text , out ManuallyData.BTNT.Z);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
         }
 
         private void ManuallyATNTAmountTextBox_TextChanged(object sender , EventArgs e)
@@ -740,12 +764,16 @@ namespace PearlCalculatorWFA
 
         private void ManuallyDestinationXTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
             double.TryParse(ManuallyDestinationXTextBox.Text , out ManuallyData.Destination.X);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
         }
 
         private void ManuallyDestinationZTextBox_TextChanged(object sender , EventArgs e)
         {
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
             double.TryParse(ManuallyDestinationZTextBox.Text , out ManuallyData.Destination.Z);
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
         }
         #endregion
 
@@ -759,7 +787,9 @@ namespace PearlCalculatorWFA
         private void ManuallyCalculateTNTAmount()
         {
             List<TNTCalculationResult> tntResult;
+#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
             if(ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination , MaxTicks , out tntResult))
+#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
             {
                 Log("Main" , "Msg" , "Reset display");
                 BasicOutputSystem.Items.Clear();
@@ -793,7 +823,9 @@ namespace PearlCalculatorWFA
 
         private void ManuallyCalculatePearlTrace()
         {
+#pragma warning disable CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
             List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+#pragma warning restore CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
             Log("Main" , "Msg" , "Display pearl trace");
             Log("Main" , "Msg" , "Clear display");
             BasicOutputSystem.Items.Clear();
@@ -821,7 +853,9 @@ namespace PearlCalculatorWFA
 
         private void ManuallyCalculatePearlMomemtum()
         {
+#pragma warning disable CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
             List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+#pragma warning restore CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
             Log("Main" , "Msg" , "Display pearl momemtum");
             Log("Main" , "Msg" , "Clear display");
             BasicOutputSystem.Items.Clear();

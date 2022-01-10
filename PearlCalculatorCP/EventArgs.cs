@@ -1,10 +1,8 @@
-﻿using PearlCalculatorLib.PearlCalculationLib.Entity;
-using PearlCalculatorLib.Result;
+﻿using PearlCalculatorLib.Result;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.ViewModels;
-using PearlCalculatorLib.General;
+using PearlCalculatorLib.Settings;
 
 namespace PearlCalculatorCP
 {
@@ -91,9 +89,9 @@ namespace PearlCalculatorCP
 
     public class LoadSettingsArgs : PCEventArgs
     {
-        public readonly Settings Settings;
+        public readonly SettingsCollection Settings;
 
-        public LoadSettingsArgs(string publishKey, Settings settings) : base(publishKey)
+        public LoadSettingsArgs(string publishKey, SettingsCollection settings) : base(publishKey)
         {
             this.Settings = settings;
         }

@@ -1,0 +1,55 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    
+    <Style Selector="Button.CannonContent">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4, 0" />
+        <Setter Property="Height" Value="23" />
+    </Style>
+    
+    <Style Selector="Button.CannonContent /template/ContentPresenter">
+        <Setter Property="CornerRadius" Value="4,0,0,4" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+    <Style Selector="Button.CannonDelete">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4, 0" />
+        <Setter Property="Height" Value="23" />
+    </Style>
+    
+    <Style Selector="Button.CannonDelete /template/ContentPresenter">
+        <Setter Property="CornerRadius" Value="0,4,4,0" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+    <Style Selector="Button.CannonDelete:pointerover">
+        <Setter Property="Foreground" Value="#E71D2B" />
+    </Style>
+    
+    <Style Selector="Button.CannonNameModify">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4, 0" />
+        <Setter Property="Height" Value="23" />
+    </Style>
+    
+    <Style Selector="Button.CannonNameModify /template/ContentPresenter">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="BorderThickness" Value="0,1" />
+    </Style>
+
+
+</Styles>

@@ -1072,7 +1072,9 @@ namespace PearlCalculatorWFA
         private System.Windows.Forms.Label ManuallyPearlXLabel;
         private System.Windows.Forms.TextBox ManuallyBTNTYTextBox;
         private System.Windows.Forms.Label ManuallyTNTYLabel;
+#pragma warning disable CS0169 // 欄位 'PearlCalculatorWFA.textBox4' 從未使用過
         private System.Windows.Forms.TextBox textBox4;
+#pragma warning restore CS0169 // 欄位 'PearlCalculatorWFA.textBox4' 從未使用過
         private System.Windows.Forms.Label ManuallyTNTZLabel;
         private System.Windows.Forms.TextBox ManuallyBTNTZTextBox;
         private System.Windows.Forms.TextBox ManuallyMomemtumXTextBox;

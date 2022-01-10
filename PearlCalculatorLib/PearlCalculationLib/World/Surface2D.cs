@@ -4,16 +4,17 @@ using System.Runtime.CompilerServices;
 namespace PearlCalculatorLib.PearlCalculationLib.World
 {
     [Serializable]
-    public class Surface2D
+    public struct Surface2D
     {
+        public static readonly Surface2D Zero = new Surface2D();
+
         public double X;
         public double Z;
-        public static Surface2D Zero => new Surface2D();
 
-        public Surface2D()
-        {
+        public double Length => Math.Sqrt(X * X + Z * Z);
 
-        }
+        public Surface2D Normalized => Length == 0 ? Zero : this / Length;
+
         public Surface2D(double x , double z)
         {
             X = x;
@@ -32,30 +33,26 @@ namespace PearlCalculatorLib.PearlCalculationLib.World
 
         public bool IsWest(Surface2D position2) => position2.Z > Z;
 
-        public bool IsClockWise(Surface2D vector2) => vector2.Transform(this / Zero.Distance(this) , Zero) > 0;
+        public bool IsClockWise(Surface2D vector2) => vector2.Transform(Normalized , Zero) > 0;
 
-        public bool IsCounterClockWise(Surface2D vector2) => vector2.Transform(this / Zero.Distance(this) , Zero) < 0;
+        public bool IsCounterClockWise(Surface2D vector2) => vector2.Transform(Normalized , Zero) < 0;
 
         public double Angle(Surface2D position2) => Math.Atan((position2.Z - Z) / (position2.X - X)) / Math.PI * 180;
 
         public bool IsOrigin() => X == 0 && Z == 0;
 
-        public bool IsInside(Surface2D SouthEastConer , Surface2D NorthWestConer)
+        public bool IsInside(Surface2D southEastConer , Surface2D northWestConer)
         {
-            return X < SouthEastConer.X && Z < SouthEastConer.Z && X > NorthWestConer.X && Z > NorthWestConer.Z;
+            return X < southEastConer.X && Z < southEastConer.Z && X > northWestConer.X && Z > northWestConer.Z;
         }
 
         public double AngleInRad(Surface2D position2) => Math.Atan(position2.Z - Z / position2.X - X);
 
-        public static Space3D FromPolarCoordinate(double lenght , double Radinat)
+        public static Space3D FromPolarCoordinate(double lenght , double radinat) => new Space3D
         {
-            Space3D result = new Space3D(0 , 0 , 0)
-            {
-                X = lenght * Math.Sin(Radinat) ,
-                Z = lenght * Math.Cos(Radinat)
-            };
-            return result;
-        }
+            X = lenght * Math.Sin(radinat) ,
+            Z = lenght * Math.Cos(radinat)
+        };
 
         public Surface2D Absolute() => new Surface2D(Math.Abs(X) , Math.Abs(Z));
 
