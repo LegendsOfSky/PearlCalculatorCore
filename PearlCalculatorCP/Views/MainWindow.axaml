@@ -78,100 +78,86 @@
 
                         <Border Classes="GlobalGeneralBorder" Margin="0, 5" Padding="4,0">
 
-                            <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
-                                <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+                            <TabControl>
 
-                                    <!--General-->
-                                    <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
+                                <!--General-->
+                                <TabItem Header="{i18n:Translate GeneralFTLGeneralHeader, Fallback='General'}">
 
-                                        <Grid RowDefinitions="*, Auto">
-                                            
-                                            <Grid.Styles>
-                                                <Style Selector="StackPanel">
-                                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                                </Style>
-                                            </Grid.Styles>
+                                    <Grid RowDefinitions="*, Auto">
 
-                                            <UniformGrid Grid.Row="0" Columns="1">
+                                        <Grid.Styles>
+                                            <Style Selector="StackPanel">
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                            </Style>
+                                        </Grid.Styles>
 
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding PearlPosX}" />
-                                                </StackPanel>
+                                        <UniformGrid Grid.Row="0" Columns="1">
 
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding PearlPosZ}" />
-                                                </StackPanel>
-
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding DestinationX}" />
-                                                </StackPanel>
-
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding DestinationZ}" />
-                                                </StackPanel>
-
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                                </StackPanel>
-                                                
-                                                <Grid ColumnDefinitions="Auto, *,Auto, *,Auto, *,Auto" Margin="12, 0">
-                                                    <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="4" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" />
-                                                    <RadioButton Grid.Column="6" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" />
-                                                </Grid>
-
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                                </StackPanel>
-
-                                                <StackPanel>
-                                                    <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
-                                                    <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
-                                                </StackPanel>
-
-                                            </UniformGrid>
-
-                                            <StackPanel Grid.Row="1" Spacing="2" Margin="0,8,0,4">
-                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
-                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
-                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
-                                                <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate PearlPosX, Fallback='Pearl X :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding PearlPosX}" />
                                             </StackPanel>
-                                        </Grid>
 
-                                    </TabItem>
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate PearlPosZ, Fallback='Pearl Z :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding PearlPosZ}" />
+                                            </StackPanel>
 
-                                    <!--Advanced-->
-                                    <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
-                                        <panels:Advance />
-                                    </TabItem>
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate DestinationX, Fallback='Destination X :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding DestinationX}" />
+                                            </StackPanel>
 
-                                    <!--Settings-->
-                                    <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
-                                        <panels:MoreSettings />
-                                    </TabItem>
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate DestinationZ, Fallback='Destination Z :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding DestinationZ}" />
+                                            </StackPanel>
 
-                                </TabControl>
-                                
-                                <Button Grid.Row="0" Grid.Column="1" Margin="8, 14" Name="CannonSettingsBtn" Classes="IconButton" Click="CannonSettingsListBtn_OnClick">
-                                    <Button.Content>
-                                        <Path Stretch="Fill"
-                                              Width="16"
-                                              Height="16"
-                                              Data="{DynamicResource FluentListIcon}"
-                                              Fill="{Binding $parent.Foreground}"
-                                              VerticalAlignment="Center"/>
-                                    </Button.Content>
-                                </Button>
-                                
-                            </Grid>
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate MaxTNT, Fallback='Max TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding MaxTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                            <Grid ColumnDefinitions="Auto, *,Auto, *,Auto, *,Auto" Margin="12, 0">
+                                                <RadioButton Grid.Column="0" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.North}}" Content="North" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="2" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.South}}" Content="South" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="4" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.East}}" Content="East" GroupName="DirectionSelectGroup" />
+                                                <RadioButton Grid.Column="6" IsChecked="{Binding Direction, Converter={StaticResource IsCheckedFormEnum}, ConverterParameter={x:Static libWorld:Direction.West}}" Content="West" GroupName="DirectionSelectGroup" />
+                                            </Grid>
+
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate RedTNT, Fallback='Red TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding RedTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                            <StackPanel>
+                                                <TextBlock Text="{i18n:Translate BlueTNT, Fallback='Blue TNT :'}" Classes="InputBoxTB" />
+                                                <NumericUpDown Value="{Binding BlueTNT}" ValueChanged="NumericUpDownToUInt_OnValueChanged" />
+                                            </StackPanel>
+
+                                        </UniformGrid>
+
+                                        <StackPanel Grid.Row="1" Spacing="2" Margin="0,8,0,4">
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate CalculateTNTAmount, Fallback='Calculate TNT Amount'}" Command="{Binding CalculateTNTAmount}" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate PearlSimulate, Fallback='Pearl Simulate'}" Command="{Binding PearlSimulate}" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate ImportSettings, Fallback='Import Settings'}" Click="ImportSettingsBtn_OnClick" />
+                                            <Button Classes="GeneralButtonStyle" Content="{i18n:Translate SaveSettings, Fallback='Save Settings'}" Click="SaveSettingsBtn_OnClick" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                </TabItem>
+
+                                <!--Advanced-->
+                                <TabItem Header="{i18n:Translate GeneralFTLAdvancedHeader, Fallback='Advanced'}">
+                                    <panels:Advance />
+                                </TabItem>
+
+                                <!--Settings-->
+                                <TabItem Header="{i18n:Translate GeneralFTLSettingsHeader, Fallback='Settings'}">
+                                    <panels:MoreSettings />
+                                </TabItem>
+
+                            </TabControl>
 
                         </Border>
 
@@ -207,99 +193,18 @@
                         <Path Stretch="Uniform"
                               Width="16"
                               Height="16"
-                              Data="{DynamicResource SettingsIcon}"
+                              Data="{DynamicResource FluentSettingsIcon}"
                               Fill="{Binding $parent.Foreground}"
                               VerticalAlignment="Center"/>
                     </Button.Content>
                 </Button>
             </Grid>
 
-            <Popup Grid.Column="0" Name="CannonSettingsPopup" PlacementMode="AnchorAndGravity" PlacementTarget="CannonSettingsBtn" PlacementGravity="BottomLeft" PlacementAnchor="BottomRight" IsOpen="False" IsLightDismissEnabled="True">
-                
-                <Border BorderThickness="1" CornerRadius="{DynamicResource FluentPopupCornerRadius}" BorderBrush="{DynamicResource CPBorderBrush}" Background="White" Width="{Binding SettingsPopupWidth}">
 
-                    <LayoutTransformControl>
-                        <LayoutTransformControl.LayoutTransform>
-                            <ScaleTransform ScaleX="{Binding WindowScale}"
-                                            ScaleY="{Binding WindowScale}" />
-                        </LayoutTransformControl.LayoutTransform>
-
-                        <Grid RowDefinitions="Auto, 1, Auto">
-
-                            <DockPanel Grid.Row="0" Margin="16, 2">
-                                <Button Classes="IconButton" DockPanel.Dock="Right" Margin="0, 2"
-                                        HorizontalAlignment="Right">
-                                    <Button.Content>
-                                        <Path Stretch="Uniform"
-                                              Width="16"
-                                              Height="16"
-                                              Data="{DynamicResource FluentAddIcon}"
-                                              VerticalAlignment="Center"
-                                              Fill="{Binding $parent.Foreground}">
-                                        </Path>
-                                    </Button.Content>
-                                </Button>
-                            </DockPanel>
-
-                            <ItemsRepeater Items="{Binding ConfigSelectList}" MaxWidth="400" Grid.Row="2" Margin="16, 2">
-
-                                <!--Content Styles-->
-                                <ItemsRepeater.Styles>
-                                    <StyleInclude Source="avares://PearlCalculatorCP/Styles/CannonSeleteItemStyles.axaml" />
-                                </ItemsRepeater.Styles>
-                                <!--End-->
-
-                                <ItemsRepeater.Layout>
-                                    <WrapLayout />
-                                </ItemsRepeater.Layout>
-
-                                <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate DataType="x:String">
-                                            
-                                        <Grid ColumnDefinitions="Auto, Auto, Auto" Margin="4, 4">
-                                            <Button Grid.Column="0" Classes="CannonContent" Content="{Binding}" />
-                                            <Button Grid.Column="1" Classes="CannonNameModify IconButton" Name="CannonSettingsNameEdit">
-                                                <Button.Content>
-                                                    <Path Stretch="Uniform"
-                                                          Width="16"
-                                                          Height="16"
-                                                          Data="{DynamicResource FluentEditIcon}"
-                                                          VerticalAlignment="Center"
-                                                          Fill="{Binding #CannonSettingsNameEdit.Foreground}">
-                                                    </Path>
-                                                </Button.Content>
-                                            </Button>
-                                            <Button Grid.Column="2" Classes="CannonDelete IconButton" Name="CannonSettingsDelete">
-                                                <Button.Content>
-                                                    <Path Stretch="Uniform"
-                                                          Width="16"
-                                                          Height="16"
-                                                          Data="{DynamicResource FluentDeleteIcon}"
-                                                          VerticalAlignment="Center"
-                                                          Fill="{Binding #CannonSettingsDelete.Foreground}">
-                                                    </Path>
-                                                </Button.Content>
-                                            </Button>
-                                        </Grid>
-                                        
-                                        
-                                    </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
-
-                            <Rectangle Grid.Row="1" Fill="{DynamicResource CPBorderBrush}" />
-
-                        </Grid>
-
-                    </LayoutTransformControl>
-
-                </Border>
-            </Popup>
-            
             <!--Settings Popup-->
             <Popup Grid.Column="1" Name="AppSettingsPopup" PlacementMode="AnchorAndGravity" PlacementTarget="AppSettingsBtn" PlacementGravity="BottomLeft" PlacementAnchor="BottomRight" IsOpen="False" IsLightDismissEnabled="True">
 
-                <Border BorderThickness="1" CornerRadius="{DynamicResource FluentPopupCornerRadius}" BorderBrush="{DynamicResource CPBorderBrush}" Background="White" Width="{Binding SettingsPopupWidth}">
+                <Border BorderThickness="1" CornerRadius="{DynamicResource FluentPopupCornerRadius}" BorderBrush="{DynamicResource CPBorderBrush}" Background="White" Width="{Binding AppSettingsPopupWidth}">
 
                     <LayoutTransformControl>
 

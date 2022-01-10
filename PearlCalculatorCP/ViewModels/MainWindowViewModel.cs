@@ -17,7 +17,7 @@ namespace PearlCalculatorCP.ViewModels
     {
 
         private static readonly Size DefaultWindowSize = new(1000, 800);
-        private const double DefaultSettingsPopupWidth = 350;
+        private const double DefaultAppSettingsPopupWidth = 350;
 
         private Size _windowSize = DefaultWindowSize;
         public Size WindowSize
@@ -26,11 +26,11 @@ namespace PearlCalculatorCP.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _windowSize, value);
         }
 
-        private double _settingsPopupWidth = DefaultSettingsPopupWidth;
-        public double SettingsPopupWidth
+        private double _appSettingsPopupWidth = DefaultAppSettingsPopupWidth;
+        public double AppSettingsPopupWidth
         {
-            get => _settingsPopupWidth;
-            private set => this.RaiseAndSetIfChanged(ref _settingsPopupWidth, value);
+            get => _appSettingsPopupWidth;
+            private set => this.RaiseAndSetIfChanged(ref _appSettingsPopupWidth, value);
         }
         
         private double _windowScale = 1.0d;
@@ -44,7 +44,7 @@ namespace PearlCalculatorCP.ViewModels
                 
                 RaiseAndSetProperty(ref _windowScale, value);
                 WindowSize = DefaultWindowSize * value;
-                SettingsPopupWidth = DefaultSettingsPopupWidth * value;
+                AppSettingsPopupWidth = DefaultAppSettingsPopupWidth * value;
             }
         }
         
@@ -151,14 +151,6 @@ namespace PearlCalculatorCP.ViewModels
 
 #endregion
 
-        private ObservableCollection<string> _configSelectList = new();
-
-        public ObservableCollection<string> ConfigSelectList
-        {
-            get => _configSelectList;
-            set => this.RaiseAndSetIfChanged(ref _configSelectList, value);
-        }
-
         public MainWindowViewModel()
         {
             _direction = Data.Direction;
@@ -183,11 +175,6 @@ namespace PearlCalculatorCP.ViewModels
                 _isEnableIfChanged = true;
             });
 
-            for (int i = 0; i < 10; i++)
-            {
-                _configSelectList.Add($"Default ({i.ToString()})");
-            }
-            
             this.ApplyScale();
         }
 
@@ -217,7 +204,7 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
 
-        #region Calculate
+#region Calculate
         
         public void CalculateTNTAmount()
         {
@@ -270,9 +257,9 @@ namespace PearlCalculatorCP.ViewModels
             }
         }
         
-        #endregion
+#endregion
 
-        #region Result Show
+#region Result Show
 
         private void ShowDirectionResult(Space3D pearlPos, Space3D destination)
         {
@@ -281,6 +268,6 @@ namespace PearlCalculatorCP.ViewModels
             EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("GeneralFTL", direction, angle.ToString()));
         }
         
-        #endregion
+#endregion
     }
 }

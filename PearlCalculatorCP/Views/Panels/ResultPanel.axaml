@@ -429,11 +429,11 @@
             <Border Grid.Row="1" CornerRadius="0,0,4,4" Background="#F3F3F3">
                 <Panel>
                     <Grid RowDefinitions="*, *">
-                        <DockPanel Grid.Row="0" Margin="30, 0" Dock="Top">
+                        <DockPanel Grid.Row="0" Margin="30, 0">
                             <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayDirection, Fallback='Direction'}" VerticalAlignment="Center" />
                             <TextBlock DockPanel.Dock="Right" Text="{Binding ResultDirection}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </DockPanel>
-                        <DockPanel Grid.Row="1" Margin="30, 0" Dock="Bottom">
+                        <DockPanel Grid.Row="1" Margin="30, 0">
                             <TextBlock DockPanel.Dock="Left" Text="{i18n:Translate DisplayAngle, Fallback='Angle'}" VerticalAlignment="Center" />
                             <TextBlock DockPanel.Dock="Right" Text="{Binding ResultAngle}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </DockPanel>
