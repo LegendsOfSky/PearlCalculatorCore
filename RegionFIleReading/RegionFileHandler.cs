@@ -1,7 +1,10 @@
-﻿using RegionFIleReading.NBT;
+﻿#nullable disable
+
+using RegionFIleReading.NBT;
 using RegionFIleReading.NBT.Content;
 using System;
 using System.Buffers.Binary;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
@@ -14,6 +17,11 @@ namespace RegionFIleReading
 {
     public static class RegionFileHandler
     {
+        static RegionFileHandler()
+        {
+            InitializeSolidBlock();
+        }
+
         public unsafe static void Resolve(string filePath)
         {
             Stream reader = new FileStream(filePath , FileMode.Open);
@@ -74,10 +82,49 @@ namespace RegionFIleReading
             }
         }
 
-        public static void Analyze()
+        private static void Analyze(CompoundTagContent regionContent)
         {
-            InitializeSolidBlock();
+            CompoundTagContent level = regionContent[0].As<CompoundTagContent>()[0]
+                                                       .As<CompoundTagContent>();
+            ListTagContent<ITagContent> sections = level.First(i => i.Name == "Sections") as ListTagContent<ITagContent>;
 
+            foreach (var section in sections)
+            {
+                if (((CompoundTagContent)section).Count > 1)
+                {
+                    long[] blockStates = null;
+                    ListTagContent<ITagContent> palettes = null;
+
+                    CompoundTagContent subChunk = (CompoundTagContent)section;
+                    for (int i = 0; i < subChunk.Count; i++)
+                        if (subChunk[i].Name == "BlockStates")
+                            blockStates = (LongArrayTagContent)subChunk[i];
+                        else if (subChunk[i].Name == "Palette")
+                            palettes = (ListTagContent<ITagContent>)subChunk[i];
+
+                    if (palettes == null)
+                        continue;
+
+                    bool[] solidBlock = new bool[palettes.Count];
+                    for (int i = 0; i < palettes.Count; i++)
+                    {
+                        foreach (var block in (CompoundTagContent)palettes[i])
+                            if (block.Name == "Name")
+                                solidBlock[i] = SolidBlock.BlockDictionary[(StringTagContent)block];
+                    }
+
+                    byte[] statesArray = new byte[blockStates.Length * 8];
+                    for (int i = 0; i < blockStates.Length; i++)
+                    {
+                        byte[] temp = BitConverter.IsLittleEndian ? BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(blockStates[i]))
+                                                                  : BitConverter.GetBytes(blockStates[i]);
+                        for (int j = 0; j < temp.Length; j++)
+                            statesArray[i * 8 + j] = temp[j];
+                    }
+
+                    BitArray blockIndexes = new BitArray(statesArray);
+                }
+            }
         }
 
         private static void InitializeSolidBlock()
@@ -112,6 +159,11 @@ namespace RegionFIleReading
         {
             CompoundTagContent content = new CompoundTagContent();
             content = NBTReader.ReadTag(ref pointer);
+        }
+
+        public static unsafe void Test(byte* pointer)
+        {
+            Analyze(NBTReader.ReadTag(ref pointer));
         }
 
         public static void Test()

@@ -10,4 +10,9 @@ namespace RegionFIleReading.NBT.Content
     {
         string? Name { get; set; }
     }
+
+    internal static class ITagContentExtension
+    {
+        public static T? As<T>(this ITagContent tag) where T : class , ITagContent => tag as T;
+    }
 }

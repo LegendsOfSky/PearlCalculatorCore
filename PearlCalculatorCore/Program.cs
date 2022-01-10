@@ -30,7 +30,10 @@ namespace PearlCalculatorCore
     {
         static unsafe void Main(string[] args)
         {
-            RegionFileHandler.Test();
+            Span<byte> data = new Span<byte>(File.ReadAllBytes(@"M:\ChunkData\ChunkData0"));
+            IntPtr ptr = Marshal.AllocHGlobal(data.Length);
+            Marshal.Copy(data.ToArray() , 0 , ptr , data.Length);
+            RegionFileHandler.Test((byte*)ptr);
             Console.WriteLine("End");
             Console.ReadKey();
         }

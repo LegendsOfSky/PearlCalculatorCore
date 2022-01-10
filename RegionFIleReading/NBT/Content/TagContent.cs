@@ -14,12 +14,6 @@ namespace RegionFIleReading.NBT.Content
 
 
 
-        public override string ToString()
-        {
-            if (Name == null)
-                return "Null";
-            else
-                return Name;
-        }
+        public override string ToString() => Name ?? "Internal Use(No Name)";
     }
 }

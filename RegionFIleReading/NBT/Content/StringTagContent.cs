@@ -9,5 +9,7 @@ namespace RegionFIleReading.NBT.Content
     internal class StringTagContent : TagContent<string>
     {
         public override TagType TagType => TagType.String;
+
+        public static implicit operator string(StringTagContent tag) => tag.Data;
     }
 }
