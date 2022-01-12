@@ -13,9 +13,13 @@ Just A Pearl Calculator Core Project Attempt.
 
 # Prerequisites
 
-Please install the dotnet Core runtime before proceeding.
+Please install the dotnet runtime before proceeding.
 
-- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download/dotnet/3.1)
+Some apps run on [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
+- [PearlCalculatorCore](PearlCalculatorCore/)
+- [PearlCalculatorCP](PearlCalculatorCP/)
+
+Other apps run on [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 
 # PearlCalculatorCP
 

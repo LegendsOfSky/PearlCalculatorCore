@@ -15,9 +15,13 @@
 
 # 前置
 
-在前往下個頁面前，請先安裝`dotnet Core運行時`。
+在前往下個頁面前，請先安裝`dotnet runtime`。
 
-- dotnet Core 3.1 (Link: https://dotnet.microsoft.com/download/dotnet/3.1)
+以下軟體使用 [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
+- [PearlCalculatorCore](PearlCalculatorCore/)
+- [PearlCalculatorCP](PearlCalculatorCP/)
+
+其他軟體使用 [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 
 # PearlCalculatorCP
 

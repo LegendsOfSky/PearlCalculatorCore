@@ -16,10 +16,14 @@
 若 报告/报告者 违反以上内容，该报告将不被考虑。
 
 # 前置
+在运行本仓库所有软件前，请先安装`dotnet runtime`
 
-在运行本仓库的所有软件前，请先安装`dotnet Core`运行时
+以下软件使用 [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
 
-- [dotnet Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1)
+- [PearlCalculatorCore](PearlCalculatorCore/)
+- [PearlCalculatorCP](PearlCalculatorCP/)
+
+其他软件使用 [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 
 # PearlCalculatorCP
 
