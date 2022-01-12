@@ -1,4 +1,5 @@
-﻿using PearlCalculatorLib.Result;
+﻿using System;
+using PearlCalculatorLib.Result;
 using System.Collections.Generic;
 using PearlCalculatorCP.Models;
 using PearlCalculatorCP.ViewModels;
@@ -6,7 +7,7 @@ using PearlCalculatorLib.Settings;
 
 namespace PearlCalculatorCP
 {
-    public abstract class PCEventArgs
+    public abstract class PCEventArgs : EventArgs
     {
         public readonly string PublishKey;
 

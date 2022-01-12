@@ -3,10 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i18n="clr-namespace:PearlCalculatorCP.Localizer"
-             xmlns:converters="using:PearlCalculatorCP.Converters"
              xmlns:vm="using:PearlCalculatorCP.ViewModels"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
-             x:Class="PearlCalculatorCP.Views.Manually">
+             x:Class="PearlCalculatorCP.Views.CustomFTL">
         
     <UserControl.Styles>
         
@@ -29,7 +28,7 @@
     </UserControl.Styles>
     
     <UserControl.DataContext>
-        <vm:ManuallyViewModel />
+        <vm:CustomFTLViewModel />
     </UserControl.DataContext>
     
     <Grid RowDefinitions="5, *, 5">

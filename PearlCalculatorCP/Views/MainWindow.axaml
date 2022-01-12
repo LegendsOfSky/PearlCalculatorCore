@@ -163,9 +163,9 @@
 
                     </TabItem>
 
-                    <!--Manually-->
-                    <TabItem Header="{i18n:Translate ManuallyHeader, Fallback='Manually'}">
-                        <views:Manually />
+                    <!--Custom FTL-->
+                    <TabItem Header="{i18n:Translate CustomFTLHeader, Fallback='Custom FTL'}">
+                        <views:CustomFTL />
                     </TabItem>
 
                 </TabControl>

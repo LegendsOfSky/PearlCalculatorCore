@@ -1,6 +1,6 @@
 {
     "GeneralFTLHeader": "通用FTL",
-    "ManuallyHeader": "自定义FTL",
+    "CustomFTLHeader": "自定义FTL",
 
     "GeneralFTLGeneralHeader": "一般选项",
     "GeneralFTLAdvancedHeader": "进阶选项",

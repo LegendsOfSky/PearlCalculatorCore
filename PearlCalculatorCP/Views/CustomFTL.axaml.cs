@@ -8,10 +8,10 @@ using PearlCalculatorCP.Utils;
 
 namespace PearlCalculatorCP.Views
 {
-    public class Manually : UserControl
+    public class CustomFTL : UserControl
     {
 
-        public Manually()
+        public CustomFTL()
         {
             InitializeComponent();
         }

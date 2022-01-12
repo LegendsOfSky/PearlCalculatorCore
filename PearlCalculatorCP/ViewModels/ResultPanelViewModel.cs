@@ -136,8 +136,8 @@ namespace PearlCalculatorCP.ViewModels
                 var isNaN = args.IsNaN;
                 ShowMode = isNaN ? ResultShowMode.AmountNaN : ResultShowMode.Amount;
 
-                _amountDataSource = args.PublishKey == "Manually"
-                    ? ResultAmountDataSource.Manually
+                _amountDataSource = args.PublishKey == CustomFTLViewModel.PublishKey
+                    ? ResultAmountDataSource.Custom
                     : ResultAmountDataSource.General;
                 
                 _amountList = args.Results;
@@ -262,6 +262,6 @@ namespace PearlCalculatorCP.ViewModels
 
     public enum ResultAmountDataSource
     {
-        General, Manually
+        General, Custom
     }
 }

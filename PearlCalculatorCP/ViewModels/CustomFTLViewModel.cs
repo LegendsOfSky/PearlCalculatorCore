@@ -9,8 +9,10 @@ using PearlCalculatorLib.PearlCalculationLib.Entity;
 
 namespace PearlCalculatorCP.ViewModels
 {
-    public class ManuallyViewModel : ViewModelBase
-    {   
+    public class CustomFTLViewModel : ViewModelBase
+    {
+        public const string PublishKey = "CustomFTL";
+        
         private double _pearlX;
         public double PearlX
         {
@@ -146,15 +148,15 @@ namespace PearlCalculatorCP.ViewModels
             var data = CreateManuallyData();
             if (Calculation.CalculateTNTAmount(data, MainWindowViewModel.MaxTicks, MainWindowViewModel.MaxDistance, out var result))
             {
-                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", result));
+                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs(PublishKey, result));
                 var angle = data.Pearl.Position.WorldAngle(data.Destination.ToSpace3D());
                 var direction = DirectionUtils.GetDirection(angle).ToString();
-                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", direction, angle.ToString()));
+                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs(PublishKey, direction, angle.ToString()));
             }
             else
             {
-                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs("Manually", null));
-                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
+                EventManager.PublishEvent(this, "calculate", new CalculateTNTAmountArgs(PublishKey, null));
+                EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs(PublishKey, string.Empty, string.Empty));
             }
         }
 
@@ -176,8 +178,8 @@ namespace PearlCalculatorCP.ViewModels
             }));
             chunkModels.AddRange(chunks.Select((c, i) => new PearlTraceChunkModel{Tick = i, XCoor = c.X, ZCoor = c.Z}));
 
-            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs("Manually", traces, chunkModels));
-            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
+            EventManager.PublishEvent(this, "pearlTrace", new PearlSimulateArgs(PublishKey, traces, chunkModels));
+            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs(PublishKey, string.Empty, string.Empty));
         }
 
         public void CalculateMomentum()
@@ -192,8 +194,8 @@ namespace PearlCalculatorCP.ViewModels
                 YCoor = t.Motion.Y, 
                 ZCoor = t.Motion.Z
             }));
-            EventManager.PublishEvent(this, "pearlMotion", new PearlSimulateArgs("Manually", traces, null));
-            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs("Manually", string.Empty, string.Empty));
+            EventManager.PublishEvent(this, "pearlMotion", new PearlSimulateArgs(PublishKey, traces, null));
+            EventManager.PublishEvent(this, "showDirectionResult", new ShowDirectionResultArgs(PublishKey, string.Empty, string.Empty));
         }
     }
 }
