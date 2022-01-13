@@ -25,8 +25,8 @@ namespace PearlCalculatorCP.Models
     [Flags]
     public enum TranslateFileLoadTypes
     {
-        BuiltInFont = 1,
-        SystemFont = 2,
-        All = BuiltInFont | SystemFont
+        BuiltInFont = 0b0001,
+        SystemFont  = 0b0010,
+        All         = 0b0011
     }
 }

@@ -14,8 +14,6 @@ namespace PearlCalculatorCP
 {
     public class App : Application
     {
-        private CustomFontManagerImpl? _fontManager;
-
         public App()
         {
             InitAppRuntimeSettings();
@@ -48,8 +46,7 @@ namespace PearlCalculatorCP
         {
             if (!AppRuntimeSettings.UseSystemFont)
             {
-                _fontManager = new CustomFontManagerImpl();
-                AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(_fontManager);
+                AvaloniaLocator.CurrentMutable.BindToSelf<IFontManagerImpl>(new CustomFontManagerImpl());
             }
 
             base.RegisterServices();

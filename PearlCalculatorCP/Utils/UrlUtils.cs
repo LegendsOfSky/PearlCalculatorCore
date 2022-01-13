@@ -9,7 +9,7 @@ namespace PearlCalculatorCP.Utils
 {
     static class UrlUtils
     {
-        private static ProcessStartInfo UrlStartInfo = new ProcessStartInfo { UseShellExecute = true };
+        private static readonly ProcessStartInfo UrlStartInfo = new ProcessStartInfo { UseShellExecute = true };
 
         private static readonly Regex UrlRegex = new Regex(@"^(https?|ftp|file|ws)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
 
