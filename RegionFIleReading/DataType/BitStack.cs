@@ -15,12 +15,6 @@ namespace RegionFIleReading.DataType
 
         public int Length => _data.Length - _index - 1;
 
-        public BitStack()
-        {
-            _index = 0;
-            _bitIndex = 0;
-        }
-
         public BitStack(byte[] data)
         {
             _data = data;
@@ -67,13 +61,6 @@ namespace RegionFIleReading.DataType
 
                 return result;
             }
-        }
-
-        public void Push(byte content)
-        {
-            List<byte> bytes = new List<byte>(_data);
-            bytes.Add(content);
-            _data = bytes.ToArray();
         }
     }
 }
