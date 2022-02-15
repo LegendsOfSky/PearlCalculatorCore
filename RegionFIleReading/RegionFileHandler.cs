@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using RegionFIleReading.DataType;
 using RegionFIleReading.NBT;
 using RegionFIleReading.NBT.Content;
 using System;
@@ -122,7 +123,7 @@ namespace RegionFIleReading
                             statesArray[i * 8 + j] = temp[j];
                     }
 
-                    BitArray blockIndexes = new BitArray(statesArray);
+                    BitStack blockIndexes = new BitStack(statesArray);
                 }
             }
         }
@@ -133,8 +134,10 @@ namespace RegionFIleReading
                 return;
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] files = assembly.GetManifestResourceNames();
+
             List<string> list = new List<string>();
             SolidBlock.BlockDictionary = new Dictionary<string , bool>();
+
             foreach (var file in files)
             {
                 using (Stream stream = assembly.GetManifestResourceStream(file))

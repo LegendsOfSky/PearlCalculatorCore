@@ -26,14 +26,14 @@ namespace RegionFIleReading.NBT
                 {
                     case TagType.Null:
                         break;
-                    case TagType.Int:
-                        compoundTagContent.Data.Add(ReadTagInt(ref pointer));
+                    case TagType.Byte:
+                        compoundTagContent.Data.Add(ReadTagByte(ref pointer));
                         break;
                     case TagType.Short:
                         compoundTagContent.Data.Add(ReadTagShort(ref pointer));
                         break;
-                    case TagType.Byte:
-                        compoundTagContent.Data.Add(ReadTagByte(ref pointer));
+                    case TagType.Int:
+                        compoundTagContent.Data.Add(ReadTagInt(ref pointer));
                         break;
                     case TagType.Long:
                         compoundTagContent.Data.Add(ReadTagLong(ref pointer));
@@ -44,20 +44,20 @@ namespace RegionFIleReading.NBT
                     case TagType.Double:
                         compoundTagContent.Data.Add(ReadTagDouble(ref pointer));
                         break;
+                    case TagType.ByteArray:
+                        compoundTagContent.Data.Add(ReadTagByteArray(ref pointer));
+                        break;
                     case TagType.String:
                         compoundTagContent.Data.Add(ReadTagString(ref pointer));
-                        break;
-                    case TagType.Compound:
-                        compoundTagContent.Data.Add(ReadTagCompound(ref pointer));
                         break;
                     case TagType.List:
                         compoundTagContent.Data.Add(ReadTagList(ref pointer));
                         break;
+                    case TagType.Compound:
+                        compoundTagContent.Data.Add(ReadTagCompound(ref pointer));
+                        break;
                     case TagType.IntArray:
                         compoundTagContent.Data.Add(ReadTagIntArray(ref pointer));
-                        break;
-                    case TagType.ByteArray:
-                        compoundTagContent.Data.Add(ReadTagByteArray(ref pointer));
                         break;
                     case TagType.LongArray:
                         compoundTagContent.Data.Add(ReadTagLongArray(ref pointer));
@@ -165,13 +165,25 @@ namespace RegionFIleReading.NBT
                 case TagType.List:
                     contents.Data = GetListTagContentsInTaglist(ref pointer);
                     break;
-
-                case TagType.Byte:
-                case TagType.Short:
-                case TagType.Int:
-                case TagType.Long:
-                case TagType.Float:
                 case TagType.Double:
+                    contents.Data = GetDoubleTagContentsInTagList(ref pointer);
+                    break;
+                case TagType.Float:
+                    contents.Data = GetFloatTagContentsInTagList(ref pointer);
+                    break;
+                case TagType.Byte:
+                    contents.Data = GetByteTagContentsInTagList(ref pointer);
+                    break;
+                case TagType.Short:
+                    contents.Data = GetShortTagContentsInTagList(ref pointer);
+                    break;
+                case TagType.Int:
+                    contents.Data = GetIntTagContentsInTagList(ref pointer);
+                    break;
+                case TagType.Long:
+                    contents.Data = GetLongTagContentsInTagList(ref pointer);
+                    break;
+
                 case TagType.ByteArray:
                 case TagType.String:
                 case TagType.IntArray:
@@ -190,6 +202,96 @@ namespace RegionFIleReading.NBT
             pointer += 4;
             for (int i = 0; i < length; i++)
                 contents.Add(ReadTag(ref pointer));
+            return contents;
+        }
+
+        private static List<ITagContent> GetDoubleTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            DoubleTagContent content = new DoubleTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *(double*)pointer;
+                pointer += 8;
+                contents.Add(content);
+            }
+            return contents;
+        }
+
+        private static List<ITagContent> GetFloatTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            FloatTagContent content = new FloatTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *(float*)pointer;
+                pointer += 4;
+                contents.Add(content);
+            }
+            return contents;
+        }
+
+        private static List<ITagContent> GetByteTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            ByteTagContent content = new ByteTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *pointer;
+                pointer++;
+                contents.Add(content);
+            }
+            return contents;
+        }
+
+        private static List<ITagContent> GetShortTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            ShortTagContent content = new ShortTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *(short*)pointer;
+                pointer += 2;
+                contents.Add(content);
+            }
+            return contents;
+        }
+
+        private static List<ITagContent> GetIntTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            IntTagContent content = new IntTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *(int*)pointer;
+                pointer += 4;
+                contents.Add(content);
+            }
+            return contents;
+        }
+
+        private static List<ITagContent> GetLongTagContentsInTagList(ref byte* pointer)
+        {
+            List<ITagContent> contents = new List<ITagContent>();
+            LongTagContent content = new LongTagContent();
+            int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
+            pointer += 4;
+            for (int i = 0; i < length; i++)
+            {
+                content.Data = *(long*)pointer;
+                pointer += 8;
+                contents.Add(content);
+            }
             return contents;
         }
 
