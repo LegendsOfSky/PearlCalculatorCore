@@ -33,6 +33,8 @@ namespace PearlCalculatorWFA
             Converters = { JsonConverter }
         };
 
+        private ManuallyData manuallyData = new ManuallyData(0 , 0 , Space3D.Zero , Space3D.Zero , Surface2D.Zero , new PearlEntity().WithMotion(0 , 0 , 0).WithPosition(0 , 0 , 0));
+
         private bool IsDisplayOnTNT = false;
         private int MaxTicks = 100;
         private int ManuallyAtntAmount = 0;
@@ -261,27 +263,34 @@ namespace PearlCalculatorWFA
 
         private void DestinationXTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralDestinationXTextBox.Text , out GeneralData.Destination.X);
+            Space3D destination = GeneralData.Destination;
+            double.TryParse(GeneralDestinationXTextBox.Text , out destination.X);
+            GeneralData.Destination = destination;
         }
 
         private void DestinationZTextBox_TextChanged(object sender , EventArgs e)
         {
-            double.TryParse(GeneralDestinationZTextBox.Text , out GeneralData.Destination.Z);
+            Space3D destination = GeneralData.Destination;
+            double.TryParse(GeneralDestinationZTextBox.Text , out destination.Z);
+            GeneralData.Destination = destination;
         }
 
         private void MaxTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralMaxTNTTextBox.Text , out GeneralData.MaxTNT);
+            int.TryParse(GeneralMaxTNTTextBox.Text , out int maxTNT);
+            GeneralData.MaxTNT = maxTNT;
         }
 
         private void RedTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralRedTNTTextBox.Text , out GeneralData.RedTNT);
+            int.TryParse(GeneralRedTNTTextBox.Text , out int redTNT);
+            GeneralData.RedTNT = redTNT;
         }
 
         private void BlueTNTTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(GeneralBlueTNTTextBox.Text , out GeneralData.BlueTNT);
+            int.TryParse(GeneralBlueTNTTextBox.Text , out int blueTNT);
+            GeneralData.BlueTNT = blueTNT;
         }
 
         private void NorthRadioButton_CheckedChanged(object sender , EventArgs e)
@@ -670,110 +679,82 @@ namespace PearlCalculatorWFA
 
         private void ManuallyPearlXTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyPearlXTextBox.Text , out ManuallyData.Pearl.Position.X);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyPearlXTextBox.Text , out manuallyData.Pearl.Position.X);
         }
 
         private void ManuallyMomemtumXTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyMomemtumXTextBox.Text , out ManuallyData.Pearl.Motion.X);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyMomemtumXTextBox.Text , out manuallyData.Pearl.Motion.X);
         }
 
         private void ManuallyPearlYTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyPearlYTextBox.Text , out ManuallyData.Pearl.Position.Y);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyPearlYTextBox.Text , out manuallyData.Pearl.Position.Y);
         }
 
         private void ManuallyMomemtumYTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyMomemtumYTextBox.Text , out ManuallyData.Pearl.Motion.Y);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyMomemtumYTextBox.Text , out manuallyData.Pearl.Motion.Y);
         }
 
         private void ManuallyPearlZTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyPearlZTextBox.Text , out ManuallyData.Pearl.Position.Z);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyPearlZTextBox.Text , out manuallyData.Pearl.Position.Z);
         }
 
         private void ManuallyMomemtumZTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
-            double.TryParse(ManuallyMomemtumZTextBox.Text , out ManuallyData.Pearl.Motion.Z);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Pearl'
+            double.TryParse(ManuallyMomemtumZTextBox.Text , out manuallyData.Pearl.Motion.Z);
         }
 
         private void ManuallyATNTXTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
-            double.TryParse(ManuallyATNTXTextBox.Text , out ManuallyData.ATNT.X);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
+            double.TryParse(ManuallyATNTXTextBox.Text , out manuallyData.ATNT.X);
         }
 
         private void ManuallyBTNTXTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
-            double.TryParse(ManuallyBTNTXTextBox.Text , out ManuallyData.BTNT.X);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
+            double.TryParse(ManuallyBTNTXTextBox.Text , out manuallyData.BTNT.X);
         }
 
         private void ManuallyATNTYTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
-            double.TryParse(ManuallyATNTYTextBox.Text , out ManuallyData.ATNT.Y);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
+            double.TryParse(ManuallyATNTYTextBox.Text , out manuallyData.ATNT.Y);
         }
 
         private void ManuallyBTNTYTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
-            double.TryParse(ManuallyBTNTYTextBox.Text , out ManuallyData.BTNT.Y);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
+            double.TryParse(ManuallyBTNTYTextBox.Text , out manuallyData.BTNT.Y);
         }
 
         private void ManuallyATNTZTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
-            double.TryParse(ManuallyATNTZTextBox.Text , out ManuallyData.ATNT.Z);   
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.ATNT'
+            double.TryParse(ManuallyATNTZTextBox.Text , out manuallyData.ATNT.Z);   
         }
 
         private void ManuallyBTNTZTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
-            double.TryParse(ManuallyBTNTZTextBox.Text , out ManuallyData.BTNT.Z);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.BTNT'
+            double.TryParse(ManuallyBTNTZTextBox.Text , out manuallyData.BTNT.Z);
         }
 
         private void ManuallyATNTAmountTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(ManuallyATNTAmountTextBox.Text , out ManuallyAtntAmount);
+            int.TryParse(ManuallyATNTAmountTextBox.Text , out manuallyData.ATNTAmount);
         }
 
         private void ManuallyBTNTAmountTextBox_TextChanged(object sender , EventArgs e)
         {
-            int.TryParse(ManuallyBTNTAmountTextBox.Text ,  out ManuallyBtntAmount);
+            int.TryParse(ManuallyBTNTAmountTextBox.Text ,  out manuallyData.BTNTAmount);
         }
 
         private void ManuallyDestinationXTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
-            double.TryParse(ManuallyDestinationXTextBox.Text , out ManuallyData.Destination.X);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
+            double.TryParse(ManuallyDestinationXTextBox.Text , out manuallyData.Destination.X);
         }
 
         private void ManuallyDestinationZTextBox_TextChanged(object sender , EventArgs e)
         {
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
-            double.TryParse(ManuallyDestinationZTextBox.Text , out ManuallyData.Destination.Z);
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
+            double.TryParse(ManuallyDestinationZTextBox.Text , out manuallyData.Destination.Z);
         }
         #endregion
 
@@ -787,9 +768,7 @@ namespace PearlCalculatorWFA
         private void ManuallyCalculateTNTAmount()
         {
             List<TNTCalculationResult> tntResult;
-#pragma warning disable CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
-            if(ManuallyCalculation.CalculateTNTAmount(ManuallyData.Destination , MaxTicks , out tntResult))
-#pragma warning restore CS0120 // 需要有物件參考，才可使用非靜態欄位、方法或屬性 'ManuallyData.Destination'
+            if(ManuallyCalculation.CalculateTNTAmount(manuallyData , MaxTicks , 10 , out tntResult))
             {
                 Log("Main" , "Msg" , "Reset display");
                 BasicOutputSystem.Items.Clear();
@@ -823,9 +802,7 @@ namespace PearlCalculatorWFA
 
         private void ManuallyCalculatePearlTrace()
         {
-#pragma warning disable CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
-            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
-#pragma warning restore CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
+            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearlTrace(manuallyData , MaxTicks);
             Log("Main" , "Msg" , "Display pearl trace");
             Log("Main" , "Msg" , "Clear display");
             BasicOutputSystem.Items.Clear();
@@ -854,7 +831,7 @@ namespace PearlCalculatorWFA
         private void ManuallyCalculatePearlMomemtum()
         {
 #pragma warning disable CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
-            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearl(ManuallyAtntAmount , ManuallyBtntAmount , MaxTicks);
+            List<Entity> pearlTrace = ManuallyCalculation.CalculatePearlTrace(manuallyData , MaxTicks);
 #pragma warning restore CS0117 // 'Calculation' 未包含 'CalculatePearl' 的定義
             Log("Main" , "Msg" , "Display pearl momemtum");
             Log("Main" , "Msg" , "Clear display");
@@ -1137,16 +1114,18 @@ namespace PearlCalculatorWFA
                     break;
                 case "cmd.general,change.tnt.red":
                     Log("CMD" , "Msg" , "Changing Red TNT amount");
-                    if(int.TryParse(parameter1 , out GeneralData.RedTNT))
+                    if(int.TryParse(parameter1 , out int redTNT))
                     {
+                        GeneralData.RedTNT = redTNT;
                         Log("CMD" , "Msg" , "Red TNT changed");
                         Log("CMD" , "Msg" , "Currentlt set to " + GeneralData.RedTNT);
                     }
                     break;
                 case "cmd.general,change.tnt.blue":
                     Log("CMD" , "Msg" , "Changing Blue TNT amount");
-                    if(int.TryParse(parameter1 , out GeneralData.BlueTNT))
+                    if(int.TryParse(parameter1 , out int blueTNT))
                     {
+                        GeneralData.BlueTNT = blueTNT;
                         Log("CMD" , "Msg" , "Blue TNT changed");
                         Log("CMD" , "Msg" , "Currentlt set to " + GeneralData.BlueTNT);
                     }
@@ -1157,8 +1136,8 @@ namespace PearlCalculatorWFA
                     isParameter2Correct = double.TryParse(parameter2 , out space3D.Z);
                     if(isParameter1Correct && isParameter2Correct)
                     {
-                        GeneralData.Destination.X = space3D.X;
-                        GeneralData.Destination.Z = space3D.Z;
+                        space3D.Y = GeneralData.Destination.Y;
+                        GeneralData.Destination = space3D;
                         GeneralDestinationXTextBox.Text = space3D.X.ToString();
                         GeneralDestinationZTextBox.Text = space3D.Z.ToString();
                         Log("CMD" , "Msg" , "Destination changed");
