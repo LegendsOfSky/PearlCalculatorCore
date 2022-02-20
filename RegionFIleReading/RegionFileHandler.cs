@@ -123,7 +123,12 @@ namespace RegionFIleReading
                             statesArray[i * 8 + j] = temp[j];
                     }
 
+                    //Order : Negative X -> Positive Z -> Positive Y
                     BitStack blockIndexes = new BitStack(statesArray);
+
+
+
+
                 }
             }
         }
@@ -167,32 +172,6 @@ namespace RegionFIleReading
         public static unsafe void Test(byte* pointer)
         {
             Analyze(NBTReader.ReadTag(ref pointer));
-        }
-
-        public static void Test()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string[] files = assembly.GetManifestResourceNames();
-            List<string> list = new List<string>();
-            SolidBlock.BlockDictionary = new Dictionary<string , bool>();
-            foreach (var file in files)
-            {
-                using (Stream stream = assembly.GetManifestResourceStream(file))
-                {
-                    if (stream != null)
-                    {
-                        byte[] data = new byte[stream.Length];
-                        stream.Read(data , 0 , (int)stream.Length);
-                        string[] names = Encoding.Default.GetString(data).Split("\r\n");
-                        if (file == "RegionFIleReading.Resources.NonSolidBlockList.txt")
-                            foreach (var name in names)
-                                SolidBlock.BlockDictionary.Add(name , false);
-                        else if (file == "RegionFIleReading.Resources.SolidBlockList.txt")
-                            foreach (var name in names)
-                                SolidBlock.BlockDictionary.Add(name , true);
-                    }
-                }
-            }
         }
     }
 }
