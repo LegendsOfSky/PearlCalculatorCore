@@ -16,9 +16,21 @@ namespace RegionFIleReading.Extensions
             return bitArray;
         }
 
-        public static BitArray Set(this BitArray bitArray , bool value)
+        public static BitArray RightShift(this BitArray bitArray)
+        {
+            bitArray.RightShift(1);
+            return bitArray;
+        }
+
+        public static BitArray SetLastBit(this BitArray bitArray , bool value)
         {
             bitArray.Set(0 , value);
+            return bitArray;
+        }
+
+        public static BitArray SetFirstBit(this BitArray bitArray , bool value)
+        {
+            bitArray.Set(bitArray.Length - 1 , value);
             return bitArray;
         }
     }

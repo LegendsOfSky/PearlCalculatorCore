@@ -39,7 +39,7 @@ namespace RegionFIleReading.DataType
 
         public int Pop(int bitCount)
         {
-            if (_bitIndex + bitCount <= 8)
+            if(_bitIndex + bitCount <= 8)
             {
                 int filter = Convert.ToInt32(Math.Pow(2 , _bitIndex + bitCount) - Math.Pow(2 , _bitIndex));
                 int result = (_data[_index] & filter) >> _bitIndex;
@@ -48,7 +48,7 @@ namespace RegionFIleReading.DataType
             }
             else
             {
-                if (_index + 1 == _data.Length)
+                if(_index + 1 == _data.Length)
                     return 0;
 
                 int filter = Convert.ToInt32(256 - Math.Pow(2 , _bitIndex));

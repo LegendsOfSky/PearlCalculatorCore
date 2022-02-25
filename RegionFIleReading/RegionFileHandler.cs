@@ -32,10 +32,10 @@ namespace RegionFIleReading
             Span<byte> rawData = new Span<byte>((byte*)streamAddress , (int)reader.Length);
             byte* stackPointer = (byte*)stackAddress;
             reader.Read(rawData);
-            for (int i = 0; i < 1024; i++)
+            for(int i = 0; i < 1024; i++)
             {
                 int offset = BinaryPrimitives.ReverseEndianness(*(int*)((byte*)streamAddress + 4 * i)) >> 8;
-                if (offset < 2)
+                if(offset < 2)
                     continue;
                 byte sectorCount = BinaryPrimitives.ReverseEndianness(*((byte*)(streamAddress + 4 * i) + 3));
 
@@ -45,11 +45,11 @@ namespace RegionFIleReading
                 int sectorLength = BinaryPrimitives.ReverseEndianness(*(int*)address);
                 byte* endAddress = address + 4 + sectorLength;
 
-                while (true)
+                while(true)
                 {
-                    if (*(int*)endAddress == 0)
+                    if(*(int*)endAddress == 0)
                         break;
-                    if ((int)endAddress > (int)(address + sectorCount * 4096))
+                    if((int)endAddress > (int)(address + sectorCount * 4096))
                     {
                         endAddress = address + sectorCount * 4096;
                         break;
@@ -62,12 +62,12 @@ namespace RegionFIleReading
 
                 Marshal.Copy((IntPtr)(address + 5) , compressedData , 0 , compressedData.Length);
 
-                if (compressType == 2)
+                if(compressType == 2)
                 {
                     using MemoryStream memory = new MemoryStream(compressedData , 2 , compressedData.Length - 6);
                     new DeflateStream(memory , CompressionMode.Decompress).Read(spanResultByte);
                 }
-                else if (compressType == 1)
+                else if(compressType == 1)
                 {
                     using MemoryStream memory = new MemoryStream(compressedData);
                     new GZipStream(memory , CompressionMode.Decompress).Read(spanResultByte);
@@ -90,44 +90,44 @@ namespace RegionFIleReading
                                                        .As<CompoundTagContent>();
             ListTagContent<ITagContent> sections = level.First(i => i.Name == "Sections") as ListTagContent<ITagContent>;
 
-            foreach (var section in sections)
+            foreach(var section in sections)
             {
-                if (((CompoundTagContent)section).Count > 1)
+                if(((CompoundTagContent)section).Count > 1)
                 {
                     long[] blockStates = null;
                     ListTagContent<ITagContent> palettes = null;
 
                     CompoundTagContent subChunk = (CompoundTagContent)section;
-                    for (int i = 0; i < subChunk.Count; i++)
-                        if (subChunk[i].Name == "BlockStates")
+                    for(int i = 0; i < subChunk.Count; i++)
+                        if(subChunk[i].Name == "BlockStates")
                             blockStates = (LongArrayTagContent)subChunk[i];
-                        else if (subChunk[i].Name == "Palette")
+                        else if(subChunk[i].Name == "Palette")
                             palettes = (ListTagContent<ITagContent>)subChunk[i];
 
-                    if (palettes == null)
+                    if(palettes == null)
                         continue;
 
                     bool[] solidBlock = new bool[palettes.Count];
-                    for (int i = 0; i < palettes.Count; i++)
+                    for(int i = 0; i < palettes.Count; i++)
                     {
-                        foreach (var block in (CompoundTagContent)palettes[i])
-                            if (block.Name == "Name")
+                        foreach(var block in (CompoundTagContent)palettes[i])
+                            if(block.Name == "Name")
                                 solidBlock[i] = SolidBlock.BlockDictionary[(StringTagContent)block];
                     }
 
                     byte[] statesArray = new byte[blockStates.Length * 8];
-                    for (int i = 0; i < blockStates.Length; i++)
+                    for(int i = 0; i < blockStates.Length; i++)
                     {
                         byte[] temp = BitConverter.IsLittleEndian ? BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(blockStates[i]))
                                                                   : BitConverter.GetBytes(blockStates[i]);
-                        for (int j = 0; j < temp.Length; j++)
+                        for(int j = 0; j < temp.Length; j++)
                             statesArray[i * 8 + j] = temp[j];
                     }
 
                     int bitCount = 0;
-                    for (int i = 4; i < 32; i++)
+                    for(int i = 4; i < 32; i++)
                     {
-                        if (solidBlock.Length >> (i + 1) == 0)
+                        if(solidBlock.Length >> (i + 1) == 0)
                         {
                             bitCount = i;
                             break;
@@ -136,10 +136,22 @@ namespace RegionFIleReading
 
                     //Order : Negative X -> Positive Z -> Positive Y
                     BitStack blockIndexes = new BitStack(statesArray);
+                    BitArray subSolidBlockArray = new BitArray(16);
                     BitArray solidBlockArray = new BitArray(4096);
 
-                    for (int i = 0; i < 4096; i++)
-                        solidBlockArray.Set(solidBlock[blockIndexes.Pop(bitCount)]).LeftShift();
+                    for(int i = 0; i < 16; i++) //Y
+                    {
+                        for(int j = 0; j < 16; j++) //Z
+                        {
+                            for(int k = 0; k < 16; k++) //X
+                                subSolidBlockArray
+                                    .SetFirstBit(solidBlock[blockIndexes.Pop(bitCount)])
+                                    .RightShift(); //Reverse
+                            solidBlockArray.Or(subSolidBlockArray);
+                            solidBlockArray.LeftShift(16);
+                        }
+                    }
+
 
 
                 }
@@ -148,7 +160,7 @@ namespace RegionFIleReading
 
         private static void InitializeSolidBlock()
         {
-            if (SolidBlock.BlockDictionary != null)
+            if(SolidBlock.BlockDictionary != null)
                 return;
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] files = assembly.GetManifestResourceNames();
@@ -156,20 +168,20 @@ namespace RegionFIleReading
             List<string> list = new List<string>();
             SolidBlock.BlockDictionary = new Dictionary<string , bool>();
 
-            foreach (var file in files)
+            foreach(var file in files)
             {
-                using (Stream stream = assembly.GetManifestResourceStream(file))
+                using(Stream stream = assembly.GetManifestResourceStream(file))
                 {
-                    if (stream != null)
+                    if(stream != null)
                     {
                         byte[] data = new byte[stream.Length];
                         stream.Read(data , 0 , (int)stream.Length);
                         string[] names = Encoding.Default.GetString(data).Split("\r\n");
-                        if (file == "RegionFIleReading.Resources.NonSolidBlockList.txt")
-                            foreach (var name in names)
+                        if(file == "RegionFIleReading.Resources.NonSolidBlockList.txt")
+                            foreach(var name in names)
                                 SolidBlock.BlockDictionary.Add("minecraft:" + name , false);
-                        else if (file == "RegionFIleReading.Resources.SolidBlockList.txt")
-                            foreach (var name in names)
+                        else if(file == "RegionFIleReading.Resources.SolidBlockList.txt")
+                            foreach(var name in names)
                                 SolidBlock.BlockDictionary.Add("minecraft:" + name , true);
                     }
                 }

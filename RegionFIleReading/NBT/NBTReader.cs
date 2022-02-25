@@ -18,11 +18,11 @@ namespace RegionFIleReading.NBT
         {
             CompoundTagContent compoundTagContent = new CompoundTagContent();
             TagType type = (TagType)(*pointer);
-            while (type != TagType.Null)
+            while(type != TagType.Null)
             {
 #nullable disable
                 type = (TagType)(*pointer);
-                switch (type)
+                switch(type)
                 {
                     case TagType.Null:
                         break;
@@ -76,7 +76,7 @@ namespace RegionFIleReading.NBT
             return name;
         }
 
-        private static T CreateTag<T>(ref byte* pointer) where T : ITagContent , new()
+        private static T CreateTag<T>(ref byte* pointer) where T : ITagContent, new()
         {
             T content = new T();
             pointer += 2;
@@ -111,7 +111,7 @@ namespace RegionFIleReading.NBT
         private static LongTagContent ReadTagLong(ref byte* pointer)
         {
             LongTagContent content = CreateTag<LongTagContent>(ref pointer);
-            content.Data= *(long*)pointer;
+            content.Data = *(long*)pointer;
             pointer += 8;
             return content;
         }
@@ -153,7 +153,7 @@ namespace RegionFIleReading.NBT
             TagType tagType = (TagType)(*pointer);
             pointer++;
 
-            switch (tagType)
+            switch(tagType)
             {
                 case TagType.Null:
                     int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
@@ -200,7 +200,7 @@ namespace RegionFIleReading.NBT
             List<ITagContent> contents = new List<ITagContent>();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
                 contents.Add(ReadTag(ref pointer));
             return contents;
         }
@@ -211,7 +211,7 @@ namespace RegionFIleReading.NBT
             DoubleTagContent content = new DoubleTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *(double*)pointer;
                 pointer += 8;
@@ -226,7 +226,7 @@ namespace RegionFIleReading.NBT
             FloatTagContent content = new FloatTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *(float*)pointer;
                 pointer += 4;
@@ -241,7 +241,7 @@ namespace RegionFIleReading.NBT
             ByteTagContent content = new ByteTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *pointer;
                 pointer++;
@@ -256,7 +256,7 @@ namespace RegionFIleReading.NBT
             ShortTagContent content = new ShortTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *(short*)pointer;
                 pointer += 2;
@@ -271,7 +271,7 @@ namespace RegionFIleReading.NBT
             IntTagContent content = new IntTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *(int*)pointer;
                 pointer += 4;
@@ -286,7 +286,7 @@ namespace RegionFIleReading.NBT
             LongTagContent content = new LongTagContent();
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data = *(long*)pointer;
                 pointer += 8;
@@ -302,10 +302,10 @@ namespace RegionFIleReading.NBT
             int listLength = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
 
-            for (int i = 0; i < listLength; i++)
+            for(int i = 0; i < listLength; i++)
             {
                 TagType tagType = (TagType)(*pointer);
-                switch (tagType)
+                switch(tagType)
                 {
                     case TagType.Null:
                         int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
@@ -314,7 +314,7 @@ namespace RegionFIleReading.NBT
                     case TagType.Compound:
                         subContent.Data = GetCompoundTagContentsInTagList(ref pointer);
                         break;
-                        //WaitForTest : List in List
+                    //WaitForTest : List in List
                     case TagType.List:
                         subContent.Data = GetListTagContentsInTaglist(ref pointer);
                         break;
@@ -344,7 +344,7 @@ namespace RegionFIleReading.NBT
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
             content.Data = new int[length];
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data[i] = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
                 pointer += 4;
@@ -358,7 +358,7 @@ namespace RegionFIleReading.NBT
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
             content.Data = new byte[length];
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data[i] = BinaryPrimitives.ReverseEndianness(*pointer);
                 pointer++;
@@ -372,7 +372,7 @@ namespace RegionFIleReading.NBT
             int length = BinaryPrimitives.ReverseEndianness(*(int*)pointer);
             pointer += 4;
             content.Data = new long[length];
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 content.Data[i] = BinaryPrimitives.ReverseEndianness(*(long*)pointer);
                 pointer += 8;
