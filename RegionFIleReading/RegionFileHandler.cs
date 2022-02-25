@@ -1,6 +1,7 @@
 ﻿#nullable disable
 
 using RegionFIleReading.DataType;
+using RegionFIleReading.Extensions;
 using RegionFIleReading.NBT;
 using RegionFIleReading.NBT.Content;
 using System;
@@ -123,10 +124,22 @@ namespace RegionFIleReading
                             statesArray[i * 8 + j] = temp[j];
                     }
 
+                    int bitCount = 0;
+                    for (int i = 4; i < 32; i++)
+                    {
+                        if (solidBlock.Length >> (i + 1) == 0)
+                        {
+                            bitCount = i;
+                            break;
+                        }
+                    }
+
                     //Order : Negative X -> Positive Z -> Positive Y
                     BitStack blockIndexes = new BitStack(statesArray);
+                    BitArray solidBlockArray = new BitArray(4096);
 
-
+                    for (int i = 0; i < 4096; i++)
+                        solidBlockArray.Set(solidBlock[blockIndexes.Pop(bitCount)]).LeftShift();
 
 
                 }
