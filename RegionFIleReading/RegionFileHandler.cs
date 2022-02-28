@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-using RegionFIleReading.DataType;
+using RegionFIleReading.DataTypes;
 using RegionFIleReading.Extensions;
 using RegionFIleReading.NBT;
 using RegionFIleReading.NBT.Content;
@@ -108,11 +108,16 @@ namespace RegionFIleReading
                         continue;
 
                     bool[] solidBlock = new bool[palettes.Count];
+                    string[] blockName = new string[palettes.Count];
                     for(int i = 0; i < palettes.Count; i++)
                     {
                         foreach(var block in (CompoundTagContent)palettes[i])
                             if(block.Name == "Name")
+                            {
                                 solidBlock[i] = SolidBlock.BlockDictionary[(StringTagContent)block];
+                                blockName[i] = (StringTagContent)block;
+                            }
+
                     }
 
                     byte[] statesArray = new byte[blockStates.Length * 8];
@@ -136,22 +141,36 @@ namespace RegionFIleReading
 
                     //Order : Negative X -> Positive Z -> Positive Y
                     BitStack blockIndexes = new BitStack(statesArray);
-                    BitArray subSolidBlockArray = new BitArray(16);
+                    BitArray subSolidBlockArray = new BitArray(4096);
                     BitArray solidBlockArray = new BitArray(4096);
+                    string[] blockStr = new string[4096];
 
                     for(int i = 0; i < 16; i++) //Y
                     {
                         for(int j = 0; j < 16; j++) //Z
                         {
-                            for(int k = 0; k < 16; k++) //X
-                                subSolidBlockArray
-                                    .SetFirstBit(solidBlock[blockIndexes.Pop(bitCount)])
-                                    .RightShift(); //Reverse
-                            solidBlockArray.Or(subSolidBlockArray);
                             solidBlockArray.LeftShift(16);
+                            for(int k = 0; k < 16; k += 2) //X  Pop by a pair
+                            {
+                                int index0 = blockIndexes.Pop(bitCount);
+                                int index1 = blockIndexes.Pop(bitCount);
+                                // Reverse in each Pair and at a reverse order
+                                // Original Data        => (14 , 15)(12 , 13)...(2  , 3 )(0  , 1 )
+                                // Reverse in each pair => (15 , 14)(13 , 12)...(3  , 2 )(1  , 0 )
+                                // Reverse in order     => (0  , 1 )(2  , 3 )...(12 , 13)(14 , 15)
+                                subSolidBlockArray.Set(15 , solidBlock[index1]);
+                                subSolidBlockArray.Set(14 , solidBlock[index0]);
+                                subSolidBlockArray.RightShift(2);
+
+                                blockStr[i * 256 + j * 16 + k] = blockName[index1];
+                                blockStr[i * 256 + j * 16 + k + 1] = blockName[index0];
+                            }
+                            solidBlockArray.Or(subSolidBlockArray);
+                            subSolidBlockArray.SetAll(false);
                         }
                     }
-
+                    byte[] array = new byte[512];
+                    solidBlockArray.CopyTo(array, 0);
 
 
                 }

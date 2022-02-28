@@ -23,7 +23,7 @@ using System.Text;
 using System.Threading;
 using System.Linq;
 using System.Reflection.Metadata;
-using RegionFIleReading.DataType;
+using RegionFIleReading.DataTypes;
 
 namespace PearlCalculatorCore
 {
