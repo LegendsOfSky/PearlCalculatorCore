@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RegionFIleReading.DataTypes
 {
+    /// <summary>
+    /// A class use to store a lot of bits and pop at a specificed amount.
+    /// <para/>
+    /// Note : When bits got pop out, they don't get deleted in the stack.
+    /// </summary>
     public class BitStack
     {
         private byte[] _data;
         private int _index;
         private int _bitIndex;
 
-        public int Length => _data.Length - _index - 1;
+        public int Length => _data.Length - _index;
 
         public BitStack(byte[] data)
         {
@@ -37,6 +43,11 @@ namespace RegionFIleReading.DataTypes
             _bitIndex = 0;
         }
 
+        /// <summary>
+        /// Pop certain amount of bits out of the stack.
+        /// </summary>
+        /// <param name="bitCount">Amount of bits need to be popped</param>
+        /// <returns></returns>
         public int Pop(int bitCount)
         {
             if(_bitIndex + bitCount <= 8)
@@ -62,5 +73,12 @@ namespace RegionFIleReading.DataTypes
                 return result;
             }
         }
+
+        /// <summary>
+        /// Return the all the bits in the stack in a byte[].
+        /// <para/>
+        /// Note : Popped bits will stay on the stack and able to retrieve by this method.
+        /// </summary>
+        public byte[] GetWholeStack() => _data;
     }
 }
