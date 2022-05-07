@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCCSettingsGenerator", "PCC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PearlCalculatorIntermediateLib", "PearlCalculatorIntermediateLib\PearlCalculatorIntermediateLib.csproj", "{9C093BDC-A6B3-4C51-AF69-992E8571A06B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegionFIleReading", "RegionFIleReading\RegionFIleReading.csproj", "{26047C2B-7BD1-4D72-9857-52E3E35B5FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NbtFileReading", "RegionFIleReading\NbtFileReading.csproj", "{26047C2B-7BD1-4D72-9857-52E3E35B5FF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

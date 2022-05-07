@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionFIleReading.NBT.Content
+namespace NbtFileReading.NBT.Content
 {
     internal class CompoundTagContent : TagContent<List<ITagContent>>, IEnumerable<ITagContent>, IReadOnlyList<ITagContent>
     {

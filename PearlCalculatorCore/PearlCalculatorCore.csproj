@@ -9,7 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PearlCalculatorIntermediateLib\PearlCalculatorIntermediateLib.csproj" />
     <ProjectReference Include="..\PearlCalculatorLib\PearlCalculatorLib.csproj" />
-    <ProjectReference Include="..\RegionFIleReading\RegionFIleReading.csproj" />
+    <ProjectReference Include="..\RegionFIleReading\NbtFileReading.csproj" />
   </ItemGroup>
 
 </Project>

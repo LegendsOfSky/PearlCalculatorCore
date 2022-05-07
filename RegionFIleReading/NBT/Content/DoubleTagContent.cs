@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionFIleReading.NBT.Content
+namespace NbtFileReading.NBT.Content
 {
     internal class DoubleTagContent : TagContent<double>
     {

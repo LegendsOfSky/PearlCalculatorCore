@@ -16,14 +16,14 @@ using PearlCalculatorLib.Result;
 using PearlCalculatorIntermediateLib.Settings;
 using System.Text.Json;
 using System.Runtime.InteropServices;
-using RegionFIleReading;
+using NbtFileReading;
 using System.Resources;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Linq;
 using System.Reflection.Metadata;
-using RegionFIleReading.DataTypes;
+using NbtFileReading.DataTypes;
 
 namespace PearlCalculatorCore
 {

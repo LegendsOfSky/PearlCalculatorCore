@@ -1,4 +1,4 @@
-﻿using RegionFIleReading.NBT.Content;
+﻿using NbtFileReading.NBT.Content;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionFIleReading.NBT
+namespace NbtFileReading.NBT
 {
     internal unsafe static class NBTReader
     {

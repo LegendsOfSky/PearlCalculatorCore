@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionFIleReading.DataTypes
+namespace NbtFileReading.DataTypes
 {
     /// <summary>
     /// A class use to store a lot of bits and pop at a specificed amount.

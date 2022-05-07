@@ -1,9 +1,9 @@
 ﻿#nullable disable
 
-using RegionFIleReading.DataTypes;
-using RegionFIleReading.Extensions;
-using RegionFIleReading.NBT;
-using RegionFIleReading.NBT.Content;
+using NbtFileReading.DataTypes;
+using NbtFileReading.Extensions;
+using NbtFileReading.NBT;
+using NbtFileReading.NBT.Content;
 using System;
 using System.Buffers.Binary;
 using System.Collections;
@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionFIleReading
+namespace NbtFileReading
 {
     public static class RegionFileHandler
     {
@@ -141,7 +141,6 @@ namespace RegionFIleReading
 
                     //Order : Negative X -> Positive Z -> Positive Y
                     BitStack blockIndexes = new BitStack(statesArray);
-                    BitArray subSolidBlockArray = new BitArray(4096);
                     BitArray solidBlockArray = new BitArray(4096);
                     string[] blockStr = new string[4096];
 
@@ -149,7 +148,6 @@ namespace RegionFIleReading
                     {
                         for(int j = 0; j < 16; j++) //Z
                         {
-                            solidBlockArray.LeftShift(16);
                             for(int k = 0; k < 16; k += 2) //X  Pop by a pair
                             {
                                 int index0 = blockIndexes.Pop(bitCount);
@@ -158,19 +156,14 @@ namespace RegionFIleReading
                                 // Original Data        => (14 , 15)(12 , 13)...(2  , 3 )(0  , 1 )
                                 // Reverse in each pair => (15 , 14)(13 , 12)...(3  , 2 )(1  , 0 )
                                 // Reverse in order     => (0  , 1 )(2  , 3 )...(12 , 13)(14 , 15)
-                                subSolidBlockArray.Set(15 , solidBlock[index1]);
-                                subSolidBlockArray.Set(14 , solidBlock[index0]);
-                                subSolidBlockArray.RightShift(2);
-
-                                blockStr[i * 256 + j * 16 + k] = blockName[index1];
-                                blockStr[i * 256 + j * 16 + k + 1] = blockName[index0];
+                                solidBlockArray.Set(i * 256 + j * 16 + k     , solidBlock[index1]);
+                                solidBlockArray.Set(i * 256 + j * 16 + k + 1 , solidBlock[index0]);
                             }
-                            solidBlockArray.Or(subSolidBlockArray);
-                            subSolidBlockArray.SetAll(false);
                         }
                     }
-                    byte[] array = new byte[512];
-                    solidBlockArray.CopyTo(array, 0);
+
+                    byte[] solidBlockBits = new byte[4096];
+                    
 
 
                 }
@@ -196,10 +189,10 @@ namespace RegionFIleReading
                         byte[] data = new byte[stream.Length];
                         stream.Read(data , 0 , (int)stream.Length);
                         string[] names = Encoding.Default.GetString(data).Split("\r\n");
-                        if(file == "RegionFIleReading.Resources.NonSolidBlockList.txt")
+                        if(file == "NbtFileReading.Resources.NonSolidBlockList.txt")
                             foreach(var name in names)
                                 SolidBlock.BlockDictionary.Add("minecraft:" + name , false);
-                        else if(file == "RegionFIleReading.Resources.SolidBlockList.txt")
+                        else if(file == "NbtFileReading.Resources.SolidBlockList.txt")
                             foreach(var name in names)
                                 SolidBlock.BlockDictionary.Add("minecraft:" + name , true);
                     }
