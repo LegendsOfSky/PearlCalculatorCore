@@ -19,9 +19,9 @@
 在运行本仓库所有软件前，请先安装`dotnet runtime`
 
 以下软件使用 [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
-
 - [PearlCalculatorCore](PearlCalculatorCore/)
 - [PearlCalculatorCP](PearlCalculatorCP/)
+- [PCCSettingsGenerator](PCCSettingsCalculator/)
 
 其他软件使用 [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 

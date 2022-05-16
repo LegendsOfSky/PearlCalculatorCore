@@ -20,6 +20,7 @@
 以下軟體使用 [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
 - [PearlCalculatorCore](PearlCalculatorCore/)
 - [PearlCalculatorCP](PearlCalculatorCP/)
+- [PCCSettingsGenerator](PCCSettingsCalculator/)
 
 其他軟體使用 [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 

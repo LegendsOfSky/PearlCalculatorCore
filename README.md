@@ -18,6 +18,7 @@ Please install the dotnet runtime before proceeding.
 Some apps run on [dotnet 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
 - [PearlCalculatorCore](PearlCalculatorCore/)
 - [PearlCalculatorCP](PearlCalculatorCP/)
+- [PCCSettingsGenerator](PCCSettingsCalculator/)
 
 Other apps run on [dotnet core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1/runtime)
 
