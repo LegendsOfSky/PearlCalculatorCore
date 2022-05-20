@@ -8,7 +8,7 @@ using PearlCalculatorLib.PearlCalculationLib.World;
 
 namespace PCCExtension_SettingFile.Settings.General
 {
-    internal class CreatorGeneralSetting : GeneralSetting
+    public class CreatorGeneralSetting : GeneralSetting
     {
         public List<CannonSetting> Cannons = new List<CannonSetting>();
 
